@@ -19,7 +19,7 @@
 
 #include "keduvocexpression.h"
 
-#include <KDebug>
+// #include <KDebug>
 
 
 class KEduVocExpression::KEduVocExpressionPrivate

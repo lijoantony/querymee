@@ -22,6 +22,7 @@
 #include "libkeduvocdocument_export.h"
 
 #include <QtCore/QDateTime>
+#include <QMap>
 
 #include "keduvoclesson.h"
 #include "keduvocarticle.h"
