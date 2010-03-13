@@ -19,7 +19,8 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QFile>
 
-#include <KDebug>
+// #include <KDebug>
+#include <QDebug>
 
 #include "keduvocdocument.h"
 #include "keduvocexpression.h"
@@ -514,26 +515,28 @@ bool KEduVocKvtml2Writer::writeTranslation( QDomElement &translationElement, KEd
 
     // image
     if ( !translation->imageUrl().isEmpty() ) {
-        QString urlString;
-        if ( translation->imageUrl().url().startsWith(m_doc->url().upUrl().url()) ) {
-            // try to save as relative url
-            urlString = KUrl::relativeUrl( m_doc->url() , translation->imageUrl() );
-        } else {
-            urlString =  translation->imageUrl().url();
-        }
-        translationElement.appendChild( newTextElement( KVTML_IMAGE, urlString ) );
+        qCritical("Fixme: imageURL is Empty...");
+//         QString urlString;
+//         if ( translation->imageUrl().url().startsWith(m_doc->url().upUrl().url()) ) {
+//             // try to save as relative url
+//             urlString = KUrl::relativeUrl( m_doc->url() , translation->imageUrl() );
+//         } else {
+//             urlString =  translation->imageUrl().url();
+//         }
+//         translationElement.appendChild( newTextElement( KVTML_IMAGE, urlString ) );
     }
 
     // sound
     if ( !translation->soundUrl().isEmpty() ) {
-        QString urlString;
-        if ( translation->soundUrl().url().startsWith(m_doc->url().upUrl().url()) ) {
-            // try to save as relative url
-            urlString = KUrl::relativeUrl( m_doc->url() , translation->soundUrl() );
-        } else {
-            urlString =  translation->soundUrl().url();
-        }
-        translationElement.appendChild( newTextElement( KVTML_SOUND, urlString ) );
+        qCritical("Fixme: soundURL is Empty...");
+//         QString urlString;
+//         if ( translation->soundUrl().url().startsWith(m_doc->url().upUrl().url()) ) {
+//             // try to save as relative url
+//             urlString = KUrl::relativeUrl( m_doc->url() , translation->soundUrl() );
+//         } else {
+//             urlString =  translation->soundUrl().url();
+//         }
+//         translationElement.appendChild( newTextElement( KVTML_SOUND, urlString ) );
     }
 
 
@@ -607,7 +610,7 @@ bool KEduVocKvtml2Writer::writeMultipleChoice( QDomElement &multipleChoiceElemen
 
 QDomElement KEduVocKvtml2Writer::newTextElement( const QString &elementName, const QString &text )
 {
-    kDebug() << "append: " << elementName << text;
+    qDebug() << "append: " << elementName << text;
     QDomElement retval = m_domDoc.createElement( elementName );
     QDomText textNode = m_domDoc.createTextNode( text );
     retval.appendChild( textNode );
