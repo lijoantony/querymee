@@ -21,7 +21,23 @@
 #define LIBKEDUVOCDOCUMENT_EXPORT_H
 
 /* needed for KDE_EXPORT and KDE_IMPORT macros */
-#include <kdemacros.h>
+// #include <kdemacros.h>
+
+#define KDE_EXPORT __attribute__ ((visibility("default")))
+#define KDE_IMPORT __attribute__ ((visibility("default")))
+
+#ifdef __cplusplus
+# include <QtCore/qglobal.h>
+# ifndef KDE_DEPRECATED
+#  ifdef KDE_DEPRECATED_WARNINGS
+#   define KDE_DEPRECATED Q_DECL_DEPRECATED
+#  else
+#   define KDE_DEPRECATED
+#  endif
+# endif
+#endif
+
+
 
 #ifndef KEDUVOCDOCUMENT_EXPORT
 # if defined(MAKE_KEDUVOCDOCUMENT_LIB)
@@ -38,3 +54,5 @@
 # endif
 
 #endif
+
+#define KUrl QUrl
