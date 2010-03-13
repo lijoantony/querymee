@@ -21,7 +21,8 @@
 #include "keduvocarticle.h"
 #include "keduvocconjugation.h"
 #include "keduvoctext.h"
-#include <KDE/KUrl>
+// #include <KDE/KUrl>
+#include <QUrl>
 #include <QtCore/QString>
 
 class KEduVocExpression;
