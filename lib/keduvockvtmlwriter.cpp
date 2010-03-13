@@ -23,10 +23,11 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QFile>
 
-#include <KDebug>
+// #include <KDebug>
+#include <QDebug>
 
 #include "keduvocdocument.h"
-#include "keduvocgrade.h"
+// #include "keduvocgrade.h"
 #include "keduvoclesson.h"
 #include "keduvocexpression.h"
 #include "kvtmldefs.h"
@@ -776,7 +777,7 @@ bool KEduVocKvtmlWriter::writeConjug( QDomElement &domElementParent, const KEduV
     }
 
     return true; */
-    kDebug() << "Implement me!";
+    qDebug() << "Implement me!";
     return false;
 }
 
