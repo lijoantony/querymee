@@ -8,7 +8,7 @@ DEPENDPATH += . ../
 INCLUDEPATH += . ../
 LIBS += -L../ -lkeduvocdocument
 QT += core testlib
-CONFIG +=qtestlib
+CONFIG += qtestlib
 
 # Input
 SOURCES += tests.cpp
