@@ -19,15 +19,18 @@
 #include "keduvocdocument.h"
 
 #include <QtCore/QFileInfo>
-#include <QtCore/QTextStream>
+// #include <QtCore/QTextStream>
 #include <QtCore/QtAlgorithms>
 #include <QtCore/QIODevice>
+#include <QTextStream>
+#include <QFile>
 
-#include <klocale.h>
-#include <kdebug.h>
-#include <kio/netaccess.h>
-#include <krandomsequence.h>
-#include <kfilterdev.h>
+// #include <klocale.h>
+// #include <kdebug.h>
+#include <QDebug>
+// #include <kio/netaccess.h>
+// #include <krandomsequence.h>
+// #include <kfilterdev.h>
 
 #include "keduvocexpression.h"
 #include "keduvoclesson.h"
@@ -112,15 +115,15 @@ KEduVocDocument::KEduVocDocumentPrivate::~KEduVocDocumentPrivate()
 void KEduVocDocument::KEduVocDocumentPrivate::init()
 {
     delete m_lessonContainer;
-    m_lessonContainer = new KEduVocLesson(i18nc("The top level lesson which contains all other lessons of the document.", "Document Lesson"));
+    m_lessonContainer = new KEduVocLesson( "Document Lesson");
     m_lessonContainer->setContainerType(KEduVocLesson::Lesson);
     delete m_wordTypeContainer;
-    m_wordTypeContainer = new KEduVocWordType(i18n( "Word types" ));
+    m_wordTypeContainer = new KEduVocWordType( "Word types" );
 
     if ( m_leitnerContainer ) {
         delete m_leitnerContainer;
     }
-    m_leitnerContainer = new KEduVocLeitnerBox(i18n( "Leitner Box" ));
+    m_leitnerContainer = new KEduVocLeitnerBox( "Leitner Box" );
 
     m_tenseDescriptions.clear();
     m_identifiers.clear();
@@ -129,7 +132,9 @@ void KEduVocDocument::KEduVocDocumentPrivate::init()
     m_dirty = false;
     m_queryorg = "";
     m_querytrans = "";
-    m_url.setFileName( i18n( "Untitled" ) );
+//    m_url.setFileName( "Untitled" );
+    // FIXME: is this what we need?
+    m_url.setPath( "Untitled" );
     m_author = "";
     m_title = "";
     m_comment = "";
@@ -145,7 +150,7 @@ void KEduVocDocument::KEduVocDocumentPrivate::init()
 KEduVocDocument::KEduVocDocument( QObject *parent )
         : QObject( parent ), d( new KEduVocDocumentPrivate( this ) )
 {
-    kDebug() << "constructor done";
+    qDebug() << "constructor done";
 }
 
 
@@ -164,14 +169,16 @@ void KEduVocDocument::setModified( bool dirty )
 
 KEduVocDocument::FileType KEduVocDocument::detectFileType( const QString &fileName )
 {
-    QIODevice * f = KFilterDev::deviceForFile( fileName );
-    if ( !f->open( QIODevice::ReadOnly ) ) {
-        kDebug(1100) << "Warning, could not open QIODevice for file: " << fileName;
-        delete f;
+//     QIODevice * f = KFilterDev::deviceForFile( fileName );
+    QFile f(fileName);
+    if ( !f.open( QIODevice::ReadOnly ) ) {
+        qDebug() << "Warning, could not open QIODevice for file: " << fileName;
+        // FIXME: do we need to delete f????
+        // delete f;
         return Csv;
     }
 
-    QTextStream ts( f );
+    QTextStream ts( &f );
     QString line1;
     QString line2;
 
@@ -207,16 +214,18 @@ KEduVocDocument::FileType KEduVocDocument::detectFileType( const QString &fileNa
             if (tmp.contains( "\"," )) {
                 tmp = ts.readLine();
                 if (tmp.endsWith('0')) {
-                    f->close();
-                    delete f;
+                    f.close();
+                    // FIXME: delete f ???
+                    // delete f;
                     return Vokabeln;
                 }
             }
             tmp = ts.readLine();
         }
     }
-    f->close();
-    delete f;
+    f.close();
+    // FIXME: delete f ???
+    // delete f;
 
 
     if ( line1.startsWith(QString::fromLatin1("<?xml")) ) {
@@ -226,6 +235,7 @@ KEduVocDocument::FileType KEduVocDocument::detectFileType( const QString &fileNa
         if ( line2.indexOf( "xdxf", 0 ) >  0 ) {
             return Xdxf;
         } else {
+            qDebug("assuming this is a kvtml file...");
             return Kvtml;
         }
     }
@@ -234,12 +244,15 @@ KEduVocDocument::FileType KEduVocDocument::detectFileType( const QString &fileNa
         return Wql;
     }
 
-    return Csv;
+     return Csv;
 }
 
 
 int KEduVocDocument::open( const KUrl& url )
 {
+    // temp solution for KUrl -> QString
+    QString myFile = url.path();
+    
     // save csv delimiter to preserve it in case this is a csv document
     QString csv = d->m_csvDelimiter;
     // clear all other properties
@@ -250,22 +263,27 @@ int KEduVocDocument::open( const KUrl& url )
     d->m_csvDelimiter = csv;
 
     bool read = false;
-    QString errorMessage = i18n( "<qt>Cannot open file<br /><b>%1</b></qt>", url.path() );
-    QString temporaryFile;
-    if ( KIO::NetAccess::download( url, temporaryFile, 0 ) ) {
-        QIODevice * f = KFilterDev::deviceForFile( temporaryFile );
+    QString errorMessage = QString("<qt>Cannot open file<br /><b>%1</b></qt>").arg(url.path()) ;
 
-        if ( !f->open( QIODevice::ReadOnly ) ) {
-            kError() << errorMessage;
-            delete f;
-            return FileCannotRead;
-        }
+//    QString temporaryFile;
+//     if ( KIO::NetAccess::download( url, temporaryFile, 0 ) ) {
 
-        FileType ft = detectFileType( temporaryFile );
+
+//         QIODevice * f = KFilterDev::deviceForFile( temporaryFile );
+// 
+    QFile *f = new QFile(myFile);
+    if ( !f->open( QIODevice::ReadOnly ) ) {
+        qCritical() << errorMessage;
+        delete f;
+        return FileCannotRead;
+    }
+// 
+//         FileType ft = detectFileType( temporaryFile );
+    FileType ft = detectFileType(myFile);
 
         switch ( ft ) {
             case Kvtml: {
-                kDebug(1100) << "Reading KVTML document...";
+                qDebug() << "Reading KVTML document...";
                 KEduVocKvtml2Reader kvtmlReader( f );
                 read = kvtmlReader.readDoc( this );
                 if ( !read ) {
@@ -274,62 +292,74 @@ int KEduVocDocument::open( const KUrl& url )
             }
             break;
 
+            // FIXME: maybe we enable them later
+            
             case Wql: {
-                kDebug(1100) << "Reading WordQuiz (WQL) document...";
-                KEduVocWqlReader wqlReader( f );
-                d->m_url.setFileName( i18n( "Untitled" ) );
-                read = wqlReader.readDoc( this );
-                if ( !read ) {
-                    errorMessage = wqlReader.errorMessage();
-                }
+                qDebug() << "Reading WordQuiz (WQL) document...";
+                qCritical ("WordQuiz (WQL) document not yet supported...");
+                errorMessage = "WordQuiz (WQL) document not yet supported...";
+//                 KEduVocWqlReader wqlReader( f );
+//                 d->m_url.setFileName( "Untitled" );
+//                 read = wqlReader.readDoc( this );
+//                 if ( !read ) {
+//                     errorMessage = wqlReader.errorMessage();
+//                 }
             }
             break;
 
             case Pauker: {
-                kDebug(1100) << "Reading Pauker document...";
-                KEduVocPaukerReader paukerReader( this );
-                d->m_url.setFileName( i18n( "Untitled" ) );
-                read = paukerReader.read( f );
-                if ( !read ) {
-                    errorMessage = i18n( "Parse error at line %1, column %2:\n%3", paukerReader.lineNumber(), paukerReader.columnNumber(), paukerReader.errorString() );
-                }
+                qDebug() << "Reading Pauker document...";
+                qCritical ("Pauker document not yet supported...");
+                errorMessage = "Pauker document not yet supported...";
+//                 KEduVocPaukerReader paukerReader( this );
+//                 d->m_url.setFileName( "Untitled" );
+//                 read = paukerReader.read( f );
+//                 if ( !read ) {
+//                     errorMessage = "Parse error at line %1, column %2:\n%3", paukerReader.lineNumber(), paukerReader.columnNumber(), paukerReader.errorString();
+//                 }
             }
             break;
 
             case Vokabeln: {
-                kDebug(1100) << "Reading Vokabeln document...";
-                KEduVocVokabelnReader vokabelnReader( f );
-                d->m_url.setFileName( i18n( "Untitled" ) );
-                read = vokabelnReader.readDoc( this );
-                if ( !read ) {
-                    errorMessage = vokabelnReader.errorMessage();
-                }
+                qDebug() << "Reading Vokabeln document...";
+                qCritical ("Vokabeln document not yet supported...");
+                errorMessage = "Vokabeln document not yet supported...";
+//                 KEduVocVokabelnReader vokabelnReader( f );
+//                 d->m_url.setFileName( "Untitled" );
+//                 read = vokabelnReader.readDoc( this );
+//                 if ( !read ) {
+//                     errorMessage = vokabelnReader.errorMessage();
+//                 }
             }
             break;
 
             case Csv: {
-                kDebug(1100) << "Reading CVS document...";
-                KEduVocCsvReader csvReader( f );
-                read = csvReader.readDoc( this );
-                if ( !read ) {
-                    errorMessage = csvReader.errorMessage();
-                }
+                qDebug() << "Reading CVS document...";
+                qCritical ("CVS document not yet supported...");
+                errorMessage = "CVS document not yet supported...";
+//                 KEduVocCsvReader csvReader( f );
+//                 read = csvReader.readDoc( this );
+//                 if ( !read ) {
+//                     errorMessage = csvReader.errorMessage();
+//                 }
             }
             break;
 
             case Xdxf: {
-                kDebug(1100) << "Reading XDXF document...";
-                KEduVocXdxfReader xdxfReader( this );
-                d->m_url.setFileName( i18n( "Untitled" ) );
-                read = xdxfReader.read( f );
-                if ( !read ) {
-                    errorMessage = i18n( "Parse error at line %1, column %2:\n%3", xdxfReader.lineNumber(), xdxfReader.columnNumber(), xdxfReader.errorString() );
-                }
+                qDebug() << "Reading XDXF document...";
+                qCritical ("XDXF document not yet supported...");
+                errorMessage = "XDXF document not yet supported...";
+//                 KEduVocXdxfReader xdxfReader( this );
+//                 d->m_url.setFileName(  "Untitled"  );
+//                 read = xdxfReader.read( f );
+//                 if ( !read ) {
+//                     errorMessage = "Parse error at line %1, column %2:\n%3", xdxfReader.lineNumber(), xdxfReader.columnNumber(), xdxfReader.errorString() ;
+//                 }
             }
             break;
 
             default: {
-                kDebug(1100) << "Reading KVTML document (fallback)...";
+                qDebug() << "Reading KVTML document (fallback)...";
                 KEduVocKvtml2Reader kvtmlReader( f );
                 read = kvtmlReader.readDoc( this );
                 if ( !read ) {
@@ -339,8 +369,8 @@ int KEduVocDocument::open( const KUrl& url )
         }
 
         if ( !read ) {
-            QString msg = i18n( "Could not open or properly read \"%1\"\n(Error reported: %2)", url.path(), errorMessage );
-            kError() << msg << i18n( "Error Opening File" );
+            QString msg =  QString("Could not open or properly read \"%1\"\n(Error reported: %2)").arg(url.path()).arg(errorMessage);
+            qCritical() << msg <<  "Error Opening File" ;
             ///@todo make the readers return int, pass on the error message properly
             delete f;
             return FileReaderFailed;
@@ -348,8 +378,11 @@ int KEduVocDocument::open( const KUrl& url )
 
         f->close();
         delete f;
-        KIO::NetAccess::removeTempFile( temporaryFile );
-    }
+        
+//         KIO::NetAccess::removeTempFile( temporaryFile );
+
+
+//     } // close if
 
     if ( !read ) {
         return FileReaderFailed;
@@ -377,7 +410,7 @@ int KEduVocDocument::saveAs( const KUrl & url, FileType ft, const QString & gene
     QFile f( tmp.path() );
 
     if ( !f.open( QIODevice::WriteOnly ) ) {
-        kError() << i18n( "Cannot write to file %1", tmp.path() );
+        qCritical() <<  QString("Cannot write to file %1").arg(tmp.path()) ;
         return FileCannotWrite;
     }
 
@@ -403,7 +436,7 @@ int KEduVocDocument::saveAs( const KUrl & url, FileType ft, const QString & gene
         }
         break;
         default: {
-            kError() << "kvcotrainDoc::saveAs(): unknown filetype" << endl;
+            qCritical() << "kvcotrainDoc::saveAs(): unknown filetype" << endl;
         }
         break;
     } // switch
@@ -411,7 +444,7 @@ int KEduVocDocument::saveAs( const KUrl & url, FileType ft, const QString & gene
     f.close();
 
     if ( !saved ) {
-        kError() << "Error Saving File" << tmp.path();
+        qCritical() << "Error Saving File" << tmp.path();
         return FileWriterFailed;
     }
 
@@ -431,7 +464,7 @@ void KEduVocDocument::merge( KEduVocDocument *docToMerge, bool matchIdentifiers 
 {
     Q_UNUSED(docToMerge)
     Q_UNUSED(matchIdentifiers)
-    kDebug(1100) << "Merging of docs is not implemented"; /// @todo IMPLEMENT ME
+    qDebug() << "Merging of docs is not implemented"; /// @todo IMPLEMENT ME
     // This code was really horribly broken.
     // Now with the new classes we could attempt to reactivate it.
     // A rewrite might be easier.
@@ -646,7 +679,7 @@ void KEduVocDocument::merge( KEduVocDocument *docToMerge, bool matchIdentifiers 
 const KEduVocIdentifier& KEduVocDocument::identifier( int index ) const
 {
     if ( index < 0 || index >= d->m_identifiers.size() ) {
-        kError() << " Error: Invalid identifier index: " << index;
+        qCritical() << " Error: Invalid identifier index: " << index;
     }
     return d->m_identifiers[index];
 }
@@ -654,7 +687,7 @@ const KEduVocIdentifier& KEduVocDocument::identifier( int index ) const
 KEduVocIdentifier& KEduVocDocument::identifier( int index )
 {
     if ( index < 0 || index >= d->m_identifiers.size() ) {
-        kError() << " Error: Invalid identifier index: " << index;
+        qCritical() << " Error: Invalid identifier index: " << index;
     }
     return d->m_identifiers[index];
 }
@@ -699,13 +732,13 @@ int KEduVocDocument::identifierCount() const
 int KEduVocDocument::appendIdentifier( const KEduVocIdentifier& id )
 {
     int i = d->m_identifiers.size();
-//kDebug(1100) << "appendIdentifier: " << i << id.name() << id.locale();
+    qDebug() << "appendIdentifier: " << i << id.name() << id.locale();
     d->m_identifiers.append( id );
     if ( id.name().isEmpty() ) {
         if ( i == 0 ) {
-            identifier(i).setName(i18nc("The name of the first language/column of vocabulary, if we have to guess it.", "Original"));
+            identifier(i).setName( "Original");
         } else {
-            identifier(i).setName(i18nc( "The name of the second, third ... language/column of vocabulary, if we have to guess it.", "Translation %1", i ) );
+            identifier(i).setName( QString("Translation %1").arg(i) );
         }
     }
 
@@ -741,7 +774,7 @@ void KEduVocDocument::setUrl( const KUrl& url )
 QString KEduVocDocument::title() const
 {
     if ( d->m_title.isEmpty() )
-        return d->m_url.fileName();
+        return d->m_url.path();
     else
         return d->m_title;
 }
@@ -865,12 +898,12 @@ QString KEduVocDocument::pattern( FileDialogMode mode )
         const char* description;
     }
     filters[] = {
-                    { true, true, "*.kvtml", I18N_NOOP( "KDE Vocabulary Document" ) },
-                    { true, false, "*.wql", I18N_NOOP( "KWordQuiz Document" ) },
-                    { true, false, "*.xml.qz *.pau.gz", I18N_NOOP( "Pauker Lesson" ) },
-                    { true, false, "*.voc", I18N_NOOP( "Vokabeltrainer" ) },
-                    { true, false, "*.xdxf", I18N_NOOP( "XML Dictionary Exchange Format" ) },
-                    { true, true, "*.csv", I18N_NOOP( "Comma Separated Values (CSV)" ) },
+                    { true, true, "*.kvtml", "KDE Vocabulary Document" },
+                    { true, false, "*.wql", "KWordQuiz Document"  },
+                    { true, false, "*.xml.qz *.pau.gz", "Pauker Lesson" },
+                    { true, false, "*.voc", "Vokabeltrainer" },
+                    { true, false, "*.xdxf", "XML Dictionary Exchange Format" },
+                    { true, true, "*.csv", "Comma Separated Values (CSV)" },
                     // last is marker for the end, do not remove it
                     { false, false, 0, 0 }
                 };
@@ -879,12 +912,12 @@ QString KEduVocDocument::pattern( FileDialogMode mode )
     for ( int i = 0; filters[i].extensions; ++i ) {
         if (( mode == Reading && filters[i].reading ) ||
                 ( mode == Writing && filters[i].writing ) ) {
-            newfilters.append( QLatin1String( filters[i].extensions ) + '|' + i18n( filters[i].description ) );
+            newfilters.append( QLatin1String( filters[i].extensions ) + '|' +  filters[i].description );
             allext.append( QLatin1String( filters[i].extensions ) );
         }
     }
     if ( mode == Reading ) {
-        newfilters.prepend( allext.join( " " ) + '|' + i18n( "All supported documents" ) );
+        newfilters.prepend( allext.join( " " ) + '|' +  "All supported documents" );
     }
     return newfilters.join( "\n" );
 }
@@ -893,27 +926,27 @@ QString KEduVocDocument::errorDescription( int errorCode )
 {
     switch (errorCode) {
     case NoError:
-        return i18n("No error found.");
+        return "No error found.";
 
     case InvalidXml:
-        return i18n("Invalid XML in document.");
+        return "Invalid XML in document.";
     case FileTypeUnknown:
-        return i18n("Unknown file type.");
+        return "Unknown file type.";
     case FileCannotWrite:
-        return i18n("File is not writeable.");
+        return "File is not writeable.";
     case FileWriterFailed:
-        return i18n("File writer failed.");
+        return "File writer failed.";
     case FileCannotRead:
-        return i18n("File is not readable.");
+        return "File is not readable.";
     case FileReaderFailed:
-        return i18n("The file reader failed.");
+        return "The file reader failed.";
     case FileDoesNotExist:
-        return i18n("The file does not exist.");
+        return "The file does not exist.";
     case Unknown:
     default:
-        return i18n("Unknown error.");
+        return "Unknown error.";
     }
 }
 
-#include "keduvocdocument.moc"
+// #include "keduvocdocument.moc"
 

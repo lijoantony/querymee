@@ -29,7 +29,8 @@
 #include <QtCore/QList>
 #include <QtCore/QMap>
 
-#include <KDE/KUrl>
+// #include <KDE/KUrl>
+#include <QUrl>
 
 class QStringList;
 class KEduVocExpression;
