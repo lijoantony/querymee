@@ -19,6 +19,7 @@
 
 #include <QtXml/QDomDocument>
 #include <QList>
+#include <QFile>
 
 #include "keduvocexpression.h"
 #include "keduvocpersonalpronoun.h"
@@ -40,7 +41,7 @@ public:
     /** default constructor
      * @param file file to read from
      */
-    KEduVocKvtml2Reader( QIODevice *file );
+    KEduVocKvtml2Reader( QFile *file );
 
     /** read the document
      * @param doc document object to store the data in

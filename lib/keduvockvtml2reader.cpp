@@ -21,9 +21,11 @@
 
 #include <QtCore/QTextStream>
 #include <QtCore/QList>
-#include <QtCore/QIODevice>
+// #include <QtCore/QIODevice>
+#include <QDebug>
+#include <QFile>
 
-#include <klocale.h>
+// #include <klocale.h>
 
 #include "keduvocdocument.h"
 #include "keduvoclesson.h"
@@ -33,20 +35,22 @@
 #include "keduvockvtmlreader.h"
 #include "keduvoccommon_p.h"
 
-#include <KDebug>
+// #include <KDebug>
 
-KEduVocKvtml2Reader::KEduVocKvtml2Reader( QIODevice *file )
+KEduVocKvtml2Reader::KEduVocKvtml2Reader( QFile *file )
         : m_inputFile( file )
 {
     // the file must be already open
     if ( !m_inputFile->isOpen() ) {
-        m_errorMessage = i18n( "file must be opened first" );
+        m_errorMessage =  "file must be opened first" ;
     }
+    qDebug("KEduVocKvtml2Reader constructor");
 }
 
 
 bool KEduVocKvtml2Reader::readDoc( KEduVocDocument *doc )
 {
+    qDebug("KEduVocKvtml2Reader::readDoc");
     m_doc = doc;
 
     QDomDocument domDoc( "KEduVocDocument" );
@@ -56,7 +60,7 @@ bool KEduVocKvtml2Reader::readDoc( KEduVocDocument *doc )
 
     QDomElement domElementKvtml = domDoc.documentElement();
     if ( domElementKvtml.tagName() != KVTML_TAG ) {
-        m_errorMessage = i18n( "This is not a KDE Vocabulary document." );
+        m_errorMessage =  "This is not a KDE Vocabulary document." ;
         return false;
     }
 
@@ -161,7 +165,7 @@ bool KEduVocKvtml2Reader::readGroups( QDomElement &domElementParent )
     if ( !groupElement.isNull() ) {
         QDomNodeList entryList = groupElement.elementsByTagName( KVTML_IDENTIFIER );
         if ( entryList.length() <= 0 ) {
-            m_errorMessage = i18n( "missing identifier elements from identifiers tag" );
+            m_errorMessage =  "missing identifier elements from identifiers tag" ;
             return false;
         }
 
@@ -210,7 +214,7 @@ bool KEduVocKvtml2Reader::readGroups( QDomElement &domElementParent )
     }
 
     // Additional cleanup: Put orphaned entries without a lesson into a default lesson.
-    KEduVocLesson *defaultLesson = new KEduVocLesson(i18n("Default Lesson"), m_doc->lesson());
+    KEduVocLesson *defaultLesson = new KEduVocLesson("Default Lesson", m_doc->lesson());
 
     // now make sure we don't have any orphan entries
     foreach (KEduVocExpression * entry, m_allEntries) {
@@ -236,7 +240,7 @@ bool KEduVocKvtml2Reader::readIdentifier( QDomElement &identifierElement )
     bool result = true;
     int id = identifierElement.attribute( KVTML_ID ).toInt( &result );
     if ( !result ) {
-        m_errorMessage = i18n( "identifier missing id" );
+        m_errorMessage =  "identifier missing id" ;
         return false;
     }
 
@@ -271,7 +275,7 @@ bool KEduVocKvtml2Reader::readIdentifier( QDomElement &identifierElement )
     }
 
     QStringList tenses = readTenses(identifierElement);
-kDebug() << tenses;
+    qDebug() << tenses;
 
     m_doc->identifier(id).setTenseList(tenses);
 
@@ -286,7 +290,7 @@ bool KEduVocKvtml2Reader::readEntry( QDomElement &entryElement )
     // get entry id
     int id = entryElement.attribute( KVTML_ID ).toInt( &result );
     if ( !result ) {
-        m_errorMessage = i18n( "entry missing id" );
+        m_errorMessage =  "entry missing id" ;
         return false;
     }
 
@@ -316,7 +320,7 @@ bool KEduVocKvtml2Reader::readEntry( QDomElement &entryElement )
     }
 
     if ( expr->translationIndices().size() == 0 ) {
-        kDebug() << "Found entry with no words in it." << id;
+        qDebug() << "Found entry with no words in it." << id;
         expr->setTranslation(0, QString());
     }
 
@@ -358,13 +362,15 @@ bool KEduVocKvtml2Reader::readTranslation( QDomElement &translationElement,
     // image
     currentElement = translationElement.firstChildElement( KVTML_IMAGE );
     if ( !currentElement.isNull() ) {
-        expr->translation(index)->setImageUrl( KUrl( m_doc->url(), currentElement.text() ) );
+        qCritical("Fixme: get image path...");
+        // expr->translation(index)->setImageUrl( KUrl( m_doc->url(), currentElement.text() ) );
     }
 
     // sound
     currentElement = translationElement.firstChildElement( KVTML_SOUND );
     if ( !currentElement.isNull() ) {
-        expr->translation(index)->setSoundUrl( KUrl( m_doc->url(), currentElement.text() ) );
+        qCritical("Fixme: get sound path...");
+        //  expr->translation(index)->setSoundUrl( KUrl( m_doc->url(), currentElement.text() ) );
     }
 
     return true;
@@ -724,4 +730,4 @@ bool KEduVocKvtml2Reader::readPersonalPronounChild(QDomElement & personElement, 
 }
 
 
-#include "keduvockvtml2reader.moc"
+// #include "keduvockvtml2reader.moc"
