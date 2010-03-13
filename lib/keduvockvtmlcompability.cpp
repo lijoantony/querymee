@@ -24,8 +24,10 @@
 #include "keduvockvtmlcompability.h"
 #include "keduvocwordtype.h"
 
-#include <KLocale>
-#include <KDebug>
+// #include <KLocale>
+// #include <KDebug>
+#include <QDebug>
+#include <QStringList>
 
 const QString KEduVocKvtmlCompability::KVTML_1_USER_DEFINED = QString( "#" );
 const QString KEduVocKvtmlCompability::KVTML_1_SEPERATOR = QString( ":" );
@@ -45,32 +47,32 @@ KEduVocKvtmlCompability::KEduVocKvtmlCompability()
 void KEduVocKvtmlCompability::initOldTypeLists()
 {
     m_oldMainTypeNames.clear();
-    m_oldMainTypeNames.insert( "v", i18nc( "@item:inlistbox The grammatical type of a word", "Verb" ) );
-    m_oldMainTypeNames.insert( "n", i18nc( "@item:inlistbox The grammatical type of a word", "Noun" ) );
-    m_oldMainTypeNames.insert( "nm", i18nc( "@item:inlistbox The grammatical type of a word", "Name" ) );
-    m_oldMainTypeNames.insert( "ar", i18nc( "@item:inlistbox The grammatical type of a word", "Article" ) );
-    m_oldMainTypeNames.insert( "aj", i18nc( "@item:inlistbox The grammatical type of a word", "Adjective" ) );
-    m_oldMainTypeNames.insert( "av", i18nc( "@item:inlistbox The grammatical type of a word", "Adverb" ) );
-    m_oldMainTypeNames.insert( "pr", i18nc( "@item:inlistbox The grammatical type of a word", "Pronoun" ) );
-    m_oldMainTypeNames.insert( "ph", i18nc( "@item:inlistbox The grammatical type of an entry", "Phrase" ) );
-    m_oldMainTypeNames.insert( "num", i18nc( "@item:inlistbox The grammatical type of a word", "Numeral" ) );
-    m_oldMainTypeNames.insert( "con", i18nc( "@item:inlistbox The grammatical type of a word", "Conjunction" ) );
-    m_oldMainTypeNames.insert( "pre", i18nc( "@item:inlistbox The grammatical type of a word", "Preposition" ) );
-    m_oldMainTypeNames.insert( "qu", i18nc( "@item:inlistbox The grammatical type of an entry", "Question" ) );
+    m_oldMainTypeNames.insert( "v", "Verb" );
+    m_oldMainTypeNames.insert( "n", "Noun" );
+    m_oldMainTypeNames.insert( "nm", "Name" );
+    m_oldMainTypeNames.insert( "ar", "Article" );
+    m_oldMainTypeNames.insert( "aj", "Adjective" );
+    m_oldMainTypeNames.insert( "av", "Adverb" );
+    m_oldMainTypeNames.insert( "pr", "Pronoun" );
+    m_oldMainTypeNames.insert( "ph", "Phrase" );
+    m_oldMainTypeNames.insert( "num", "Numeral" );
+    m_oldMainTypeNames.insert( "con", "Conjunction" );
+    m_oldMainTypeNames.insert( "pre", "Preposition" );
+    m_oldMainTypeNames.insert( "qu",  "Question" );
 
 
     m_oldSubTypeNames.clear();
-    m_oldSubTypeNames.insert( "ord", i18nc( "@item:inlistbox A subtype of the grammatical word type: Numeral Ordinal  (first, second, third, ...)","Ordinal" ) );
-    m_oldSubTypeNames.insert( "crd", i18nc( "@item:inlistbox A subtype of the grammatical word type: Numeral Cardinal (one, two, three, ...)","Cardinal" ) );
-    m_oldSubTypeNames.insert( "def", i18nc( "@item:inlistbox A subtype of the grammatical word type: Article (the)","Definite" ) );
-    m_oldSubTypeNames.insert( "ind", i18nc( "@item:inlistbox A subtype of the grammatical word type: Article (a)","Indefinite" ) );
-    m_oldSubTypeNames.insert( "re", i18nc( "@item:inlistbox A subtype of the grammatical word type: Verb with regular conjugation","Regular" ) );
-    m_oldSubTypeNames.insert( "ir", i18nc( "@item:inlistbox A subtype of the grammatical word type: Verb with irregular conjugation","Irregular" ) );
-    m_oldSubTypeNames.insert( "pos", i18nc( "@item:inlistbox A subtype of the grammatical word type: Pronoun (my, your, his, her...)", "Possessive" ) );
-    m_oldSubTypeNames.insert( "per", i18nc( "@item:inlistbox A subtype of the grammatical word type: Pronoun (I, you, he...)", "Personal" ) );
-    m_oldSubTypeNames.insert( "m", i18nc( "@item:inlistbox A subtype of the grammatical word type: Noun", "Male" ) );
-    m_oldSubTypeNames.insert( "f", i18nc( "@item:inlistbox A subtype of the grammatical word type: Noun", "Female" ) );
-    m_oldSubTypeNames.insert( "s", i18nc( "@item:inlistbox A subtype of the grammatical word type: Noun", "Neutral" ) );
+    m_oldSubTypeNames.insert( "ord", "Ordinal" );
+    m_oldSubTypeNames.insert( "crd", "Cardinal" );
+    m_oldSubTypeNames.insert( "def", "Definite" );
+    m_oldSubTypeNames.insert( "ind", "Indefinite" );
+    m_oldSubTypeNames.insert( "re",  "Regular" );
+    m_oldSubTypeNames.insert( "ir",  "Irregular" );
+    m_oldSubTypeNames.insert( "pos", "Possessive" );
+    m_oldSubTypeNames.insert( "per", "Personal" );
+    m_oldSubTypeNames.insert( "m",   "Male" );
+    m_oldSubTypeNames.insert( "f",   "Female" );
+    m_oldSubTypeNames.insert( "s",   "Neutral" );
 }
 
 
@@ -107,7 +109,7 @@ KEduVocWordType* KEduVocKvtmlCompability::typeFromOldFormat(KEduVocWordType* par
 
     QString typeName = m_oldMainTypeNames.value( mainType );
     if ( typeName.isEmpty() ) {
-        kDebug() << "Unknown old maintype: " << typeSubtypeString;
+        qDebug() << "Unknown old maintype: " << typeSubtypeString;
         return 0;
     }
 
@@ -174,13 +176,13 @@ if ( oldType.length() >= 2 && type.left( 1 ) == QM_USER_TYPE ) {
 
 void KEduVocKvtmlCompability::initOldTenses()
 {
-    m_oldTenses["PrSi"] = i18n( "Simple Present" );
-    m_oldTenses["PrPr"] = i18n( "Present Progressive" );
-    m_oldTenses["PrPe"] = i18n( "Present Perfect" );
-    m_oldTenses["PaSi"] = i18n( "Simple Past" );
-    m_oldTenses["PaPr"] = i18n( "Past Progressive" );
-    m_oldTenses["PaPa"] = i18n( "Past Participle" );
-    m_oldTenses["FuSi"] = i18n( "Future" );
+    m_oldTenses["PrSi"] =  "Simple Present" ;
+    m_oldTenses["PrPr"] =  "Present Progressive" ;
+    m_oldTenses["PrPe"] =  "Present Perfect" ;
+    m_oldTenses["PaSi"] =  "Simple Past" ;
+    m_oldTenses["PaPr"] =  "Past Progressive" ;
+    m_oldTenses["PaPa"] =  "Past Participle" ;
+    m_oldTenses["FuSi"] =  "Future" ;
 }
 
 
@@ -190,7 +192,7 @@ void KEduVocKvtmlCompability::addUserdefinedTense(const QString & tense)
     m_oldTenses[KVTML_1_USER_DEFINED + QString::number( m_userdefinedTenseCounter )] = tense;
     m_tenses.insert(tense);
 
-    kDebug() << " Add tense: " << KVTML_1_USER_DEFINED + QString::number( m_userdefinedTenseCounter ) << " - " << tense;
+    qDebug() << " Add tense: " << KVTML_1_USER_DEFINED + QString::number( m_userdefinedTenseCounter ) << " - " << tense;
 }
 
 
@@ -199,7 +201,7 @@ QString KEduVocKvtmlCompability::tenseFromKvtml1(const QString & oldTense)
     // in case the document got chaged, at least make up something as tense
     if (!m_oldTenses.keys().contains(oldTense)) {
         m_oldTenses[oldTense] = oldTense;
-        kDebug() << "Warning, tense " << oldTense << " not found in document!";
+        qDebug() << "Warning, tense " << oldTense << " not found in document!";
     }
     m_tenses.insert(m_oldTenses.value(oldTense));
     return m_oldTenses.value(oldTense);
@@ -226,18 +228,18 @@ void KEduVocKvtmlCompability::setupWordTypes(KEduVocWordType * parent)
 {
     QStringList wordTypeNames;
     wordTypeNames
-        << i18nc( "The grammatical type of a word", "Verb" ) // 0
-        << i18nc( "The grammatical type of a word", "Noun" ) // 1
-        << i18nc( "The grammatical type of a word", "Name" )
-        << i18nc( "The grammatical type of a word", "Article" ) // 3
-        << i18nc( "The grammatical type of a word", "Adjective" ) // 4
-        << i18nc( "The grammatical type of a word", "Adverb" ) // 5
-        << i18nc( "The grammatical type of a word", "Pronoun" ) // 6
-        << i18nc( "The grammatical type of an entry", "Phrase" )
-        << i18nc( "The grammatical type of a word", "Numeral" ) // 8
-        << i18nc( "The grammatical type of a word", "Conjunction" )
-        << i18nc( "The grammatical type of a word", "Preposition" )
-        << i18nc( "The grammatical type of an entry", "Question" );
+        <<  "Verb"  // 0
+        <<  "Noun"  // 1
+        <<  "Name" 
+        <<  "Article"  // 3
+        <<  "Adjective"  // 4
+        <<  "Adverb"  // 5
+        <<  "Pronoun"  // 6
+        <<  "Phrase" 
+        <<  "Numeral"  // 8
+        <<  "Conjunction" 
+        <<  "Preposition" 
+        <<  "Question" ;
 
     foreach (const QString &typeName, wordTypeNames) {
         KEduVocWordType* wordType = new KEduVocWordType(typeName, parent);
@@ -248,51 +250,49 @@ void KEduVocKvtmlCompability::setupWordTypes(KEduVocWordType * parent)
     static_cast<KEduVocWordType*>(parent->childContainer(5))->setWordType(KEduVocWordFlag::Adverb);
 
     KEduVocWordType* numeral = static_cast<KEduVocWordType*>(parent->childContainer(8));
-    KEduVocWordType* wordType = new KEduVocWordType(
-        i18nc( "@item:inlistbox A subtype of the grammatical word type: Numeral Ordinal  (first, second, third, ...)","Ordinal" ), numeral);
+    KEduVocWordType* wordType = new KEduVocWordType( "Ordinal", numeral);
     wordType->setWordType(KEduVocWordFlag::Adjective);
     numeral->appendChildContainer(wordType);
-    wordType = new KEduVocWordType(
-        i18nc( "@item:inlistbox A subtype of the grammatical word type: Numeral Cardinal (one, two, three, ...)","Cardinal" ), numeral);
+    wordType = new KEduVocWordType( "Cardinal" , numeral);
 
     wordType->setWordType(KEduVocWordFlag::Adjective);
     numeral->appendChildContainer(wordType);
 
     KEduVocWordType* article = static_cast<KEduVocWordType*>(parent->childContainer(3));
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Article (the)","Definite" ), article);
+    wordType = new KEduVocWordType( "Definite" , article);
     wordType->setWordType(KEduVocWordFlag::Article | KEduVocWordFlag::Definite);
     article->appendChildContainer(wordType);
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Article (a)","Indefinite" ), article);
+    wordType = new KEduVocWordType( "Indefinite" , article);
     wordType->setWordType(KEduVocWordFlag::Article | KEduVocWordFlag::Indefinite);
     article->appendChildContainer(wordType);
 
     KEduVocWordType* verb = static_cast<KEduVocWordType*>(parent->childContainer(0));
     verb->setWordType(KEduVocWordFlag::Verb);
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Verb with regular conjugation","Regular" ), verb);
+    wordType = new KEduVocWordType( "Regular" , verb);
     wordType->setWordType(KEduVocWordFlag::Verb | KEduVocWordFlag::Regular);
     verb->appendChildContainer(wordType);
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Verb with irregular conjugation","Irregular" ), verb);
+    wordType = new KEduVocWordType( "Irregular" , verb);
     verb->appendChildContainer(wordType);
     wordType->setWordType(KEduVocWordFlag::Verb | KEduVocWordFlag::Irregular);
 
     KEduVocWordType* noun = static_cast<KEduVocWordType*>(parent->childContainer(1));
     noun->setWordType(KEduVocWordFlag::Noun);
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Noun", "Male" ), noun);
+    wordType = new KEduVocWordType( "Male" , noun);
     noun->appendChildContainer(wordType);
     wordType->setWordType(KEduVocWordFlag::Noun | KEduVocWordFlag::Masculine);
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Noun", "Female" ), noun);
+    wordType = new KEduVocWordType( "Female" , noun);
     noun->appendChildContainer(wordType);
     wordType->setWordType(KEduVocWordFlag::Noun | KEduVocWordFlag::Feminine);
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Noun", "Neutral" ), noun);
+    wordType = new KEduVocWordType( "Neutral" , noun);
     noun->appendChildContainer(wordType);
     wordType->setWordType(KEduVocWordFlag::Noun | KEduVocWordFlag::Neuter);
 
 
     KEduVocWordType* pronoun = static_cast<KEduVocWordType*>(parent->childContainer(6));
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Pronoun (my, your, his, her...)", "Possessive" ), pronoun);
+    wordType = new KEduVocWordType( "Possessive" , pronoun);
     wordType->setWordType(KEduVocWordFlag::Pronoun);
     pronoun->appendChildContainer(wordType);
-    wordType = new KEduVocWordType(i18nc( "@item:inlistbox A subtype of the grammatical word type: Pronoun (I, you, he...)", "Personal" ), pronoun);
+    wordType = new KEduVocWordType( "Personal" , pronoun);
     wordType->setWordType(KEduVocWordFlag::Pronoun);
     pronoun->appendChildContainer(wordType);
 }
