@@ -17,16 +17,16 @@
 
 #include "keduvocdocument.h"
 
-#include <kio/copyjob.h>
-#include <kio/job.h>
-#include <klocale.h>
-#include <kstandarddirs.h>
+// #include <kio/copyjob.h>
+// #include <kio/job.h>
+// #include <klocale.h>
+// #include <kstandarddirs.h>
 
 #include <QDir>
 #include <QList>
 #include <QSet>
 
-#include <kglobal.h>
+// #include <kglobal.h>
 
 class SharedKvtmlFilesPrivate
 {
@@ -61,47 +61,51 @@ K_GLOBAL_STATIC( SharedKvtmlFilesPrivate, sharedKvtmlFilesPrivate )
 
 void SharedKvtmlFilesPrivate::rescan()
 {
-    this->m_titleList.clear();
-    this->m_commentList.clear();
-    this->m_filesByLang.clear();
-    this->m_fileList.clear();
-
-    QStringList locales;
-
-    QStringList dataPaths = KGlobal::dirs()->findDirs( "data", "kvtml/" );
-    for ( int i = 0; i < dataPaths.size(); ++i ) {
-        locales += QDir( dataPaths[i] ).entryList( QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name );
-    }
-
-    // remove duplicates
-    locales = locales.toSet().toList();
-
-    for ( int i = 0; i < locales.size(); ++i ) {
-        // get all files for this language
-        QStringList thisLangFiles = KGlobal::dirs()->findAllResources( "data",
-                                    QString( "kvtml/%1/*.kvtml" ).arg( QDir( locales[i] ).dirName() ) );
-        // add them to the big list
-        this->m_fileList << thisLangFiles;
-
-        // then add them to their respective language maps
-        for ( int j = 0; j < thisLangFiles.size(); ++j ) {
-            this->m_filesByLang[locales[i]].append( thisLangFiles[j] );
-        }
-    }
-
-    KEduVocDocument *doc = new KEduVocDocument();
-    for ( int i = 0; i < this->m_fileList.size(); ++i ) {
-
-        // open the file
-        doc->open( KUrl::fromPath( this->m_fileList[i] ) );
-
-        // add it's title to the title list
-        this->m_titleList.append( doc->title() );
-
-        // add it's comment to the comment list
-        this->m_commentList.append( doc->documentComment() );
-    }
-    delete doc;
+    qCritical("FIXME: no fuction rescan...");
+//     this->m_titleList.clear();
+//     this->m_commentList.clear();
+//     this->m_filesByLang.clear();
+//     this->m_fileList.clear();
+// 
+//     QStringList locales;
+// 
+//     QStringList dataPaths = KGlobal::dirs()->findDirs( "data", "kvtml/" );
+// 
+//     for ( int i = 0; i < dataPaths.size(); ++i ) {
+//         locales += QDir( dataPaths[i] ).entryList( QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name );
+//     }
+// 
+//     // remove duplicates
+//     locales = locales.toSet().toList();
+// 
+//     for ( int i = 0; i < locales.size(); ++i ) {
+//         // get all files for this language
+//         QStringList thisLangFiles = KGlobal::dirs()->findAllResources( "data",
+//                                     QString( "kvtml/%1/*.kvtml" ).arg( QDir( locales[i] ).dirName() ) );
+// 
+//         
+//         // add them to the big list
+//         this->m_fileList << thisLangFiles;
+// 
+//         // then add them to their respective language maps
+//         for ( int j = 0; j < thisLangFiles.size(); ++j ) {
+//             this->m_filesByLang[locales[i]].append( thisLangFiles[j] );
+//         }
+//     }
+// 
+//     KEduVocDocument *doc = new KEduVocDocument();
+//     for ( int i = 0; i < this->m_fileList.size(); ++i ) {
+// 
+//         // open the file
+//         doc->open( KUrl::Path( this->m_fileList[i] ) );
+// 
+//         // add it's title to the title list
+//         this->m_titleList.append( doc->title() );
+// 
+//         // add it's comment to the comment list
+//         this->m_commentList.append( doc->documentComment() );
+//     }
+//     delete doc;
 }
 
 void SharedKvtmlFiles::rescan()
@@ -155,45 +159,48 @@ QStringList SharedKvtmlFiles::comments( const QString &language )
 
 void SharedKvtmlFiles::sortDownloadedFiles()
 {
-    QStringList unsortedFiles = KGlobal::dirs()->findAllResources( "data",
-                                QString( "kvtml/*.kvtml" ) );
-
-    KEduVocDocument doc;
-
-    while ( !unsortedFiles.isEmpty() ) {
-        KUrl fileUrl( KUrl::fromPath( unsortedFiles.first() ) );
-        // find the file's locale
-        // open the file
-        doc.open( fileUrl );
-
-        if (doc.identifierCount() == 1) {
-            QString locale = doc.identifier( 0 ).locale();
-
-            // make sure the locale sub-folder exists
-            KUrl pathUrl( fileUrl );
-            pathUrl.setFileName( QString() );
-            pathUrl.addPath( locale );
-            KIO::mkdir( pathUrl );
-
-            // move the file into the locale sub-folder
-            KIO::move( fileUrl, pathUrl );
-        }
-
-        // take off the one we just did
-        unsortedFiles.removeFirst();
-    }
     
-    QStringList khangmanFiles = KGlobal::dirs()->findAllResources( "data", 
-                                QString( "kvtml/*.txt" ) );
-    
-    // move khangman files into
-    while ( !khangmanFiles.isEmpty() ) {
-        KUrl fileUrl( KUrl::fromPath( khangmanFiles.first() ) );
-        KUrl destDir = KUrl::fromPath(KStandardDirs::locateLocal("appdata", "khangman/data/"));
-        // do this better with KStandardDirs stuff
-        KIO::move( fileUrl, destDir);
-        khangmanFiles.removeFirst();
-    }
-
-    rescan();
+    qCritical("FIXME: not methode sortDownloadedFiles");
+//      QStringList unsortedFiles = KGlobal::dirs()->findAllResources( "data",
+//                                  QString( "kvtml/*.kvtml" ) );
+//                                 
+// 
+//     KEduVocDocument doc;
+// 
+//     while ( !unsortedFiles.isEmpty() ) {
+//         KUrl fileUrl( KUrl::fromPath( unsortedFiles.first() ) );
+//         // find the file's locale
+//         // open the file
+//         doc.open( fileUrl );
+// 
+//         if (doc.identifierCount() == 1) {
+//             QString locale = doc.identifier( 0 ).locale();
+// 
+//             // make sure the locale sub-folder exists
+//             KUrl pathUrl( fileUrl );
+//             pathUrl.setFileName( QString() );
+//             pathUrl.addPath( locale );
+//             KIO::mkdir( pathUrl );
+// 
+//             // move the file into the locale sub-folder
+//             KIO::move( fileUrl, pathUrl );
+//         }
+// 
+//         // take off the one we just did
+//         unsortedFiles.removeFirst();
+//     }
+//     
+//     QStringList khangmanFiles = KGlobal::dirs()->findAllResources( "data", 
+//                                 QString( "kvtml/*.txt" ) );
+//     
+//     // move khangman files into
+//     while ( !khangmanFiles.isEmpty() ) {
+//         KUrl fileUrl( KUrl::fromPath( khangmanFiles.first() ) );
+//         KUrl destDir = KUrl::fromPath(KStandardDirs::locateLocal("appdata", "khangman/data/"));
+//         // do this better with KStandardDirs stuff
+//         KIO::move( fileUrl, destDir);
+//         khangmanFiles.removeFirst();
+//     }
+// 
+//     rescan();
 }
