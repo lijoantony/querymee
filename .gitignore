@@ -1,5 +1,6 @@
 *.o
 *.moc
+*.pro.user
 moc_*
 Makefile
 lib/libkeduvocdocument.so
