@@ -1,13 +1,11 @@
 *.o
 *.moc
-lib/Makefile
+moc_*
+Makefile
 lib/libkeduvocdocument.so
 lib/libkeduvocdocument.so.1
 lib/libkeduvocdocument.so.1.0
 lib/libkeduvocdocument.so.1.0.0
-lib/moc_keduvocdocument.cpp
-lib/moc_keduvockvtml2reader.cpp
-lib/moc_keduvockvtmlreader.cpp
-lib/tests/Makefile
 lib/tests/*.kvtml
 lib/tests/tests
+trainer/trainer
