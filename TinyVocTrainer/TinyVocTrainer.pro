@@ -3,13 +3,13 @@
 # -------------------------------------------------
 TARGET = TinyVocTrainer
 TEMPLATE = app
-LIBS += -L/home/rzingg/kedu/git/lib \
+LIBS += -L../lib \
     -lkeduvocdocument
 DEPENDPATH += . \
-    /home/rzingg/kedu/git/lib
+    ../lib
 INCLUDEPATH += . \
     /home/rzingg/kedu/git/lib
-QMAKE_LFLAGS += -Wl,-rpath,/home/rzingg/kedu/git/lib
+QMAKE_LFLAGS += -Wl,-rpath,../lib
 SOURCES += main.cpp \
     tinyvoctrainer.cpp
 HEADERS += tinyvoctrainer.h
