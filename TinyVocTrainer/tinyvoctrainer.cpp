@@ -23,9 +23,9 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     QVBoxLayout *vbox_label = new QVBoxLayout();
     QHBoxLayout *hbox_buttons = new QHBoxLayout();
 
-    QPushButton *button = new QPushButton("Apply");
+    QPushButton *button = new QPushButton("Settings");
     hbox_buttons->addWidget(button);
-    connect(button, SIGNAL(clicked(bool)), this, SLOT(slotInit(bool)));
+    connect(button, SIGNAL(clicked(bool)), this, SLOT(slotSettings(bool)));
 
 
     QComboBox *combox_lesson = new QComboBox();
@@ -109,14 +109,20 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     combox_lesson->setCurrentIndex(0);
     hbox_less->addWidget(combox_lesson);
 
-    vbox->addLayout(hbox_less);
-    vbox->addLayout(hbox_question_lang);
-    vbox->addLayout(hbox_answer_lang);
+    // vbox->addLayout(hbox_less);
+    // vbox->addLayout(hbox_question_lang);
+    // vbox->addLayout(hbox_answer_lang);
     vbox->addLayout(hbox_buttons);
     vbox->addLayout(vbox_label);
     setLayout(vbox);
 
-    slotInit();
+    dialog = new TinyVocTrainerSettings();
+
+    connect(dialog,SIGNAL(SignalToggleAnswer(int)),this,SLOT(reactToToggleAnswer(int)));
+    connect(dialog,SIGNAL(SignalToggleLesson(int)),this,SLOT(reactToToggleLesson(int)));
+    connect(dialog,SIGNAL(SignalToggleQuestion(int)),this,SLOT(reactToToggleQuestion(int)));
+
+    slotSettings();
 }
 
 TinyVocTrainer::~TinyVocTrainer()
@@ -199,4 +205,11 @@ void TinyVocTrainer::slotInit(bool clicked){
     QuestionLabel->setText(choiceList.at(random_int)->translation(answerID)->text());
     CorrectID = random_int;
 
+}
+
+void TinyVocTrainer::slotSettings(bool clicked){
+    Q_UNUSED(clicked);
+
+    dialog->exec();
+    slotInit();
 }

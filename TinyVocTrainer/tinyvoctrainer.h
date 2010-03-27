@@ -12,6 +12,8 @@
 #include "keduvocexpression.h"
 #include "keduvocleitnerbox.h"
 
+#include "tinyvoctrainersettings.h"
+
 class TinyVocTrainer : public QWidget
 {
     Q_OBJECT
@@ -41,6 +43,8 @@ public:
     int lessonID;
     int CorrectID;
 
+    TinyVocTrainerSettings *dialog;
+
 private slots:
     void reactToToggleQuestion(int id = 0);
     void reactToToggleAnswer(int id = 0);
@@ -50,6 +54,7 @@ private slots:
     void slotAnswer2(bool clicked = 0);
     void slotAnswer3(bool clicked = 0);
     void slotInit(bool clicked = 0);
+    void slotSettings(bool clicked = 0);
 
 };
 
