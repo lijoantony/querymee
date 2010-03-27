@@ -20,7 +20,7 @@ class TinyVocTrainerSettings : public QDialog
 Q_OBJECT
 
 public:
-    explicit TinyVocTrainerSettings(QWidget *parent = 0);
+    explicit TinyVocTrainerSettings(QWidget *parent = 0, const QString &fileName = "");
 
     QList<KEduVocContainer *>  lessons;
     QList<KEduVocLesson *> lessonsList;

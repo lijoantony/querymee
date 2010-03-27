@@ -19,7 +19,7 @@ class TinyVocTrainer : public QWidget
     Q_OBJECT
 
 public:
-    TinyVocTrainer(QWidget *parent = 0);
+    TinyVocTrainer(QWidget *parent = 0, const QString &fileName = "");
     ~TinyVocTrainer();
     KEduVocExpression * getAnyEntryFromLesson(KEduVocLesson *lesson = 0, int language = 0);
 

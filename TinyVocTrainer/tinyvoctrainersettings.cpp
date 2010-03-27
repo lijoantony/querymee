@@ -3,7 +3,7 @@
 #include <QApplication>
 #include <QtDebug>
 
-TinyVocTrainerSettings::TinyVocTrainerSettings(QWidget *parent)
+TinyVocTrainerSettings::TinyVocTrainerSettings(QWidget *parent, const QString &fileName)
     : QDialog(parent)
 {
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -30,11 +30,8 @@ TinyVocTrainerSettings::TinyVocTrainerSettings(QWidget *parent)
     connect(buttons, SIGNAL(accepted()),this,SLOT(accept()));
     connect(buttons,SIGNAL(rejected()),this,SLOT(reject()));
 
-    QStringList args = QApplication::arguments();
-    args.removeFirst();
-
     KEduVocDocument *docRead = new KEduVocDocument();
-    docRead->open(args.at(0));
+    docRead->open(fileName);
 
     lessons = docRead->lesson()->childContainers();
 
@@ -75,14 +72,6 @@ TinyVocTrainerSettings::TinyVocTrainerSettings(QWidget *parent)
     setLayout(vbox);
 
 }
-
-//void TinyVocTrainerSettings::accept(){
-//    return;
-//}
-//
-//void TinyVocTrainerSettings::reject(){
-//    return;
-//}
 
 void TinyVocTrainerSettings::reactToToggleQuestion(int id)
 {

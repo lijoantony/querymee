@@ -16,8 +16,11 @@ private:
     QMenu *mainMenu;
     void createActions();
     void createMenus();
-
     TinyVocTrainer *trainer;
+    // bool loadFile(const QString &fileName);
+    // void setCurrentFile(const QString &fileName);
+    QString curFile;
+    void open();
 };
 
 #endif // MAINWINDOW_H

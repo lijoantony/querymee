@@ -11,26 +11,14 @@
 #include <QPushButton>
 #include <QComboBox>
 
-TinyVocTrainer::TinyVocTrainer(QWidget *parent)
+TinyVocTrainer::TinyVocTrainer(QWidget *parent, const QString &fileName)
     : QWidget(parent)
 {
     srand(time(NULL));
 
     QVBoxLayout *vbox = new QVBoxLayout();
-//    QHBoxLayout *hbox_less = new QHBoxLayout();
-//    QHBoxLayout *hbox_question_lang = new QHBoxLayout();
-//    QHBoxLayout *hbox_answer_lang = new QHBoxLayout();
     QVBoxLayout *vbox_label = new QVBoxLayout();
-//    QHBoxLayout *hbox_buttons = new QHBoxLayout();
 
-//    QPushButton *button = new QPushButton("Settings");
-//    hbox_buttons->addWidget(button);
-//    connect(button, SIGNAL(clicked(bool)), this, SLOT(slotSettings(bool)));
-
-//
-//    QComboBox *combox_lesson = new QComboBox();
-//    QComboBox *combox_question = new QComboBox();
-//    QComboBox *combox_answer = new QComboBox();
     bgroup_choice =  new QButtonGroup();
 
     QuestionLabel = new QLabel();
@@ -72,35 +60,10 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     lessonID = 0;
     CorrectID = 0;
 
-//    QLabel *label_question = new QLabel("Question:");
-//    hbox_question_lang->addWidget(label_question);
-//
-//    QLabel *label_answer = new QLabel("Answer:");
-//    hbox_answer_lang->addWidget(label_answer);
-//
-//    QLabel *label_lesson = new QLabel("Lesson:");
-//    hbox_less->addWidget(label_lesson);
-
-    QStringList args = QApplication::arguments();
-    args.removeFirst();
-
     KEduVocDocument *docRead = new KEduVocDocument();
-    docRead->open(args.at(0));
+    docRead->open(fileName);
 
     lessons = docRead->lesson()->childContainers();
-
-//    for (int i = 0; i < docRead->identifierCount(); ++i)
-//    {
-//        combox_question->insertItem(i, docRead->identifier(i).name(), NULL);
-//        combox_answer->insertItem(i, docRead->identifier(i).name(), NULL);
-//    }
-
-//    connect(combox_question,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleQuestion(int)));
-//    connect(combox_answer,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleAnswer(int)));
-//    combox_question->setCurrentIndex(0);
-//    combox_answer->setCurrentIndex(1);
-//    hbox_question_lang->addWidget(combox_question);
-//    hbox_answer_lang->addWidget(combox_answer);
 
     int lessonId = 0;
     foreach(KEduVocContainer * c, lessons) {
@@ -109,24 +72,14 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
                 KEduVocLesson *m_lesson;
                 m_lesson = lessonsList.last() ;
                 qDebug () << "Lesson: " << m_lesson->name();
-
-//                combox_lesson->insertItem(lessonId, m_lesson->name(), NULL);
         }
         ++lessonId;
     }
 
-//    connect(combox_lesson,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleLesson(int)));
-//    combox_lesson->setCurrentIndex(0);
-//    hbox_less->addWidget(combox_lesson);
-
-    // vbox->addLayout(hbox_less);
-    // vbox->addLayout(hbox_question_lang);
-    // vbox->addLayout(hbox_answer_lang);
-//    vbox->addLayout(hbox_buttons);
     vbox->addLayout(vbox_label);
     setLayout(vbox);
 
-    dialog = new TinyVocTrainerSettings();
+    dialog = new TinyVocTrainerSettings(this, fileName);
 
     connect(dialog,SIGNAL(SignalToggleAnswer(int)),this,SLOT(reactToToggleAnswer(int)));
     connect(dialog,SIGNAL(SignalToggleLesson(int)),this,SLOT(reactToToggleLesson(int)));

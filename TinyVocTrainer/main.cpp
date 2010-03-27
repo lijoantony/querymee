@@ -1,4 +1,5 @@
 #include <QtGui/QApplication>
+#include <QtDebug>
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
@@ -8,6 +9,7 @@ int main(int argc, char *argv[])
 //    w.show();
 
     MainWindow *mainWin = new MainWindow;
+
     mainWin->show();
     return a.exec();
 }
