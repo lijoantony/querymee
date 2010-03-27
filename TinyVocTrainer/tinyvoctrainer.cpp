@@ -20,7 +20,11 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     QHBoxLayout *hbox_question_lang = new QHBoxLayout();
     QHBoxLayout *hbox_answer_lang = new QHBoxLayout();
     QVBoxLayout *vbox_label = new QVBoxLayout();
+    QHBoxLayout *hbox_buttons = new QHBoxLayout();
 
+    QPushButton *button = new QPushButton("Apply");
+    hbox_buttons->addWidget(button);
+    connect(button, SIGNAL(clicked(bool)), this, SLOT(slotInit(bool)));
 
     bgroup_lesson = new QButtonGroup();
     bgroup_question_lang = new QButtonGroup();
@@ -120,6 +124,7 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     vbox->addLayout(hbox_less);
     vbox->addLayout(hbox_question_lang);
     vbox->addLayout(hbox_answer_lang);
+    vbox->addLayout(hbox_buttons);
     vbox->addLayout(vbox_label);
     setLayout(vbox);
 
@@ -190,7 +195,7 @@ void TinyVocTrainer::slotCheck(int buttonID){
 
     if(buttonID == CorrectID){
         qDebug() << "\\o/ correct answer...";
-        slotInit();
+        slotInit(1);
         return;
     }
     else{
@@ -199,7 +204,9 @@ void TinyVocTrainer::slotCheck(int buttonID){
 
 }
 
-void TinyVocTrainer::slotInit(){
+void TinyVocTrainer::slotInit(bool clicked){
+
+    Q_UNUSED(clicked);
 
     choiceList.clear();
     for (int i=0; i < 3; ++i){

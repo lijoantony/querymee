@@ -49,7 +49,7 @@ private slots:
     void slotAnswer1(bool clicked = 0);
     void slotAnswer2(bool clicked = 0);
     void slotAnswer3(bool clicked = 0);
-    void slotInit();
+    void slotInit(bool clicked = 0);
 
 };
 
