@@ -11,3 +11,4 @@ lib/tests/*.kvtml
 lib/tests/tests
 trainer/trainer
 TinyVocTrainer/TinyVocTrainer
+TinyVocTrainer/core.*

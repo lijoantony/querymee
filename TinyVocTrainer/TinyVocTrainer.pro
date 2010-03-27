@@ -8,7 +8,7 @@ LIBS += -L../lib \
 DEPENDPATH += . \
     ../lib
 INCLUDEPATH += . \
-    /home/rzingg/kedu/git/lib
+    ../lib
 QMAKE_LFLAGS += -Wl,-rpath,../lib
 SOURCES += main.cpp \
     tinyvoctrainer.cpp
