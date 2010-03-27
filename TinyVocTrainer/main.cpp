@@ -1,10 +1,13 @@
 #include <QtGui/QApplication>
-#include "tinyvoctrainer.h"
+#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    TinyVocTrainer w;
-    w.show();
+//    TinyVocTrainer w;
+//    w.show();
+
+    MainWindow *mainWin = new MainWindow;
+    mainWin->show();
     return a.exec();
 }

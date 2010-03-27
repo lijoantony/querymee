@@ -21,11 +21,11 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
 //    QHBoxLayout *hbox_question_lang = new QHBoxLayout();
 //    QHBoxLayout *hbox_answer_lang = new QHBoxLayout();
     QVBoxLayout *vbox_label = new QVBoxLayout();
-    QHBoxLayout *hbox_buttons = new QHBoxLayout();
+//    QHBoxLayout *hbox_buttons = new QHBoxLayout();
 
-    QPushButton *button = new QPushButton("Settings");
-    hbox_buttons->addWidget(button);
-    connect(button, SIGNAL(clicked(bool)), this, SLOT(slotSettings(bool)));
+//    QPushButton *button = new QPushButton("Settings");
+//    hbox_buttons->addWidget(button);
+//    connect(button, SIGNAL(clicked(bool)), this, SLOT(slotSettings(bool)));
 
 //
 //    QComboBox *combox_lesson = new QComboBox();
@@ -68,7 +68,7 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     connect(answer4,SIGNAL(clicked(bool)),this,SLOT(slotAnswer4(bool)));
 
     questionID = 0;
-    answerID = 0;
+    answerID = 1;
     lessonID = 0;
     CorrectID = 0;
 
@@ -122,7 +122,7 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     // vbox->addLayout(hbox_less);
     // vbox->addLayout(hbox_question_lang);
     // vbox->addLayout(hbox_answer_lang);
-    vbox->addLayout(hbox_buttons);
+//    vbox->addLayout(hbox_buttons);
     vbox->addLayout(vbox_label);
     setLayout(vbox);
 
@@ -210,14 +210,14 @@ void TinyVocTrainer::slotInit(bool clicked){
 
     choiceList.clear();
     for (int i=0; i < 4; ++i){
-        choiceList.append( getAnyEntryFromLesson(lessonsList.at(lessonID), questionID) );
-        answerButtonsList.at(i)->setText( choiceList.at(i)->translation(questionID)->text() );
+        choiceList.append( getAnyEntryFromLesson(lessonsList.at(lessonID), answerID) );
+        answerButtonsList.at(i)->setText( choiceList.at(i)->translation(answerID)->text() );
     }
 
     int random_int = rand() %  3  + 0;
     qDebug() << "ask for random_int: " <<  random_int;
 
-    QuestionLabel->setText(choiceList.at(random_int)->translation(answerID)->text());
+    QuestionLabel->setText(choiceList.at(random_int)->translation(questionID)->text());
     CorrectID = random_int;
 
 }
