@@ -2,6 +2,7 @@
 
     Copyright 2007 Jeremy Whiting <jpwhiting@kde.org>
     Copyright 2007 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
+    Copyright 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
 
  ***************************************************************************/
 

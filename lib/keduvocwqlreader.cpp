@@ -4,6 +4,7 @@
     copyright     : (C) 2004, 2007, 2008 Peter Hedlund <peter.hedlund@kdemail.net>
                     (C) 2005 Eric Pignet
                     (C) 2007 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
+                    (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
 
  ***************************************************************************/
 

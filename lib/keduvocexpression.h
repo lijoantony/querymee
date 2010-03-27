@@ -5,6 +5,8 @@
 
                            (C) 2005-2007 Peter Hedlund <peter.hedlund@kdemail.net>
     Copyright 2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
+    Copyright 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
+
  ***************************************************************************/
 
 /***************************************************************************

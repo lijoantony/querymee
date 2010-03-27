@@ -2,6 +2,9 @@
                      scan a group of KVTML documents to get information from them
     -----------------------------------------------------------------------
     copyright      : (C) 2007 Jeremy Whiting <jpwhiting@kde.org>
+
+    Copyright 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
+
  ***************************************************************************/
 
 /***************************************************************************

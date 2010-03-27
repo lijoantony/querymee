@@ -4,6 +4,8 @@
     copyright       : (C) 1999-2001 Ewald Arnold <kvoctrain@ewald-arnold.de>
 
                       (C) 2007 Peter Hedlund <peter.hedlund@kdemail.net>
+                      (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
+
  ***************************************************************************/
 
 /***************************************************************************
