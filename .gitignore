@@ -10,3 +10,4 @@ lib/libkeduvocdocument.so.1.0.0
 lib/tests/*.kvtml
 lib/tests/tests
 trainer/trainer
+TinyVocTrainer/TinyVocTrainer
