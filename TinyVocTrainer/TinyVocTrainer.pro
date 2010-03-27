@@ -12,5 +12,7 @@ INCLUDEPATH += . \
 QMAKE_LFLAGS += -Wl,-rpath,../lib
 SOURCES += main.cpp \
     tinyvoctrainer.cpp
+#    tinyvoctrainersettings.cpp
 HEADERS += tinyvoctrainer.h
+#    tinyvoctrainersettings.h
 FORMS += 

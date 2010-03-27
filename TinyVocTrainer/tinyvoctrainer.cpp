@@ -9,6 +9,7 @@
 #include <QList>
 #include <QRadioButton>
 #include <QPushButton>
+#include <QComboBox>
 
 TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     : QWidget(parent)
@@ -26,9 +27,10 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
     hbox_buttons->addWidget(button);
     connect(button, SIGNAL(clicked(bool)), this, SLOT(slotInit(bool)));
 
-    bgroup_lesson = new QButtonGroup();
-    bgroup_question_lang = new QButtonGroup();
-    bgroup_answer_lang =  new QButtonGroup();
+
+    QComboBox *combox_lesson = new QComboBox();
+    QComboBox *combox_question = new QComboBox();
+    QComboBox *combox_answer = new QComboBox();
     bgroup_choice =  new QButtonGroup();
 
     QuestionLabel = new QLabel();
@@ -79,24 +81,16 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
 
     for (int i = 0; i < docRead->identifierCount(); ++i)
     {
-        QRadioButton *radio_question_lang = new QRadioButton(docRead->identifier(i).name());
-        QRadioButton *radio_answer_lang = new QRadioButton(docRead->identifier(i).name());
-
-        bgroup_question_lang->addButton(radio_question_lang);
-        bgroup_answer_lang->addButton(radio_answer_lang);
-
-        bgroup_question_lang->setId(radio_question_lang, i);
-        bgroup_answer_lang->setId(radio_answer_lang, i);
-
-        hbox_question_lang->addWidget(radio_question_lang);
-        hbox_answer_lang->addWidget(radio_answer_lang);
-
-        connect(radio_question_lang, SIGNAL(toggled(bool)), this, SLOT(reactToToggleQuestionLang(bool)));
-        connect(radio_answer_lang, SIGNAL(toggled(bool)), this, SLOT(reactToToggleAnswerLang(bool)));
+        combox_question->insertItem(i, docRead->identifier(i).name(), NULL);
+        combox_answer->insertItem(i, docRead->identifier(i).name(), NULL);
     }
 
-    bgroup_question_lang->button(0)->click();;
-    bgroup_answer_lang->button(1)->click();
+    connect(combox_question,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleQuestion(int)));
+    connect(combox_answer,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleAnswer(int)));
+    combox_question->setCurrentIndex(0);
+    combox_answer->setCurrentIndex(1);
+    hbox_question_lang->addWidget(combox_question);
+    hbox_answer_lang->addWidget(combox_answer);
 
     int lessonId = 0;
     foreach(KEduVocContainer * c, lessons) {
@@ -105,21 +99,15 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent)
                 KEduVocLesson *m_lesson;
                 m_lesson = lessonsList.last() ;
                 qDebug () << "Lesson: " << m_lesson->name();
-                QRadioButton *radio_less = new QRadioButton(m_lesson->name());
 
-                bgroup_lesson->addButton(radio_less);
-                bgroup_lesson->setId(radio_less, lessonId);
-
-                hbox_less->addWidget(radio_less);
-
-                connect(radio_less, SIGNAL(toggled(bool)), this, SLOT(reactToToggleLesson(bool)));
-
-// qDebug() << "Return rand Entry: " << getAnyEntryFromLesson(m_lesson,1);
+                combox_lesson->insertItem(lessonId, m_lesson->name(), NULL);
         }
         ++lessonId;
     }
 
-    bgroup_lesson->button(0)->click();
+    connect(combox_lesson,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleLesson(int)));
+    combox_lesson->setCurrentIndex(0);
+    hbox_less->addWidget(combox_lesson);
 
     vbox->addLayout(hbox_less);
     vbox->addLayout(hbox_question_lang);
@@ -146,33 +134,24 @@ KEduVocExpression * TinyVocTrainer::getAnyEntryFromLesson(KEduVocLesson *lesson,
 
 
 
-void TinyVocTrainer::reactToToggleQuestionLang(bool checked)
-{
-    if(checked){   
-        qDebug() << "bgroup_question_lang: " << bgroup_question_lang->checkedId();
-        questionID = bgroup_question_lang->checkedId();
-        // slotInit();
-    }
+void TinyVocTrainer::reactToToggleQuestion(int id)
+{ 
+    qDebug() << "Toggle Question: " << id;
+    questionID = id;
 }
 
 
-void TinyVocTrainer::reactToToggleAnswerLang(bool checked)
+void TinyVocTrainer::reactToToggleAnswer(int id)
 {
-    if(checked){
-        qDebug() << "bgroup_answer_lang: " << bgroup_answer_lang->checkedId();
-        answerID = bgroup_answer_lang->checkedId();
-        // slotInit();
-    }
+    qDebug() << "Toggle Answer: " << id;
+    answerID = id;
 }
 
 
-void TinyVocTrainer::reactToToggleLesson(bool checked)
+void TinyVocTrainer::reactToToggleLesson(int id)
 {
-    if(checked){
-        qDebug() << "bgroup_lesson: " << bgroup_lesson->checkedId();
-        lessonID = bgroup_lesson->checkedId();
-        // slotInit();
-    }
+    qDebug() << "Toggle Lesson: " << id;
+    lessonID = id;
 }
 
 void TinyVocTrainer::slotAnswer1(bool clicked){

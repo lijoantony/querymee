@@ -42,9 +42,9 @@ public:
     int CorrectID;
 
 private slots:
-    void reactToToggleQuestionLang(bool checked = 0);
-    void reactToToggleAnswerLang(bool checked = 0);
-    void reactToToggleLesson(bool checked = 0);
+    void reactToToggleQuestion(int id = 0);
+    void reactToToggleAnswer(int id = 0);
+    void reactToToggleLesson(int id = 0);
     void slotCheck(int buttonID = 0);
     void slotAnswer1(bool clicked = 0);
     void slotAnswer2(bool clicked = 0);
