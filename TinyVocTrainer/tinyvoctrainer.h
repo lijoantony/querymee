@@ -23,9 +23,9 @@ public:
     ~TinyVocTrainer();
     KEduVocExpression * getAnyEntryFromLesson(KEduVocLesson *lesson = 0, int language = 0);
 
-    QButtonGroup *bgroup_lesson;
-    QButtonGroup *bgroup_question_lang;
-    QButtonGroup *bgroup_answer_lang;
+//    QButtonGroup *bgroup_lesson;
+//    QButtonGroup *bgroup_question_lang;
+//    QButtonGroup *bgroup_answer_lang;
     QButtonGroup *bgroup_choice;
     QList<KEduVocContainer *>  lessons;
     QList<KEduVocLesson *> lessonsList;
@@ -34,6 +34,7 @@ public:
     QPushButton *answer1;
     QPushButton *answer2;
     QPushButton *answer3;
+    QPushButton *answer4;
     QList<KEduVocExpression *> choiceList;
     QList<QPushButton *> answerButtonsList;
 
@@ -53,6 +54,7 @@ private slots:
     void slotAnswer1(bool clicked = 0);
     void slotAnswer2(bool clicked = 0);
     void slotAnswer3(bool clicked = 0);
+    void slotAnswer4(bool clicked = 0);
     void slotInit(bool clicked = 0);
     void slotSettings(bool clicked = 0);
 
