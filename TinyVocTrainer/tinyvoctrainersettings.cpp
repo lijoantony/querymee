@@ -45,7 +45,7 @@ TinyVocTrainerSettings::TinyVocTrainerSettings(QWidget *parent, const QString &f
     connect(buttons, SIGNAL(accepted()),this,SLOT(accept()));
     connect(buttons,SIGNAL(rejected()),this,SLOT(reject()));
 
-    KEduVocDocument *docRead = new KEduVocDocument();
+    QTvtVocDocument *docRead = new QTvtVocDocument();
     docRead->open(fileName);
 
     lessons = docRead->lesson()->childContainers();
@@ -64,10 +64,10 @@ TinyVocTrainerSettings::TinyVocTrainerSettings(QWidget *parent, const QString &f
     hbox_answer_lang->addWidget(combox_answer);
 
     int lessonId = 0;
-    foreach(KEduVocContainer * c, lessons) {
-        if (c->containerType() == KEduVocLesson::Lesson) {
-                lessonsList.append( static_cast<KEduVocLesson *>(c) );
-                KEduVocLesson *m_lesson;
+    foreach(QTvtVocContainer * c, lessons) {
+        if (c->containerType() == QTvtVocLesson::Lesson) {
+                lessonsList.append( static_cast<QTvtVocLesson *>(c) );
+                QTvtVocLesson *m_lesson;
                 m_lesson = lessonsList.last() ;
                 qDebug () << "Lesson: " << m_lesson->name();
 

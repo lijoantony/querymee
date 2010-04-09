@@ -75,16 +75,16 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent, const QString &fileName)
     lessonID = 0;
     CorrectID = 0;
 
-    KEduVocDocument *docRead = new KEduVocDocument();
+    QTvtVocDocument *docRead = new QTvtVocDocument();
     docRead->open(fileName);
 
     lessons = docRead->lesson()->childContainers();
 
     int lessonId = 0;
-    foreach(KEduVocContainer * c, lessons) {
-        if (c->containerType() == KEduVocLesson::Lesson) {
-                lessonsList.append( static_cast<KEduVocLesson *>(c) );
-                KEduVocLesson *m_lesson;
+    foreach(QTvtVocContainer * c, lessons) {
+        if (c->containerType() == QTvtVocLesson::Lesson) {
+                lessonsList.append( static_cast<QTvtVocLesson *>(c) );
+                QTvtVocLesson *m_lesson;
                 m_lesson = lessonsList.last() ;
                 qDebug () << "Lesson: " << m_lesson->name();
         }
@@ -108,7 +108,7 @@ TinyVocTrainer::~TinyVocTrainer()
 
 }
 
-KEduVocExpression * TinyVocTrainer::getAnyEntryFromLesson(KEduVocLesson *lesson, int language)
+QTvtVocExpression * TinyVocTrainer::getAnyEntryFromLesson(QTvtVocLesson *lesson, int language)
 {
     Q_UNUSED(language);
     int random_int = ( rand() %  ( lesson->entries().size() - 1 ) ) + 0;

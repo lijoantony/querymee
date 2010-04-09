@@ -4,7 +4,7 @@
 TARGET = TinyVocTrainer
 TEMPLATE = app
 LIBS += -L../lib \
-    -lkeduvocdocument
+    -lqtvtvocdocument
 DEPENDPATH += . \
     ../lib
 INCLUDEPATH += . \

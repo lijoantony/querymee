@@ -24,9 +24,9 @@
 #include <QLabel>
 #include <QDialogButtonBox>
 
-#include "keduvoclesson.h"
-#include "keduvocexpression.h"
-#include "keduvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
+#include "qtvtvocdocument.h"
 
 
 class TinyVocTrainerSettings : public QDialog
@@ -37,8 +37,8 @@ Q_OBJECT
 public:
     explicit TinyVocTrainerSettings(QWidget *parent = 0, const QString &fileName = "");
 
-    QList<KEduVocContainer *>  lessons;
-    QList<KEduVocLesson *> lessonsList;
+    QList<QTvtVocContainer *>  lessons;
+    QList<QTvtVocLesson *> lessonsList;
 
 private slots:
 //    void accept();

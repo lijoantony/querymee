@@ -22,10 +22,10 @@
 #include <QLabel>
 #include <QPushButton>
 
-#include "keduvocdocument.h"
-#include "keduvoclesson.h"
-#include "keduvocexpression.h"
-#include "keduvocleitnerbox.h"
+#include "qtvtvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
+#include "qtvtvocleitnerbox.h"
 
 #include "tinyvoctrainersettings.h"
 
@@ -36,21 +36,21 @@ class TinyVocTrainer : public QWidget
 public:
     TinyVocTrainer(QWidget *parent = 0, const QString &fileName = "");
     ~TinyVocTrainer();
-    KEduVocExpression * getAnyEntryFromLesson(KEduVocLesson *lesson = 0, int language = 0);
+    QTvtVocExpression * getAnyEntryFromLesson(QTvtVocLesson *lesson = 0, int language = 0);
 
 //    QButtonGroup *bgroup_lesson;
 //    QButtonGroup *bgroup_question_lang;
 //    QButtonGroup *bgroup_answer_lang;
     QButtonGroup *bgroup_choice;
-    QList<KEduVocContainer *>  lessons;
-    QList<KEduVocLesson *> lessonsList;
-    KEduVocDocument *docRead;
+    QList<QTvtVocContainer *>  lessons;
+    QList<QTvtVocLesson *> lessonsList;
+    QTvtVocDocument *docRead;
     QLabel *QuestionLabel;
     QPushButton *answer1;
     QPushButton *answer2;
     QPushButton *answer3;
     QPushButton *answer4;
-    QList<KEduVocExpression *> choiceList;
+    QList<QTvtVocExpression *> choiceList;
     QList<QPushButton *> answerButtonsList;
 
 
