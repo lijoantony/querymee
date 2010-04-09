@@ -18,9 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvoclesson.h"
+#include "qtvtvoclesson.h"
 
-#include "keduvocexpression.h"
+#include "qtvtvocexpression.h"
 
 #include <QtCore/QList>
 

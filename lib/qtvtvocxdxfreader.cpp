@@ -20,14 +20,14 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvocxdxfreader.h"
+#include "qtvtvocxdxfreader.h"
 
 #include <QIODevice>
 
 // #include <KLocale>
 
-#include "keduvocexpression.h"
-#include "keduvocdocument.h"
+#include "qtvtvocexpression.h"
+#include "qtvtvocdocument.h"
 
 QTvtVocXdxfReader::QTvtVocXdxfReader( QTvtVocDocument *doc )
 {

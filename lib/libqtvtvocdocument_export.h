@@ -22,8 +22,8 @@
     Boston, MA 02110-1301, USA.
 */
 
-#ifndef LIBKEDUVOCDOCUMENT_EXPORT_H
-#define LIBKEDUVOCDOCUMENT_EXPORT_H
+#ifndef LIBQTVTVOCDOCUMENT_EXPORT_H
+#define LIBQTVTVOCDOCUMENT_EXPORT_H
 
 /* needed for KDE_EXPORT and KDE_IMPORT macros */
 // #include <kdemacros.h>

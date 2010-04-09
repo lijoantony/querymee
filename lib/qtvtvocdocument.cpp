@@ -22,7 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvocdocument.h"
+#include "qtvtvocdocument.h"
 
 #include <QtCore/QFileInfo>
 // #include <QtCore/QTextStream>
@@ -38,19 +38,19 @@
 // #include <krandomsequence.h>
 // #include <kfilterdev.h>
 
-#include "keduvocexpression.h"
-#include "keduvoclesson.h"
-#include "keduvocleitnerbox.h"
-#include "keduvocwordtype.h"
-#include "keduvockvtmlwriter.h"
-#include "keduvockvtml2writer.h"
-#include "keduvoccsvreader.h"
-#include "keduvoccsvwriter.h"
-#include "keduvockvtml2reader.h"
-#include "keduvocwqlreader.h"
-#include "keduvocpaukerreader.h"
-#include "keduvocvokabelnreader.h"
-#include "keduvocxdxfreader.h"
+#include "qtvtvocexpression.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocleitnerbox.h"
+#include "qtvtvocwordtype.h"
+#include "qtvtvockvtmlwriter.h"
+#include "qtvtvockvtml2writer.h"
+#include "qtvtvoccsvreader.h"
+#include "qtvtvoccsvwriter.h"
+#include "qtvtvockvtml2reader.h"
+#include "qtvtvocwqlreader.h"
+#include "qtvtvocpaukerreader.h"
+#include "qtvtvocvokabelnreader.h"
+#include "qtvtvocxdxfreader.h"
 
 #define WQL_IDENT      "WordQuiz"
 
@@ -954,5 +954,4 @@ QString QTvtVocDocument::errorDescription( int errorCode )
     }
 }
 
-// #include "keduvocdocument.moc"
 

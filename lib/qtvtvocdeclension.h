@@ -27,10 +27,10 @@
 #ifndef KEDUVOCDECLENSION_H
 #define KEDUVOCDECLENSION_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
-#include "keduvoctext.h"
-#include "keduvocwordflags.h"
+#include "qtvtvoctext.h"
+#include "qtvtvocwordflags.h"
 
 /**
 A declension contains all forms that a NOUN possibly can have.

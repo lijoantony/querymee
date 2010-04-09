@@ -26,9 +26,9 @@
 #include <QtCore/QFile>
 
 #include "qtvtvocarticle.h"
-#include "keduvocmultiplechoice.h"
-#include "keduvoctranslation.h"
-#include "keduvocpersonalpronoun.h"
+#include "qtvtvocmultiplechoice.h"
+#include "qtvtvoctranslation.h"
+#include "qtvtvocpersonalpronoun.h"
 
 class QTvtVocDocument;
 class QTvtVocExpression;

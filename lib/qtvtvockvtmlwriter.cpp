@@ -23,7 +23,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvockvtmlwriter.h"
+#include "qtvtvockvtmlwriter.h"
 
 #include <QtCore/QLatin1String>
 #include <QtCore/QTextStream>
@@ -32,12 +32,12 @@
 // #include <KDebug>
 #include <QDebug>
 
-#include "keduvocdocument.h"
-// #include "keduvocgrade.h"
-#include "keduvoclesson.h"
-#include "keduvocexpression.h"
+#include "qtvtvocdocument.h"
+// #include "qtvtvocgrade.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
 #include "kvtmldefs.h"
-#include "keduvoccommon_p.h"
+#include "qtvtvoccommon_p.h"
 
 QTvtVocKvtmlWriter::QTvtVocKvtmlWriter( QFile *file )
 {

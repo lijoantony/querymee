@@ -29,11 +29,11 @@
 #include <QtCore/QFile>
 
 #include "qtvtvocarticle.h"
-#include "keduvocpersonalpronoun.h"
-#include "keduvocconjugation.h"
-#include "keduvocmultiplechoice.h"
-#include "keduvockvtmlcompability.h"
-#include "keduvoctranslation.h"
+#include "qtvtvocpersonalpronoun.h"
+#include "qtvtvocconjugation.h"
+#include "qtvtvocmultiplechoice.h"
+#include "qtvtvockvtmlcompability.h"
+#include "qtvtvoctranslation.h"
 
 class QTvtVocDocument;
 

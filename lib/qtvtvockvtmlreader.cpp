@@ -22,7 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvockvtmlreader.h"
+#include "qtvtvockvtmlreader.h"
 
 #include <QtCore/QTextStream>
 #include <QtCore/QList>
@@ -33,11 +33,11 @@
 // #include <klocale.h>
 // #include <kglobal.h>
 
-#include "keduvocdocument.h"
-#include "keduvoclesson.h"
-#include "keduvocwordtype.h"
+#include "qtvtvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocwordtype.h"
 #include "kvtmldefs.h"
-#include "keduvoccommon_p.h"
+#include "qtvtvoccommon_p.h"
 
 QTvtVocKvtmlReader::QTvtVocKvtmlReader( QIODevice *file )
 {
@@ -1098,4 +1098,3 @@ bool QTvtVocKvtmlReader::addLanguage( int languageId, const QString& locale)
 }
 
 
-// #include "keduvockvtmlreader.moc"

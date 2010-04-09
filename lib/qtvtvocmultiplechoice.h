@@ -31,7 +31,7 @@
 #ifndef KEDUVOCMULTIPLECHOICE_H
 #define KEDUVOCMULTIPLECHOICE_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
 #include <QtCore/QStringList>
 

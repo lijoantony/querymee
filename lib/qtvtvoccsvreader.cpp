@@ -29,7 +29,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvoccsvreader.h"
+#include "qtvtvoccsvreader.h"
 
 #include <QIODevice>
 #include <QTextStream>
@@ -37,9 +37,9 @@
 // #include <klocale.h>
 
 
-#include "keduvocdocument.h"
-#include "keduvoclesson.h"
-#include "keduvocexpression.h"
+#include "qtvtvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
 
 QTvtVocCsvReader::QTvtVocCsvReader( QIODevice *file )
 {

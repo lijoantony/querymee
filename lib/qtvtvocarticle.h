@@ -22,11 +22,11 @@
 #ifndef QTVTVOCARTICLE_H
 #define QTVTVOCARTICLE_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
 #include <QtCore/QStringList>
 
-#include "keduvocwordflags.h"
+#include "qtvtvocwordflags.h"
 
 class QTvtVocWordType;
 /**

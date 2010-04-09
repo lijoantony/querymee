@@ -27,7 +27,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvocmultiplechoice.h"
+#include "qtvtvocmultiplechoice.h"
 
 class QTvtVocMultipleChoice::QTvtVocMultipleChoicePrivate
 {

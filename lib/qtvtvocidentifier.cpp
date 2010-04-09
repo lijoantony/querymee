@@ -14,7 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "keduvocidentifier.h"
+#include "qtvtvocidentifier.h"
 
 class QTvtVocIdentifier::Private
 {

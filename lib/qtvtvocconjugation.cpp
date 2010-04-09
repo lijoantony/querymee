@@ -25,9 +25,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvocconjugation.h"
-#include "keduvoccommon_p.h"
-#include "keduvoctext.h"
+#include "qtvtvocconjugation.h"
+#include "qtvtvoccommon_p.h"
+#include "qtvtvoctext.h"
 #include "kvtml2defs.h"
 
 #include <QtCore/QMap>

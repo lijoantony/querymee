@@ -28,11 +28,11 @@
 #include <QtCore/QList>
 
 
-#include "keduvocexpression.h"
+#include "qtvtvocexpression.h"
 #include "qtvtvocarticle.h"
-#include "keduvocmultiplechoice.h"
-#include "keduvockvtmlcompability.h"
-#include "keduvocpersonalpronoun.h"
+#include "qtvtvocmultiplechoice.h"
+#include "qtvtvockvtmlcompability.h"
+#include "qtvtvocpersonalpronoun.h"
 
 class QIODevice;
 class QTvtVocDocument;

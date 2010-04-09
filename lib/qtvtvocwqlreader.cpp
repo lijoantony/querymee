@@ -21,7 +21,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvocwqlreader.h"
+#include "qtvtvocwqlreader.h"
 
 #include <QTextStream>
 #include <QIODevice>
@@ -29,8 +29,8 @@
 
 // #include <KLocale>
 
-#include "keduvocdocument.h"
-#include "keduvocexpression.h"
+#include "qtvtvocdocument.h"
+#include "qtvtvocexpression.h"
 
 QTvtVocWqlReader::QTvtVocWqlReader( QIODevice *file )
 {

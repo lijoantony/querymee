@@ -29,9 +29,9 @@
 #ifndef KEDUVOCCONJUGATION_H
 #define KEDUVOCCONJUGATION_H
 
-#include "libkeduvocdocument_export.h"
-#include "keduvoctext.h"
-#include "keduvocwordflags.h"
+#include "libqtvtvocdocument_export.h"
+#include "qtvtvoctext.h"
+#include "qtvtvocwordflags.h"
 
 #include <QtCore/QStringList>
 

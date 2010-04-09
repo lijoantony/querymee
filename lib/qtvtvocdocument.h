@@ -24,11 +24,11 @@
 #ifndef KEDUVOCDOCUMENT_H
 #define KEDUVOCDOCUMENT_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
-#include "keduvocidentifier.h"
+#include "qtvtvocidentifier.h"
 #include "qtvtvocarticle.h"
-#include "keduvocconjugation.h"
+#include "qtvtvocconjugation.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QList>

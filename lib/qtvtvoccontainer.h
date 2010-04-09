@@ -22,9 +22,9 @@
 #ifndef KEDUVOCCONTAINER_H
 #define KEDUVOCCONTAINER_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
-#include "keduvoctext.h"
+#include "qtvtvoctext.h"
 
 // #include <KDE/KUrl>
 #include <QUrl>

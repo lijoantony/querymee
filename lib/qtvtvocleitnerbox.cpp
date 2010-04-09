@@ -15,9 +15,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvocleitnerbox.h"
+#include "qtvtvocleitnerbox.h"
 
-#include "keduvocexpression.h"
+#include "qtvtvocexpression.h"
 
 #include <QtCore/QSet>
 

@@ -18,9 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvocwordtype.h"
+#include "qtvtvocwordtype.h"
 
-#include "keduvocexpression.h"
+#include "qtvtvocexpression.h"
 
 #include <QtCore/QList>
 #include <QtCore/QSet>

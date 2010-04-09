@@ -21,16 +21,16 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvoccsvwriter.h"
+#include "qtvtvoccsvwriter.h"
 
 #include <QFile>
 #include <QTextStream>
 
 // #include <KLocale>
 
-#include "keduvocdocument.h"
-#include "keduvoclesson.h"
-#include "keduvocexpression.h"
+#include "qtvtvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
 
 QTvtVocCsvWriter::QTvtVocCsvWriter( QFile *file )
 {

@@ -23,7 +23,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvockvtml2reader.h"
+#include "qtvtvockvtml2reader.h"
 
 #include <QtCore/QTextStream>
 #include <QtCore/QList>
@@ -33,13 +33,13 @@
 
 // #include <klocale.h>
 
-#include "keduvocdocument.h"
-#include "keduvoclesson.h"
-#include "keduvocleitnerbox.h"
-#include "keduvocwordtype.h"
+#include "qtvtvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocleitnerbox.h"
+#include "qtvtvocwordtype.h"
 #include "kvtml2defs.h"
-#include "keduvockvtmlreader.h"
-#include "keduvoccommon_p.h"
+#include "qtvtvockvtmlreader.h"
+#include "qtvtvoccommon_p.h"
 
 // #include <KDebug>
 
@@ -736,4 +736,3 @@ bool QTvtVocKvtml2Reader::readPersonalPronounChild(QDomElement & personElement, 
 }
 
 
-// #include "keduvockvtml2reader.moc"

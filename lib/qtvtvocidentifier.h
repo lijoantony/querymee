@@ -17,9 +17,9 @@
 #ifndef KEDUVOCIDENTIFIER_H
 #define KEDUVOCIDENTIFIER_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
-#include "keduvocpersonalpronoun.h"
+#include "qtvtvocpersonalpronoun.h"
 #include "qtvtvocarticle.h"
 
 #include <QtCore/QList>

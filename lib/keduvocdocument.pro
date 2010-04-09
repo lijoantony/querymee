@@ -11,35 +11,35 @@ QT += core xml
 
 # Input
 HEADERS += qtvtvocarticle.h \
-           keduvoccommon_p.h \
-           keduvocconjugation.h \
-           keduvoccontainer.h \
-#           keduvoccsvreader.h \
-           keduvoccsvwriter.h \
-           keduvocdeclension.h \
-           keduvocdocument.h \
-           keduvocexpression.h \
-           keduvocidentifier.h \
-           keduvockvtml2reader.h \
-           keduvockvtml2writer.h \
-           keduvockvtmlcompability.h \
-           keduvockvtmlreader.h \
-#           keduvockvtmlwriter.h \
-           keduvocleitnerbox.h \
-           keduvoclesson.h \
-           keduvocmultiplechoice.h \
-           keduvocpaukerreader.h \
-           keduvocpersonalpronoun.h \
-           keduvoctext.h \
-           keduvoctranslation.h \
-           keduvocvokabelnreader.h \
-           keduvocwordflags.h \
-           keduvocwordtype.h \
-#           keduvocwqlreader.h \
-#           keduvocxdxfreader.h \
+           qtvtvoccommon_p.h \
+           qtvtvocconjugation.h \
+           qtvtvoccontainer.h \
+#           qtvtvoccsvreader.h \
+           qtvtvoccsvwriter.h \
+           qtvtvocdeclension.h \
+           qtvtvocdocument.h \
+           qtvtvocexpression.h \
+           qtvtvocidentifier.h \
+           qtvtvockvtml2reader.h \
+           qtvtvockvtml2writer.h \
+           qtvtvockvtmlcompability.h \
+           qtvtvockvtmlreader.h \
+#           qtvtvockvtmlwriter.h \
+           qtvtvocleitnerbox.h \
+           qtvtvoclesson.h \
+           qtvtvocmultiplechoice.h \
+           qtvtvocpaukerreader.h \
+           qtvtvocpersonalpronoun.h \
+           qtvtvoctext.h \
+           qtvtvoctranslation.h \
+           qtvtvocvokabelnreader.h \
+           qtvtvocwordflags.h \
+           qtvtvocwordtype.h \
+#           qtvtvocwqlreader.h \
+#           qtvtvocxdxfreader.h \
            kvtml2defs.h \
            kvtmldefs.h \
-           libkeduvocdocument_export.h \
+           libqtvtvocdocument_export.h \
            sharedkvtmlfiles.h
 SOURCES += qtvtvocarticle.cpp \
            qtvtvocconjugation.cpp \

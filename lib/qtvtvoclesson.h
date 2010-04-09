@@ -21,9 +21,9 @@
 #ifndef KEDUVOCLESSON_H
 #define KEDUVOCLESSON_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
-#include "keduvoccontainer.h"
+#include "qtvtvoccontainer.h"
 
 class QTvtVocExpression;
 

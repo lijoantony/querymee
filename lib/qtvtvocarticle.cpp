@@ -20,7 +20,7 @@
  ***************************************************************************/
 
 #include "qtvtvocarticle.h"
-#include "keduvocwordflags.h"
+#include "qtvtvocwordflags.h"
 
 #include <QtCore/QMap>
 

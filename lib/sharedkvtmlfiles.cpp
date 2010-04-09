@@ -21,7 +21,7 @@
 
 #include "sharedkvtmlfiles.h"
 
-#include "keduvocdocument.h"
+#include "qtvtvocdocument.h"
 
 // #include <kio/copyjob.h>
 // #include <kio/job.h>

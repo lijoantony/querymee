@@ -1,12 +1,9 @@
 /***************************************************************************
-*   this file is from kdeedu project. Filename: keduvocwordtype.h
+*   this file is from kdeedu project. Filename: keduvocleitnerbox.h
 ***************************************************************************/
 
 /***************************************************************************
-
-    Copyright 2007 Jeremy Whiting <jpwhiting@kde.org>
-    Copyright 2007 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
-
+    Copyright 2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
  ***************************************************************************/
 
 /***************************************************************************
@@ -18,14 +15,12 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCWORDTYPE_H
-#define KEDUVOCWORDTYPE_H
+#ifndef KEDUVOCLEITNERBOX_H
+#define KEDUVOCLEITNERBOX_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
-#include "keduvoccontainer.h"
-
-#include "keduvocwordflags.h"
+#include "qtvtvoccontainer.h"
 
 #include <QtCore/QList>
 #include <QtCore/QString>
@@ -33,51 +28,29 @@
 class QTvtVocExpression;
 class QTvtVocTranslation;
 
-/** class to store translation word types */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocWordType :public QTvtVocContainer
+/**
+ * Leitner Boxes are an alternative grading system.
+ * Classically flash cards are kept in boxes and moved corresponding to the users knowledge level.
+ */
+class QTVTVOCDOCUMENT_EXPORT QTvtVocLeitnerBox :public QTvtVocContainer
 {
 public:
-
-
     /** default constructor */
-    explicit QTvtVocWordType(const QString& name, QTvtVocWordType *parent = 0);
+    explicit QTvtVocLeitnerBox(const QString& name, QTvtVocLeitnerBox *parent = 0);
 
     /** destructor */
-    ~QTvtVocWordType();
-
-    /** assignment operator */
-//     QTvtVocWordType& operator= ( const QTvtVocWordType& );
+    ~QTvtVocLeitnerBox();
 
     /**
-     * Internally (different from the name) the class can have one of the preset word types. These are used to determine special properties (verbs have conjugations available for example).
-     * @param type
-     */
-    void setWordType(QTvtVocWordFlags flags);
-
-    /**
-     * Return the raw WordTypeFlags. Returns NoInformation if no flags are set.
-     * @return WordTypeFlags
-     */
-     QTvtVocWordFlags wordType() const;
-
-    /**
-     * Return a child class (or this class) that is of the specified type. Returns 0 if no class of that type is found.
-     * @param type
-     * @return
-     */
-    QTvtVocWordType* childOfType(const QTvtVocWordFlags& flags);
-
-    /**
-     * The word type class does keep track of individual translations, because for one entry, the translations can have different word types (eg. genders of nouns tend to be different in different langues).
-     * @param row
-     * @return
+     * The leitner box class keeps track of individual translations, because for one entry, the translations can have different grades.
+     * @param row 
+     * @return 
      */
     QTvtVocTranslation * translation(int row);
 
     /**
-     * get a list of all entries in the lesson
-     * @param recursive include entries in sublessons
-     * @return
+     * get a list of all entries in the box
+     * @return 
      */
     QList < QTvtVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive);
 

@@ -25,15 +25,15 @@
 #ifndef KEDUVOCEXPRESSION_H
 #define KEDUVOCEXPRESSION_H
 
-#include "libkeduvocdocument_export.h"
+#include "libqtvtvocdocument_export.h"
 
 #include <QtCore/QDateTime>
 #include <QMap>
 
-#include "keduvoclesson.h"
+#include "qtvtvoclesson.h"
 #include "qtvtvocarticle.h"
-#include "keduvocmultiplechoice.h"
-#include "keduvoctranslation.h"
+#include "qtvtvocmultiplechoice.h"
+#include "qtvtvoctranslation.h"
 
 class QTvtVocLesson;
 
