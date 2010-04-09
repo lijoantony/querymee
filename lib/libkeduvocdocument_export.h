@@ -1,3 +1,7 @@
+/***************************************************************************
+*   this file is from kdeedu project. Filename: libkeduvocdocument_export.h
+***************************************************************************/
+
 /*  This file is part of the KDE project
     Copyright (C) 2007 David Faure <faure@kde.org>
     Copyright (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>

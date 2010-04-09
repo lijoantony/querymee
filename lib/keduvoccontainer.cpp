@@ -1,4 +1,8 @@
 /***************************************************************************
+*   this file is from kdeedu project. Filename: keduvoccontainer.cpp
+***************************************************************************/
+
+/***************************************************************************
 
     Copyright 2007 Jeremy Whiting <jpwhiting@kde.org>
     Copyright 2007 Frederik Gladhorn <frederik.gladhorn@kdemail.net>

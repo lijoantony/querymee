@@ -1,4 +1,8 @@
 /***************************************************************************
+*   this file is from kdeedu project. Filename: keduvoctranslation.h
+***************************************************************************/
+
+/***************************************************************************
                         Vocabulary Expression Translation for KDE Edu
     -----------------------------------------------------------------------
     Copyright 2007-2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>

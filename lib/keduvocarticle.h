@@ -1,4 +1,8 @@
 /***************************************************************************
+*   this file is from kdeedu project. Filename: keduvocarticle.h
+***************************************************************************/
+
+/***************************************************************************
 
     Copyright 1999-2001 Ewald Arnold <kvoctrain@ewald-arnold.de>
     Copyright 2005, 2007 Peter Hedlund <peter.hedlund@kdemail.net>

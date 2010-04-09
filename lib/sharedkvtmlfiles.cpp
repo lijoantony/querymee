@@ -1,4 +1,8 @@
 /***************************************************************************
+*   this file is from kdeedu project. Filename: sharedkvtmlfiles.cpp
+***************************************************************************/
+
+/***************************************************************************
         scan a group of KVTML documents to get information from them
     -----------------------------------------------------------------------
     copyright      : (C) 2007 Jeremy Whiting <jpwhiting@kde.org>
