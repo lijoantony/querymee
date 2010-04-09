@@ -6,6 +6,7 @@
                      create a QTvtVocDocument from a Vokabeln file
     -----------------------------------------------------------------------
     copyright     : (C) 2007 Peter Hedlund <peter.hedlund@kdemail.net>
+    Copyright     : (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
 
 
  ***************************************************************************/

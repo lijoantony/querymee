@@ -7,6 +7,7 @@
     Copyright 1999-2001 Ewald Arnold <kvoctrain@ewald-arnold.de>
     Copyright 2004, 2005, 2007 Peter Hedlund <peter.hedlund@kdemail.net>
     Copyright 2007-2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
+    Copyright (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
 
  ***************************************************************************/
 
