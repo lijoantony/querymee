@@ -20,7 +20,7 @@
 #include "libkeduvocdocument_export.h"
 
 #include "keduvocpersonalpronoun.h"
-#include "keduvocarticle.h"
+#include "qtvtvocarticle.h"
 
 #include <QtCore/QList>
 #include <QtCore/QString>

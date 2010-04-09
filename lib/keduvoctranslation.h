@@ -24,7 +24,7 @@
 #define KEDUVOCTRANSLATION_H
 
 #include "libkeduvocdocument_export.h"
-#include "keduvocarticle.h"
+#include "qtvtvocarticle.h"
 #include "keduvocconjugation.h"
 #include "keduvoctext.h"
 // #include <KDE/KUrl>
@@ -32,7 +32,7 @@
 #include <QtCore/QString>
 
 class QTvtVocExpression;
-class KEduVocString;
+// class KEduVocString;
 class QTvtVocWordType;
 class QTvtVocLeitnerBox;
 class QTvtVocDeclension;

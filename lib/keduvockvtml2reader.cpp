@@ -50,7 +50,7 @@ QTvtVocKvtml2Reader::QTvtVocKvtml2Reader( QFile *file )
     if ( !m_inputFile->isOpen() ) {
         m_errorMessage =  "file must be opened first" ;
     }
-    qDebug("KEduVocKvtml2Reader constructor");
+    qDebug("QTvtVocKvtml2Reader constructor");
 }
 
 

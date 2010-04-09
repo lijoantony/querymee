@@ -27,7 +27,7 @@
 #include "libkeduvocdocument_export.h"
 
 #include "keduvocidentifier.h"
-#include "keduvocarticle.h"
+#include "qtvtvocarticle.h"
 #include "keduvocconjugation.h"
 
 #include <QtCore/QObject>

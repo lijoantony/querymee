@@ -44,7 +44,7 @@ QTvtVocKvtmlReader::QTvtVocKvtmlReader( QIODevice *file )
     // the file must be already open
     m_inputFile = file;
     m_errorMessage = "";
-    qDebug() << "KEduVocKvtmlReader for kvtml version 1 files started.";
+    qDebug() << "QTvtVocKvtmlReader for kvtml version 1 files started.";
 }
 
 

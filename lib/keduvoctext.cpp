@@ -22,7 +22,7 @@
 
 #include <QtXml/QDomDocument>
 
-class QTvtVocText::KEduVocTextPrivate
+class QTvtVocText::QTvtVocTextPrivate
 {
 public:
     /// This is the word itself. The vocabulary. This is what it is all about.
@@ -35,14 +35,14 @@ public:
 };
 
 QTvtVocText::QTvtVocText(const QString& text)
-        :d( new KEduVocTextPrivate )
+        :d( new QTvtVocTextPrivate )
 {
     d->m_text = text;
     resetGrades();
 }
 
 QTvtVocText::QTvtVocText( const QTvtVocText &other )
-        :d( new KEduVocTextPrivate )
+        :d( new QTvtVocTextPrivate )
 {
     d->m_text = other.d->m_text;
     setGrade( other.grade() );

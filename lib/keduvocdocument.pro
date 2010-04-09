@@ -10,7 +10,7 @@ INCLUDEPATH += .
 QT += core xml
 
 # Input
-HEADERS += keduvocarticle.h \
+HEADERS += qtvtvocarticle.h \
            keduvoccommon_p.h \
            keduvocconjugation.h \
            keduvoccontainer.h \

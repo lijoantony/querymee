@@ -502,7 +502,7 @@ bool QTvtVocKvtml2Writer::writeEntries( QDomElement &entriesElement )
 
 bool QTvtVocKvtml2Writer::writeTranslation( QDomElement &translationElement, QTvtVocTranslation* translation )
 {
-    // so far only for KEduVocWord - text and grades
+    // so far only for QTvtVocWord - text and grades
     translation->toKVTML2(translationElement);
 
     // comparison

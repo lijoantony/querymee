@@ -29,7 +29,7 @@
 
 
 #include "keduvocexpression.h"
-#include "keduvocarticle.h"
+#include "qtvtvocarticle.h"
 #include "keduvocmultiplechoice.h"
 #include "keduvockvtmlcompability.h"
 #include "keduvocpersonalpronoun.h"

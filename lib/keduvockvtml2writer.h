@@ -25,7 +25,7 @@
 #include <QtCore/QList>
 #include <QtCore/QFile>
 
-#include "keduvocarticle.h"
+#include "qtvtvocarticle.h"
 #include "keduvocmultiplechoice.h"
 #include "keduvoctranslation.h"
 #include "keduvocpersonalpronoun.h"
@@ -87,7 +87,7 @@ private:
     /**
      * write the leitner boxes @see QTvtVocLeitnerBox
      * @param leitnerParentElement parent dom element
-     * @param parentContainer parent of the KEduVocLeitnerBoxes to write
+     * @param parentContainer parent of the QTvtVocLeitnerBoxes to write
      * @return success
      */
     bool writeLeitnerBoxes( QDomElement &leitnerParentElement, QTvtVocLeitnerBox* parentContainer );

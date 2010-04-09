@@ -29,7 +29,7 @@
 
 #include "keduvocexpression.h"
 #include "keduvocpersonalpronoun.h"
-#include "keduvocarticle.h"
+#include "qtvtvocarticle.h"
 #include "keduvocmultiplechoice.h"
 
 class QIODevice;

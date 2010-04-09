@@ -19,7 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "keduvocarticle.h"
+#include "qtvtvocarticle.h"
 #include "keduvocwordflags.h"
 
 #include <QtCore/QMap>

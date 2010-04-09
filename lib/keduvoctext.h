@@ -167,8 +167,8 @@ public:
     void toKVTML2(QDomElement& parent);
 
 private:
-    class KEduVocTextPrivate;
-    KEduVocTextPrivate * const d;
+    class QTvtVocTextPrivate;
+    QTvtVocTextPrivate * const d;
 };
 
 #endif

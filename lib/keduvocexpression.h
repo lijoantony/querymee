@@ -31,7 +31,7 @@
 #include <QMap>
 
 #include "keduvoclesson.h"
-#include "keduvocarticle.h"
+#include "qtvtvocarticle.h"
 #include "keduvocmultiplechoice.h"
 #include "keduvoctranslation.h"
 
@@ -127,4 +127,4 @@ private:
     friend class QTvtVocLesson;
 };
 
-#endif // KEduVocExpression_H
+#endif // KEDUVOCEXPRESSION_H
