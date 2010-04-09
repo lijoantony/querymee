@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCKVTML2READER_H
-#define KEDUVOCKVTML2READER_H
+#ifndef QTVTVOCKVTML2READER_H
+#define QTVTVOCKVTML2READER_H
 
 #include <QtXml/QDomDocument>
 #include <QList>
@@ -37,7 +37,7 @@ class QTvtVocDocument;
 class QTvtVocWordType;
 
 /**
-* @brief class to read kvtml2 data files into keduvocdocument
+* @brief class to read kvtml2 data files into qtvtvocdocument
 * @author Jeremy Whiting
 */
 class QTvtVocKvtml2Reader : public QObject

@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-    C++ Interface: keduvockvtml1compability_p
+    C++ Interface: qtvtvockvtml1compability_p
 
     -----------------------------------------------------------------------
 
@@ -25,8 +25,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCKVTMLCOMPABILITY_H
-#define KEDUVOCKVTMLCOMPABILITY_H
+#ifndef QTVTVOCKVTMLCOMPABILITY_H
+#define QTVTVOCKVTMLCOMPABILITY_H
 
 #include <QtCore/QString>
 #include <QtCore/QMap>
@@ -130,4 +130,4 @@ private:
     static const QString KVTML_1_SEPERATOR;
 };
 
-#endif // KEDUVOCKVTMLCOMPABILITY_H
+#endif // QTVTVOCKVTMLCOMPABILITY_H

@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCCONTAINER_H
-#define KEDUVOCCONTAINER_H
+#ifndef QTVTVOCCONTAINER_H
+#define QTVTVOCCONTAINER_H
 
 #include "libqtvtvocdocument_export.h"
 

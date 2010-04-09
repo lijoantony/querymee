@@ -18,8 +18,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCWORDTYPE_H
-#define KEDUVOCWORDTYPE_H
+#ifndef QTVTVOCWORDTYPE_H
+#define QTVTVOCWORDTYPE_H
 
 #include "libqtvtvocdocument_export.h"
 

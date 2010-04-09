@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCWQLREADER_H
-#define KEDUVOCWQLREADER_H
+#ifndef QTVTVOCWQLREADER_H
+#define QTVTVOCWQLREADER_H
 
 #include <QString>
 

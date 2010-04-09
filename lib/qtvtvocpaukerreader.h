@@ -18,8 +18,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCPAUKERREADER_H
-#define KEDUVOCPAUKERREADER_H
+#ifndef QTVTVOCPAUKERREADER_H
+#define QTVTVOCPAUKERREADER_H
 
 #include <QXmlStreamReader>
 

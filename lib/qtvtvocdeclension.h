@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-    C++ Interface: keduvocdeclension
+    C++ Interface: qtvtvocdeclension
 
     -----------------------------------------------------------------------
 
@@ -24,8 +24,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef KEDUVOCDECLENSION_H
-#define KEDUVOCDECLENSION_H
+#ifndef QTVTVOCDECLENSION_H
+#define QTVTVOCDECLENSION_H
 
 #include "libqtvtvocdocument_export.h"
 

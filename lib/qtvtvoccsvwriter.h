@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCCSVWRITER_H
-#define KEDUVOCCSVWRITER_H
+#ifndef QTVTVOCCSVWRITER_H
+#define QTVTVOCCSVWRITER_H
 
 class QFile;
 class QString;

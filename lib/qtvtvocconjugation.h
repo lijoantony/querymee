@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-    C++ Interface: keduvocconjugation
+    C++ Interface: qtvtvocconjugation
 
     -----------------------------------------------------------------------
 
@@ -26,8 +26,8 @@
  ***************************************************************************/
 
 
-#ifndef KEDUVOCCONJUGATION_H
-#define KEDUVOCCONJUGATION_H
+#ifndef QTVTVOCCONJUGATION_H
+#define QTVTVOCCONJUGATION_H
 
 #include "libqtvtvocdocument_export.h"
 #include "qtvtvoctext.h"
@@ -81,5 +81,5 @@ private:
 
 
 
-#endif // KEDUVOCCONJUGATION_H
+#endif // QTVTVOCCONJUGATION_H
 

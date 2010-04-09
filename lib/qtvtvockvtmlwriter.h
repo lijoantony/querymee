@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCKVTMLWRITER_H
-#define KEDUVOCKVTMLWRITER_H
+#ifndef QTVTVOCKVTMLWRITER_H
+#define QTVTVOCKVTMLWRITER_H
 
 #include <QtXml/QDomDocument>
 #include <QtCore/QList>

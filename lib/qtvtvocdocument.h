@@ -21,8 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCDOCUMENT_H
-#define KEDUVOCDOCUMENT_H
+#ifndef QTVTVOCDOCUMENT_H
+#define QTVTVOCDOCUMENT_H
 
 #include "libqtvtvocdocument_export.h"
 
@@ -334,7 +334,7 @@ Q_SIGNALS:
     void docModified( bool mod );
 
 private:
-    // The private data of this - see QTvtVocDocument::Private, implemented in keduvocdocument.cpp
+    // The private data of this - see QTvtVocDocument::Private, implemented in qtvtvocdocument.cpp
     class QTvtVocDocumentPrivate;
     QTvtVocDocumentPrivate* const d;
 
@@ -342,4 +342,4 @@ private:
 };
 
 
-#endif // KEDUVOCDOCUMENT_H
+#endif // QTVTVOCDOCUMENT_H

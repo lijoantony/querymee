@@ -18,8 +18,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCCSVREADER_H
-#define KEDUVOCCSVREADER_H
+#ifndef QTVTVOCCSVREADER_H
+#define QTVTVOCCSVREADER_H
 
 #include <QString>
 

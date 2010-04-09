@@ -22,8 +22,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCEXPRESSION_H
-#define KEDUVOCEXPRESSION_H
+#ifndef QTVTVOCEXPRESSION_H
+#define QTVTVOCEXPRESSION_H
 
 #include "libqtvtvocdocument_export.h"
 
@@ -127,4 +127,4 @@ private:
     friend class QTvtVocLesson;
 };
 
-#endif // KEDUVOCEXPRESSION_H
+#endif // QTVTVOCEXPRESSION_H

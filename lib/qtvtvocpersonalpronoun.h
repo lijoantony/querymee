@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 
-#ifndef KEDUVOCPERSONALPRONOUN_H
-#define KEDUVOCPERSONALPRONOUN_H
+#ifndef QTVTVOCPERSONALPRONOUN_H
+#define QTVTVOCPERSONALPRONOUN_H
 
 #include "libqtvtvocdocument_export.h"
 #include "qtvtvocconjugation.h"
@@ -61,5 +61,5 @@ private:
 
 
 
-#endif // KEDUVOCCONJUGATION_H
+#endif // QTVTVOCCONJUGATION_H
 

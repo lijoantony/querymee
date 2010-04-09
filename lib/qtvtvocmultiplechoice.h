@@ -28,8 +28,8 @@
  ***************************************************************************/
 
 
-#ifndef KEDUVOCMULTIPLECHOICE_H
-#define KEDUVOCMULTIPLECHOICE_H
+#ifndef QTVTVOCMULTIPLECHOICE_H
+#define QTVTVOCMULTIPLECHOICE_H
 
 #include "libqtvtvocdocument_export.h"
 

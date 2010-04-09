@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCLEITNERBOX_H
-#define KEDUVOCLEITNERBOX_H
+#ifndef QTVTVOCLEITNERBOX_H
+#define QTVTVOCLEITNERBOX_H
 
 #include "libqtvtvocdocument_export.h"
 

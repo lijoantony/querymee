@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCVOKABELNREADER_H
-#define KEDUVOCVOKABELNREADER_H
+#ifndef QTVTVOCVOKABELNREADER_H
+#define QTVTVOCVOKABELNREADER_H
 
 #include <QString>
 

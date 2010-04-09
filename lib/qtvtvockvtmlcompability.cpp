@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-    C++ Implementation: keduvockvtml1compability_p
+    C++ Implementation: qtvtvockvtml1compability_p
 
     -----------------------------------------------------------------------
 

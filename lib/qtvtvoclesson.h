@@ -18,8 +18,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCLESSON_H
-#define KEDUVOCLESSON_H
+#ifndef QTVTVOCLESSON_H
+#define QTVTVOCLESSON_H
 
 #include "libqtvtvocdocument_export.h"
 

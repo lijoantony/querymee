@@ -15,8 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCWORDFLAGS_H
-#define KEDUVOCWORDFLAGS_H
+#ifndef QTVTVOCWORDFLAGS_H
+#define QTVTVOCWORDFLAGS_H
 
 #include <QFlags>
 

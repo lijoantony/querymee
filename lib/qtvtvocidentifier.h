@@ -14,8 +14,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef KEDUVOCIDENTIFIER_H
-#define KEDUVOCIDENTIFIER_H
+#ifndef QTVTVOCIDENTIFIER_H
+#define QTVTVOCIDENTIFIER_H
 
 #include "libqtvtvocdocument_export.h"
 
