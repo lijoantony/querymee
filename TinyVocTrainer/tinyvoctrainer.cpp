@@ -26,6 +26,8 @@
 #include <QPushButton>
 #include <QComboBox>
 
+#define NumberOfButtons 4
+
 TinyVocTrainer::TinyVocTrainer(QWidget *parent, const QString &fileName)
     : QWidget(parent)
 {
@@ -177,12 +179,12 @@ void TinyVocTrainer::slotInit(bool clicked){
     Q_UNUSED(clicked);
 
     choiceList.clear();
-    for (int i=0; i < 4; ++i){
+    for (int i=0; i < NumberOfButtons; ++i){
         choiceList.append( getAnyEntryFromLesson(lessonsList.at(lessonID), answerID) );
         answerButtonsList.at(i)->setText( choiceList.at(i)->translation(answerID)->text() );
     }
 
-    int random_int = rand() %  3  + 0;
+    int random_int = rand() %  NumberOfButtons  + 0;
     qDebug() << "ask for random_int: " <<  random_int;
 
     QuestionLabel->setText(choiceList.at(random_int)->translation(questionID)->text());
