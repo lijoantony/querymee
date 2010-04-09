@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef KEDUVOCARTICLE_H
-#define KEDUVOCARTICLE_H
+#ifndef QTVTVOCARTICLE_H
+#define QTVTVOCARTICLE_H
 
 #include "libkeduvocdocument_export.h"
 
