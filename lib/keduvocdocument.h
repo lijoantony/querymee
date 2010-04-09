@@ -38,16 +38,16 @@
 #include <QUrl>
 
 class QStringList;
-class KEduVocExpression;
-class KEduVocLesson;
-class KEduVocWordType;
-class KEduVocLeitnerBox;
+class QTvtVocExpression;
+class QTvtVocLesson;
+class QTvtVocWordType;
+class QTvtVocLeitnerBox;
 
 /**
  * This class contains the expressions of your vocabulary
  * as well as other information about the vocabulary
  */
-class KEDUVOCDOCUMENT_EXPORT KEduVocDocument : public QObject
+class QTVTVOCDOCUMENT_EXPORT QTvtVocDocument : public QObject
 {
     Q_OBJECT
 public:
@@ -97,12 +97,12 @@ public:
      *
      * @param parent calling object
      */
-    explicit KEduVocDocument( QObject* parent = 0 );
+    explicit QTvtVocDocument( QObject* parent = 0 );
 
     /**
      * Destructor
      */
-    ~KEduVocDocument();
+    ~QTvtVocDocument();
 
     // *** whole document methods ***
 
@@ -112,7 +112,7 @@ public:
      * @param url      url to file to open
      * @returns        ErrorCode
      */
-    int open( const KUrl& url );
+    int open( const QUrl& url );
 
     /**
      * Saves the data under the given name
@@ -122,7 +122,7 @@ public:
      * @param generator  the name of the application saving the document
      * @returns          ErrorCode
      */
-    int saveAs( const KUrl & url, FileType ft, const QString & generator );
+    int saveAs( const QUrl & url, FileType ft, const QString & generator );
 
     QByteArray toByteArray(const QString &generator);
 
@@ -133,7 +133,7 @@ public:
      * @param matchIdentifiers if true only entries having identifiers present in the
      *                         current document will be mergedurl is empty (or NULL) actual name is preserved
      */
-    void merge( KEduVocDocument *docToMerge, bool matchIdentifiers );
+    void merge( QTvtVocDocument *docToMerge, bool matchIdentifiers );
 
     /**
      * Indicates if the document is modified
@@ -148,10 +148,10 @@ public:
     /**
      * Sets the URL of the XML file
      */
-    void setUrl( const KUrl& url );
+    void setUrl( const QUrl& url );
 
     /** @returns the URL of the XML file */
-    KUrl url() const;
+    QUrl url() const;
 
 
     /** set the title of the file
@@ -224,7 +224,7 @@ public:
      * @param identifier the identifier to append. If empty default names are used.
      * @returns the identifier number
      */
-    int appendIdentifier( const KEduVocIdentifier & identifier = KEduVocIdentifier());
+    int appendIdentifier( const QTvtVocIdentifier & identifier = QTvtVocIdentifier());
 
     /**
      * Sets the identifier of translation
@@ -232,7 +232,7 @@ public:
      * @param index            number of translation 0..x
      * @param lang             the language identifier: en=english, de=german, ...
      */
-    void setIdentifier( int index, const KEduVocIdentifier& lang );
+    void setIdentifier( int index, const QTvtVocIdentifier& lang );
 
     /**
      * Returns the identifier of translation @p index
@@ -240,12 +240,12 @@ public:
      * @param index            number of translation 0..x
      * @returns                the language identifier: en=english, de=german, ...
      */
-    KEduVocIdentifier& identifier( int index );
+    QTvtVocIdentifier& identifier( int index );
 
     /**
      * Const overload of identifier(int);
      */
-    const KEduVocIdentifier& identifier( int index ) const;
+    const QTvtVocIdentifier& identifier( int index ) const;
 
     /**
      * Removes identifier and the according translation in all entries
@@ -287,11 +287,11 @@ public:
     /** get the lesson root object
      * @returns a pointer to the lesson object
      */
-    KEduVocLesson * lesson();
+    QTvtVocLesson * lesson();
 
-    KEduVocWordType * wordTypeContainer();
+    QTvtVocWordType * wordTypeContainer();
 
-    KEduVocLeitnerBox * leitnerContainer();
+    QTvtVocLeitnerBox * leitnerContainer();
 
     // *** file format specific methods ***
 
@@ -325,7 +325,7 @@ public:
     static QString errorDescription( int errorCode );
 
 Q_SIGNALS:
-    void progressChanged( KEduVocDocument *, int curr_percent );
+    void progressChanged( QTvtVocDocument *, int curr_percent );
 
     /**
      * Emitted when the document becomes modified or saved.
@@ -334,11 +334,11 @@ Q_SIGNALS:
     void docModified( bool mod );
 
 private:
-    // The private data of this - see KEduVocDocument::Private, implemented in keduvocdocument.cpp
-    class KEduVocDocumentPrivate;
-    KEduVocDocumentPrivate* const d;
+    // The private data of this - see QTvtVocDocument::Private, implemented in keduvocdocument.cpp
+    class QTvtVocDocumentPrivate;
+    QTvtVocDocumentPrivate* const d;
 
-    Q_DISABLE_COPY( KEduVocDocument )
+    Q_DISABLE_COPY( QTvtVocDocument )
 };
 
 

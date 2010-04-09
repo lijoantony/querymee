@@ -28,42 +28,42 @@
 // #include <KDebug>
 
 
-class KEduVocExpression::KEduVocExpressionPrivate
+class QTvtVocExpression::QTvtVocExpressionPrivate
 {
 public:
-    KEduVocExpressionPrivate()
+    QTvtVocExpressionPrivate()
     {
         m_active = true;
         m_lesson = 0;
     }
-    ~KEduVocExpressionPrivate();
+    ~QTvtVocExpressionPrivate();
 
-    KEduVocExpressionPrivate(const KEduVocExpressionPrivate &other);
-    KEduVocExpressionPrivate& operator= (const KEduVocExpressionPrivate &other);
+    QTvtVocExpressionPrivate(const QTvtVocExpressionPrivate &other);
+    QTvtVocExpressionPrivate& operator= (const QTvtVocExpressionPrivate &other);
 
-    bool operator== ( const KEduVocExpressionPrivate &p ) const;
+    bool operator== ( const QTvtVocExpressionPrivate &p ) const;
 
-    KEduVocLesson* m_lesson;
+    QTvtVocLesson* m_lesson;
     bool m_active;
 
-    QMap <int, KEduVocTranslation*> m_translations;
+    QMap <int, QTvtVocTranslation*> m_translations;
 };
 
-KEduVocExpression::KEduVocExpressionPrivate::~KEduVocExpressionPrivate()
+QTvtVocExpression::QTvtVocExpressionPrivate::~QTvtVocExpressionPrivate()
 {
-    QMap <int, KEduVocTranslation*> translations = m_translations;
+    QMap <int, QTvtVocTranslation*> translations = m_translations;
     // empty the translations map, otherwise removal from word type will try to access them again when they don't exist any more
     m_translations.clear();
     qDeleteAll(translations);
 }
 
-KEduVocExpression::KEduVocExpressionPrivate::KEduVocExpressionPrivate(const KEduVocExpressionPrivate & other)
+QTvtVocExpression::QTvtVocExpressionPrivate::QTvtVocExpressionPrivate(const QTvtVocExpressionPrivate & other)
 {
     m_active = other.m_active;
     m_lesson = 0;
 }
 
-KEduVocExpression::KEduVocExpressionPrivate & KEduVocExpression::KEduVocExpressionPrivate::operator =(const KEduVocExpressionPrivate & other)
+QTvtVocExpression::QTvtVocExpressionPrivate & QTvtVocExpression::QTvtVocExpressionPrivate::operator =(const QTvtVocExpressionPrivate & other)
 {
     m_active = other.m_active;
     m_lesson = 0;
@@ -71,7 +71,7 @@ KEduVocExpression::KEduVocExpressionPrivate & KEduVocExpression::KEduVocExpressi
     return *this;
 }
 
-bool KEduVocExpression::KEduVocExpressionPrivate::operator== ( const KEduVocExpression::KEduVocExpressionPrivate &p ) const
+bool QTvtVocExpression::QTvtVocExpressionPrivate::operator== ( const QTvtVocExpression::QTvtVocExpressionPrivate &p ) const
 {
     return
         m_translations == p.m_translations &&
@@ -80,18 +80,18 @@ bool KEduVocExpression::KEduVocExpressionPrivate::operator== ( const KEduVocExpr
 }
 
 
-KEduVocExpression::KEduVocExpression()
-        : d( new KEduVocExpressionPrivate )
+QTvtVocExpression::QTvtVocExpression()
+        : d( new QTvtVocExpressionPrivate )
 {}
 
-KEduVocExpression::KEduVocExpression( const QString & expression )
-        : d( new KEduVocExpressionPrivate )
+QTvtVocExpression::QTvtVocExpression( const QString & expression )
+        : d( new QTvtVocExpressionPrivate )
 {
     setTranslation( 0, expression.simplified() );
 }
 
-KEduVocExpression::KEduVocExpression( const QStringList & translations)
-        : d( new KEduVocExpressionPrivate )
+QTvtVocExpression::QTvtVocExpression( const QStringList & translations)
+        : d( new QTvtVocExpressionPrivate )
 {
     foreach ( const QString &translation, translations ) {
         setTranslation(d->m_translations.count(), translation);
@@ -99,32 +99,32 @@ KEduVocExpression::KEduVocExpression( const QStringList & translations)
 }
 
 
-KEduVocExpression::KEduVocExpression(const KEduVocExpression & other)
-    : d(new KEduVocExpressionPrivate(*other.d))
+QTvtVocExpression::QTvtVocExpression(const QTvtVocExpression & other)
+    : d(new QTvtVocExpressionPrivate(*other.d))
 {
     foreach (int key, other.d->m_translations.keys()) {
-        d->m_translations[key] = new KEduVocTranslation(*other.d->m_translations.value(key));
+        d->m_translations[key] = new QTvtVocTranslation(*other.d->m_translations.value(key));
         d->m_translations[key]->setEntry(this);
     }
 }
 
-KEduVocExpression& KEduVocExpression::operator= ( const KEduVocExpression &other )
+QTvtVocExpression& QTvtVocExpression::operator= ( const QTvtVocExpression &other )
 {
     *d = *other.d;
     foreach (int key, other.d->m_translations.keys()) {
-        d->m_translations[key] = new KEduVocTranslation(*other.d->m_translations.value(key));
+        d->m_translations[key] = new QTvtVocTranslation(*other.d->m_translations.value(key));
         d->m_translations[key]->setEntry(this);
     }
     return *this;
 }
 
-KEduVocExpression::~KEduVocExpression()
+QTvtVocExpression::~QTvtVocExpression()
 {
     setLesson(0);
     delete d;
 }
 
-void KEduVocExpression::removeTranslation( int index )
+void QTvtVocExpression::removeTranslation( int index )
 {
     int count = d->m_translations.count();
 
@@ -138,41 +138,41 @@ void KEduVocExpression::removeTranslation( int index )
 }
 
 
-void KEduVocExpression::setTranslation( int index, const QString & expr )
+void QTvtVocExpression::setTranslation( int index, const QString & expr )
 {
     if ( index < 0 ) {
         return;
     }
 
     if (!d->m_translations.contains(index)) {
-        d->m_translations[index] = new KEduVocTranslation(this);
+        d->m_translations[index] = new QTvtVocTranslation(this);
     }
     d->m_translations[index]->setText(expr.simplified());
 }
 
 
-KEduVocLesson* KEduVocExpression::lesson() const
+QTvtVocLesson* QTvtVocExpression::lesson() const
 {
     return d->m_lesson;
 }
 
 
-bool KEduVocExpression::isActive() const
+bool QTvtVocExpression::isActive() const
 {
     return d->m_active;
 }
 
 
-void KEduVocExpression::setActive( bool flag )
+void QTvtVocExpression::setActive( bool flag )
 {
     d->m_active = flag;
 }
 
 
-void KEduVocExpression::resetGrades( int index )
+void QTvtVocExpression::resetGrades( int index )
 {
     if ( index == -1 ) { // clear grades for all languages
-        foreach( KEduVocTranslation* trans, d->m_translations ) {
+        foreach( QTvtVocTranslation* trans, d->m_translations ) {
             trans->resetGrades();
         }
         return;
@@ -184,21 +184,21 @@ void KEduVocExpression::resetGrades( int index )
     }
 }
 
-bool KEduVocExpression::operator== ( const KEduVocExpression &expression ) const
+bool QTvtVocExpression::operator== ( const QTvtVocExpression &expression ) const
 {
     return ( *d == *expression.d );
 }
 
-KEduVocTranslation* KEduVocExpression::translation( int index )
+QTvtVocTranslation* QTvtVocExpression::translation( int index )
 {
     if(translationIndices().contains(index)) {
         return d->m_translations[index];
     }
-    d->m_translations[index] = new KEduVocTranslation(this);
+    d->m_translations[index] = new QTvtVocTranslation(this);
     return d->m_translations[index];
 }
 
-KEduVocTranslation * KEduVocExpression::translation(int index) const
+QTvtVocTranslation * QTvtVocExpression::translation(int index) const
 {
     if(d->m_translations.contains(index)) {
         return 0;
@@ -206,12 +206,12 @@ KEduVocTranslation * KEduVocExpression::translation(int index) const
     return d->m_translations[index];
 }
 
-QList< int > KEduVocExpression::translationIndices() const
+QList< int > QTvtVocExpression::translationIndices() const
 {
     return d->m_translations.keys();
 }
 
-void KEduVocExpression::setLesson(KEduVocLesson * l)
+void QTvtVocExpression::setLesson(QTvtVocLesson * l)
 {
     if (d->m_lesson) {
         d->m_lesson->removeEntry(this);

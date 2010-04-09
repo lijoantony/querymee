@@ -33,81 +33,81 @@
 #include <QtCore/QMap>
 #include <QtXml/QDomDocument>
 
-class KEduVocConjugation::Private
+class QTvtVocConjugation::Private
 {
 public:
-    QMap<KEduVocWordFlags, KEduVocText> m_conjugations;
+    QMap<QTvtVocWordFlags, QTvtVocText> m_conjugations;
 };
 
 
-KEduVocConjugation::KEduVocConjugation()
+QTvtVocConjugation::QTvtVocConjugation()
         : d( new Private )
 {}
 
 
-KEduVocConjugation::KEduVocConjugation( const KEduVocConjugation& other )
+QTvtVocConjugation::QTvtVocConjugation( const QTvtVocConjugation& other )
         : d( new Private )
 {
     d->m_conjugations = other.d->m_conjugations;
 }
 
 
-KEduVocConjugation::~KEduVocConjugation()
+QTvtVocConjugation::~QTvtVocConjugation()
 {
     delete d;
 }
 
-KEduVocConjugation& KEduVocConjugation::operator = ( const KEduVocConjugation& other )
+QTvtVocConjugation& QTvtVocConjugation::operator = ( const QTvtVocConjugation& other )
 {
     d->m_conjugations = other.d->m_conjugations;
     return *this;
 }
 
-bool KEduVocConjugation::operator ==(const KEduVocConjugation& other) const
+bool QTvtVocConjugation::operator ==(const QTvtVocConjugation& other) const
 {
     return d->m_conjugations == other.d->m_conjugations;
 }
 
 
 
-KEduVocText& KEduVocConjugation::conjugation(KEduVocWordFlags flags) const
+QTvtVocText& QTvtVocConjugation::conjugation(QTvtVocWordFlags flags) const
 {
-        return d->m_conjugations[flags & (KEduVocWordFlag::persons | KEduVocWordFlag::numbers | KEduVocWordFlag::genders)];
+        return d->m_conjugations[flags & (QTvtVocWordFlag::persons | QTvtVocWordFlag::numbers | QTvtVocWordFlag::genders)];
 }
 
-void KEduVocConjugation::setConjugation(const KEduVocText& conjugation, KEduVocWordFlags flags)
+void QTvtVocConjugation::setConjugation(const QTvtVocText& conjugation, QTvtVocWordFlags flags)
 {
-    d->m_conjugations[flags & (KEduVocWordFlag::persons | KEduVocWordFlag::numbers | KEduVocWordFlag::genders)] = conjugation;
+    d->m_conjugations[flags & (QTvtVocWordFlag::persons | QTvtVocWordFlag::numbers | QTvtVocWordFlag::genders)] = conjugation;
 }
 
-bool KEduVocConjugation::isEmpty()
+bool QTvtVocConjugation::isEmpty()
 {
     return d->m_conjugations.count() == 0;
 }
 
-QList< KEduVocWordFlags > KEduVocConjugation::keys()
+QList< QTvtVocWordFlags > QTvtVocConjugation::keys()
 {
     return d->m_conjugations.keys();
 }
 
 
 
-void KEduVocConjugation::toKVTML2(QDomElement & parent, const QString &tense)
+void QTvtVocConjugation::toKVTML2(QDomElement & parent, const QString &tense)
 {
     if (isEmpty()) {
         return;
     }
 
-    QMap<int, KEduVocWordFlag::Flags> numbers;
-    numbers[0] = KEduVocWordFlag::Singular;
-    numbers[1] = KEduVocWordFlag::Dual;
-    numbers[2] = KEduVocWordFlag::Plural;
-    QMap<int, KEduVocWordFlag::Flags> persons;
-    persons[0] = KEduVocWordFlag::First;
-    persons[1] = KEduVocWordFlag::Second;
-    persons[2] = (KEduVocWordFlag::Flags)((int)KEduVocWordFlag::Third | (int)KEduVocWordFlag::Masculine);
-    persons[3] = (KEduVocWordFlag::Flags)((int)KEduVocWordFlag::Third | (int)KEduVocWordFlag::Feminine);
-    persons[4] = (KEduVocWordFlag::Flags)((int)KEduVocWordFlag::Third | (int)KEduVocWordFlag::Neuter);
+    QMap<int, QTvtVocWordFlag::Flags> numbers;
+    numbers[0] = QTvtVocWordFlag::Singular;
+    numbers[1] = QTvtVocWordFlag::Dual;
+    numbers[2] = QTvtVocWordFlag::Plural;
+    QMap<int, QTvtVocWordFlag::Flags> persons;
+    persons[0] = QTvtVocWordFlag::First;
+    persons[1] = QTvtVocWordFlag::Second;
+    persons[2] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Masculine);
+    persons[3] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Feminine);
+    persons[4] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Neuter);
 
     // write the tense tag
     QDomDocument domDoc = parent.ownerDocument();
@@ -133,27 +133,27 @@ void KEduVocConjugation::toKVTML2(QDomElement & parent, const QString &tense)
 /*
 
         QString first = conjugation.conjugation(
-                KEduVocConjugation::First, num );
+                QTvtVocConjugation::First, num );
         QString second = conjugation.conjugation(
-                KEduVocConjugation::Second, num );
+                QTvtVocConjugation::Second, num );
         QString third_male = conjugation.conjugation(
-                KEduVocConjugation::ThirdMale, num );
+                QTvtVocConjugation::ThirdMale, num );
         QString third_female = conjugation.conjugation(
-                KEduVocConjugation::ThirdFemale, num );
+                QTvtVocConjugation::ThirdFemale, num );
         QString third_neutral = conjugation.conjugation(
-                KEduVocConjugation::ThirdNeutralCommon, num );
+                QTvtVocConjugation::ThirdNeutralCommon, num );
 
         if ( !first.isEmpty() || !second.isEmpty() || !third_female.isEmpty() ||
               !third_male.isEmpty() || !third_neutral.isEmpty() ) {
             QDomElement number;
             switch (num) {
-                case KEduVocConjugation::Singular:
+                case QTvtVocConjugation::Singular:
                     number = m_domDoc.createElement( KVTML_SINGULAR );
                     break;
-                case KEduVocConjugation::Dual:
+                case QTvtVocConjugation::Dual:
                     number = m_domDoc.createElement( KVTML_DUAL );
                     break;
-                case KEduVocConjugation::Plural:
+                case QTvtVocConjugation::Plural:
                     number = m_domDoc.createElement( KVTML_PLURAL );
                     break;
             }
@@ -170,9 +170,9 @@ void KEduVocConjugation::toKVTML2(QDomElement & parent, const QString &tense)
 
 
     /*
-    for ( KEduVocWordFlag::DeclensionNumber num = KEduVocWordFlag::Singular; num <= KEduVocWordFlag::Plural; num = KEduVocWordFlag::DeclensionNumber(num +1) ) {
+    for ( QTvtVocWordFlag::DeclensionNumber num = QTvtVocWordFlag::Singular; num <= QTvtVocWordFlag::Plural; num = QTvtVocWordFlag::DeclensionNumber(num +1) ) {
         QDomElement numberElement = domDoc.createElement( KVTML_GRAMMATICAL_NUMBER[num] );
-        for ( KEduVocWordFlag::DeclensionCase dcase = KEduVocWordFlag::Nominative; dcase < KEduVocWordFlag::DeclensionCaseMAX; dcase = KEduVocWordFlag::DeclensionCase(dcase +1) ) {
+        for ( QTvtVocWordFlag::DeclensionCase dcase = QTvtVocWordFlag::Nominative; dcase < QTvtVocWordFlag::DeclensionCaseMAX; dcase = QTvtVocWordFlag::DeclensionCase(dcase +1) ) {
             QDomElement caseElement = domDoc.createElement( KVTML_DECLENSION_CASE[dcase] );
             declension(num, dcase).toKVTML2(caseElement);
 
@@ -189,26 +189,26 @@ void KEduVocConjugation::toKVTML2(QDomElement & parent, const QString &tense)
 
 
 
-KEduVocConjugation* KEduVocConjugation::fromKVTML2(QDomElement & parent)
+QTvtVocConjugation* QTvtVocConjugation::fromKVTML2(QDomElement & parent)
 {
     // sanity check
     if (parent.isNull()) {
         return 0;
     }
 
-    QMap<int, KEduVocWordFlag::Flags> numbers;
-    numbers[0] = KEduVocWordFlag::Singular;
-    numbers[1] = KEduVocWordFlag::Dual;
-    numbers[2] = KEduVocWordFlag::Plural;
-    QMap<int, KEduVocWordFlag::Flags> persons;
-    persons[0] = KEduVocWordFlag::First;
-    persons[1] = KEduVocWordFlag::Second;
-    persons[2] = (KEduVocWordFlag::Flags)((int)KEduVocWordFlag::Third | (int)KEduVocWordFlag::Masculine);
-    persons[3] = (KEduVocWordFlag::Flags)((int)KEduVocWordFlag::Third | (int)KEduVocWordFlag::Feminine);
-    persons[4] = (KEduVocWordFlag::Flags)((int)KEduVocWordFlag::Third | (int)KEduVocWordFlag::Neuter);
+    QMap<int, QTvtVocWordFlag::Flags> numbers;
+    numbers[0] = QTvtVocWordFlag::Singular;
+    numbers[1] = QTvtVocWordFlag::Dual;
+    numbers[2] = QTvtVocWordFlag::Plural;
+    QMap<int, QTvtVocWordFlag::Flags> persons;
+    persons[0] = QTvtVocWordFlag::First;
+    persons[1] = QTvtVocWordFlag::Second;
+    persons[2] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Masculine);
+    persons[3] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Feminine);
+    persons[4] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Neuter);
 
 
-    KEduVocConjugation* conjugation = new KEduVocConjugation;
+    QTvtVocConjugation* conjugation = new QTvtVocConjugation;
 
     for ( int num = 0; num <= 2; num++ ) {
         QDomElement numberElement = parent.firstChildElement( KVTML_GRAMMATICAL_NUMBER[num] );
@@ -217,7 +217,7 @@ KEduVocConjugation* KEduVocConjugation::fromKVTML2(QDomElement & parent)
             for (int person = 0; person < 5; person++) {
                 QDomElement personElement = numberElement.firstChildElement( KVTML_GRAMMATICAL_PERSON[person] );
                 if (!personElement.isNull()) {
-                    KEduVocText text;
+                    QTvtVocText text;
                     text.fromKVTML2(personElement);
                     if (text.text().isEmpty()) {
                         // compatibility for kde 4.0. There the text was directly below the person, not enabling grades per conjugation form.

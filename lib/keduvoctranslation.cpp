@@ -31,20 +31,20 @@
 // #include <KDebug>
 #include <QtCore/QMap>
 
-class KEduVocTranslation::KEduVocTranslationPrivate
+class QTvtVocTranslation::QTvtVocTranslationPrivate
 {
 public:
-    KEduVocTranslationPrivate(KEduVocExpression* parent);
+    QTvtVocTranslationPrivate(QTvtVocExpression* parent);
 
-    ~KEduVocTranslationPrivate();
+    ~QTvtVocTranslationPrivate();
 
-    KEduVocExpression* m_entry;
+    QTvtVocExpression* m_entry;
 
     /// Type of a word noun, verb, adjective etc
-    KEduVocWordType* m_wordType;
+    QTvtVocWordType* m_wordType;
 
     /// Leitner box of the translation.
-    KEduVocLeitnerBox* m_leitnerBox;
+    QTvtVocLeitnerBox* m_leitnerBox;
 
     /// A comment giving additional information.
     QString m_comment;
@@ -57,32 +57,32 @@ public:
     /// Pronunciation
     QString m_pronunciation;
     /// Image url
-    KUrl m_imageUrl;
+    QUrl m_imageUrl;
     /// Sound url
-    KUrl m_soundUrl;
+    QUrl m_soundUrl;
 
     /// When creating multiple choice tests, these are possible answers. (otherwise other words are added randomly)
     QStringList m_multipleChoice;
 
     /// Conjugations of a word (I go, you go, he goes... boring in english)
-    QMap <QString, KEduVocConjugation> m_conjugations;
+    QMap <QString, QTvtVocConjugation> m_conjugations;
 
     /// The comparison forms of adjectives and adverbs: (fast), faster, fastest
     QString m_comparative;
     QString m_superlative;
 
-    KEduVocDeclension* m_declension;
+    QTvtVocDeclension* m_declension;
 
     // connections to other translations
     /// Synonyms for a word: sick and ill, student and pupil
-    QList< KEduVocTranslation* > m_synonyms;
+    QList< QTvtVocTranslation* > m_synonyms;
     /// An antonym - the opposite: hot - cold
-    QList< KEduVocTranslation* > m_antonyms;
+    QList< QTvtVocTranslation* > m_antonyms;
     /// List of false friends
-    QList< KEduVocTranslation* > m_falseFriends;
+    QList< QTvtVocTranslation* > m_falseFriends;
 };
 
-KEduVocTranslation::KEduVocTranslationPrivate::KEduVocTranslationPrivate(KEduVocExpression* parent)
+QTvtVocTranslation::QTvtVocTranslationPrivate::QTvtVocTranslationPrivate(QTvtVocExpression* parent)
 {
     m_entry = parent;
     m_wordType = 0;
@@ -91,25 +91,25 @@ KEduVocTranslation::KEduVocTranslationPrivate::KEduVocTranslationPrivate(KEduVoc
 }
 
 
-KEduVocTranslation::KEduVocTranslationPrivate::~KEduVocTranslationPrivate()
+QTvtVocTranslation::QTvtVocTranslationPrivate::~QTvtVocTranslationPrivate()
 {
     delete m_declension;
 }
 
-KEduVocTranslation::KEduVocTranslation(KEduVocExpression* entry) : d( new KEduVocTranslationPrivate(entry) )
+QTvtVocTranslation::QTvtVocTranslation(QTvtVocExpression* entry) : d( new QTvtVocTranslationPrivate(entry) )
 {
 }
 
 
-KEduVocTranslation::KEduVocTranslation(KEduVocExpression* entry, const QString &translation ) : d( new KEduVocTranslationPrivate(entry) )
+QTvtVocTranslation::QTvtVocTranslation(QTvtVocExpression* entry, const QString &translation ) : d( new QTvtVocTranslationPrivate(entry) )
 {
     setText(translation.simplified());
 }
 
-KEduVocTranslation::KEduVocTranslation( const KEduVocTranslation &other )
-    : KEduVocText(other),
+QTvtVocTranslation::QTvtVocTranslation( const QTvtVocTranslation &other )
+    : QTvtVocText(other),
     // set the entry to 0, the translation will be put into a copied entry by the expression copy constructor
-    d( new KEduVocTranslationPrivate(0) )
+    d( new QTvtVocTranslationPrivate(0) )
 {
     // beter no word type copy as this is pointer copying
     // will not work as this is not added to the word type container!
@@ -130,29 +130,29 @@ KEduVocTranslation::KEduVocTranslation( const KEduVocTranslation &other )
 //  d->m_antonyms = other.d->m_antonyms;
 //  d->m_falseFriends = other.d->m_falseFriends;
     if (other.d->m_declension) {
-        d->m_declension = new KEduVocDeclension(*other.d->m_declension);
+        d->m_declension = new QTvtVocDeclension(*other.d->m_declension);
     }
 }
 
-KEduVocTranslation::~KEduVocTranslation()
+QTvtVocTranslation::~QTvtVocTranslation()
 {
     setWordType(0);
     setLeitnerBox(0);
-    foreach (KEduVocTranslation *synonym, d->m_synonyms) {
+    foreach (QTvtVocTranslation *synonym, d->m_synonyms) {
         synonym->removeSynonym(this);
     }
-    foreach (KEduVocTranslation *antonym, d->m_antonyms) {
+    foreach (QTvtVocTranslation *antonym, d->m_antonyms) {
         antonym->removeAntonym(this);
     }
-    foreach (KEduVocTranslation *falseFriend, d->m_falseFriends) {
+    foreach (QTvtVocTranslation *falseFriend, d->m_falseFriends) {
         falseFriend->removeFalseFriend(this);
     }
     delete d;
 }
 
-bool KEduVocTranslation::operator == ( const KEduVocTranslation & translation ) const
+bool QTvtVocTranslation::operator == ( const QTvtVocTranslation & translation ) const
 {
-    return KEduVocText::operator==(translation) &&
+    return QTvtVocText::operator==(translation) &&
         d->m_wordType == translation.d->m_wordType &&
         d->m_leitnerBox == translation.d->m_leitnerBox &&
         d->m_comment == translation.d->m_comment &&
@@ -171,9 +171,9 @@ bool KEduVocTranslation::operator == ( const KEduVocTranslation & translation ) 
            /// @todo check and include declensions d->m_declension == translation.d->m_declension;
 }
 
-KEduVocTranslation & KEduVocTranslation::operator = ( const KEduVocTranslation & translation )
+QTvtVocTranslation & QTvtVocTranslation::operator = ( const QTvtVocTranslation & translation )
 {
-    KEduVocText::operator=(translation);
+    QTvtVocText::operator=(translation);
     d->m_entry = translation.d->m_entry;
 //     d->m_wordType = translation.d->m_wordType;
 //     d->m_leitnerBox = translation.d->m_leitnerBox;
@@ -191,154 +191,154 @@ KEduVocTranslation & KEduVocTranslation::operator = ( const KEduVocTranslation &
     d->m_antonyms = translation.d->m_antonyms;
     d->m_conjugations = translation.d->m_conjugations;
     if (translation.d->m_declension) {
-        d->m_declension = new KEduVocDeclension(*translation.d->m_declension);
+        d->m_declension = new QTvtVocDeclension(*translation.d->m_declension);
     }
 
     return *this;
 }
 
 
-QString KEduVocTranslation::comment() const
+QString QTvtVocTranslation::comment() const
 {
     return d->m_comment;
 }
 
 
-void KEduVocTranslation::setComment( const QString & expr )
+void QTvtVocTranslation::setComment( const QString & expr )
 {
     d->m_comment = expr.simplified();
 }
 
 
-void KEduVocTranslation::addFalseFriend( KEduVocTranslation* falseFriend )
+void QTvtVocTranslation::addFalseFriend( QTvtVocTranslation* falseFriend )
 {
     d->m_falseFriends.append(falseFriend);
 }
 
-void KEduVocTranslation::removeFalseFriend(KEduVocTranslation * falseFriend)
+void QTvtVocTranslation::removeFalseFriend(QTvtVocTranslation * falseFriend)
 {
     d->m_falseFriends.removeAt(d->m_falseFriends.indexOf(falseFriend));
 }
 
-QList< KEduVocTranslation* > KEduVocTranslation::falseFriends() const
+QList< QTvtVocTranslation* > QTvtVocTranslation::falseFriends() const
 {
     return d->m_falseFriends;
 }
 
 
-void KEduVocTranslation::addSynonym( KEduVocTranslation* synonym )
+void QTvtVocTranslation::addSynonym( QTvtVocTranslation* synonym )
 {
     d->m_synonyms.append(synonym);
 }
 
-void KEduVocTranslation::removeSynonym(KEduVocTranslation * synonym)
+void QTvtVocTranslation::removeSynonym(QTvtVocTranslation * synonym)
 {
     d->m_synonyms.removeAt(d->m_synonyms.indexOf(synonym));
 }
 
-QList<KEduVocTranslation*> KEduVocTranslation::synonyms() const
+QList<QTvtVocTranslation*> QTvtVocTranslation::synonyms() const
 {
     return d->m_synonyms;
 }
 
-void KEduVocTranslation::addAntonym( KEduVocTranslation* antonym )
+void QTvtVocTranslation::addAntonym( QTvtVocTranslation* antonym )
 {
     d->m_antonyms.append(antonym);
 }
 
-QList<KEduVocTranslation*> KEduVocTranslation::antonyms() const
+QList<QTvtVocTranslation*> QTvtVocTranslation::antonyms() const
 {
     return d->m_antonyms;
 }
 
-void KEduVocTranslation::removeAntonym(KEduVocTranslation * antonym)
+void QTvtVocTranslation::removeAntonym(QTvtVocTranslation * antonym)
 {
     d->m_antonyms.removeAt(d->m_antonyms.indexOf(antonym));
 }
 
-void KEduVocTranslation::setExample( const QString & expr )
+void QTvtVocTranslation::setExample( const QString & expr )
 {
     d->m_example = expr.simplified();
 }
 
 
-QString KEduVocTranslation::example() const
+QString QTvtVocTranslation::example() const
 {
     return d->m_example;
 }
 
 
-void KEduVocTranslation::setParaphrase( const QString & expr )
+void QTvtVocTranslation::setParaphrase( const QString & expr )
 {
     d->m_paraphrase = expr.simplified();
 }
 
 
-QString KEduVocTranslation::paraphrase() const
+QString QTvtVocTranslation::paraphrase() const
 {
     return d->m_paraphrase;
 }
 
 
-void KEduVocTranslation::setConjugation( const QString& tense, const KEduVocConjugation& con )
+void QTvtVocTranslation::setConjugation( const QString& tense, const QTvtVocConjugation& con )
 {
     d->m_conjugations[tense] = con;
 }
 
 
-KEduVocConjugation& KEduVocTranslation::conjugation( const QString& tense )
+QTvtVocConjugation& QTvtVocTranslation::conjugation( const QString& tense )
 {
     return d->m_conjugations[tense];
 }
 
 
-QStringList & KEduVocTranslation::multipleChoice()
+QStringList & QTvtVocTranslation::multipleChoice()
 {
     return d->m_multipleChoice;
 }
 
 
-QString KEduVocTranslation::pronunciation() const
+QString QTvtVocTranslation::pronunciation() const
 {
     return d->m_pronunciation;
 }
 
 
-void KEduVocTranslation::setPronunciation( const QString & expr )
+void QTvtVocTranslation::setPronunciation( const QString & expr )
 {
     d->m_pronunciation = expr.simplified();
 }
 
-QStringList KEduVocTranslation::conjugationTenses() const
+QStringList QTvtVocTranslation::conjugationTenses() const
 {
     return d->m_conjugations.keys();
 }
 
-QMap< QString, KEduVocConjugation > KEduVocTranslation::conjugations() const
+QMap< QString, QTvtVocConjugation > QTvtVocTranslation::conjugations() const
 {
     return d->m_conjugations;
 }
 
-void KEduVocTranslation::setConjugations(const QMap< QString, KEduVocConjugation > & conjugations)
+void QTvtVocTranslation::setConjugations(const QMap< QString, QTvtVocConjugation > & conjugations)
 {
     d->m_conjugations = conjugations;
 }
 
 /** get the sound url for this translation if it exists */
-KUrl KEduVocTranslation::soundUrl()
+QUrl QTvtVocTranslation::soundUrl()
 {
     return d->m_soundUrl;
 }
 
 /** set the sound url for this translation
  * @param url               url of the sound file */
-void KEduVocTranslation::setSoundUrl(const KUrl &url)
+void QTvtVocTranslation::setSoundUrl(const QUrl &url)
 {
     d->m_soundUrl = url;
 }
 
 /** get the image url for this translation if it exists */
-KUrl KEduVocTranslation::imageUrl()
+QUrl QTvtVocTranslation::imageUrl()
 {
     return d->m_imageUrl;
 }
@@ -346,12 +346,12 @@ KUrl KEduVocTranslation::imageUrl()
 /** set the image url for this translation
  * @param url               url of the image
  */
-void KEduVocTranslation::setImageUrl(const KUrl &url)
+void QTvtVocTranslation::setImageUrl(const QUrl &url)
 {
     d->m_imageUrl = url;
 }
 
-KEduVocWordType * KEduVocTranslation::wordType() const
+QTvtVocWordType * QTvtVocTranslation::wordType() const
 {
     if (d) {
         return d->m_wordType;
@@ -360,7 +360,7 @@ KEduVocWordType * KEduVocTranslation::wordType() const
     }
 }
 
-void KEduVocTranslation::setWordType(KEduVocWordType * wordType)
+void QTvtVocTranslation::setWordType(QTvtVocWordType * wordType)
 {
     if ( d->m_wordType ) {
         d->m_wordType->removeTranslation(this);
@@ -371,12 +371,12 @@ void KEduVocTranslation::setWordType(KEduVocWordType * wordType)
     d->m_wordType = wordType;
 }
 
-KEduVocLeitnerBox * KEduVocTranslation::leitnerBox() const
+QTvtVocLeitnerBox * QTvtVocTranslation::leitnerBox() const
 {
     return d->m_leitnerBox;
 }
 
-void KEduVocTranslation::setLeitnerBox(KEduVocLeitnerBox * leitnerBox)
+void QTvtVocTranslation::setLeitnerBox(QTvtVocLeitnerBox * leitnerBox)
 {
     if ( d->m_leitnerBox ) {
         d->m_leitnerBox->removeTranslation(this);
@@ -387,47 +387,47 @@ void KEduVocTranslation::setLeitnerBox(KEduVocLeitnerBox * leitnerBox)
     d->m_leitnerBox = leitnerBox;
 }
 
-KEduVocExpression * KEduVocTranslation::entry()
+QTvtVocExpression * QTvtVocTranslation::entry()
 {
     return d->m_entry;
 }
 
-QString KEduVocTranslation::comparative() const
+QString QTvtVocTranslation::comparative() const
 {
     return d->m_comparative;
 }
 
-void KEduVocTranslation::setComparative(const QString & comparative)
+void QTvtVocTranslation::setComparative(const QString & comparative)
 {
     d->m_comparative = comparative;
 }
 
-QString KEduVocTranslation::superlative() const
+QString QTvtVocTranslation::superlative() const
 {
     return d->m_superlative;
 }
 
-void KEduVocTranslation::setSuperlative(const QString & superlative)
+void QTvtVocTranslation::setSuperlative(const QString & superlative)
 {
     d->m_superlative = superlative;
 }
 
-KEduVocDeclension * KEduVocTranslation::declension()
+QTvtVocDeclension * QTvtVocTranslation::declension()
 {
     return d->m_declension;
 }
 
-void KEduVocTranslation::setDeclension(KEduVocDeclension * declension)
+void QTvtVocTranslation::setDeclension(QTvtVocDeclension * declension)
 {
     // remove the old declension object
     delete d->m_declension;
     d->m_declension = declension;
 }
 
-void KEduVocTranslation::toKVTML2(QDomElement & parent)
+void QTvtVocTranslation::toKVTML2(QDomElement & parent)
 {
     // text and grade
-    KEduVocText::toKVTML2(parent);
+    QTvtVocText::toKVTML2(parent);
 
     // declension
     if (d->m_declension) {
@@ -442,26 +442,26 @@ void KEduVocTranslation::toKVTML2(QDomElement & parent)
     }
 
     // <comment>
-    KEduVocKvtml2Writer::appendTextElement( parent, KVTML_COMMENT, comment() );
+    QTvtVocKvtml2Writer::appendTextElement( parent, KVTML_COMMENT, comment() );
 
     // <pronunciation>
-    KEduVocKvtml2Writer::appendTextElement( parent, KVTML_PRONUNCIATION, pronunciation() );
+    QTvtVocKvtml2Writer::appendTextElement( parent, KVTML_PRONUNCIATION, pronunciation() );
 
     // <example>
-    KEduVocKvtml2Writer::appendTextElement( parent, KVTML_EXAMPLE, example() );
+    QTvtVocKvtml2Writer::appendTextElement( parent, KVTML_EXAMPLE, example() );
 
     // <paraphrase>
-    KEduVocKvtml2Writer::appendTextElement( parent, KVTML_PARAPHRASE, paraphrase() );
+    QTvtVocKvtml2Writer::appendTextElement( parent, KVTML_PARAPHRASE, paraphrase() );
 
     ///@todo synonyms, antonyms
     ///@todo false friends
 }
 
-void KEduVocTranslation::fromKVTML2(QDomElement & parent)
+void QTvtVocTranslation::fromKVTML2(QDomElement & parent)
 {
-    KEduVocText::fromKVTML2(parent);
+    QTvtVocText::fromKVTML2(parent);
 
-    setDeclension(KEduVocDeclension::fromKVTML2(parent));
+    setDeclension(QTvtVocDeclension::fromKVTML2(parent));
 
     setComment( parent.firstChildElement( KVTML_COMMENT ).text() );
 
@@ -478,7 +478,7 @@ void KEduVocTranslation::fromKVTML2(QDomElement & parent)
     while ( !conjugationElement.isNull() ) {
         QDomElement tenseElement = conjugationElement.firstChildElement( KVTML_TENSE );
         QString tense = tenseElement.text();
-        KEduVocConjugation *conjugation = KEduVocConjugation::fromKVTML2(conjugationElement);
+        QTvtVocConjugation *conjugation = QTvtVocConjugation::fromKVTML2(conjugationElement);
         setConjugation(tense, *conjugation);
         delete conjugation;
         conjugationElement = conjugationElement.nextSiblingElement( KVTML_CONJUGATION );
@@ -488,7 +488,7 @@ void KEduVocTranslation::fromKVTML2(QDomElement & parent)
     ///@todo false friends
 }
 
-void KEduVocTranslation::setEntry(KEduVocExpression * entry)
+void QTvtVocTranslation::setEntry(QTvtVocExpression * entry)
 {
     d->m_entry = entry;
 }

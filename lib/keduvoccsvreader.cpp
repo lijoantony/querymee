@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-                    create a KEduVocDocument from a text file
+                    create a QTvtVocDocument from a text file
 
     -----------------------------------------------------------------------
 
@@ -41,7 +41,7 @@
 #include "keduvoclesson.h"
 #include "keduvocexpression.h"
 
-KEduVocCsvReader::KEduVocCsvReader( QIODevice *file )
+QTvtVocCsvReader::QTvtVocCsvReader( QIODevice *file )
 {
     // the file must be already open
     m_inputFile = file;
@@ -49,7 +49,7 @@ KEduVocCsvReader::KEduVocCsvReader( QIODevice *file )
 }
 
 
-bool KEduVocCsvReader::readDoc( KEduVocDocument *doc )
+bool QTvtVocCsvReader::readDoc( QTvtVocDocument *doc )
 {
     m_doc = doc;
 
@@ -62,14 +62,14 @@ bool KEduVocCsvReader::readDoc( KEduVocDocument *doc )
 
     int languageCount = 0;
 
-    KEduVocLesson* lesson = new KEduVocLesson( "Vocabulary", m_doc->lesson());
+    QTvtVocLesson* lesson = new QTvtVocLesson( "Vocabulary", m_doc->lesson());
     m_doc->lesson()->appendChildContainer(lesson);
 
     while ( !inputStream.atEnd() ) {
         QString s = inputStream.readLine();
 
         if ( !s.simplified().isEmpty() ) {
-            KEduVocExpression* expression = new KEduVocExpression( s.split(separator) );
+            QTvtVocExpression* expression = new QTvtVocExpression( s.split(separator) );
             languageCount = qMax( languageCount,
                 expression->translationIndices().count() );
             lesson->appendEntry( expression );

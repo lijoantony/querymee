@@ -29,24 +29,24 @@
 
 #include "keduvocmultiplechoice.h"
 
-class KEduVocMultipleChoice::KEduVocMultipleChoicePrivate
+class QTvtVocMultipleChoice::QTvtVocMultipleChoicePrivate
 {
 public:
     QStringList m_choices;
 };
 
-KEduVocMultipleChoice::KEduVocMultipleChoice()
-        : d( new KEduVocMultipleChoicePrivate )
+QTvtVocMultipleChoice::QTvtVocMultipleChoice()
+        : d( new QTvtVocMultipleChoicePrivate )
 {}
 
-KEduVocMultipleChoice::KEduVocMultipleChoice( const KEduVocMultipleChoice &other )
-        : d( new KEduVocMultipleChoicePrivate )
+QTvtVocMultipleChoice::QTvtVocMultipleChoice( const QTvtVocMultipleChoice &other )
+        : d( new QTvtVocMultipleChoicePrivate )
 {
     d->m_choices = other.choices();
 }
 
-KEduVocMultipleChoice::KEduVocMultipleChoice( const QStringList &choices )
-        : d( new KEduVocMultipleChoicePrivate )
+QTvtVocMultipleChoice::QTvtVocMultipleChoice( const QStringList &choices )
+        : d( new QTvtVocMultipleChoicePrivate )
 {
     foreach ( const QString &choice, choices ) {
         // use appendChoice to check for empty entries
@@ -54,35 +54,35 @@ KEduVocMultipleChoice::KEduVocMultipleChoice( const QStringList &choices )
     }
 }
 
-KEduVocMultipleChoice::~KEduVocMultipleChoice()
+QTvtVocMultipleChoice::~QTvtVocMultipleChoice()
 {
     delete d;
 }
 
-KEduVocMultipleChoice &KEduVocMultipleChoice::operator= ( const KEduVocMultipleChoice &other )
+QTvtVocMultipleChoice &QTvtVocMultipleChoice::operator= ( const QTvtVocMultipleChoice &other )
 {
     d->m_choices = other.choices();
     return *this;
 }
 
-QStringList KEduVocMultipleChoice::choices() const
+QStringList QTvtVocMultipleChoice::choices() const
 {
     return d->m_choices;
 }
 
-bool KEduVocMultipleChoice::isEmpty() const
+bool QTvtVocMultipleChoice::isEmpty() const
 {
     return d->m_choices.isEmpty();
 }
 
 
-void KEduVocMultipleChoice::clear()
+void QTvtVocMultipleChoice::clear()
 {
     d->m_choices.clear();
 }
 
 
-QString KEduVocMultipleChoice::choice( int index ) const
+QString QTvtVocMultipleChoice::choice( int index ) const
 {
     QString choice;
     if ( d->m_choices.size() > index ) {
@@ -91,17 +91,17 @@ QString KEduVocMultipleChoice::choice( int index ) const
     return choice;
 }
 
-unsigned KEduVocMultipleChoice::size() const
+unsigned QTvtVocMultipleChoice::size() const
 {
     return d->m_choices.size();
 }
 
-bool KEduVocMultipleChoice::operator== ( const KEduVocMultipleChoice &choice ) const
+bool QTvtVocMultipleChoice::operator== ( const QTvtVocMultipleChoice &choice ) const
 {
     return d->m_choices == choice.choices();
 }
 
-void KEduVocMultipleChoice::appendChoice( const QString &s )
+void QTvtVocMultipleChoice::appendChoice( const QString &s )
 {
     if ( !s.isEmpty() ) {
         d->m_choices.append( s );

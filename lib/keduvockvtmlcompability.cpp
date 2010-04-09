@@ -34,11 +34,11 @@
 #include <QDebug>
 #include <QStringList>
 
-const QString KEduVocKvtmlCompability::KVTML_1_USER_DEFINED = QString( "#" );
-const QString KEduVocKvtmlCompability::KVTML_1_SEPERATOR = QString( ":" );
+const QString QTvtVocKvtmlCompability::KVTML_1_USER_DEFINED = QString( "#" );
+const QString QTvtVocKvtmlCompability::KVTML_1_SEPERATOR = QString( ":" );
 
 
-KEduVocKvtmlCompability::KEduVocKvtmlCompability()
+QTvtVocKvtmlCompability::QTvtVocKvtmlCompability()
 {
     m_userdefinedTenseCounter = 0;
     m_userdefinedTypeCounter = 0;
@@ -49,7 +49,7 @@ KEduVocKvtmlCompability::KEduVocKvtmlCompability()
 
 
 ////////////////// TYPES /////////////////////////////////////////
-void KEduVocKvtmlCompability::initOldTypeLists()
+void QTvtVocKvtmlCompability::initOldTypeLists()
 {
     m_oldMainTypeNames.clear();
     m_oldMainTypeNames.insert( "v", "Verb" );
@@ -81,13 +81,13 @@ void KEduVocKvtmlCompability::initOldTypeLists()
 }
 
 
-KEduVocWordType* KEduVocKvtmlCompability::typeFromOldFormat(KEduVocWordType* parent, const QString & typeSubtypeString ) const
+QTvtVocWordType* QTvtVocKvtmlCompability::typeFromOldFormat(QTvtVocWordType* parent, const QString & typeSubtypeString ) const
 {
     // check if it's user defined
     if ( typeSubtypeString.length() >= 2 && typeSubtypeString.left( 1 ) == QM_USER_TYPE ) {
         // they started counting at 1, we need to know which index we are dealing with:
         int selfDefinedTypeIndex = typeSubtypeString.right( typeSubtypeString.count()-1 ).toInt() -1;
-        return static_cast<KEduVocWordType*>(parent->childContainer(selfDefinedTypeIndex));
+        return static_cast<QTvtVocWordType*>(parent->childContainer(selfDefinedTypeIndex));
     }
 
     // assume the parent is set up to contain the old types correctly
@@ -120,14 +120,14 @@ KEduVocWordType* KEduVocKvtmlCompability::typeFromOldFormat(KEduVocWordType* par
 
     QString subTypeName = m_oldSubTypeNames.value( subType );
 
-    foreach (KEduVocContainer* wordType, parent->childContainers()) {
+    foreach (QTvtVocContainer* wordType, parent->childContainers()) {
         if (wordType->name() == typeName) {
             if (subType.isEmpty()) {
-                return static_cast<KEduVocWordType*>(wordType);
+                return static_cast<QTvtVocWordType*>(wordType);
             } else {
-                foreach (KEduVocContainer* subWordType, wordType->childContainers()) {
+                foreach (QTvtVocContainer* subWordType, wordType->childContainers()) {
                     if (subWordType->name() == subTypeName) {
-                        return static_cast<KEduVocWordType*>(subWordType);
+                        return static_cast<QTvtVocWordType*>(subWordType);
                     }
                 }
             }
@@ -179,7 +179,7 @@ if ( oldType.length() >= 2 && type.left( 1 ) == QM_USER_TYPE ) {
 
 
 
-void KEduVocKvtmlCompability::initOldTenses()
+void QTvtVocKvtmlCompability::initOldTenses()
 {
     m_oldTenses["PrSi"] =  "Simple Present" ;
     m_oldTenses["PrPr"] =  "Present Progressive" ;
@@ -191,7 +191,7 @@ void KEduVocKvtmlCompability::initOldTenses()
 }
 
 
-void KEduVocKvtmlCompability::addUserdefinedTense(const QString & tense)
+void QTvtVocKvtmlCompability::addUserdefinedTense(const QString & tense)
 {
     m_userdefinedTenseCounter++;
     m_oldTenses[KVTML_1_USER_DEFINED + QString::number( m_userdefinedTenseCounter )] = tense;
@@ -201,7 +201,7 @@ void KEduVocKvtmlCompability::addUserdefinedTense(const QString & tense)
 }
 
 
-QString KEduVocKvtmlCompability::tenseFromKvtml1(const QString & oldTense)
+QString QTvtVocKvtmlCompability::tenseFromKvtml1(const QString & oldTense)
 {
     // in case the document got chaged, at least make up something as tense
     if (!m_oldTenses.keys().contains(oldTense)) {
@@ -213,13 +213,13 @@ QString KEduVocKvtmlCompability::tenseFromKvtml1(const QString & oldTense)
 }
 
 
-QStringList KEduVocKvtmlCompability::documentTenses() const
+QStringList QTvtVocKvtmlCompability::documentTenses() const
 {
     return m_tenses.values();
 }
 
 
-QString KEduVocKvtmlCompability::oldTense(const QString & tense)
+QString QTvtVocKvtmlCompability::oldTense(const QString & tense)
 {
 ///@todo writing of the user defined tenses is probably messed up
     if ( !m_oldTenses.values().contains(tense) ) {
@@ -229,7 +229,7 @@ QString KEduVocKvtmlCompability::oldTense(const QString & tense)
     return m_oldTenses.key(tense);
 }
 
-void KEduVocKvtmlCompability::setupWordTypes(KEduVocWordType * parent)
+void QTvtVocKvtmlCompability::setupWordTypes(QTvtVocWordType * parent)
 {
     QStringList wordTypeNames;
     wordTypeNames
@@ -247,58 +247,58 @@ void KEduVocKvtmlCompability::setupWordTypes(KEduVocWordType * parent)
         <<  "Question" ;
 
     foreach (const QString &typeName, wordTypeNames) {
-        KEduVocWordType* wordType = new KEduVocWordType(typeName, parent);
+        QTvtVocWordType* wordType = new QTvtVocWordType(typeName, parent);
         parent->appendChildContainer(wordType);
         m_userdefinedTypeCounter++;
     }
-    static_cast<KEduVocWordType*>(parent->childContainer(4))->setWordType(KEduVocWordFlag::Adjective);
-    static_cast<KEduVocWordType*>(parent->childContainer(5))->setWordType(KEduVocWordFlag::Adverb);
+    static_cast<QTvtVocWordType*>(parent->childContainer(4))->setWordType(QTvtVocWordFlag::Adjective);
+    static_cast<QTvtVocWordType*>(parent->childContainer(5))->setWordType(QTvtVocWordFlag::Adverb);
 
-    KEduVocWordType* numeral = static_cast<KEduVocWordType*>(parent->childContainer(8));
-    KEduVocWordType* wordType = new KEduVocWordType( "Ordinal", numeral);
-    wordType->setWordType(KEduVocWordFlag::Adjective);
+    QTvtVocWordType* numeral = static_cast<QTvtVocWordType*>(parent->childContainer(8));
+    QTvtVocWordType* wordType = new QTvtVocWordType( "Ordinal", numeral);
+    wordType->setWordType(QTvtVocWordFlag::Adjective);
     numeral->appendChildContainer(wordType);
-    wordType = new KEduVocWordType( "Cardinal" , numeral);
+    wordType = new QTvtVocWordType( "Cardinal" , numeral);
 
-    wordType->setWordType(KEduVocWordFlag::Adjective);
+    wordType->setWordType(QTvtVocWordFlag::Adjective);
     numeral->appendChildContainer(wordType);
 
-    KEduVocWordType* article = static_cast<KEduVocWordType*>(parent->childContainer(3));
-    wordType = new KEduVocWordType( "Definite" , article);
-    wordType->setWordType(KEduVocWordFlag::Article | KEduVocWordFlag::Definite);
+    QTvtVocWordType* article = static_cast<QTvtVocWordType*>(parent->childContainer(3));
+    wordType = new QTvtVocWordType( "Definite" , article);
+    wordType->setWordType(QTvtVocWordFlag::Article | QTvtVocWordFlag::Definite);
     article->appendChildContainer(wordType);
-    wordType = new KEduVocWordType( "Indefinite" , article);
-    wordType->setWordType(KEduVocWordFlag::Article | KEduVocWordFlag::Indefinite);
+    wordType = new QTvtVocWordType( "Indefinite" , article);
+    wordType->setWordType(QTvtVocWordFlag::Article | QTvtVocWordFlag::Indefinite);
     article->appendChildContainer(wordType);
 
-    KEduVocWordType* verb = static_cast<KEduVocWordType*>(parent->childContainer(0));
-    verb->setWordType(KEduVocWordFlag::Verb);
-    wordType = new KEduVocWordType( "Regular" , verb);
-    wordType->setWordType(KEduVocWordFlag::Verb | KEduVocWordFlag::Regular);
+    QTvtVocWordType* verb = static_cast<QTvtVocWordType*>(parent->childContainer(0));
+    verb->setWordType(QTvtVocWordFlag::Verb);
+    wordType = new QTvtVocWordType( "Regular" , verb);
+    wordType->setWordType(QTvtVocWordFlag::Verb | QTvtVocWordFlag::Regular);
     verb->appendChildContainer(wordType);
-    wordType = new KEduVocWordType( "Irregular" , verb);
+    wordType = new QTvtVocWordType( "Irregular" , verb);
     verb->appendChildContainer(wordType);
-    wordType->setWordType(KEduVocWordFlag::Verb | KEduVocWordFlag::Irregular);
+    wordType->setWordType(QTvtVocWordFlag::Verb | QTvtVocWordFlag::Irregular);
 
-    KEduVocWordType* noun = static_cast<KEduVocWordType*>(parent->childContainer(1));
-    noun->setWordType(KEduVocWordFlag::Noun);
-    wordType = new KEduVocWordType( "Male" , noun);
+    QTvtVocWordType* noun = static_cast<QTvtVocWordType*>(parent->childContainer(1));
+    noun->setWordType(QTvtVocWordFlag::Noun);
+    wordType = new QTvtVocWordType( "Male" , noun);
     noun->appendChildContainer(wordType);
-    wordType->setWordType(KEduVocWordFlag::Noun | KEduVocWordFlag::Masculine);
-    wordType = new KEduVocWordType( "Female" , noun);
+    wordType->setWordType(QTvtVocWordFlag::Noun | QTvtVocWordFlag::Masculine);
+    wordType = new QTvtVocWordType( "Female" , noun);
     noun->appendChildContainer(wordType);
-    wordType->setWordType(KEduVocWordFlag::Noun | KEduVocWordFlag::Feminine);
-    wordType = new KEduVocWordType( "Neutral" , noun);
+    wordType->setWordType(QTvtVocWordFlag::Noun | QTvtVocWordFlag::Feminine);
+    wordType = new QTvtVocWordType( "Neutral" , noun);
     noun->appendChildContainer(wordType);
-    wordType->setWordType(KEduVocWordFlag::Noun | KEduVocWordFlag::Neuter);
+    wordType->setWordType(QTvtVocWordFlag::Noun | QTvtVocWordFlag::Neuter);
 
 
-    KEduVocWordType* pronoun = static_cast<KEduVocWordType*>(parent->childContainer(6));
-    wordType = new KEduVocWordType( "Possessive" , pronoun);
-    wordType->setWordType(KEduVocWordFlag::Pronoun);
+    QTvtVocWordType* pronoun = static_cast<QTvtVocWordType*>(parent->childContainer(6));
+    wordType = new QTvtVocWordType( "Possessive" , pronoun);
+    wordType->setWordType(QTvtVocWordFlag::Pronoun);
     pronoun->appendChildContainer(wordType);
-    wordType = new KEduVocWordType( "Personal" , pronoun);
-    wordType->setWordType(KEduVocWordFlag::Pronoun);
+    wordType = new QTvtVocWordType( "Personal" , pronoun);
+    wordType->setWordType(QTvtVocWordFlag::Pronoun);
     pronoun->appendChildContainer(wordType);
 }
 

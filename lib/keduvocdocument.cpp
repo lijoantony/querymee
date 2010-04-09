@@ -59,10 +59,10 @@
 #define TXT_EXT          "txt"
 #define WQL_EXT          "wql"
 
-class KEduVocDocument::KEduVocDocumentPrivate
+class QTvtVocDocument::QTvtVocDocumentPrivate
 {
 public:
-    KEduVocDocumentPrivate( KEduVocDocument* qq )
+    QTvtVocDocumentPrivate( QTvtVocDocument* qq )
             : q( qq )
     {
         m_lessonContainer = 0;
@@ -71,17 +71,17 @@ public:
         init();
     }
 
-    ~KEduVocDocumentPrivate();
+    ~QTvtVocDocumentPrivate();
 
     void init();
 
-    KEduVocDocument* q;
+    QTvtVocDocument* q;
 
     bool                      m_dirty;
-    KUrl                      m_url;
+    QUrl                      m_url;
 
     // save these to document
-    QList<KEduVocIdentifier>  m_identifiers;
+    QList<QTvtVocIdentifier>  m_identifiers;
 
     QList<int>                m_extraSizeHints;
     QList<int>                m_sizeHints;
@@ -106,30 +106,30 @@ public:
       */
     QString                   m_category;
 
-    KEduVocLesson * m_lessonContainer;
-    KEduVocWordType * m_wordTypeContainer;
-    KEduVocLeitnerBox * m_leitnerContainer;
+    QTvtVocLesson * m_lessonContainer;
+    QTvtVocWordType * m_wordTypeContainer;
+    QTvtVocLeitnerBox * m_leitnerContainer;
 };
 
-KEduVocDocument::KEduVocDocumentPrivate::~KEduVocDocumentPrivate()
+QTvtVocDocument::QTvtVocDocumentPrivate::~QTvtVocDocumentPrivate()
 {
     delete m_lessonContainer;
     delete m_wordTypeContainer;
     delete m_leitnerContainer;
 }
 
-void KEduVocDocument::KEduVocDocumentPrivate::init()
+void QTvtVocDocument::QTvtVocDocumentPrivate::init()
 {
     delete m_lessonContainer;
-    m_lessonContainer = new KEduVocLesson( "Document Lesson");
-    m_lessonContainer->setContainerType(KEduVocLesson::Lesson);
+    m_lessonContainer = new QTvtVocLesson( "Document Lesson");
+    m_lessonContainer->setContainerType(QTvtVocLesson::Lesson);
     delete m_wordTypeContainer;
-    m_wordTypeContainer = new KEduVocWordType( "Word types" );
+    m_wordTypeContainer = new QTvtVocWordType( "Word types" );
 
     if ( m_leitnerContainer ) {
         delete m_leitnerContainer;
     }
-    m_leitnerContainer = new KEduVocLeitnerBox( "Leitner Box" );
+    m_leitnerContainer = new QTvtVocLeitnerBox( "Leitner Box" );
 
     m_tenseDescriptions.clear();
     m_identifiers.clear();
@@ -153,27 +153,27 @@ void KEduVocDocument::KEduVocDocumentPrivate::init()
 }
 
 
-KEduVocDocument::KEduVocDocument( QObject *parent )
-        : QObject( parent ), d( new KEduVocDocumentPrivate( this ) )
+QTvtVocDocument::QTvtVocDocument( QObject *parent )
+        : QObject( parent ), d( new QTvtVocDocumentPrivate( this ) )
 {
     qDebug() << "constructor done";
 }
 
 
-KEduVocDocument::~KEduVocDocument()
+QTvtVocDocument::~QTvtVocDocument()
 {
     delete d;
 }
 
 
-void KEduVocDocument::setModified( bool dirty )
+void QTvtVocDocument::setModified( bool dirty )
 {
     d->m_dirty = dirty;
     emit docModified( d->m_dirty );
 }
 
 
-KEduVocDocument::FileType KEduVocDocument::detectFileType( const QString &fileName )
+QTvtVocDocument::FileType QTvtVocDocument::detectFileType( const QString &fileName )
 {
 //     QIODevice * f = KFilterDev::deviceForFile( fileName );
     QFile f(fileName);
@@ -254,7 +254,7 @@ KEduVocDocument::FileType KEduVocDocument::detectFileType( const QString &fileNa
 }
 
 
-int KEduVocDocument::open( const KUrl& url )
+int QTvtVocDocument::open( const QUrl& url )
 {
     // temp solution for KUrl -> QString
     QString myFile = url.path();
@@ -290,7 +290,7 @@ int KEduVocDocument::open( const KUrl& url )
         switch ( ft ) {
             case Kvtml: {
                 qDebug() << "Reading KVTML document...";
-                KEduVocKvtml2Reader kvtmlReader( f );
+                QTvtVocKvtml2Reader kvtmlReader( f );
                 read = kvtmlReader.readDoc( this );
                 if ( !read ) {
                     errorMessage = kvtmlReader.errorMessage();
@@ -304,7 +304,7 @@ int KEduVocDocument::open( const KUrl& url )
                 qDebug() << "Reading WordQuiz (WQL) document...";
                 qCritical ("WordQuiz (WQL) document not yet supported...");
                 errorMessage = "WordQuiz (WQL) document not yet supported...";
-//                 KEduVocWqlReader wqlReader( f );
+//                 QTvtVocWqlReader wqlReader( f );
 //                 d->m_url.setFileName( "Untitled" );
 //                 read = wqlReader.readDoc( this );
 //                 if ( !read ) {
@@ -317,7 +317,7 @@ int KEduVocDocument::open( const KUrl& url )
                 qDebug() << "Reading Pauker document...";
                 qCritical ("Pauker document not yet supported...");
                 errorMessage = "Pauker document not yet supported...";
-//                 KEduVocPaukerReader paukerReader( this );
+//                 QTvtVocPaukerReader paukerReader( this );
 //                 d->m_url.setFileName( "Untitled" );
 //                 read = paukerReader.read( f );
 //                 if ( !read ) {
@@ -330,7 +330,7 @@ int KEduVocDocument::open( const KUrl& url )
                 qDebug() << "Reading Vokabeln document...";
                 qCritical ("Vokabeln document not yet supported...");
                 errorMessage = "Vokabeln document not yet supported...";
-//                 KEduVocVokabelnReader vokabelnReader( f );
+//                 QTvtVocVokabelnReader vokabelnReader( f );
 //                 d->m_url.setFileName( "Untitled" );
 //                 read = vokabelnReader.readDoc( this );
 //                 if ( !read ) {
@@ -343,7 +343,7 @@ int KEduVocDocument::open( const KUrl& url )
                 qDebug() << "Reading CVS document...";
                 qCritical ("CVS document not yet supported...");
                 errorMessage = "CVS document not yet supported...";
-//                 KEduVocCsvReader csvReader( f );
+//                 QTvtVocCsvReader csvReader( f );
 //                 read = csvReader.readDoc( this );
 //                 if ( !read ) {
 //                     errorMessage = csvReader.errorMessage();
@@ -355,7 +355,7 @@ int KEduVocDocument::open( const KUrl& url )
                 qDebug() << "Reading XDXF document...";
                 qCritical ("XDXF document not yet supported...");
                 errorMessage = "XDXF document not yet supported...";
-//                 KEduVocXdxfReader xdxfReader( this );
+//                 QTvtVocXdxfReader xdxfReader( this );
 //                 d->m_url.setFileName(  "Untitled"  );
 //                 read = xdxfReader.read( f );
 //                 if ( !read ) {
@@ -366,7 +366,7 @@ int KEduVocDocument::open( const KUrl& url )
 
             default: {
                 qDebug() << "Reading KVTML document (fallback)...";
-                KEduVocKvtml2Reader kvtmlReader( f );
+                QTvtVocKvtml2Reader kvtmlReader( f );
                 read = kvtmlReader.readDoc( this );
                 if ( !read ) {
                     errorMessage = kvtmlReader.errorMessage();
@@ -399,9 +399,9 @@ int KEduVocDocument::open( const KUrl& url )
 }
 
 
-int KEduVocDocument::saveAs( const KUrl & url, FileType ft, const QString & generator )
+int QTvtVocDocument::saveAs( const QUrl & url, FileType ft, const QString & generator )
 {
-    KUrl tmp( url );
+    QUrl tmp( url );
 
     if ( ft == Automatic ) {
         if ( tmp.path().right( strlen( "." KVTML_EXT ) ) == "." KVTML_EXT )
@@ -425,19 +425,19 @@ int KEduVocDocument::saveAs( const KUrl & url, FileType ft, const QString & gene
     switch ( ft ) {
         case Kvtml: {
             // write version 2 file
-            KEduVocKvtml2Writer kvtmlWriter( &f );
+            QTvtVocKvtml2Writer kvtmlWriter( &f );
             saved = kvtmlWriter.writeDoc( this, generator );
         }
         break;
         ///@todo port me
 //         case Kvtml1: {
 //             // write old version 1 file
-//             KEduVocKvtmlWriter kvtmlWriter( &f );
+//             QTvtVocKvtmlWriter kvtmlWriter( &f );
 //             saved = kvtmlWriter.writeDoc( this, generator );
 //         }
 //         break;
         case Csv: {
-            KEduVocCsvWriter csvWriter( &f );
+            QTvtVocCsvWriter csvWriter( &f );
             saved = csvWriter.writeDoc( this, generator );
         }
         break;
@@ -459,14 +459,14 @@ int KEduVocDocument::saveAs( const KUrl & url, FileType ft, const QString & gene
     return 0;
 }
 
-QByteArray KEduVocDocument::toByteArray(const QString &generator)
+QByteArray QTvtVocDocument::toByteArray(const QString &generator)
 {
     // no file needed
-    KEduVocKvtml2Writer kvtmlWriter(0);
+    QTvtVocKvtml2Writer kvtmlWriter(0);
     return kvtmlWriter.toByteArray( this, generator );
 }
 
-void KEduVocDocument::merge( KEduVocDocument *docToMerge, bool matchIdentifiers )
+void QTvtVocDocument::merge( QTvtVocDocument *docToMerge, bool matchIdentifiers )
 {
     Q_UNUSED(docToMerge)
     Q_UNUSED(matchIdentifiers)
@@ -526,7 +526,7 @@ void KEduVocDocument::merge( KEduVocDocument *docToMerge, bool matchIdentifiers 
         if (equal) {   // easy way: same language codes, just append
 
           for (int i = 0; i < docToMerge->entryCount(); i++) {
-            KEduVocExpression *expr = docToMerge->entry(i);
+            QTvtVocExpression *expr = docToMerge->entry(i);
 
             expr->setLesson(expr->lesson() + lesson_offset);
 
@@ -575,7 +575,7 @@ void KEduVocDocument::merge( KEduVocDocument *docToMerge, bool matchIdentifiers 
                 expr->translation(lang).setUsageLabel (tg);
               }
 
-              KEduVocConjugation conj = expr->translation(lang).conjugation();
+              QTvtVocConjugation conj = expr->translation(lang).conjugation();
               bool condirty = false;
               for (int ci = 0; ci < conj.entryCount(); ci++) {
                 t = conj.getType(ci);
@@ -609,8 +609,8 @@ void KEduVocDocument::merge( KEduVocDocument *docToMerge, bool matchIdentifiers 
             move_matrix.append(docToMerge->indexOfIdentifier(identifier(i)));
 
           for (int j = 0; j < docToMerge->entryCount(); j++) {
-            KEduVocExpression new_expr;
-            KEduVocExpression *expr = docToMerge->entry(j);
+            QTvtVocExpression new_expr;
+            QTvtVocExpression *expr = docToMerge->entry(j);
             new_expr.setLesson(expr->lesson()+lesson_offset);
 
             for (int i = 0; i < move_matrix.count(); i++) {
@@ -652,7 +652,7 @@ void KEduVocDocument::merge( KEduVocDocument *docToMerge, bool matchIdentifiers 
                   new_expr.setUsageLabel(i, t2);
                 }
 
-                KEduVocConjugation conj = expr->conjugation(lpos);
+                QTvtVocConjugation conj = expr->conjugation(lpos);
                 for (int ci = 0; ci < conj.entryCount(); ci++) {
                   t = conj.getType(ci);
                   if (!t.isEmpty() && t.left(1) == QM_USER_TYPE) {
@@ -682,7 +682,7 @@ void KEduVocDocument::merge( KEduVocDocument *docToMerge, bool matchIdentifiers 
     */
 }
 
-const KEduVocIdentifier& KEduVocDocument::identifier( int index ) const
+const QTvtVocIdentifier& QTvtVocDocument::identifier( int index ) const
 {
     if ( index < 0 || index >= d->m_identifiers.size() ) {
         qCritical() << " Error: Invalid identifier index: " << index;
@@ -690,7 +690,7 @@ const KEduVocIdentifier& KEduVocDocument::identifier( int index ) const
     return d->m_identifiers[index];
 }
 
-KEduVocIdentifier& KEduVocDocument::identifier( int index )
+QTvtVocIdentifier& QTvtVocDocument::identifier( int index )
 {
     if ( index < 0 || index >= d->m_identifiers.size() ) {
         qCritical() << " Error: Invalid identifier index: " << index;
@@ -698,7 +698,7 @@ KEduVocIdentifier& KEduVocDocument::identifier( int index )
     return d->m_identifiers[index];
 }
 
-void KEduVocDocument::setIdentifier( int idx, const KEduVocIdentifier &id )
+void QTvtVocDocument::setIdentifier( int idx, const QTvtVocIdentifier &id )
 {
     if ( idx >= 0 && idx < d->m_identifiers.size() ) {
         d->m_identifiers[idx] = id;
@@ -707,7 +707,7 @@ void KEduVocDocument::setIdentifier( int idx, const KEduVocIdentifier &id )
 }
 
 // works if const is removed
-int KEduVocDocument::indexOfIdentifier( const QString &name ) const
+int QTvtVocDocument::indexOfIdentifier( const QString &name ) const
 {
     for (int i = 0; i < identifierCount(); i++)
         if (identifier(i).locale() == name)
@@ -715,7 +715,7 @@ int KEduVocDocument::indexOfIdentifier( const QString &name ) const
     return -1;
 }
 
-void KEduVocDocument::removeIdentifier( int index )
+void QTvtVocDocument::removeIdentifier( int index )
 {
     if ( index < d->m_identifiers.size() && index >= 0 ) {
         d->m_identifiers.removeAt( index );
@@ -724,18 +724,18 @@ void KEduVocDocument::removeIdentifier( int index )
 }
 
 
-bool KEduVocDocument::isModified() const
+bool QTvtVocDocument::isModified() const
 {
     return d->m_dirty;
 }
 
 
-int KEduVocDocument::identifierCount() const
+int QTvtVocDocument::identifierCount() const
 {
     return d->m_identifiers.count();  // number of translations
 }
 
-int KEduVocDocument::appendIdentifier( const KEduVocIdentifier& id )
+int QTvtVocDocument::appendIdentifier( const QTvtVocIdentifier& id )
 {
     int i = d->m_identifiers.size();
     qDebug() << "appendIdentifier: " << i << id.name() << id.locale();
@@ -752,32 +752,32 @@ int KEduVocDocument::appendIdentifier( const KEduVocIdentifier& id )
     return i;
 }
 
-KEduVocLesson * KEduVocDocument::lesson()
+QTvtVocLesson * QTvtVocDocument::lesson()
 {
     return d->m_lessonContainer;
 }
 
-KEduVocWordType * KEduVocDocument::wordTypeContainer()
+QTvtVocWordType * QTvtVocDocument::wordTypeContainer()
 {
     return d->m_wordTypeContainer;
 }
 
-KEduVocLeitnerBox * KEduVocDocument::leitnerContainer()
+QTvtVocLeitnerBox * QTvtVocDocument::leitnerContainer()
 {
     return d->m_leitnerContainer;
 }
 
-KUrl KEduVocDocument::url() const
+QUrl QTvtVocDocument::url() const
 {
     return d->m_url;
 }
 
-void KEduVocDocument::setUrl( const KUrl& url )
+void QTvtVocDocument::setUrl( const QUrl& url )
 {
     d->m_url = url;
 }
 
-QString KEduVocDocument::title() const
+QString QTvtVocDocument::title() const
 {
     if ( d->m_title.isEmpty() )
         return d->m_url.path();
@@ -785,117 +785,117 @@ QString KEduVocDocument::title() const
         return d->m_title;
 }
 
-void KEduVocDocument::setTitle( const QString & title )
+void QTvtVocDocument::setTitle( const QString & title )
 {
     d->m_title = title;
     d->m_lessonContainer->setName(title);
     setModified(true);
 }
 
-QString KEduVocDocument::author() const
+QString QTvtVocDocument::author() const
 {
     return d->m_author;
 }
 
-void KEduVocDocument::setAuthor( const QString & s )
+void QTvtVocDocument::setAuthor( const QString & s )
 {
     d->m_author = s.simplified();
     setModified(true);
 }
 
-QString KEduVocDocument::authorContact() const
+QString QTvtVocDocument::authorContact() const
 {
     return d->m_authorContact;
 }
 
-void KEduVocDocument::setAuthorContact( const QString & s )
+void QTvtVocDocument::setAuthorContact( const QString & s )
 {
     d->m_authorContact = s.simplified();
     setModified(true);
 }
 
-QString KEduVocDocument::license() const
+QString QTvtVocDocument::license() const
 {
     return d->m_license;
 }
 
-QString KEduVocDocument::documentComment() const
+QString QTvtVocDocument::documentComment() const
 {
     return d->m_comment;
 }
 
-void KEduVocDocument::setCategory( const QString & category )
+void QTvtVocDocument::setCategory( const QString & category )
 {
     d->m_category = category;
     setModified(true);
 }
 
-QString KEduVocDocument::category() const
+QString QTvtVocDocument::category() const
 {
     return d->m_category;
     ///@todo make writer/reader use this
 }
 
-void KEduVocDocument::queryIdentifier( QString &org, QString &trans ) const
+void QTvtVocDocument::queryIdentifier( QString &org, QString &trans ) const
 {
     org = d->m_queryorg;
     trans = d->m_querytrans;
 }
 
-void KEduVocDocument::setQueryIdentifier( const QString &org, const QString &trans )
+void QTvtVocDocument::setQueryIdentifier( const QString &org, const QString &trans )
 {
     d->m_queryorg = org;
     d->m_querytrans = trans;
     setModified(true);
 }
 
-void KEduVocDocument::setLicense( const QString & s )
+void QTvtVocDocument::setLicense( const QString & s )
 {
     d->m_license = s.simplified();
     setModified(true);
 }
 
-void KEduVocDocument::setDocumentComment( const QString & s )
+void QTvtVocDocument::setDocumentComment( const QString & s )
 {
     d->m_comment = s.trimmed();
     setModified(true);
 }
 
-void KEduVocDocument::setGenerator( const QString & generator )
+void QTvtVocDocument::setGenerator( const QString & generator )
 {
     d->m_generator = generator;
     setModified(true);
 }
 
-QString KEduVocDocument::generator() const
+QString QTvtVocDocument::generator() const
 {
     return d->m_generator;
 }
 
-QString KEduVocDocument::version() const
+QString QTvtVocDocument::version() const
 {
     return d->m_version;
 }
 
-void KEduVocDocument::setVersion( const QString & vers )
+void QTvtVocDocument::setVersion( const QString & vers )
 {
     d->m_version = vers;
     setModified(true);
 }
 
-QString KEduVocDocument::csvDelimiter() const
+QString QTvtVocDocument::csvDelimiter() const
 {
     return d->m_csvDelimiter;
 }
 
-void KEduVocDocument::setCsvDelimiter( const QString &delimiter )
+void QTvtVocDocument::setCsvDelimiter( const QString &delimiter )
 {
     d->m_csvDelimiter = delimiter;
     setModified(true);
 }
 
 
-QString KEduVocDocument::pattern( FileDialogMode mode )
+QString QTvtVocDocument::pattern( FileDialogMode mode )
 {
     static const struct SupportedFilter {
         bool reading;
@@ -928,7 +928,7 @@ QString KEduVocDocument::pattern( FileDialogMode mode )
     return newfilters.join( "\n" );
 }
 
-QString KEduVocDocument::errorDescription( int errorCode )
+QString QTvtVocDocument::errorDescription( int errorCode )
 {
     switch (errorCode) {
     case NoError:

@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     read a KEduVocDocument from a KVTML file
+                     read a QTvtVocDocument from a KVTML file
     -----------------------------------------------------------------------
     copyright      : (C) 1999-2001 Ewald Arnold <kvoctrain@ewald-arnold.de>
 
@@ -35,18 +35,18 @@
 #include "keduvocpersonalpronoun.h"
 
 class QIODevice;
-class KEduVocDocument;
+class QTvtVocDocument;
 
 /**
 @author Eric Pignet
 */
-class KEduVocKvtmlReader : public QObject
+class QTvtVocKvtmlReader : public QObject
 {
     Q_OBJECT
 public:
-    KEduVocKvtmlReader( QIODevice *file );
+    QTvtVocKvtmlReader( QIODevice *file );
 
-    bool readDoc( KEduVocDocument *doc );
+    bool readDoc( QTvtVocDocument *doc );
 
     /**
      * Attempt to add a language/locale. Language/locale are set to the same value.
@@ -59,14 +59,14 @@ public:
 
     bool readLesson( QDomElement &domElementParent );
     bool readArticle( QDomElement &domElementParent );
-    bool readPersonalPronouns( QDomElement &domElementParent, KEduVocPersonalPronoun& pronouns );
-    bool readConjugation( QDomElement &domElementParent, KEduVocConjugation &conjugation );
-    bool readTranslationConjugations( QDomElement &domElementParent, KEduVocTranslation* translation );
+    bool readPersonalPronouns( QDomElement &domElementParent, QTvtVocPersonalPronoun& pronouns );
+    bool readConjugation( QDomElement &domElementParent, QTvtVocConjugation &conjugation );
+    bool readTranslationConjugations( QDomElement &domElementParent, QTvtVocTranslation* translation );
     bool readType( QDomElement &domElementParent );
     bool readTense( QDomElement &domElementParent );
     bool readUsage( QDomElement &domElementParent );
-    bool readComparison( QDomElement &domElementParent, KEduVocTranslation* translation );
-    bool readMultipleChoice( QDomElement &domElementParent, KEduVocTranslation* translation );
+    bool readComparison( QDomElement &domElementParent, QTvtVocTranslation* translation );
+    bool readMultipleChoice( QDomElement &domElementParent, QTvtVocTranslation* translation );
     bool readExpressionChildAttributes( QDomElement &domElementExpressionChild,
                                         QString &lang,
                                         grade_t &grade, grade_t &rev_grade,
@@ -95,13 +95,13 @@ public:
 
 private:
     QIODevice *m_inputFile;
-    KEduVocDocument *m_doc;
+    QTvtVocDocument *m_doc;
     QString m_errorMessage;
     int m_cols;
     int m_lines;
     QStringList m_oldSelfDefinedTypes;
 
-    KEduVocKvtmlCompability m_compability;
+    QTvtVocKvtmlCompability m_compability;
 };
 
 #endif

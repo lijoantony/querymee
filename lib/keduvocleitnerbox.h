@@ -25,36 +25,36 @@
 #include <QtCore/QList>
 #include <QtCore/QString>
 
-class KEduVocExpression;
-class KEduVocTranslation;
+class QTvtVocExpression;
+class QTvtVocTranslation;
 
 /**
  * Leitner Boxes are an alternative grading system.
  * Classically flash cards are kept in boxes and moved corresponding to the users knowledge level.
  */
-class KEDUVOCDOCUMENT_EXPORT KEduVocLeitnerBox :public KEduVocContainer
+class QTVTVOCDOCUMENT_EXPORT QTvtVocLeitnerBox :public QTvtVocContainer
 {
 public:
     /** default constructor */
-    explicit KEduVocLeitnerBox(const QString& name, KEduVocLeitnerBox *parent = 0);
+    explicit QTvtVocLeitnerBox(const QString& name, QTvtVocLeitnerBox *parent = 0);
 
     /** destructor */
-    ~KEduVocLeitnerBox();
+    ~QTvtVocLeitnerBox();
 
     /**
      * The leitner box class keeps track of individual translations, because for one entry, the translations can have different grades.
      * @param row 
      * @return 
      */
-    KEduVocTranslation * translation(int row);
+    QTvtVocTranslation * translation(int row);
 
     /**
      * get a list of all entries in the box
      * @return 
      */
-    QList < KEduVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive);
+    QList < QTvtVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive);
 
-    KEduVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive);
+    QTvtVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive);
 
     /** get the number of entries in the lesson */
     int entryCount(EnumEntriesRecursive recursive = NotRecursive);
@@ -66,14 +66,14 @@ private:
     /** add an entry to the lesson
      * @param entryid id of the entry to add
      */
-    void addTranslation(KEduVocTranslation* translation);
+    void addTranslation(QTvtVocTranslation* translation);
 
     /** remove an entry from the lesson
      * @param entryid id of the entry to remove
      */
-    void removeTranslation(KEduVocTranslation* translation);
+    void removeTranslation(QTvtVocTranslation* translation);
 
-    friend class KEduVocTranslation;
+    friend class QTvtVocTranslation;
 };
 
 #endif

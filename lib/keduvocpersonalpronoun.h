@@ -26,24 +26,24 @@
 /**
  * The conjugation of a verb
  */
-class KEDUVOCDOCUMENT_EXPORT KEduVocPersonalPronoun
+class QTVTVOCDOCUMENT_EXPORT QTvtVocPersonalPronoun
 {
 public:
 
     /**
      * The constructor
      */
-    explicit KEduVocPersonalPronoun();
+    explicit QTvtVocPersonalPronoun();
 
-    KEduVocPersonalPronoun( const KEduVocPersonalPronoun& rhs );
+    QTvtVocPersonalPronoun( const QTvtVocPersonalPronoun& rhs );
 
-    ~KEduVocPersonalPronoun();
+    ~QTvtVocPersonalPronoun();
 
-    KEduVocPersonalPronoun& operator = ( const KEduVocPersonalPronoun& a );
-    bool operator == ( const KEduVocPersonalPronoun& a ) const;
+    QTvtVocPersonalPronoun& operator = ( const QTvtVocPersonalPronoun& a );
+    bool operator == ( const QTvtVocPersonalPronoun& a ) const;
 
-    QString personalPronoun(KEduVocWordFlags flags) const;
-    void setPersonalPronoun(const QString& conjugation, KEduVocWordFlags flags);
+    QString personalPronoun(QTvtVocWordFlags flags) const;
+    void setPersonalPronoun(const QString& conjugation, QTvtVocWordFlags flags);
 
     bool maleFemaleDifferent() const;
     void setMaleFemaleDifferent(bool different);

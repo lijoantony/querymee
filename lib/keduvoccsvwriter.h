@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                    export a KEduVocDocument to a delimited text file
+                    export a QTvtVocDocument to a delimited text file
     -----------------------------------------------------------------------
     copyright           : (C) 1999-2001 Ewald Arnold <kvoctrain@ewald-arnold.de>
 
@@ -24,18 +24,18 @@
 
 class QFile;
 class QString;
-class KEduVocDocument;
+class QTvtVocDocument;
 
-class KEduVocCsvWriter
+class QTvtVocCsvWriter
 {
 public:
-    KEduVocCsvWriter( QFile *file );
+    QTvtVocCsvWriter( QFile *file );
 
-    bool writeDoc( KEduVocDocument *doc, const QString &generator );
+    bool writeDoc( QTvtVocDocument *doc, const QString &generator );
 
 private:
     QFile *m_outputFile;
-    KEduVocDocument *m_doc;
+    QTvtVocDocument *m_doc;
 };
 
 #endif

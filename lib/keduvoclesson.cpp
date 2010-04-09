@@ -25,34 +25,34 @@
 #include <QtCore/QList>
 
 /** private class to store information about a lesson */
-class KEduVocLesson::Private
+class QTvtVocLesson::Private
 {
 public:
     // entries
-    QList<KEduVocExpression*> m_entries;
+    QList<QTvtVocExpression*> m_entries;
 };
 
 
-KEduVocLesson::KEduVocLesson(const QString& name, KEduVocContainer *parent)
-        : KEduVocContainer(name, Lesson, parent), d( new Private )
+QTvtVocLesson::QTvtVocLesson(const QString& name, QTvtVocContainer *parent)
+        : QTvtVocContainer(name, Lesson, parent), d( new Private )
 {
 }
 
 
-KEduVocLesson::KEduVocLesson( const KEduVocLesson &other )
-        : KEduVocContainer(other), d( new Private )
+QTvtVocLesson::QTvtVocLesson( const QTvtVocLesson &other )
+        : QTvtVocContainer(other), d( new Private )
 {
     d->m_entries = other.d->m_entries;
 }
 
 
-KEduVocLesson::~KEduVocLesson()
+QTvtVocLesson::~QTvtVocLesson()
 {
     qDeleteAll(d->m_entries);
     delete d;
 }
 
-QList<KEduVocExpression*> KEduVocLesson::entries(EnumEntriesRecursive recursive)
+QList<QTvtVocExpression*> QTvtVocLesson::entries(EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive();
@@ -60,7 +60,7 @@ QList<KEduVocExpression*> KEduVocLesson::entries(EnumEntriesRecursive recursive)
     return d->m_entries;
 }
 
-int KEduVocLesson::entryCount(EnumEntriesRecursive recursive)
+int QTvtVocLesson::entryCount(EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive().count();
@@ -68,12 +68,12 @@ int KEduVocLesson::entryCount(EnumEntriesRecursive recursive)
     return d->m_entries.count();
 }
 
-void KEduVocLesson::appendEntry(KEduVocExpression* entry)
+void QTvtVocLesson::appendEntry(QTvtVocExpression* entry)
 {
     insertEntry(d->m_entries.size(), entry);
 }
 
-void KEduVocLesson::insertEntry(int index, KEduVocExpression * entry)
+void QTvtVocLesson::insertEntry(int index, QTvtVocExpression * entry)
 {
     Q_ASSERT(entry);
     d->m_entries.insert( index, entry );
@@ -81,7 +81,7 @@ void KEduVocLesson::insertEntry(int index, KEduVocExpression * entry)
     invalidateChildLessonEntries();
 }
 
-void KEduVocLesson::removeEntry(KEduVocExpression* entry)
+void QTvtVocLesson::removeEntry(QTvtVocExpression* entry)
 {
     Q_ASSERT(entry);
     if (d->m_entries.indexOf(entry) == -1) {
@@ -92,7 +92,7 @@ void KEduVocLesson::removeEntry(KEduVocExpression* entry)
     invalidateChildLessonEntries();
 }
 
-KEduVocExpression * KEduVocLesson::entry(int row, EnumEntriesRecursive recursive)
+QTvtVocExpression * QTvtVocLesson::entry(int row, EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive().value(row);

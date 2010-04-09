@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     read a KEduVocDocument from a WQL file
+                     read a QTvtVocDocument from a WQL file
     -----------------------------------------------------------------------
     copyright     : (C) 2004, 2007 Peter Hedlund <peter.hedlund@kdemail.net>
                   : (c) 2005 Eric Pignet
@@ -25,14 +25,14 @@
 #include <QString>
 
 class QIODevice;
-class KEduVocDocument;
+class QTvtVocDocument;
 
-class KEduVocWqlReader
+class QTvtVocWqlReader
 {
 public:
-    KEduVocWqlReader( QIODevice *file );
+    QTvtVocWqlReader( QIODevice *file );
 
-    bool readDoc( KEduVocDocument *doc );
+    bool readDoc( QTvtVocDocument *doc );
 
     QString errorMessage() const
     {
@@ -41,7 +41,7 @@ public:
 
 private:
     QIODevice *m_inputFile;
-    KEduVocDocument *m_doc;
+    QTvtVocDocument *m_doc;
     QString m_errorMessage;
 };
 

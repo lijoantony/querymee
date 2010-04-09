@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                   export a KEduVocDocument to a KVTML file
+                   export a QTvtVocDocument to a KVTML file
     -----------------------------------------------------------------------
     copyright           : (C) 1999-2001 Ewald Arnold <kvoctrain@ewald-arnold.de>
 
@@ -39,14 +39,14 @@
 #include "kvtmldefs.h"
 #include "keduvoccommon_p.h"
 
-KEduVocKvtmlWriter::KEduVocKvtmlWriter( QFile *file )
+QTvtVocKvtmlWriter::QTvtVocKvtmlWriter( QFile *file )
 {
     // the file must be already open
     m_outputFile = file;
 }
 
 
-bool KEduVocKvtmlWriter::writeDoc( KEduVocDocument *doc, const QString &generator )
+bool QTvtVocKvtmlWriter::writeDoc( QTvtVocDocument *doc, const QString &generator )
 {
     bool first_expr = true;
 
@@ -80,7 +80,7 @@ bool KEduVocKvtmlWriter::writeDoc( KEduVocDocument *doc, const QString &generato
     if ( !writeArticle( domElementKvtml ) )
         return false;
 
-    QList<KEduVocPersonalPronoun> pronouns;
+    QList<QTvtVocPersonalPronoun> pronouns;
     for ( int i = 0; i < m_doc->identifierCount(); i++ )
         pronouns.append( m_doc->identifier(i).personalPronouns() );
     if ( pronouns.count() > 0 ) {
@@ -103,7 +103,7 @@ bool KEduVocKvtmlWriter::writeDoc( KEduVocDocument *doc, const QString &generato
     int entryCount = m_doc->entryCount();
 
     for ( int i = 0; i < entryCount; i++ ) {
-        KEduVocExpression *entry = m_doc->entry( i );
+        QTvtVocExpression *entry = m_doc->entry( i );
         QDomElement domElementExpression = m_domDoc.createElement( KV_EXPR );
 
         if ( entry->lesson() != 0 ) {
@@ -300,7 +300,7 @@ bool KEduVocKvtmlWriter::writeDoc( KEduVocDocument *doc, const QString &generato
 }
 
 
-bool KEduVocKvtmlWriter::writeLesson( QDomElement &domElementParent )
+bool QTvtVocKvtmlWriter::writeLesson( QDomElement &domElementParent )
 {
     if ( m_doc->lessonCount() == 0 )
         return true;
@@ -328,7 +328,7 @@ bool KEduVocKvtmlWriter::writeLesson( QDomElement &domElementParent )
 }
 
 
-bool KEduVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
+bool QTvtVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
 /*
  <article>
   <e l="de">    lang determines also lang order in entries !!
@@ -355,7 +355,7 @@ bool KEduVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
 
         QString articleString;
         // female
-        articleString = m_doc->identifier(i).article().article( KEduVocWordFlag::Singular | KEduVocWordFlag::Definite | KEduVocWordFlag::Feminine );
+        articleString = m_doc->identifier(i).article().article( QTvtVocWordFlag::Singular | QTvtVocWordFlag::Definite | QTvtVocWordFlag::Feminine );
         if ( !articleString.isEmpty() ) {
             QDomElement domElementFD = m_domDoc.createElement( KV_ART_FD );
             QDomText domTextFD = m_domDoc.createTextNode( articleString );
@@ -363,7 +363,7 @@ bool KEduVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
             domElementFD.appendChild( domTextFD );
             domElementEntry.appendChild( domElementFD );
         }
-        articleString = m_doc->identifier(i).article().article( KEduVocWordFlag::Singular | KEduVocWordFlag::Indefinite | KEduVocWordFlag::Feminine );
+        articleString = m_doc->identifier(i).article().article( QTvtVocWordFlag::Singular | QTvtVocWordFlag::Indefinite | QTvtVocWordFlag::Feminine );
         if ( !articleString.isEmpty() ) {
             QDomElement domElementFI = m_domDoc.createElement( KV_ART_FI );
             QDomText domTextFI = m_domDoc.createTextNode( articleString );
@@ -374,7 +374,7 @@ bool KEduVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
 
 
         // male
-        articleString = m_doc->identifier(i).article().article( KEduVocWordFlag::Singular | KEduVocWordFlag::Definite | KEduVocWordFlag::Masculine );
+        articleString = m_doc->identifier(i).article().article( QTvtVocWordFlag::Singular | QTvtVocWordFlag::Definite | QTvtVocWordFlag::Masculine );
         if ( !articleString.isEmpty() ) {
             QDomElement domElementMD = m_domDoc.createElement( KV_ART_MD );
             QDomText domTextMD = m_domDoc.createTextNode( articleString );
@@ -382,7 +382,7 @@ bool KEduVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
             domElementMD.appendChild( domTextMD );
             domElementEntry.appendChild( domElementMD );
         }
-        articleString = m_doc->identifier(i).article().article( KEduVocWordFlag::Singular | KEduVocWordFlag::Indefinite | KEduVocWordFlag::Masculine );
+        articleString = m_doc->identifier(i).article().article( QTvtVocWordFlag::Singular | QTvtVocWordFlag::Indefinite | QTvtVocWordFlag::Masculine );
         if ( !articleString.isEmpty() ) {
             QDomElement domElementMI = m_domDoc.createElement( KV_ART_MI );
             QDomText domTextMI = m_domDoc.createTextNode( articleString );
@@ -392,7 +392,7 @@ bool KEduVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
         }
 
         // neutral
-        articleString = m_doc->identifier(i).article().article( KEduVocWordFlag::Singular | KEduVocWordFlag::Definite | KEduVocWordFlag::Neutral );
+        articleString = m_doc->identifier(i).article().article( QTvtVocWordFlag::Singular | QTvtVocWordFlag::Definite | QTvtVocWordFlag::Neutral );
         if ( !articleString.isEmpty() ) {
             QDomElement domElementND = m_domDoc.createElement( KV_ART_ND );
             QDomText domTextND = m_domDoc.createTextNode( articleString );
@@ -400,7 +400,7 @@ bool KEduVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
             domElementND.appendChild( domTextND );
             domElementEntry.appendChild( domElementND );
         }
-        articleString = m_doc->identifier(i).article().article( KEduVocWordFlag::Singular | KEduVocWordFlag::Indefinite | KEduVocWordFlag::Neutral );
+        articleString = m_doc->identifier(i).article().article( QTvtVocWordFlag::Singular | QTvtVocWordFlag::Indefinite | QTvtVocWordFlag::Neutral );
         if ( !articleString.isEmpty() ) {
             QDomElement domElementNI = m_domDoc.createElement( KV_ART_NI );
             QDomText domTextNI = m_domDoc.createTextNode( articleString );
@@ -417,7 +417,7 @@ bool KEduVocKvtmlWriter::writeArticle( QDomElement &domElementParent )
 }
 
 
-bool KEduVocKvtmlWriter::writeType( QDomElement &domElementParent )
+bool QTvtVocKvtmlWriter::writeType( QDomElement &domElementParent )
 {
     /** @todo port to new type handling */
     /*
@@ -447,7 +447,7 @@ bool KEduVocKvtmlWriter::writeType( QDomElement &domElementParent )
 }
 
 /*
-bool KEduVocKvtmlWriter::writeTense( QDomElement &domElementParent )
+bool QTvtVocKvtmlWriter::writeTense( QDomElement &domElementParent )
 {
     if ( m_doc->tenseDescriptions().count() == 0 )
         return true;
@@ -472,7 +472,7 @@ bool KEduVocKvtmlWriter::writeTense( QDomElement &domElementParent )
 }
 */
 
-bool KEduVocKvtmlWriter::writeUsage( QDomElement &domElementParent )
+bool QTvtVocKvtmlWriter::writeUsage( QDomElement &domElementParent )
 {
 
 ///@todo usages
@@ -503,7 +503,7 @@ bool KEduVocKvtmlWriter::writeUsage( QDomElement &domElementParent )
 }
 
 
-bool KEduVocKvtmlWriter::writeComparison( QDomElement &domElementParent, const KEduVocTranslation* translation )
+bool QTvtVocKvtmlWriter::writeComparison( QDomElement &domElementParent, const QTvtVocTranslation* translation )
 /*
  <comparison>
    <l1>good</l1>
@@ -547,7 +547,7 @@ bool KEduVocKvtmlWriter::writeComparison( QDomElement &domElementParent, const K
 }
 
 
-bool KEduVocKvtmlWriter::writeMultipleChoice( QDomElement &domElementParent, const KEduVocMultipleChoice &mc )
+bool QTvtVocKvtmlWriter::writeMultipleChoice( QDomElement &domElementParent, const QTvtVocMultipleChoice &mc )
 /*
  <multiplechoice>
    <mc1>good</mc1>
@@ -608,7 +608,7 @@ bool KEduVocKvtmlWriter::writeMultipleChoice( QDomElement &domElementParent, con
 }
 
 
-bool KEduVocKvtmlWriter::writeConjugHeader( QDomElement &domElementParent, QList<KEduVocConjugation> &curr_conjug )
+bool QTvtVocKvtmlWriter::writeConjugHeader( QDomElement &domElementParent, QList<QTvtVocConjugation> &curr_conjug )
 {
     /*
      <conjugation>    used in header for definiton of "prefix"
@@ -654,7 +654,7 @@ bool KEduVocKvtmlWriter::writeConjugHeader( QDomElement &domElementParent, QList
 }
 
 
-bool KEduVocKvtmlWriter::writeConjugEntry( QDomElement &domElementParent, KEduVocTranslation &translation )
+bool QTvtVocKvtmlWriter::writeConjugEntry( QDomElement &domElementParent, QTvtVocTranslation &translation )
 /*
  <conjugation>    in entry for definition of tenses of (irreg.) verbs
   <t n="sipa">
@@ -692,7 +692,7 @@ bool KEduVocKvtmlWriter::writeConjugEntry( QDomElement &domElementParent, KEduVo
 }
 
 
-bool KEduVocKvtmlWriter::writeConjug( QDomElement &domElementParent, const KEduVocConjugation &curr_conjug, const QString &type )
+bool QTvtVocKvtmlWriter::writeConjug( QDomElement &domElementParent, const QTvtVocConjugation &curr_conjug, const QString &type )
 {
 ///@todo if we are to enable the writer: port this!
 /*
@@ -787,7 +787,7 @@ bool KEduVocKvtmlWriter::writeConjug( QDomElement &domElementParent, const KEduV
     return false;
 }
 
-bool KEduVocKvtmlWriter::writePersonalPronouns( QDomElement &domElementParent, QList<KEduVocPersonalPronoun> &curr_conjug )
+bool QTvtVocKvtmlWriter::writePersonalPronouns( QDomElement &domElementParent, QList<QTvtVocPersonalPronoun> &curr_conjug )
 {
     /*
      <conjugation>    used in header for definiton of "prefix"
@@ -834,17 +834,17 @@ bool KEduVocKvtmlWriter::writePersonalPronouns( QDomElement &domElementParent, Q
 }
 
 
-bool KEduVocKvtmlWriter::writePersonalPronounChild( QDomElement &domElementParent, const KEduVocPersonalPronoun &curr_conjug )
+bool QTvtVocKvtmlWriter::writePersonalPronounChild( QDomElement &domElementParent, const QTvtVocPersonalPronoun &curr_conjug )
 {
     // the old stuff only has singular
-    const KEduVocWordFlag::ConjugationNumber num = KEduVocWordFlag::Singular;
+    const QTvtVocWordFlag::ConjugationNumber num = QTvtVocWordFlag::Singular;
 
-    if ( !curr_conjug.personalPronoun( KEduVocWordFlag::First, num ).isEmpty() ) {
-        domElementParent.appendChild( newTextElement( KV_CON_P1S, curr_conjug.personalPronoun( KEduVocWordFlag::First, num ) ) );
+    if ( !curr_conjug.personalPronoun( QTvtVocWordFlag::First, num ).isEmpty() ) {
+        domElementParent.appendChild( newTextElement( KV_CON_P1S, curr_conjug.personalPronoun( QTvtVocWordFlag::First, num ) ) );
     }
 
-    if ( !curr_conjug.personalPronoun( KEduVocWordFlag::Second, num ).isEmpty() ) {
-        domElementParent.appendChild( newTextElement( KV_CON_P2S, curr_conjug.personalPronoun( KEduVocWordFlag::Second, num ) ) );
+    if ( !curr_conjug.personalPronoun( QTvtVocWordFlag::Second, num ).isEmpty() ) {
+        domElementParent.appendChild( newTextElement( KV_CON_P2S, curr_conjug.personalPronoun( QTvtVocWordFlag::Second, num ) ) );
     }
 
     ///@todo if the writer ever becomes enabled, write the other pronouns
@@ -930,7 +930,7 @@ bool KEduVocKvtmlWriter::writePersonalPronounChild( QDomElement &domElementParen
     return true;
 }
 
-QDomElement KEduVocKvtmlWriter::newTextElement( const QString &elementName, const QString &text )
+QDomElement QTvtVocKvtmlWriter::newTextElement( const QString &elementName, const QString &text )
 {
     QDomElement retval = m_domDoc.createElement( elementName );
     QDomText textNode = m_domDoc.createTextNode( text );

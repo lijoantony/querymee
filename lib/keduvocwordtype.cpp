@@ -25,29 +25,29 @@
 #include <QtCore/QList>
 #include <QtCore/QSet>
 
-class KEduVocWordType::Private
+class QTvtVocWordType::Private
 {
 public:
     // bitvector of word type flags
-    KEduVocWordFlags m_flags;
-    QList<KEduVocExpression*> m_expressions;
+    QTvtVocWordFlags m_flags;
+    QList<QTvtVocExpression*> m_expressions;
     // list of translations
-    QList<KEduVocTranslation*> m_translations;
+    QList<QTvtVocTranslation*> m_translations;
 };
 
-KEduVocWordType::KEduVocWordType(const QString& name, KEduVocWordType *parent)
-        : KEduVocContainer(name, WordType, parent), d( new Private )
+QTvtVocWordType::QTvtVocWordType(const QString& name, QTvtVocWordType *parent)
+        : QTvtVocContainer(name, WordType, parent), d( new Private )
 {}
 
-KEduVocWordType::~KEduVocWordType()
+QTvtVocWordType::~QTvtVocWordType()
 {
-    foreach(KEduVocTranslation* translation, d->m_translations) {
+    foreach(QTvtVocTranslation* translation, d->m_translations) {
         translation->setWordType(0);
     }
     delete d;
 }
 
-QList<KEduVocExpression*> KEduVocWordType::entries(EnumEntriesRecursive recursive)
+QList<QTvtVocExpression*> QTvtVocWordType::entries(EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive();
@@ -56,7 +56,7 @@ QList<KEduVocExpression*> KEduVocWordType::entries(EnumEntriesRecursive recursiv
     return d->m_expressions;
 }
 
-int KEduVocWordType::entryCount(EnumEntriesRecursive recursive)
+int QTvtVocWordType::entryCount(EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive().count();
@@ -64,7 +64,7 @@ int KEduVocWordType::entryCount(EnumEntriesRecursive recursive)
     return d->m_expressions.count();
 }
 
-void KEduVocWordType::addTranslation(KEduVocTranslation* translation)
+void QTvtVocWordType::addTranslation(QTvtVocTranslation* translation)
 {
     // add to expression - if not already there because another translation of the same word is there.
     bool found = false;
@@ -81,7 +81,7 @@ void KEduVocWordType::addTranslation(KEduVocTranslation* translation)
     invalidateChildLessonEntries();
 }
 
-void KEduVocWordType::removeTranslation(KEduVocTranslation* translation)
+void QTvtVocWordType::removeTranslation(QTvtVocTranslation* translation)
 {
     d->m_translations.removeAt( d->m_translations.indexOf(translation) );
 
@@ -108,13 +108,13 @@ void KEduVocWordType::removeTranslation(KEduVocTranslation* translation)
     invalidateChildLessonEntries();
 }
 
-KEduVocTranslation * KEduVocWordType::translation(int row)
+QTvtVocTranslation * QTvtVocWordType::translation(int row)
 {
 
     return d->m_translations.value(row);
 }
 
-KEduVocExpression * KEduVocWordType::entry(int row, EnumEntriesRecursive recursive)
+QTvtVocExpression * QTvtVocWordType::entry(int row, EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive().value(row);
@@ -122,23 +122,23 @@ KEduVocExpression * KEduVocWordType::entry(int row, EnumEntriesRecursive recursi
     return entries().value(row);
 }
 
-KEduVocWordFlags KEduVocWordType::wordType() const
+QTvtVocWordFlags QTvtVocWordType::wordType() const
 {
     return d->m_flags;
 }
 
-void KEduVocWordType::setWordType(KEduVocWordFlags flags)
+void QTvtVocWordType::setWordType(QTvtVocWordFlags flags)
 {
     d->m_flags = flags;
 }
 
-KEduVocWordType* KEduVocWordType::childOfType(const KEduVocWordFlags& flags)
+QTvtVocWordType* QTvtVocWordType::childOfType(const QTvtVocWordFlags& flags)
 {
     if(d->m_flags == flags) {
         return this;
     }
-    foreach(KEduVocContainer* child, childContainers()) {
-        KEduVocWordType* result = static_cast<KEduVocWordType*>(child)->childOfType(flags);
+    foreach(QTvtVocContainer* child, childContainers()) {
+        QTvtVocWordType* result = static_cast<QTvtVocWordType*>(child)->childOfType(flags);
         if(result) {
             return result;
         }

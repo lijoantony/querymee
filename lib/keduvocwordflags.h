@@ -20,7 +20,7 @@
 
 #include <QFlags>
 
-class KEduVocWordFlag
+class QTvtVocWordFlag
 {
 public:
     enum Flags
@@ -75,8 +75,8 @@ public:
     static const Flags persons = (Flags)(First | Second | Third);
 };
 
-Q_DECLARE_FLAGS(KEduVocWordFlags, KEduVocWordFlag::Flags)
-Q_DECLARE_OPERATORS_FOR_FLAGS(KEduVocWordFlags)
+Q_DECLARE_FLAGS(QTvtVocWordFlags, QTvtVocWordFlag::Flags)
+Q_DECLARE_OPERATORS_FOR_FLAGS(QTvtVocWordFlags)
 
 
 #endif

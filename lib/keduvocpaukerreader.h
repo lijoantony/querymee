@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                  create a KEduVocDocument from a Pauker file
+                  create a QTvtVocDocument from a Pauker file
     -----------------------------------------------------------------------
     copyright     : (C) 2004, 2007 Peter Hedlund <peter.hedlund@kdemail.net>
 
@@ -24,12 +24,12 @@
 #include <QXmlStreamReader>
 
 class QIODevice;
-class KEduVocDocument;
+class QTvtVocDocument;
 
-class KEduVocPaukerReader : public QXmlStreamReader
+class QTvtVocPaukerReader : public QXmlStreamReader
 {
 public:
-    KEduVocPaukerReader( KEduVocDocument *doc );
+    QTvtVocPaukerReader( QTvtVocDocument *doc );
 
     bool read( QIODevice *device );
 
@@ -40,7 +40,7 @@ private:
     void readCard();
     QString readText();
 
-    KEduVocDocument *m_doc;
+    QTvtVocDocument *m_doc;
 };
 
 #endif

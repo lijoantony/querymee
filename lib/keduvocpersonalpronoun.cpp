@@ -20,7 +20,7 @@
 
 #include <QtCore/QMap>
 
-class KEduVocPersonalPronoun::Private
+class QTvtVocPersonalPronoun::Private
 {
 public:
     Private();
@@ -28,23 +28,23 @@ public:
     bool m_maleFemaleDifferent;
     bool m_neutralExists;
     bool m_dualExists;
-    QMap<KEduVocWordFlags, QString> m_personalpronouns;
+    QMap<QTvtVocWordFlags, QString> m_personalpronouns;
 };
 
 
-KEduVocPersonalPronoun::Private::Private()
+QTvtVocPersonalPronoun::Private::Private()
 {
     m_maleFemaleDifferent = false;
     m_neutralExists = false;
     m_dualExists = false;
 }
 
-KEduVocPersonalPronoun::KEduVocPersonalPronoun()
+QTvtVocPersonalPronoun::QTvtVocPersonalPronoun()
         : d( new Private )
 {}
 
 
-KEduVocPersonalPronoun::KEduVocPersonalPronoun( const KEduVocPersonalPronoun& other )
+QTvtVocPersonalPronoun::QTvtVocPersonalPronoun( const QTvtVocPersonalPronoun& other )
         : d( new Private )
 {
     d->m_maleFemaleDifferent = other.d->m_maleFemaleDifferent;
@@ -54,13 +54,13 @@ KEduVocPersonalPronoun::KEduVocPersonalPronoun( const KEduVocPersonalPronoun& ot
 }
 
 
-KEduVocPersonalPronoun::~KEduVocPersonalPronoun()
+QTvtVocPersonalPronoun::~QTvtVocPersonalPronoun()
 {
     delete d;
 }
 
 
-KEduVocPersonalPronoun& KEduVocPersonalPronoun::operator = ( const KEduVocPersonalPronoun& other )
+QTvtVocPersonalPronoun& QTvtVocPersonalPronoun::operator = ( const QTvtVocPersonalPronoun& other )
 {
     d->m_maleFemaleDifferent = other.d->m_maleFemaleDifferent;
     d->m_neutralExists = other.d->m_neutralExists;
@@ -70,7 +70,7 @@ KEduVocPersonalPronoun& KEduVocPersonalPronoun::operator = ( const KEduVocPerson
 }
 
 
-bool KEduVocPersonalPronoun::operator ==(const KEduVocPersonalPronoun& other) const
+bool QTvtVocPersonalPronoun::operator ==(const QTvtVocPersonalPronoun& other) const
 {
     return d->m_personalpronouns == other.d->m_personalpronouns &&
         d->m_maleFemaleDifferent == other.d->m_maleFemaleDifferent &&
@@ -79,50 +79,50 @@ bool KEduVocPersonalPronoun::operator ==(const KEduVocPersonalPronoun& other) co
 }
 
 
-QString KEduVocPersonalPronoun::personalPronoun(KEduVocWordFlags flags) const
+QString QTvtVocPersonalPronoun::personalPronoun(QTvtVocWordFlags flags) const
 {
-        QString p = d->m_personalpronouns.value(flags & (KEduVocWordFlag::persons | KEduVocWordFlag::numbers| KEduVocWordFlag::genders));
-        if (p.isEmpty() && !(flags & KEduVocWordFlag::genders) && d->m_maleFemaleDifferent && d->m_neutralExists)
+        QString p = d->m_personalpronouns.value(flags & (QTvtVocWordFlag::persons | QTvtVocWordFlag::numbers| QTvtVocWordFlag::genders));
+        if (p.isEmpty() && !(flags & QTvtVocWordFlag::genders) && d->m_maleFemaleDifferent && d->m_neutralExists)
         {
            //initial flag lookup failed, adding neuter gender flag
-           flags |= KEduVocWordFlag::Neuter;
-           p = d->m_personalpronouns.value(flags & (KEduVocWordFlag::persons | KEduVocWordFlag::numbers| KEduVocWordFlag::genders));
+           flags |= QTvtVocWordFlag::Neuter;
+           p = d->m_personalpronouns.value(flags & (QTvtVocWordFlag::persons | QTvtVocWordFlag::numbers| QTvtVocWordFlag::genders));
         }
         return p;
 }
 
-void KEduVocPersonalPronoun::setPersonalPronoun(const QString & personalpronoun, KEduVocWordFlags flags)
+void QTvtVocPersonalPronoun::setPersonalPronoun(const QString & personalpronoun, QTvtVocWordFlags flags)
 {
-        d->m_personalpronouns[flags & (KEduVocWordFlag::persons | KEduVocWordFlag::numbers| KEduVocWordFlag::genders)] = personalpronoun;
+        d->m_personalpronouns[flags & (QTvtVocWordFlag::persons | QTvtVocWordFlag::numbers| QTvtVocWordFlag::genders)] = personalpronoun;
 }
 
 
-bool KEduVocPersonalPronoun::maleFemaleDifferent() const
+bool QTvtVocPersonalPronoun::maleFemaleDifferent() const
 {
     return d->m_maleFemaleDifferent;
 }
 
-void KEduVocPersonalPronoun::setMaleFemaleDifferent(bool different)
+void QTvtVocPersonalPronoun::setMaleFemaleDifferent(bool different)
 {
     d->m_maleFemaleDifferent = different;
 }
 
-bool KEduVocPersonalPronoun::neutralExists() const
+bool QTvtVocPersonalPronoun::neutralExists() const
 {
     return d->m_neutralExists;
 }
 
-void KEduVocPersonalPronoun::setNeutralExists(bool exists)
+void QTvtVocPersonalPronoun::setNeutralExists(bool exists)
 {
     d->m_neutralExists = exists;
 }
 
-bool KEduVocPersonalPronoun::dualExists() const
+bool QTvtVocPersonalPronoun::dualExists() const
 {
     return d->m_dualExists;
 }
 
-void KEduVocPersonalPronoun::setDualExists(bool exists)
+void QTvtVocPersonalPronoun::setDualExists(bool exists)
 {
     d->m_dualExists = exists;
 }

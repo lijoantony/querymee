@@ -35,14 +35,14 @@
 
 #include <QtCore/QStringList>
 
-class KEDUVOCDOCUMENT_EXPORT KEduVocMultipleChoice
+class QTVTVOCDOCUMENT_EXPORT QTvtVocMultipleChoice
 {
 public:
-    KEduVocMultipleChoice();
-    KEduVocMultipleChoice( const KEduVocMultipleChoice &other );
-    KEduVocMultipleChoice( const QStringList &choices );
+    QTvtVocMultipleChoice();
+    QTvtVocMultipleChoice( const QTvtVocMultipleChoice &other );
+    QTvtVocMultipleChoice( const QStringList &choices );
 
-    ~KEduVocMultipleChoice();
+    ~QTvtVocMultipleChoice();
 
     QStringList choices() const;
     void appendChoice( const QString &s );
@@ -53,13 +53,13 @@ public:
     void clear();
     unsigned size() const;
 
-    bool operator== ( const KEduVocMultipleChoice &choice ) const;
+    bool operator== ( const QTvtVocMultipleChoice &choice ) const;
 
-    KEduVocMultipleChoice &operator= ( const KEduVocMultipleChoice &other );
+    QTvtVocMultipleChoice &operator= ( const QTvtVocMultipleChoice &other );
 
 private:
-    class KEduVocMultipleChoicePrivate;
-    KEduVocMultipleChoicePrivate * const d;
+    class QTvtVocMultipleChoicePrivate;
+    QTvtVocMultipleChoicePrivate * const d;
 };
 
 

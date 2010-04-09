@@ -35,26 +35,26 @@
 #include "keduvocmultiplechoice.h"
 #include "keduvoctranslation.h"
 
-class KEduVocLesson;
+class QTvtVocLesson;
 
 /**
   This class contains one vocabulary expression as an original with one or more
   translations
   */
-class KEDUVOCDOCUMENT_EXPORT KEduVocExpression
+class QTVTVOCDOCUMENT_EXPORT QTvtVocExpression
 {
 public:
 
     /** default constructor for an empty vocabulary expression
      */
-    explicit KEduVocExpression();
+    explicit QTvtVocExpression();
 
     /** Constructor for a vocabulary expression with one translation
      *
      * @param expression       translation
      * @param lesson           lesson number
      */
-    explicit KEduVocExpression( const QString & expression );
+    explicit QTvtVocExpression( const QString & expression );
 
     /** Constructor for a vocabulary expression with an original and one or more translations
      *
@@ -62,15 +62,15 @@ public:
      * @param separator        expression will be split into an original and one or more translations using separator
      * @param lesson           lesson number, 0 for none
      */
-    explicit KEduVocExpression( const QStringList & translations );
+    explicit QTvtVocExpression( const QStringList & translations );
 
-    KEduVocExpression(const KEduVocExpression& other);
+    QTvtVocExpression(const QTvtVocExpression& other);
 
-    ~KEduVocExpression();
+    ~QTvtVocExpression();
 
     /** return the lesson
      */
-    KEduVocLesson * lesson() const;
+    QTvtVocLesson * lesson() const;
 
 
     /** reset all grades of the entry
@@ -89,7 +89,7 @@ public:
     int sizeHint() const;
     void setSizeHint( int sizeHint );
 
-    void setTranslation( int index, KEduVocTranslation* translation );
+    void setTranslation( int index, QTvtVocTranslation* translation );
     /**
      * Add a translation to this expression
      * @param index            number of translation = the identifier
@@ -108,23 +108,23 @@ public:
      * @param index of the language identifier
      * @return the translation
      */
-    KEduVocTranslation* translation( int index );
-    KEduVocTranslation* translation( int index ) const;
+    QTvtVocTranslation* translation( int index );
+    QTvtVocTranslation* translation( int index ) const;
 
     QList<int> translationIndices() const;
 
-    KEduVocExpression& operator= ( const KEduVocExpression &expression );
-    bool operator== ( const KEduVocExpression &expression ) const;
+    QTvtVocExpression& operator= ( const QTvtVocExpression &expression );
+    bool operator== ( const QTvtVocExpression &expression ) const;
 
 private:
-    class KEduVocExpressionPrivate;
-    KEduVocExpressionPrivate* const d;
+    class QTvtVocExpressionPrivate;
+    QTvtVocExpressionPrivate* const d;
 
     /** only called by lesson to add itself to the lesson list
      */
-    void setLesson( KEduVocLesson * l );
+    void setLesson( QTvtVocLesson * l );
 
-    friend class KEduVocLesson;
+    friend class QTvtVocLesson;
 };
 
 #endif // KEduVocExpression_H

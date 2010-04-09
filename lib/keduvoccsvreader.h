@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                  create a KEduVocDocument from a text file
+                  create a QTvtVocDocument from a text file
     -----------------------------------------------------------------------
     copyright     : (C) 2007 Peter Hedlund <peter.hedlund@kdemail.net>
 
@@ -25,14 +25,14 @@
 
 class QIODevice;
 
-class KEduVocDocument;
+class QTvtVocDocument;
 
-class KEduVocCsvReader
+class QTvtVocCsvReader
 {
 public:
-    KEduVocCsvReader( QIODevice *file );
+    QTvtVocCsvReader( QIODevice *file );
 
-    bool readDoc( KEduVocDocument *doc );
+    bool readDoc( QTvtVocDocument *doc );
 
     QString errorMessage() const
     {
@@ -41,7 +41,7 @@ public:
 
 private:
     QIODevice *m_inputFile;
-    KEduVocDocument *m_doc;
+    QTvtVocDocument *m_doc;
     QString m_errorMessage;
 };
 

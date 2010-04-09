@@ -30,10 +30,10 @@
 #include <QUrl>
 #include <QtCore/QList>
 
-class KEduVocExpression;
+class QTvtVocExpression;
 
 /** class to store information about a container - that can be a lesson or word types */
-class KEDUVOCDOCUMENT_EXPORT KEduVocContainer
+class QTVTVOCDOCUMENT_EXPORT QTvtVocContainer
 {
     // make this a template?
 
@@ -51,13 +51,13 @@ public:
     };
 
     /** default constructor */
-    explicit KEduVocContainer(const QString& name, EnumContainerType type, KEduVocContainer *parent = 0);
+    explicit QTvtVocContainer(const QString& name, EnumContainerType type, QTvtVocContainer *parent = 0);
 
-    void appendChildContainer(KEduVocContainer *child);
-    void insertChildContainer(int row, KEduVocContainer *child);
+    void appendChildContainer(QTvtVocContainer *child);
+    void insertChildContainer(int row, QTvtVocContainer *child);
     void deleteChildContainer(int row);
     void removeChildContainer(int row);
-    KEduVocContainer *childContainer(int row);
+    QTvtVocContainer *childContainer(int row);
 
     /**
      * Retrieve a child container by its name
@@ -65,30 +65,30 @@ public:
      * @param name container name
      * @return the child container
      */
-    KEduVocContainer *childContainer(const QString& name);
+    QTvtVocContainer *childContainer(const QString& name);
 
-    QList<KEduVocContainer *> childContainers();
+    QList<QTvtVocContainer *> childContainers();
 
     /**
      * Find a child container
      * @param name
      * @return
      */
-//     KEduVocContainer *childContainer(const QString& name);
+//     QTvtVocContainer *childContainer(const QString& name);
 
     int childContainerCount() const;
 
     int row() const;
-    virtual KEduVocContainer *parent();
+    virtual QTvtVocContainer *parent();
 
     /** copy constructor for d-pointer safe copying */
-    KEduVocContainer( const KEduVocContainer &other );
+    QTvtVocContainer( const QTvtVocContainer &other );
 
     /** destructor */
-    virtual ~KEduVocContainer();
+    virtual ~QTvtVocContainer();
 
     /** assignment operator */
-    KEduVocContainer& operator= ( const KEduVocContainer& );
+    QTvtVocContainer& operator= ( const QTvtVocContainer& );
 
     /** set the container name
      * @param name text to set for the name
@@ -99,9 +99,9 @@ public:
     QString name();
 
     /** get a list of all entries in the container */
-    virtual QList < KEduVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive) =0;
+    virtual QList < QTvtVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive) =0;
     virtual int entryCount(EnumEntriesRecursive recursive = NotRecursive) =0;
-    virtual KEduVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive) =0;
+    virtual QTvtVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive) =0;
 
     /**
      * Removes a translation. This has to be called when a language is removed from a document.
@@ -113,29 +113,29 @@ public:
     void setInPractice( bool inPractice );
 
     /** equality operator */
-    bool operator==(const KEduVocContainer &other);
+    bool operator==(const QTvtVocContainer &other);
 
     /**
      * The type of this container. @see EnumContainerType
      * @return
      */
-    KEduVocContainer::EnumContainerType containerType();
+    QTvtVocContainer::EnumContainerType containerType();
 
     /**
      * Set the type of container.
      * For convenience by default this is taken over from the parent, so no need to set.
      * @param type the new type
      */
-    void setContainerType(KEduVocContainer::EnumContainerType type);
+    void setContainerType(QTvtVocContainer::EnumContainerType type);
 
 
     /** get the image url for this container if it exists */
-    KUrl imageUrl();
+    QUrl imageUrl();
 
     /** set the image url for this container
      * @param url               url of the image
      */
-    void setImageUrl(const KUrl &url);
+    void setImageUrl(const QUrl &url);
 
     double averageGrade(int translation, EnumEntriesRecursive recursive);
 
@@ -149,7 +149,7 @@ public:
     void resetGrades(int translation, EnumEntriesRecursive recursive);
 
 protected:
-    QList< KEduVocExpression * > entriesRecursive();
+    QList< QTvtVocExpression * > entriesRecursive();
 
     /**
      * Set the child entry cache to invalid

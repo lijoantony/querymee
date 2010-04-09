@@ -70,19 +70,19 @@
 
 #define UL_USER_USAGE  "#"   // designates number of user type
 
-class KEduVocWordType;
+class QTvtVocWordType;
 
 /**
   * @file contains defines and constants necessary for reading kvtml files prior to KDE4. kvtml version 1.
   */
-class KEduVocKvtmlCompability
+class QTvtVocKvtmlCompability
 {
 
 public:
     /**
      * Constructor, initialize the map.
      */
-    KEduVocKvtmlCompability();
+    QTvtVocKvtmlCompability();
 
     ///// TYPES
     /**
@@ -90,7 +90,7 @@ public:
      * @param typeSubtypeString the old string containing everything
      * @return type
      */
-    KEduVocWordType* typeFromOldFormat(KEduVocWordType* parent, const QString & typeSubtypeString ) const;
+    QTvtVocWordType* typeFromOldFormat(QTvtVocWordType* parent, const QString & typeSubtypeString ) const;
 
     /**
      * To write old docs: convert a nice new type to the ugly old style.
@@ -106,7 +106,7 @@ public:
     QStringList documentTenses() const;
     QString oldTense( const QString& tense );
 
-    void setupWordTypes(KEduVocWordType* parent);
+    void setupWordTypes(QTvtVocWordType* parent);
 
 private:
 

@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     export a KEduVocDocument to a KVTML file
+                     export a QTvtVocDocument to a KVTML file
     -----------------------------------------------------------------------
     copyright       : (C) 2007 Jeremy Whiting <jpwhiting@kde.org>
                       (C) 2007-2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
@@ -30,23 +30,23 @@
 #include "keduvoctranslation.h"
 #include "keduvocpersonalpronoun.h"
 
-class KEduVocDocument;
-class KEduVocExpression;
-class KEduVocLesson;
-class KEduVocLeitnerBox;
+class QTvtVocDocument;
+class QTvtVocExpression;
+class QTvtVocLesson;
+class QTvtVocLeitnerBox;
 
 /**
-* @brief Class to write kvtml2 data files from KEduVocDocument
+* @brief Class to write kvtml2 data files from QTvtVocDocument
 * @author Jeremy Whiting
 */
-class KEduVocKvtml2Writer
+class QTvtVocKvtml2Writer
 {
 public:
-    KEduVocKvtml2Writer( QFile *file );
+    QTvtVocKvtml2Writer( QFile *file );
 
-    bool writeDoc( KEduVocDocument *doc, const QString &generator );
+    bool writeDoc( QTvtVocDocument *doc, const QString &generator );
 
-    QByteArray toByteArray( KEduVocDocument *doc, const QString &generator );
+    QByteArray toByteArray( QTvtVocDocument *doc, const QString &generator );
 
     /**
      * Helper function, appends a new element AND a text child to @p parent
@@ -59,7 +59,7 @@ public:
 
 private:
 
-    bool createXmlDocument( KEduVocDocument *doc, const QString &generator );
+    bool createXmlDocument( QTvtVocDocument *doc, const QString &generator );
 
     /** write information entries
      * @param informationElement QDomElement information to write to
@@ -78,19 +78,19 @@ private:
      */
     bool writeArticle( QDomElement &articleElement, int article );
 
-    bool writePersonalPronoun( QDomElement &pronounElement, const KEduVocPersonalPronoun &pronoun);
+    bool writePersonalPronoun( QDomElement &pronounElement, const QTvtVocPersonalPronoun &pronoun);
     /** write types
      * @param typesElement QDomElement types to write to
      */
-    bool writeWordTypes( QDomElement &typesElement, KEduVocWordType* parentContainer );
+    bool writeWordTypes( QDomElement &typesElement, QTvtVocWordType* parentContainer );
 
     /**
-     * write the leitner boxes @see KEduVocLeitnerBox
+     * write the leitner boxes @see QTvtVocLeitnerBox
      * @param leitnerParentElement parent dom element
      * @param parentContainer parent of the KEduVocLeitnerBoxes to write
      * @return success
      */
-    bool writeLeitnerBoxes( QDomElement &leitnerParentElement, KEduVocLeitnerBox* parentContainer );
+    bool writeLeitnerBoxes( QDomElement &leitnerParentElement, QTvtVocLeitnerBox* parentContainer );
 
     /** write entries
      * @param entriesElement QDomElement entries to write to
@@ -101,7 +101,7 @@ private:
      * @param translationElement QDomElement translation to write to, with id pre-set
      * @param translation object to write
      */
-    bool writeTranslation( QDomElement &translationElement, KEduVocTranslation* translation );
+    bool writeTranslation( QDomElement &translationElement, QTvtVocTranslation* translation );
 
     /**
      * Used to write synonym, antonym and false friend lists
@@ -109,13 +109,13 @@ private:
      * @param parentContainer 
      * @return 
      */
-    bool writeRelated( QDomElement &parentElement, QList<KEduVocTranslation*> relatedList );
+    bool writeRelated( QDomElement &parentElement, QList<QTvtVocTranslation*> relatedList );
 
     /** write the lesson group
      * @param parentLesson the parent lesson of the current lesson
      * @param lessonsElement QDomElement lessons to write to
      */
-    bool writeLessons( KEduVocLesson *parentLesson, QDomElement &lessonsElement );
+    bool writeLessons( QTvtVocLesson *parentLesson, QDomElement &lessonsElement );
 
     
     void writeSynonymAntonymFalseFriend(QDomElement & parentElement);
@@ -125,23 +125,23 @@ private:
      * @param comparison object to write
      * @returns success
      */
-    bool writeComparison( QDomElement &comparisonElement, KEduVocTranslation *translation );
+    bool writeComparison( QDomElement &comparisonElement, QTvtVocTranslation *translation );
 
     /** write multiple choice choices
      * @param multipleChoiceElement QDomElement multiplechoice to write to
      * @returns success
      */
-    bool writeMultipleChoice( QDomElement &multipleChoiceElement, KEduVocTranslation* translation );
+    bool writeMultipleChoice( QDomElement &multipleChoiceElement, QTvtVocTranslation* translation );
 
     QDomElement newTextElement( const QString &elementName, const QString &text );
 
     QFile *m_outputFile;
-    KEduVocDocument *m_doc;
+    QTvtVocDocument *m_doc;
 
-    QList<KEduVocExpression*>  m_allEntries;
-    QList<KEduVocTranslation*> m_synonyms;
-    QList<KEduVocTranslation*> m_antonyms;
-    QList<KEduVocTranslation*> m_falseFriends;
+    QList<QTvtVocExpression*>  m_allEntries;
+    QList<QTvtVocTranslation*> m_synonyms;
+    QList<QTvtVocTranslation*> m_antonyms;
+    QList<QTvtVocTranslation*> m_falseFriends;
 
     QDomDocument m_domDoc;
 };

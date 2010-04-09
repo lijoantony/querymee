@@ -22,7 +22,7 @@
 
 #include <QtXml/QDomDocument>
 
-class KEduVocText::KEduVocTextPrivate
+class QTvtVocText::KEduVocTextPrivate
 {
 public:
     /// This is the word itself. The vocabulary. This is what it is all about.
@@ -34,14 +34,14 @@ public:
     QDateTime m_practiceDate;
 };
 
-KEduVocText::KEduVocText(const QString& text)
+QTvtVocText::QTvtVocText(const QString& text)
         :d( new KEduVocTextPrivate )
 {
     d->m_text = text;
     resetGrades();
 }
 
-KEduVocText::KEduVocText( const KEduVocText &other )
+QTvtVocText::QTvtVocText( const QTvtVocText &other )
         :d( new KEduVocTextPrivate )
 {
     d->m_text = other.d->m_text;
@@ -51,22 +51,22 @@ KEduVocText::KEduVocText( const KEduVocText &other )
     setPracticeDate( other.practiceDate() );
 }
 
-KEduVocText::~KEduVocText()
+QTvtVocText::~QTvtVocText()
 {
     delete d;
 }
 
-QString KEduVocText::text() const
+QString QTvtVocText::text() const
 {
     return d->m_text;
 }
 
-void KEduVocText::setText( const QString & expr )
+void QTvtVocText::setText( const QString & expr )
 {
     d->m_text = expr.simplified();
 }
 
-void KEduVocText::resetGrades()
+void QTvtVocText::resetGrades()
 {
     d->m_grade = KV_NORM_GRADE;
     d->m_totalPracticeCount = 0;
@@ -78,13 +78,13 @@ void KEduVocText::resetGrades()
 }
 
 
-grade_t KEduVocText::grade() const
+grade_t QTvtVocText::grade() const
 {
     return d->m_grade;
 }
 
 
-void KEduVocText::setGrade( grade_t grade )
+void QTvtVocText::setGrade( grade_t grade )
 {
     if ( grade > KV_MAX_GRADE ) {
         grade = KV_MAX_GRADE;
@@ -93,13 +93,13 @@ void KEduVocText::setGrade( grade_t grade )
 }
 
 
-void KEduVocText::incGrade()
+void QTvtVocText::incGrade()
 {
     setGrade( grade() + 1 );
 }
 
 
-void KEduVocText::decGrade()
+void QTvtVocText::decGrade()
 {
     if ( grade() == KV_MIN_GRADE ) {
         return;
@@ -108,54 +108,54 @@ void KEduVocText::decGrade()
 }
 
 
-count_t KEduVocText::practiceCount()  const
+count_t QTvtVocText::practiceCount()  const
 {
     return d->m_totalPracticeCount;
 }
 
 
-void KEduVocText::incPracticeCount()
+void QTvtVocText::incPracticeCount()
 {
     setPracticeCount( practiceCount() + 1 );
 }
 
 
-void KEduVocText::incBadCount()
+void QTvtVocText::incBadCount()
 {
     setBadCount( badCount() + 1 );
 }
 
 
-void KEduVocText::setPracticeCount( count_t count )
+void QTvtVocText::setPracticeCount( count_t count )
 {
     d->m_totalPracticeCount = count;
 }
 
 
-count_t KEduVocText::badCount() const
+count_t QTvtVocText::badCount() const
 {
     return d->m_badCount;
 }
 
 
-void KEduVocText::setBadCount( count_t count )
+void QTvtVocText::setBadCount( count_t count )
 {
     d->m_badCount = count;
 }
 
 
-QDateTime KEduVocText::practiceDate() const
+QDateTime QTvtVocText::practiceDate() const
 {
     return d->m_practiceDate;
 }
 
 
-void KEduVocText::setPracticeDate( const QDateTime & date )
+void QTvtVocText::setPracticeDate( const QDateTime & date )
 {
     d->m_practiceDate = date;
 }
 
-KEduVocText & KEduVocText::operator =(const KEduVocText & other)
+QTvtVocText & QTvtVocText::operator =(const QTvtVocText & other)
 {
     d->m_text = other.d->m_text;
     d->m_grade = other.d->m_grade;
@@ -166,7 +166,7 @@ KEduVocText & KEduVocText::operator =(const KEduVocText & other)
     return *this;
 }
 
-bool KEduVocText::operator ==(const KEduVocText & other) const
+bool QTvtVocText::operator ==(const QTvtVocText & other) const
 {
     return
         d->m_text == other.d->m_text &&
@@ -176,7 +176,7 @@ bool KEduVocText::operator ==(const KEduVocText & other) const
         d->m_practiceDate == other.d->m_practiceDate;
 }
 
-void KEduVocText::toKVTML2(QDomElement& parent)
+void QTvtVocText::toKVTML2(QDomElement& parent)
 {
     QDomDocument domDoc = parent.ownerDocument();
     if (text().isEmpty()) {
@@ -184,29 +184,29 @@ void KEduVocText::toKVTML2(QDomElement& parent)
     }
 
     // the text
-    KEduVocKvtml2Writer::appendTextElement( parent, KVTML_TEXT, text() );
+    QTvtVocKvtml2Writer::appendTextElement( parent, KVTML_TEXT, text() );
 
     // grades
     if ( practiceCount() > 0 ) {
         QDomElement gradeElement = domDoc.createElement( KVTML_GRADE );
 
             //<currentgrade>2</currentgrade>
-        KEduVocKvtml2Writer::appendTextElement( gradeElement, KVTML_CURRENTGRADE, QString::number( grade() ) );
+        QTvtVocKvtml2Writer::appendTextElement( gradeElement, KVTML_CURRENTGRADE, QString::number( grade() ) );
 
             //<count>6</count>
-        KEduVocKvtml2Writer::appendTextElement( gradeElement, KVTML_COUNT, QString::number( practiceCount() ) );
+        QTvtVocKvtml2Writer::appendTextElement( gradeElement, KVTML_COUNT, QString::number( practiceCount() ) );
 
             //<errorcount>1</errorcount>
-        KEduVocKvtml2Writer::appendTextElement( gradeElement, KVTML_ERRORCOUNT, QString::number( badCount() ) );
+        QTvtVocKvtml2Writer::appendTextElement( gradeElement, KVTML_ERRORCOUNT, QString::number( badCount() ) );
 
             //<date>949757271</date>
-        KEduVocKvtml2Writer::appendTextElement( gradeElement, KVTML_DATE,  practiceDate().toString( Qt::ISODate ) );
+        QTvtVocKvtml2Writer::appendTextElement( gradeElement, KVTML_DATE,  practiceDate().toString( Qt::ISODate ) );
 
         parent.appendChild( gradeElement );
     }
 }
 
-void KEduVocText::fromKVTML2(QDomElement & parent)
+void QTvtVocText::fromKVTML2(QDomElement & parent)
 {
     setText( parent.firstChildElement( KVTML_TEXT ).text() );
 
@@ -228,7 +228,7 @@ void KEduVocText::fromKVTML2(QDomElement & parent)
     }
 }
 
-bool KEduVocText::isEmpty()
+bool QTvtVocText::isEmpty()
 {
     return d->m_text.isEmpty();
 }

@@ -28,13 +28,13 @@
 
 #include "keduvocwordflags.h"
 
-class KEduVocWordType;
+class QTvtVocWordType;
 /**
  * Class representing the articles of a language
  *
  * It contains all available articles of the language as QString
  */
-class KEDUVOCDOCUMENT_EXPORT KEduVocArticle
+class QTVTVOCDOCUMENT_EXPORT QTvtVocArticle
 {
 public:
 
@@ -43,12 +43,12 @@ public:
     /**
      * The constructor without arguments
      */
-    explicit KEduVocArticle();
+    explicit QTvtVocArticle();
 
     /** copy constructor for d-pointer safety
      * @param other article object to copy
      */
-    KEduVocArticle( const KEduVocArticle &other );
+    QTvtVocArticle( const QTvtVocArticle &other );
 
     /**
      * DEPRECATED The constructor with arguments, assumes singular!
@@ -59,21 +59,21 @@ public:
      * @param nat_def reference to a QString with the definite neutral article
      * @param nat_indef reference to a QString with the indefinite neutral article
      */
-    KDE_DEPRECATED KEduVocArticle( const QString &fem_def, const QString &fem_indef, const QString &mal_def, const QString &mal_indef, const QString &nat_def, const QString &nat_indef );
+    KDE_DEPRECATED QTvtVocArticle( const QString &fem_def, const QString &fem_indef, const QString &mal_def, const QString &mal_indef, const QString &nat_def, const QString &nat_indef );
 
     /**
      * default destructor, deletes the d pointer
      */
-    ~KEduVocArticle();
+    ~QTvtVocArticle();
 
     /**
      * assignment operator for d-pointer copying
      */
-    KEduVocArticle &operator= ( const KEduVocArticle& other );
+    QTvtVocArticle &operator= ( const QTvtVocArticle& other );
 
-    QString article(const KEduVocWordFlags&);
+    QString article(const QTvtVocWordFlags&);
 
-    void setArticle(const QString& article, const KEduVocWordFlags&);
+    void setArticle(const QString& article, const QTvtVocWordFlags&);
 
     bool isArticle(const QString& article) const;
 

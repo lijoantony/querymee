@@ -30,31 +30,31 @@
 /**
 Class to store meta information about a language or any other category in the vocabulary.
 */
-class KEDUVOCDOCUMENT_EXPORT KEduVocIdentifier
+class QTVTVOCDOCUMENT_EXPORT QTvtVocIdentifier
 {
 public:
     /**
      * Default ctor.
      */
-    explicit KEduVocIdentifier();
+    explicit QTvtVocIdentifier();
 
     /**
      * Copy ctor.
      * @param other
      */
-    KEduVocIdentifier( const KEduVocIdentifier &other );
+    QTvtVocIdentifier( const QTvtVocIdentifier &other );
 
     /**
      * dtor
      */
-    ~KEduVocIdentifier();
+    ~QTvtVocIdentifier();
 
     /**
      * assignment operator
      * @param other
      * @return
      */
-    KEduVocIdentifier& operator= ( const KEduVocIdentifier &other );
+    QTvtVocIdentifier& operator= ( const QTvtVocIdentifier &other );
 public:
 
     /**
@@ -83,25 +83,25 @@ public:
      * Articles (a, the in English, el, la,... in Spanish)
      * @returns articles
      */
-    KEduVocArticle& article() const;
+    QTvtVocArticle& article() const;
 
     /**
      * Sets the articles for this identifier
      * @param art              article block
      */
-    void setArticle( const KEduVocArticle& article );
+    void setArticle( const QTvtVocArticle& article );
 
     /**
      * Get the personal pronouns for this identifier
-     * @returns a KEduVocPersonalPronoun containing the personal pronouns
+     * @returns a QTvtVocPersonalPronoun containing the personal pronouns
      */
-    KEduVocPersonalPronoun& personalPronouns() const;
+    QTvtVocPersonalPronoun& personalPronouns() const;
 
     /**
      * Sets personal pronouns
-     * @param pronouns a KEduVocConjugation containing the personal pronouns
+     * @param pronouns a QTvtVocConjugation containing the personal pronouns
      */
-    void setPersonalPronouns( const KEduVocPersonalPronoun &pronouns );
+    void setPersonalPronouns( const QTvtVocPersonalPronoun &pronouns );
 
     /**
      * Returns the name of tense number @p tenseIndex

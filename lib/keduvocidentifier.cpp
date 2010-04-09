@@ -16,7 +16,7 @@
  ***************************************************************************/
 #include "keduvocidentifier.h"
 
-class KEduVocIdentifier::Private
+class QTvtVocIdentifier::Private
 {
 public:
     /// the name: English, Anatomy, Fruit salad
@@ -34,29 +34,29 @@ public:
     QString m_type;
 
     /** I, you, he, she, it... */
-    KEduVocPersonalPronoun m_personalPronouns;
+    QTvtVocPersonalPronoun m_personalPronouns;
 
     /** the for english ;)
        der, die, das ... in german */
-    KEduVocArticle m_articles;
+    QTvtVocArticle m_articles;
 
     /** Future, present and past... and many more */
     QStringList m_tenses;
 };
 
-KEduVocIdentifier::KEduVocIdentifier()
+QTvtVocIdentifier::QTvtVocIdentifier()
 : d( new Private )
 {
     ///@todo maybe the user locale would be more appropriate
     d->m_locale = "en";
 }
 
-KEduVocIdentifier::~KEduVocIdentifier()
+QTvtVocIdentifier::~QTvtVocIdentifier()
 {
     delete d;
 }
 
-KEduVocIdentifier::KEduVocIdentifier( const KEduVocIdentifier &other )
+QTvtVocIdentifier::QTvtVocIdentifier( const QTvtVocIdentifier &other )
 : d( new Private( *other.d ) )
 {
 #if 0
@@ -70,7 +70,7 @@ KEduVocIdentifier::KEduVocIdentifier( const KEduVocIdentifier &other )
 #endif
 }
 
-KEduVocIdentifier& KEduVocIdentifier::operator= ( const KEduVocIdentifier &other )
+QTvtVocIdentifier& QTvtVocIdentifier::operator= ( const QTvtVocIdentifier &other )
 {
     d->m_locale = other.d->m_locale;
     d->m_name = other.d->m_name;
@@ -82,53 +82,53 @@ KEduVocIdentifier& KEduVocIdentifier::operator= ( const KEduVocIdentifier &other
     return *this;
 }
 
-QString KEduVocIdentifier::name() const
+QString QTvtVocIdentifier::name() const
 {
     return d->m_name;
 }
 
-void KEduVocIdentifier::setName(const QString & name)
+void QTvtVocIdentifier::setName(const QString & name)
 {
     d->m_name = name;
 }
 
-QString KEduVocIdentifier::locale() const
+QString QTvtVocIdentifier::locale() const
 {
     return d->m_locale;
 }
 
-void KEduVocIdentifier::setLocale(const QString & locale)
+void QTvtVocIdentifier::setLocale(const QString & locale)
 {
     d->m_locale = locale;
 }
 
-void KEduVocIdentifier::setArticle( const KEduVocArticle& articles )
+void QTvtVocIdentifier::setArticle( const QTvtVocArticle& articles )
 {
     d->m_articles = articles;
 }
 
-KEduVocArticle& KEduVocIdentifier::article() const
+QTvtVocArticle& QTvtVocIdentifier::article() const
 {
     return d->m_articles;
 }
 
-KEduVocPersonalPronoun& KEduVocIdentifier::personalPronouns() const
+QTvtVocPersonalPronoun& QTvtVocIdentifier::personalPronouns() const
 {
     return d->m_personalPronouns;
 }
 
-void KEduVocIdentifier::setPersonalPronouns( const KEduVocPersonalPronoun & pronouns )
+void QTvtVocIdentifier::setPersonalPronouns( const QTvtVocPersonalPronoun & pronouns )
 {
     d->m_personalPronouns = pronouns;
 }
 
-QString KEduVocIdentifier::tense(int tenseIndex) const
+QString QTvtVocIdentifier::tense(int tenseIndex) const
 {
     Q_ASSERT(d->m_tenses.size() > tenseIndex);
     return d->m_tenses.value(tenseIndex);
 }
 
-void KEduVocIdentifier::setTense(int tenseIndex, const QString& tense)
+void QTvtVocIdentifier::setTense(int tenseIndex, const QString& tense)
 {
     Q_ASSERT(d->m_tenses.size() >= tenseIndex);
     if (tenseIndex == d->m_tenses.size()) {
@@ -138,12 +138,12 @@ void KEduVocIdentifier::setTense(int tenseIndex, const QString& tense)
     }
 }
 
-QStringList KEduVocIdentifier::tenseList() const
+QStringList QTvtVocIdentifier::tenseList() const
 {
     return d->m_tenses;
 }
 
-void KEduVocIdentifier::setTenseList(const QStringList& tenses)
+void QTvtVocIdentifier::setTenseList(const QStringList& tenses)
 {
     d->m_tenses = tenses;
 }

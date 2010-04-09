@@ -38,26 +38,26 @@
 /**
  * The conjugation of a verb
  */
-class KEDUVOCDOCUMENT_EXPORT KEduVocConjugation
+class QTVTVOCDOCUMENT_EXPORT QTvtVocConjugation
 {
 public:
 
     /**
      * The constructor
      */
-    explicit KEduVocConjugation();
+    explicit QTvtVocConjugation();
 
-    KEduVocConjugation( const KEduVocConjugation& rhs );
+    QTvtVocConjugation( const QTvtVocConjugation& rhs );
 
-    ~KEduVocConjugation();
+    ~QTvtVocConjugation();
 
-    KEduVocConjugation& operator = ( const KEduVocConjugation& a );
-    bool operator == ( const KEduVocConjugation& a ) const;
+    QTvtVocConjugation& operator = ( const QTvtVocConjugation& a );
+    bool operator == ( const QTvtVocConjugation& a ) const;
 
-    KEduVocText& conjugation(KEduVocWordFlags flags) const;
-    void setConjugation(const KEduVocText& conjugation, KEduVocWordFlags flags);
+    QTvtVocText& conjugation(QTvtVocWordFlags flags) const;
+    void setConjugation(const QTvtVocText& conjugation, QTvtVocWordFlags flags);
 
-    QList<KEduVocWordFlags> keys();
+    QList<QTvtVocWordFlags> keys();
 
     bool isEmpty();
 
@@ -72,7 +72,7 @@ public:
      * @param parent
      * @return
      */
-    static KEduVocConjugation* fromKVTML2(QDomElement& parent);
+    static QTvtVocConjugation* fromKVTML2(QDomElement& parent);
 
 private:
     class Private;
