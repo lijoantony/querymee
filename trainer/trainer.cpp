@@ -15,16 +15,16 @@ Trainer::Trainer(QWidget *parent)
     QStringList args = QApplication::arguments();
     args.removeFirst();
 
-    KEduVocDocument docRead;
+    QTvtVocDocument docRead;
     docRead.open(args.at(0));
 
-    QList<KEduVocContainer *>  lessons = docRead.lesson()->childContainers();
+    QList<QTvtVocContainer *>  lessons = docRead.lesson()->childContainers();
 
-    KEduVocLesson *m_lesson;
+    QTvtVocLesson *m_lesson;
 
-    foreach(KEduVocContainer * c, lessons) {
-        if (c->containerType() == KEduVocLesson::Lesson) {
-                m_lesson = static_cast<KEduVocLesson *>(c);
+    foreach(QTvtVocContainer * c, lessons) {
+        if (c->containerType() == QTvtVocLesson::Lesson) {
+                m_lesson = static_cast<QTvtVocLesson *>(c);
                 qDebug () << "Lesson: " << m_lesson->name();
                 for(int i = 0; i < m_lesson->entries().size(); ++i)
                 {

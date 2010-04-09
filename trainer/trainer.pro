@@ -6,9 +6,11 @@
 
 TARGET = trainer
 TEMPLATE = app
-LIBS += -L/home/rzingg/kedu/git/lib -lkeduvocdocument
-DEPENDPATH += . /home/rzingg/kedu/git/lib
-INCLUDEPATH += . /home/rzingg/kedu/git/lib
+LIBS += -L../lib -lqtvtvocdocument
+DEPENDPATH += . ../lib
+INCLUDEPATH += . ../lib
+
+QMAKE_LFLAGS += -Wl,-rpath,../lib
 
 SOURCES += main.cpp\
         trainer.cpp

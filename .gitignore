@@ -3,10 +3,10 @@
 *.pro.user
 moc_*
 Makefile
-lib/libkeduvocdocument.so
-lib/libkeduvocdocument.so.1
-lib/libkeduvocdocument.so.1.0
-lib/libkeduvocdocument.so.1.0.0
+lib/libqtvtvocdocument.so
+lib/libqtvtvocdocument.so.1
+lib/libqtvtvocdocument.so.1.0
+lib/libqtvtvocdocument.so.1.0.0
 lib/tests/*.kvtml
 lib/tests/tests
 trainer/trainer

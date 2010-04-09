@@ -3,10 +3,10 @@
 
 #include <QtGui/QWidget>
 
-#include "keduvocdocument.h"
-#include "keduvoclesson.h"
-#include "keduvocexpression.h"
-#include "keduvocleitnerbox.h"
+#include "qtvtvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
+#include "qtvtvocleitnerbox.h"
 
 class Trainer : public QWidget
 {
