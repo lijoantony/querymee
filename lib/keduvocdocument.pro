@@ -41,29 +41,29 @@ HEADERS += qtvtvocarticle.h \
            kvtmldefs.h \
            libkeduvocdocument_export.h \
            sharedkvtmlfiles.h
-SOURCES += keduvocarticle.cpp \
-           keduvocconjugation.cpp \
-           keduvoccontainer.cpp \
-#           keduvoccsvreader.cpp \
-           keduvoccsvwriter.cpp \
-           keduvocdeclension.cpp \
-           keduvocdocument.cpp \
-           keduvocexpression.cpp \
-           keduvocidentifier.cpp \
-           keduvockvtml2reader.cpp \
-           keduvockvtml2writer.cpp \
-           keduvockvtmlcompability.cpp \
-           keduvockvtmlreader.cpp \
-#           keduvockvtmlwriter.cpp \
-           keduvocleitnerbox.cpp \
-           keduvoclesson.cpp \
-           keduvocmultiplechoice.cpp \
-           keduvocpaukerreader.cpp \
-           keduvocpersonalpronoun.cpp \
-           keduvoctext.cpp \
-           keduvoctranslation.cpp \
-#           keduvocvokabelnreader.cpp \
-           keduvocwordtype.cpp \
-#           keduvocwqlreader.cpp \
-#           keduvocxdxfreader.cpp \
+SOURCES += qtvtvocarticle.cpp \
+           qtvtvocconjugation.cpp \
+           qtvtvoccontainer.cpp \
+#           qtvtvoccsvreader.cpp \
+           qtvtvoccsvwriter.cpp \
+           qtvtvocdeclension.cpp \
+           qtvtvocdocument.cpp \
+           qtvtvocexpression.cpp \
+           qtvtvocidentifier.cpp \
+           qtvtvockvtml2reader.cpp \
+           qtvtvockvtml2writer.cpp \
+           qtvtvockvtmlcompability.cpp \
+           qtvtvockvtmlreader.cpp \
+#           qtvtvockvtmlwriter.cpp \
+           qtvtvocleitnerbox.cpp \
+           qtvtvoclesson.cpp \
+           qtvtvocmultiplechoice.cpp \
+           qtvtvocpaukerreader.cpp \
+           qtvtvocpersonalpronoun.cpp \
+           qtvtvoctext.cpp \
+           qtvtvoctranslation.cpp \
+#           qtvtvocvokabelnreader.cpp \
+           qtvtvocwordtype.cpp \
+#           qtvtvocwqlreader.cpp \
+#           qtvtvocxdxfreader.cpp \
            sharedkvtmlfiles.cpp
