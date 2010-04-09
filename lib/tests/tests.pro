@@ -6,9 +6,11 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . ../
 INCLUDEPATH += . ../
-LIBS += -L../ -lkeduvocdocument
+LIBS += -L../ -lqtvtvocdocument
 QT += core testlib
 CONFIG += qtestlib
+
+QMAKE_LFLAGS += -Wl,-rpath,../
 
 # Input
 SOURCES += tests.cpp

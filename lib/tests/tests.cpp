@@ -2,10 +2,10 @@
 #include <QtTest/QtTest>
 
 
-#include "keduvocdocument.h"
-#include "keduvoclesson.h"
-#include "keduvocexpression.h"
-#include "keduvocleitnerbox.h"
+#include "qtvtvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
+#include "qtvtvocleitnerbox.h"
 
 #include <QTemporaryFile>
 #include <QDebug>
@@ -39,7 +39,7 @@ private slots:
         const QString translation2 = QString::fromLatin1( "das ist Deutsch" );
         const QString lessonName = QString::fromLatin1( "Lesson No 1" );
         
-        KEduVocDocument doc;
+        QTvtVocDocument doc;
         doc.setAuthor( author );
         doc.setLicense( license );
         doc.setDocumentComment( comment );
@@ -53,26 +53,26 @@ private slots:
         doc.identifier(1).setName( lang2 );
         doc.identifier(1).setLocale( locale2 );
 
-        KEduVocLesson* lesson = new KEduVocLesson(lessonName, doc.lesson());
+        QTvtVocLesson* lesson = new QTvtVocLesson(lessonName, doc.lesson());
         doc.lesson()->appendChildContainer(lesson);
-        lesson->appendEntry(new KEduVocExpression);
+        lesson->appendEntry(new QTvtVocExpression);
         lesson->entry(0)->setTranslation(0, translation1);
         lesson->entry(0)->setTranslation(1, translation2);
 
-        doc.saveAs(fileName, KEduVocDocument::Kvtml, generator);
+        doc.saveAs(fileName, QTvtVocDocument::Kvtml, generator);
 
-        KEduVocDocument docRead;
+        QTvtVocDocument docRead;
         docRead.open(fileName);
 
 
         
-        QList<KEduVocContainer *>  lessons = docRead.lesson()->childContainers();
+        QList<QTvtVocContainer *>  lessons = docRead.lesson()->childContainers();
         
-        KEduVocLesson *m_lesson;
+        QTvtVocLesson *m_lesson;
         
-        foreach(KEduVocContainer * c, lessons) {
-            if (c->containerType() == KEduVocLesson::Lesson) {
-                    m_lesson = static_cast<KEduVocLesson *>(c);
+        foreach(QTvtVocContainer * c, lessons) {
+            if (c->containerType() == QTvtVocLesson::Lesson) {
+                    m_lesson = static_cast<QTvtVocLesson *>(c);
             }
         }
 
