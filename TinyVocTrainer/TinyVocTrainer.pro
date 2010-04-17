@@ -13,8 +13,10 @@ QMAKE_LFLAGS += -Wl,-rpath,../lib
 SOURCES += main.cpp \
     tinyvoctrainer.cpp \
     tinyvoctrainersettings.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    trainingselectionview.cpp
 HEADERS += tinyvoctrainer.h \
     tinyvoctrainersettings.h \
-    mainwindow.h
-FORMS += 
+    mainwindow.h \
+    trainingselectionview.h
+FORMS +=

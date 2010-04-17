@@ -14,187 +14,135 @@
  ***************************************************************************/
 
 #include "tinyvoctrainer.h"
+#include "tinyvoctrainersettings.h"
 
 #include <ctime>
 
-#include <QApplication>
-#include <QtDebug>
-#include <QTableWidget>
+#include <QDebug>
 #include <QHBoxLayout>
-#include <QList>
-#include <QRadioButton>
+#include <QLabel>
 #include <QPushButton>
-#include <QComboBox>
+#include <QButtonGroup>
+#include <QSignalMapper>
+
+#include "qtvtvocdocument.h"
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
+#include "qtvtvocleitnerbox.h"
 
 #define NumberOfButtons 4
 
-TinyVocTrainer::TinyVocTrainer(QWidget *parent, const QString &fileName)
-    : QWidget(parent)
+TinyVocTrainer::TinyVocTrainer(QWidget *parent) :
+        QWidget(parent),
+        m_CorrectId(0),
+        m_LessionIndex(0),
+        m_QuestionLanguage(0),
+        m_AnswerLanguage(0)
 {
     srand(time(NULL));
 
     QVBoxLayout *vbox = new QVBoxLayout();
     QVBoxLayout *vbox_label = new QVBoxLayout();
 
-    bgroup_choice =  new QButtonGroup();
+    m_QuestionLabel = new QLabel();
+    m_QuestionLabel->setText(tr("Here comes..."));
+    vbox_label->addWidget(m_QuestionLabel);
 
-    QuestionLabel = new QLabel();
-    QuestionLabel->setText("Here comes...");
-    vbox_label->addWidget(QuestionLabel);
-
-    answer1 = new QPushButton;
-    answer2 = new QPushButton;
-    answer3 = new QPushButton;
-    answer4 = new QPushButton;
-
-    vbox_label->addWidget(answer1);
-    vbox_label->addWidget(answer2);
-    vbox_label->addWidget(answer3);
-    vbox_label->addWidget(answer4);
-
-    answerButtonsList.append(answer1);
-    answerButtonsList.append(answer2);
-    answerButtonsList.append(answer3);
-    answerButtonsList.append(answer4);
-
-    bgroup_choice->addButton(answer1);
-    bgroup_choice->addButton(answer2);
-    bgroup_choice->addButton(answer3);
-    bgroup_choice->addButton(answer4);
-
-    bgroup_choice->setId(answer1, 0);
-    bgroup_choice->setId(answer2, 1);
-    bgroup_choice->setId(answer3, 2);
-    bgroup_choice->setId(answer4, 3);
-
-    connect(answer1,SIGNAL(clicked(bool)),this,SLOT(slotAnswer1(bool)));
-    connect(answer2,SIGNAL(clicked(bool)),this,SLOT(slotAnswer2(bool)));
-    connect(answer3,SIGNAL(clicked(bool)),this,SLOT(slotAnswer3(bool)));
-    connect(answer4,SIGNAL(clicked(bool)),this,SLOT(slotAnswer4(bool)));
-
-    questionID = 0;
-    answerID = 1;
-    lessonID = 0;
-    CorrectID = 0;
-
-    QTvtVocDocument *docRead = new QTvtVocDocument();
-    docRead->open(fileName);
-
-    lessons = docRead->lesson()->childContainers();
-
-    int lessonId = 0;
-    foreach(QTvtVocContainer * c, lessons) {
-        if (c->containerType() == QTvtVocLesson::Lesson) {
-                lessonsList.append( static_cast<QTvtVocLesson *>(c) );
-                QTvtVocLesson *m_lesson;
-                m_lesson = lessonsList.last() ;
-                qDebug () << "Lesson: " << m_lesson->name();
+    QSignalMapper* signalMapper = new QSignalMapper(this);
+    for (int i = 0; i < NumberOfButtons; i++) {
+        QPushButton *answer = new QPushButton;
+        vbox_label->addWidget(answer);
+        m_AnswerButtonsList.append(answer);
+        connect(answer, SIGNAL(clicked()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(answer, i);
         }
-        ++lessonId;
-    }
+
+    connect(signalMapper, SIGNAL(mapped(int)), SLOT(slotClicked(int)));
 
     vbox->addLayout(vbox_label);
     setLayout(vbox);
+}
 
-    dialog = new TinyVocTrainerSettings(this, fileName);
-
-    connect(dialog,SIGNAL(SignalToggleAnswer(int)),this,SLOT(reactToToggleAnswer(int)));
-    connect(dialog,SIGNAL(SignalToggleLesson(int)),this,SLOT(reactToToggleLesson(int)));
-    connect(dialog,SIGNAL(SignalToggleQuestion(int)),this,SLOT(reactToToggleQuestion(int)));
-
-    slotSettings();
+void TinyVocTrainer::startTraining()
+{
+    slotInit();
+    show();
 }
 
 TinyVocTrainer::~TinyVocTrainer()
 {
-
 }
 
-QTvtVocExpression * TinyVocTrainer::getAnyEntryFromLesson(QTvtVocLesson *lesson, int language)
+QTvtVocExpression * TinyVocTrainer::getAnyEntryFromLesson()
 {
-    Q_UNUSED(language);
-    int random_int = ( rand() %  ( lesson->entries().size() - 1 ) ) + 0;
-    qDebug() << "anyEntry random_int: " << random_int << "Lesson Size: " << lesson->entries().size();
-    return lesson->entry(random_int);
+    QTvtVocExpression* vocExpression = 0;
+    QTvtVocLesson* lesson =
+    TinyVocTrainerSettings::instance()->lesson(m_LessionIndex);
+    if(lesson) {
+        int random_int = ( rand() %  ( lesson->entries().size() - 1 ) ) + 0;
+        qDebug() << "anyEntry random_int: " << random_int << "Lesson Size: " << lesson->entries().size();
+        vocExpression = lesson->entry(random_int);
+    }
+    return vocExpression;
 }
 
-
-
-void TinyVocTrainer::reactToToggleQuestion(int id)
-{ 
-    qDebug() << "Toggle Question: " << id;
-    questionID = id;
-}
-
-
-void TinyVocTrainer::reactToToggleAnswer(int id)
+void TinyVocTrainer::setLession(int lessionIndex)
 {
-    qDebug() << "Toggle Answer: " << id;
-    answerID = id;
+    m_LessionIndex = lessionIndex;
 }
 
-
-void TinyVocTrainer::reactToToggleLesson(int id)
+void TinyVocTrainer::setQuestionLanguage(int languageIndex)
 {
-    qDebug() << "Toggle Lesson: " << id;
-    lessonID = id;
+    m_QuestionLanguage = languageIndex;
 }
 
-void TinyVocTrainer::slotAnswer1(bool clicked){
-    Q_UNUSED(clicked);
-    slotCheck(0);
+void TinyVocTrainer::setAnswerLanguage(int languageIndex)
+{
+    m_AnswerLanguage = languageIndex;
 }
 
-void TinyVocTrainer::slotAnswer2(bool clicked){
-    Q_UNUSED(clicked);
-    slotCheck(1);
-}
+void TinyVocTrainer::slotClicked(int id)
+{
+    qDebug() << "slotCheck(): buton id: " << id << "Correct Id: " << m_CorrectId;
 
-void TinyVocTrainer::slotAnswer3(bool clicked){
-    Q_UNUSED(clicked);
-    slotCheck(2);
-}
-
-void TinyVocTrainer::slotAnswer4(bool clicked){
-    Q_UNUSED(clicked);
-    slotCheck(3);
-}
-
-void TinyVocTrainer::slotCheck(int buttonID){
-    qDebug() << "slotCheck(): buton id: " << buttonID << "Correct Id: " << CorrectID;
-
-    if(buttonID == CorrectID){
+    if(id == m_CorrectId){
         qDebug() << "\\o/ correct answer...";
-        slotInit(1);
+        slotInit();
         return;
     }
     else{
         qDebug() << ":-( sorry wrong...";
     }
-
 }
 
-void TinyVocTrainer::slotInit(bool clicked){
-
-    Q_UNUSED(clicked);
-
-    choiceList.clear();
+void TinyVocTrainer::slotInit(){
+    m_ChoiceList.clear();
     for (int i=0; i < NumberOfButtons; ++i){
-        choiceList.append( getAnyEntryFromLesson(lessonsList.at(lessonID), answerID) );
-        answerButtonsList.at(i)->setText( choiceList.at(i)->translation(answerID)->text() );
+        QTvtVocExpression* expression = NULL;
+        do {
+            expression = getAnyEntryFromLesson();
+        } while (m_ChoiceList.contains(expression));
+        if(expression) {
+            m_ChoiceList.append(expression);
+            m_AnswerButtonsList.at(i)->setText( expression->translation(m_AnswerLanguage)->text() );
+        }
     }
 
-    int random_int = rand() %  NumberOfButtons  + 0;
+    int random_int = rand() %  3  + 0;
     qDebug() << "ask for random_int: " <<  random_int;
 
-    QuestionLabel->setText(choiceList.at(random_int)->translation(questionID)->text());
-    CorrectID = random_int;
+    if(random_int < m_ChoiceList.count() && random_int >= 0) {
+        QTvtVocExpression* expression = m_ChoiceList.at(random_int);
+        if(expression) {
+            m_QuestionLabel->setText(expression->translation(m_QuestionLanguage)->text());
+        }
+    }
+    m_CorrectId = random_int;
 
 }
 
-void TinyVocTrainer::slotSettings(bool clicked){
-    Q_UNUSED(clicked);
-
-    dialog->exec();
-    slotInit();
+void TinyVocTrainer::closeEvent ( QCloseEvent * event )
+{
+    QWidget::closeEvent(event);
+    this->deleteLater();
 }

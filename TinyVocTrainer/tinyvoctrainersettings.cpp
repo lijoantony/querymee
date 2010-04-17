@@ -14,96 +14,134 @@
  ***************************************************************************/
 
 #include "tinyvoctrainersettings.h"
+#include "tinyvoctrainer.h"
 
-#include <QApplication>
-#include <QtDebug>
+#include "qtvtvoclesson.h"
+#include "qtvtvocexpression.h"
+#include "qtvtvocdocument.h"
 
-TinyVocTrainerSettings::TinyVocTrainerSettings(QWidget *parent, const QString &fileName)
-    : QDialog(parent)
+#include <QCoreApplication>
+#include <QFileDialog>
+#include <QDir>
+#include <QDebug>
+
+TinyVocTrainerSettings* TinyVocTrainerSettings::m_Instance = 0;
+
+TinyVocTrainerSettings* TinyVocTrainerSettings::instance()
 {
-    QVBoxLayout *vbox = new QVBoxLayout();
-
-    QHBoxLayout *hbox_less = new QHBoxLayout();
-    QHBoxLayout *hbox_question_lang = new QHBoxLayout();
-    QHBoxLayout *hbox_answer_lang = new QHBoxLayout();
-
-    QComboBox *combox_lesson = new QComboBox();
-    QComboBox *combox_question = new QComboBox();
-    QComboBox *combox_answer = new QComboBox();
-
-    QLabel *label_question = new QLabel("Question:");
-    hbox_question_lang->addWidget(label_question);
-
-    QLabel *label_answer = new QLabel("Answer:");
-    hbox_answer_lang->addWidget(label_answer);
-
-    QLabel *label_lesson = new QLabel("Lesson:");
-    hbox_less->addWidget(label_lesson);
-
-    QDialogButtonBox *buttons = new QDialogButtonBox(QDialogButtonBox::Ok, Qt::Horizontal, this);
-
-    connect(buttons, SIGNAL(accepted()),this,SLOT(accept()));
-    connect(buttons,SIGNAL(rejected()),this,SLOT(reject()));
-
-    QTvtVocDocument *docRead = new QTvtVocDocument();
-    docRead->open(fileName);
-
-    lessons = docRead->lesson()->childContainers();
-
-    for (int i = 0; i < docRead->identifierCount(); ++i)
-    {
-        combox_question->insertItem(i, docRead->identifier(i).name(), NULL);
-        combox_answer->insertItem(i, docRead->identifier(i).name(), NULL);
+    if(!m_Instance) {
+        m_Instance = new TinyVocTrainerSettings(QCoreApplication::instance());
+        m_Instance->init();
     }
+    return m_Instance;
+}
 
-    connect(combox_question,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleQuestion(int)));
-    connect(combox_answer,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleAnswer(int)));
-    combox_question->setCurrentIndex(0);
-    combox_answer->setCurrentIndex(1);
-    hbox_question_lang->addWidget(combox_question);
-    hbox_answer_lang->addWidget(combox_answer);
+TinyVocTrainerSettings::TinyVocTrainerSettings(QObject *parent)
+    : QObject(parent), m_CurrentlyOpenedFile(QString()), m_CurrentDocument(0)
+{
+}
 
-    int lessonId = 0;
-    foreach(QTvtVocContainer * c, lessons) {
-        if (c->containerType() == QTvtVocLesson::Lesson) {
-                lessonsList.append( static_cast<QTvtVocLesson *>(c) );
-                QTvtVocLesson *m_lesson;
-                m_lesson = lessonsList.last() ;
-                qDebug () << "Lesson: " << m_lesson->name();
+void TinyVocTrainerSettings::init()
+{
+    // create application folder if doesnt exist
+    // get list of dictionaries
+}
 
-                combox_lesson->insertItem(lessonId, m_lesson->name(), NULL);
+void TinyVocTrainerSettings::openDictionary()
+{
+    QString fileName = QFileDialog::getOpenFileName(0,
+                                                    tr("Open dictionary"),
+                                                    QDir::homePath());
+    openDictionaryFile(fileName);
+}
+
+void TinyVocTrainerSettings::openDictionary(const QString& dictionaryName)
+{
+    if(m_Dictionaries.contains(dictionaryName)) {
+        QString filename = m_Dictionaries.value(dictionaryName);
+        openDictionaryFile(filename);
+    } else {
+        qDebug() << "Cannot find dictionary";
+    }
+}
+
+QStringList TinyVocTrainerSettings::dictionaries()
+{
+    return m_Dictionaries.uniqueKeys();
+}
+
+QStringList TinyVocTrainerSettings::languages()
+{
+    return m_Languages;
+}
+
+QStringList TinyVocTrainerSettings::lessons()
+{
+    QStringList lessonList;
+    foreach(QTvtVocLesson* lession, m_Lessons) {
+        if(lession) {
+            lessonList.append(lession->name());
         }
-        ++lessonId;
+    }
+    return lessonList;
+}
+
+QTvtVocLesson* TinyVocTrainerSettings::lesson(int index)
+{
+    QTvtVocLesson* lesson = 0;
+    if(index < m_Lessons.count() && index >= 0) {
+        lesson = m_Lessons.at(index);
+    }
+    return lesson;
+}
+
+void TinyVocTrainerSettings::openDictionaryFile(const QString& fileName)
+{
+    if(fileName.isEmpty()
+        || !QFileInfo(fileName).exists()
+        || fileName == m_CurrentlyOpenedFile)
+        return;
+
+    QTvtVocDocument* document = new QTvtVocDocument(this);
+    document->open(fileName);
+
+    QList< QTvtVocContainer* > lessonContainers =
+            document->lesson()->childContainers();
+
+    // no lessons, delete document, return
+    if(lessonContainers.isEmpty()) {
+        delete document;
+        return;
     }
 
-    connect(combox_lesson,SIGNAL(currentIndexChanged(int)),this,SLOT(reactToToggleLesson(int)));
-    combox_lesson->setCurrentIndex(0);
-    hbox_less->addWidget(combox_lesson);
+    // Read lessons
+    QList<QTvtVocLesson*> lessonList;
+    foreach(QTvtVocContainer *c, lessonContainers) {
+        if (c && c->containerType() == QTvtVocLesson::Lesson) {
+            QTvtVocLesson* lesson = static_cast<QTvtVocLesson *>(c);
+            lessonList.append(lesson);
+        }
+    }
 
-    vbox->addLayout(hbox_less);
-    vbox->addLayout(hbox_question_lang);
-    vbox->addLayout(hbox_answer_lang);
-    vbox->addWidget(buttons);
-    setLayout(vbox);
+    // if there are no languages, delete document, return
+    if(document->identifierCount() <= 0) {
+        delete document;
+        return;
+    }
 
-}
+    // Read languages
+    QStringList languageList;
+    for (int i = 0; i < document->identifierCount(); ++i) {
+        languageList.append(document->identifier(i).name());
+    }
 
-void TinyVocTrainerSettings::reactToToggleQuestion(int id)
-{
-    qDebug() << "TinyVocTrainerSettings Toggle Question: " << id;
-    emit SignalToggleQuestion(id);
-}
+    // If we are here, document contains all we need. Clean old document
+    delete m_CurrentDocument;
+    m_CurrentDocument = document;
+    m_CurrentlyOpenedFile = fileName;
+    m_Lessons = lessonList;
+    m_Languages = languageList;
+    m_Dictionaries.insert(QFileInfo(fileName).fileName(), fileName);
 
-
-void TinyVocTrainerSettings::reactToToggleAnswer(int id)
-{
-    qDebug() << "TinyVocTrainerSettings Toggle Answer: " << id;
-    emit SignalToggleAnswer(id);
-}
-
-
-void TinyVocTrainerSettings::reactToToggleLesson(int id)
-{
-    qDebug() << "TinyVocTrainerSettings Toggle Lesson: " << id;
-    emit SignalToggleLesson(id);
+    emit dictionaryChanged();
 }

@@ -16,63 +16,43 @@
 #ifndef TINYVOCTRAINER_H
 #define TINYVOCTRAINER_H
 
-#include <QtGui/QWidget>
-#include <QButtonGroup>
-#include <QList>
-#include <QLabel>
-#include <QPushButton>
+#include <QWidget>
 
-#include "qtvtvocdocument.h"
-#include "qtvtvoclesson.h"
-#include "qtvtvocexpression.h"
-#include "qtvtvocleitnerbox.h"
-
-#include "tinyvoctrainersettings.h"
+class QTvtVocExpression;
+class QPushButton;
+class QLabel;
 
 class TinyVocTrainer : public QWidget
 {
     Q_OBJECT
 
 public:
-    TinyVocTrainer(QWidget *parent = 0, const QString &fileName = "");
+    TinyVocTrainer(QWidget *parent = 0);
     ~TinyVocTrainer();
-    QTvtVocExpression * getAnyEntryFromLesson(QTvtVocLesson *lesson = 0, int language = 0);
 
-//    QButtonGroup *bgroup_lesson;
-//    QButtonGroup *bgroup_question_lang;
-//    QButtonGroup *bgroup_answer_lang;
-    QButtonGroup *bgroup_choice;
-    QList<QTvtVocContainer *>  lessons;
-    QList<QTvtVocLesson *> lessonsList;
-    QTvtVocDocument *docRead;
-    QLabel *QuestionLabel;
-    QPushButton *answer1;
-    QPushButton *answer2;
-    QPushButton *answer3;
-    QPushButton *answer4;
-    QList<QTvtVocExpression *> choiceList;
-    QList<QPushButton *> answerButtonsList;
+public:
+    void setLession(int lessionIndex);
+    void setQuestionLanguage(int languageIndex);
+    void setAnswerLanguage(int languageIndex);
+    void startTraining();
 
+private:
+    QTvtVocExpression * getAnyEntryFromLesson();
 
-    int questionID;
-    int answerID;
-    int lessonID;
-    int CorrectID;
+    void closeEvent ( QCloseEvent * event );
 
-    TinyVocTrainerSettings *dialog;
+private Q_SLOTS:
+    void slotInit();
+    void slotClicked(int id);
 
-private slots:
-    void reactToToggleQuestion(int id = 0);
-    void reactToToggleAnswer(int id = 0);
-    void reactToToggleLesson(int id = 0);
-    void slotCheck(int buttonID = 0);
-    void slotAnswer1(bool clicked = 0);
-    void slotAnswer2(bool clicked = 0);
-    void slotAnswer3(bool clicked = 0);
-    void slotAnswer4(bool clicked = 0);
-    void slotInit(bool clicked = 0);
-    void slotSettings(bool clicked = 0);
-
+private:
+    int m_CorrectId;
+    int m_LessionIndex;
+    int m_QuestionLanguage;
+    int m_AnswerLanguage;
+    QList<QTvtVocExpression *> m_ChoiceList;
+    QList<QPushButton *> m_AnswerButtonsList;
+    QLabel* m_QuestionLabel;
 };
 
 #endif // TINYVOCTRAINER_H

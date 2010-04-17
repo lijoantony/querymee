@@ -13,15 +13,35 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <QApplication>
-#include "mainwindow.h"
+#ifndef TRAININGSELECTIONVIEW_H
+#define TRAININGSELECTIONVIEW_H
 
-int main(int argc, char *argv[])
+#include <QWidget>
+
+class QComboBox;
+
+class TrainingSelectionView : public QWidget
 {
-    QApplication a(argc, argv);
+    Q_OBJECT
 
-    MainWindow mainWindow;
+public:
+    TrainingSelectionView(QWidget* parent = 0);
 
-    mainWindow.show();
-    return a.exec();
-}
+public Q_SLOTS:
+    /*!
+     * \brief Starts training
+     */
+    void start();
+
+private Q_SLOTS:
+    void slotDictionaryChanged();
+    void slotDictionarySelected(int index);
+
+private:
+    QComboBox *m_ComboDictionary;
+    QComboBox *m_ComboLesson;
+    QComboBox *m_ComboQuestionLang;
+    QComboBox *m_ComboAnswerLang;
+};
+
+#endif // TRAININGSELECTIONVIEW_H

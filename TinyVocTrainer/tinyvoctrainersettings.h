@@ -17,40 +17,61 @@
 #define TINYVOCTRAINERSETTINGS_H
 
 #include <QObject>
-#include <QDialog>
-#include <QComboBox>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QDialogButtonBox>
+#include <QMap>
+#include <QStringList>
 
-#include "qtvtvoclesson.h"
-#include "qtvtvocexpression.h"
-#include "qtvtvocdocument.h"
+class QTvtVocLesson;
+class QTvtVocDocument;
 
-
-class TinyVocTrainerSettings : public QDialog
+class TinyVocTrainerSettings : public QObject
 {
 
 Q_OBJECT
 
 public:
-    explicit TinyVocTrainerSettings(QWidget *parent = 0, const QString &fileName = "");
 
-    QList<QTvtVocContainer *>  lessons;
-    QList<QTvtVocLesson *> lessonsList;
+    static TinyVocTrainerSettings* instance();
+    /*!
+     * \brief Shows file selection dialog
+     */
+    void openDictionary();
 
-private slots:
-//    void accept();
-//    void reject();
-    void reactToToggleQuestion(int id = 0);
-    void reactToToggleAnswer(int id = 0);
-    void reactToToggleLesson(int id = 0);
+    /*!
+     * \brief Opens dictionary by name @see m_Dictionaries
+     */
+    void openDictionary(const QString& dictionaryName);
 
-signals:
-    void SignalToggleQuestion(int id);
-    void SignalToggleAnswer(int id);
-    void SignalToggleLesson(int id);
+    /*!
+     * \brief Returns list of dictionaries ( filenames )
+     */
+    QStringList dictionaries();
+    QStringList languages();
+    QStringList lessons();
+
+    QTvtVocLesson* lesson(int index);
+
+Q_SIGNALS:
+    /*!
+     * \brief emited when dictionary document is changed, e.g. new document
+     * is opened
+     */
+    void dictionaryChanged();
+
+private:
+    explicit TinyVocTrainerSettings(QObject *parent = 0);
+    static TinyVocTrainerSettings* m_Instance;
+    void init();
+
+private:
+    void openDictionaryFile(const QString& fileName);
+
+private:
+    QString m_CurrentlyOpenedFile;
+    QTvtVocDocument* m_CurrentDocument;
+    QList<QTvtVocLesson*> m_Lessons;
+    QStringList m_Languages;
+    // <FileName,Path>
+    QMap<QString,QString> m_Dictionaries;
 };
 
 #endif // TINYVOCTRAINERSETTINGS_H
