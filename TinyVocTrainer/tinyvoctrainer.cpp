@@ -128,7 +128,7 @@ void TinyVocTrainer::slotInit(){
         }
     }
 
-    int random_int = rand() %  3  + 0;
+    int random_int = rand() % NumberOfButtons  + 0;
     qDebug() << "ask for random_int: " <<  random_int;
 
     if(random_int < m_ChoiceList.count() && random_int >= 0) {
