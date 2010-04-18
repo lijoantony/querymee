@@ -18,6 +18,7 @@
 
 #include "mainwindow.h"
 #include "trainingselectionview.h"
+#include "tinyvoctrainersettings.h"
 
 MainWindow::MainWindow()
 {
@@ -30,8 +31,11 @@ MainWindow::MainWindow()
 }
 
 void MainWindow::createActions(){
-    settingAction = new QAction("Settings", this);
-    //connect(settingAction,SIGNAL(triggered()), trainer, SLOT(slotSettings()));
+    settingAction = new QAction(tr("Open dictionary"), this);
+    connect(settingAction,
+            SIGNAL(triggered()),
+            TinyVocTrainerSettings::instance(),
+            SLOT(openDictionary()));
 }
 
 void MainWindow::createMenus(){

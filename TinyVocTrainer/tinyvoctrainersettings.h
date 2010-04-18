@@ -32,16 +32,6 @@ public:
 
     static TinyVocTrainerSettings* instance();
     /*!
-     * \brief Shows file selection dialog
-     */
-    void openDictionary();
-
-    /*!
-     * \brief Opens dictionary by name @see m_Dictionaries
-     */
-    void openDictionary(const QString& dictionaryName);
-
-    /*!
      * \brief Returns list of dictionaries ( filenames )
      */
     QStringList dictionaries() const;
@@ -50,6 +40,17 @@ public:
 
     QTvtVocLesson* lesson(int index) const;
     int openedDictionary() const;
+
+public Q_SLOTS:
+    /*!
+     * \brief Shows file selection dialog
+     */
+    void openDictionary();
+
+    /*!
+     * \brief Opens dictionary by name @see m_Dictionaries
+     */
+    void openDictionary(const QString& dictionaryName);
 
 Q_SIGNALS:
     /*!
