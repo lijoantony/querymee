@@ -22,6 +22,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QDialogButtonBox>
+#include <QTimer>
 
 TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 {
@@ -72,8 +73,19 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
             SLOT(slotDictionaryChanged()));
 
     connect(m_ComboDictionary,
-            SIGNAL(currentIndexChanged(int)),
+            SIGNAL(activated(int)),
             SLOT(slotDictionarySelected(int)));
+
+    QTimer::singleShot(1000,this,SLOT(slotInitView()));
+}
+
+void TrainingSelectionView::slotInitView()
+{
+    TinyVocTrainerSettings* settings = TinyVocTrainerSettings::instance();
+    if(settings->dictionaries().count()) {
+        QString dictionaryName = settings->dictionaries().first();
+        settings->openDictionary(dictionaryName);
+    }
 }
 
 void TrainingSelectionView::start()
@@ -104,10 +116,14 @@ void TrainingSelectionView::slotDictionaryChanged()
     m_ComboLesson->addItems(settings->lessons());
     m_ComboQuestionLang->addItems(settings->languages());
     m_ComboAnswerLang->addItems(settings->languages());
+
+    m_ComboDictionary->setCurrentIndex(settings->openedDictionary());
 }
 
 void TrainingSelectionView::slotDictionarySelected(int index)
 {
-    QString dictionaryName = m_ComboDictionary->itemText(index);
-    TinyVocTrainerSettings::instance()->openDictionary(dictionaryName);
+    if(index >= 0) {
+        QString dictionaryName = m_ComboDictionary->itemText(index);
+        TinyVocTrainerSettings::instance()->openDictionary(dictionaryName);
+    }
 }

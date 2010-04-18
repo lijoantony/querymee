@@ -25,6 +25,9 @@
 #include <QDir>
 #include <QDebug>
 
+// Constants
+#define DICTIONARY_PATH "/.tinyvoctrainer/dictionaries"
+
 TinyVocTrainerSettings* TinyVocTrainerSettings::m_Instance = 0;
 
 TinyVocTrainerSettings* TinyVocTrainerSettings::instance()
@@ -43,8 +46,21 @@ TinyVocTrainerSettings::TinyVocTrainerSettings(QObject *parent)
 
 void TinyVocTrainerSettings::init()
 {
-    // create application folder if doesnt exist
-    // get list of dictionaries
+    bool pathExist;
+    QString settingsPath = QDir::homePath() + QString(DICTIONARY_PATH);
+    QDir dir(settingsPath);
+    if(!QFileInfo(settingsPath).exists()) {
+        pathExist = dir.mkpath(settingsPath);
+    } else {
+        pathExist = true;
+    }
+
+    if(pathExist) {
+        QFileInfoList dictionaries = dir.entryInfoList(QDir::Files, QDir::Name);
+        foreach(QFileInfo info, dictionaries) {
+            m_Dictionaries.insert(info.fileName(),info.absoluteFilePath());
+        }
+    }
 }
 
 void TinyVocTrainerSettings::openDictionary()
@@ -65,17 +81,17 @@ void TinyVocTrainerSettings::openDictionary(const QString& dictionaryName)
     }
 }
 
-QStringList TinyVocTrainerSettings::dictionaries()
+QStringList TinyVocTrainerSettings::dictionaries() const
 {
     return m_Dictionaries.uniqueKeys();
 }
 
-QStringList TinyVocTrainerSettings::languages()
+QStringList TinyVocTrainerSettings::languages() const
 {
     return m_Languages;
 }
 
-QStringList TinyVocTrainerSettings::lessons()
+QStringList TinyVocTrainerSettings::lessons() const
 {
     QStringList lessonList;
     foreach(QTvtVocLesson* lession, m_Lessons) {
@@ -86,13 +102,18 @@ QStringList TinyVocTrainerSettings::lessons()
     return lessonList;
 }
 
-QTvtVocLesson* TinyVocTrainerSettings::lesson(int index)
+QTvtVocLesson* TinyVocTrainerSettings::lesson(int index) const
 {
     QTvtVocLesson* lesson = 0;
     if(index < m_Lessons.count() && index >= 0) {
         lesson = m_Lessons.at(index);
     }
     return lesson;
+}
+
+int TinyVocTrainerSettings::openedDictionary() const
+{
+    return m_Dictionaries.values().indexOf(m_CurrentlyOpenedFile);
 }
 
 void TinyVocTrainerSettings::openDictionaryFile(const QString& fileName)

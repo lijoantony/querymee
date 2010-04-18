@@ -35,9 +35,9 @@
 TinyVocTrainer::TinyVocTrainer(QWidget *parent) :
         QWidget(parent),
         m_CorrectId(0),
-        m_LessionIndex(0),
-        m_QuestionLanguage(0),
-        m_AnswerLanguage(0)
+        m_LessionIndex(-1),
+        m_QuestionLanguage(-1),
+        m_AnswerLanguage(-1)
 {
     srand(time(NULL));
 
@@ -65,8 +65,14 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent) :
 
 void TinyVocTrainer::startTraining()
 {
-    slotInit();
-    show();
+    if(m_LessionIndex >= 0
+       || m_QuestionLanguage >= 0
+       || m_AnswerLanguage >= 0) {
+        slotInit();
+        show();
+    } else {
+        qDebug() << "Something is not selected";
+    }
 }
 
 TinyVocTrainer::~TinyVocTrainer()

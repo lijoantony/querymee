@@ -44,11 +44,12 @@ public:
     /*!
      * \brief Returns list of dictionaries ( filenames )
      */
-    QStringList dictionaries();
-    QStringList languages();
-    QStringList lessons();
+    QStringList dictionaries() const;
+    QStringList languages() const;
+    QStringList lessons() const;
 
-    QTvtVocLesson* lesson(int index);
+    QTvtVocLesson* lesson(int index) const;
+    int openedDictionary() const;
 
 Q_SIGNALS:
     /*!

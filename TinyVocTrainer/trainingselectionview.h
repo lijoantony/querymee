@@ -36,6 +36,7 @@ public Q_SLOTS:
 private Q_SLOTS:
     void slotDictionaryChanged();
     void slotDictionarySelected(int index);
+    void slotInitView();
 
 private:
     QComboBox *m_ComboDictionary;
