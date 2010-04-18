@@ -66,8 +66,8 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent) :
 void TinyVocTrainer::startTraining()
 {
     if(m_LessionIndex >= 0
-       || m_QuestionLanguage >= 0
-       || m_AnswerLanguage >= 0) {
+       && m_QuestionLanguage >= 0
+       && m_AnswerLanguage >= 0) {
         slotInit();
         show();
     } else {
