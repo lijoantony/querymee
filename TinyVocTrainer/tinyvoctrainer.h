@@ -54,6 +54,7 @@ private:
     QList<QPushButton *> m_AnswerButtonsList;
     QLabel* m_QuestionLabel;
     QLabel *statusLabel;
+    QLabel *answerLabel;
 };
 
 #endif // TINYVOCTRAINER_H

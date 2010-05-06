@@ -44,10 +44,16 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent) :
 
     QVBoxLayout *vbox = new QVBoxLayout();
     QVBoxLayout *vbox_label = new QVBoxLayout();
+    QHBoxLayout *hbox = new QHBoxLayout();
 
     m_QuestionLabel = new QLabel();
     m_QuestionLabel->setText(tr("Here comes..."));
-    vbox_label->addWidget(m_QuestionLabel);
+    hbox->addWidget(m_QuestionLabel);
+    
+    answerLabel = new QLabel();
+    hbox->addWidget(answerLabel);
+    
+    vbox_label->addLayout(hbox);
     
     statusLabel = new QLabel();
     vbox_label->addWidget(statusLabel);
@@ -114,10 +120,11 @@ void TinyVocTrainer::setAnswerLanguage(int languageIndex)
 void TinyVocTrainer::slotClicked(int id)
 {
     qDebug() << "slotCheck(): buton id: " << id << "Correct Id: " << m_CorrectId;
-
+    
     if(id == m_CorrectId){
         qDebug() << "\\o/ correct answer...";
         statusLabel->setText("\\o/ correct answer");
+        answerLabel->setText( m_AnswerButtonsList.at(id)->text() );
         QTimer::singleShot(2000, this, SLOT(slotInit()));
         return;
     }
@@ -130,6 +137,7 @@ void TinyVocTrainer::slotClicked(int id)
 void TinyVocTrainer::slotInit(){
     m_ChoiceList.clear();
     statusLabel->clear();
+    answerLabel->clear();
     
     for (int i=0; i < NumberOfButtons; ++i){
         QTvtVocExpression* expression = NULL;
