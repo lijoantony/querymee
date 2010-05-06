@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.1
+Type=Application
+Name=querymee
+Exec=/opt/querymee/bin/querymee
+Icon=querymee
+X-Window-Icon=querymee
+X-Osso-Service=ch.anywhere.querymee
+X-Osso-Type=application/x-executable

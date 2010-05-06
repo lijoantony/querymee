@@ -1,0 +1,4 @@
+# Service description file
+[D-BUS Service]
+Name=ch.anywhere.querymee
+Exec=/opt/querymee/bin/querymee
