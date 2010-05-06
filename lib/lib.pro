@@ -67,3 +67,21 @@ SOURCES += qtvtvocarticle.cpp \
 #           qtvtvocwqlreader.cpp \
 #           qtvtvocxdxfreader.cpp \
            sharedkvtmlfiles.cpp
+
+
+unix {
+    #VARIABLES
+    isEmpty(PREFIX) {
+        PREFIX = /usr/local
+    }
+
+    BINDIR = $$PREFIX/lib
+
+    #MAKE INSTALL
+
+    INSTALLS += target
+
+    target.path =$$BINDIR
+
+}
+
