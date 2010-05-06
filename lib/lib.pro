@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = lib
-TARGET = 
+TARGET = qtvtvocdocument
 DEPENDPATH += .
 INCLUDEPATH += .
 

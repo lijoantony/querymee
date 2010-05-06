@@ -10,8 +10,8 @@ lib/libqtvtvocdocument.so.1.0.0
 lib/tests/*.kvtml
 lib/tests/tests
 trainer/trainer
-TinyVocTrainer/TinyVocTrainer
-TinyVocTrainer/core.*
+src/core.*
 build-stamp
 builddir/
 debian/tinyvoctrainer.substvars
+src/querymee
