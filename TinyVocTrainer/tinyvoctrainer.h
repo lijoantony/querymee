@@ -53,6 +53,7 @@ private:
     QList<QTvtVocExpression *> m_ChoiceList;
     QList<QPushButton *> m_AnswerButtonsList;
     QLabel* m_QuestionLabel;
+    QLabel *statusLabel;
 };
 
 #endif // TINYVOCTRAINER_H

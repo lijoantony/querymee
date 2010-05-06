@@ -24,6 +24,7 @@
 #include <QPushButton>
 #include <QButtonGroup>
 #include <QSignalMapper>
+#include <QTimer>
 
 #include "qtvtvocdocument.h"
 #include "qtvtvoclesson.h"
@@ -47,6 +48,9 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent) :
     m_QuestionLabel = new QLabel();
     m_QuestionLabel->setText(tr("Here comes..."));
     vbox_label->addWidget(m_QuestionLabel);
+    
+    statusLabel = new QLabel();
+    vbox_label->addWidget(statusLabel);
 
     QSignalMapper* signalMapper = new QSignalMapper(this);
     for (int i = 0; i < NumberOfButtons; i++) {
@@ -113,16 +117,20 @@ void TinyVocTrainer::slotClicked(int id)
 
     if(id == m_CorrectId){
         qDebug() << "\\o/ correct answer...";
-        slotInit();
+        statusLabel->setText("\\o/ correct answer");
+        QTimer::singleShot(2000, this, SLOT(slotInit()));
         return;
     }
     else{
         qDebug() << ":-( sorry wrong...";
+        statusLabel->setText(":-( sorry wrong");
     }
 }
 
 void TinyVocTrainer::slotInit(){
     m_ChoiceList.clear();
+    statusLabel->clear();
+    
     for (int i=0; i < NumberOfButtons; ++i){
         QTvtVocExpression* expression = NULL;
         do {
