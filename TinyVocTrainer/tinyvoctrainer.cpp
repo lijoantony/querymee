@@ -125,12 +125,15 @@ void TinyVocTrainer::slotClicked(int id)
         qDebug() << "\\o/ correct answer...";
         statusLabel->setText("\\o/ correct answer");
         answerLabel->setText( m_AnswerButtonsList.at(id)->text() );
-        QTimer::singleShot(2000, this, SLOT(slotInit()));
+        m_AnswerButtonsList.at(id)->setDown(1);
+        QTimer::singleShot(2200, this, SLOT(slotInit()));
         return;
     }
     else{
-        qDebug() << ":-( sorry wrong...";
-        statusLabel->setText(":-( sorry wrong");
+        QString str = ":-( sorry wrong... it's not: ";
+        str.append(m_AnswerButtonsList.at(id)->text());
+        qDebug() << str ;
+        statusLabel->setText( str );
     }
 }
 
@@ -140,6 +143,7 @@ void TinyVocTrainer::slotInit(){
     answerLabel->clear();
     
     for (int i=0; i < NumberOfButtons; ++i){
+        m_AnswerButtonsList.at(i)->setDown(0);
         QTvtVocExpression* expression = NULL;
         do {
             expression = getAnyEntryFromLesson();
