@@ -12,3 +12,6 @@ lib/tests/tests
 trainer/trainer
 TinyVocTrainer/TinyVocTrainer
 TinyVocTrainer/core.*
+build-stamp
+builddir/
+debian/tinyvoctrainer.substvars
