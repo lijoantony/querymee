@@ -1,7 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-03-17T19:16:34
 # -------------------------------------------------
-TARGET = TinyVocTrainer
+TARGET = querymee
 TEMPLATE = app
 LIBS += -L../lib \
     -lqtvtvocdocument
@@ -20,3 +20,4 @@ HEADERS += tinyvoctrainer.h \
     mainwindow.h \
     trainingselectionview.h
 FORMS +=
+
