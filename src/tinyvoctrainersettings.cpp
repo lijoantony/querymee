@@ -26,7 +26,11 @@
 #include <QDebug>
 
 // Constants
-#define DICTIONARY_PATH "/.tinyvoctrainer/dictionaries"
+#ifdef Q_WS_MAEMO_5
+    #define DICTIONARY_PATH "/MyDocs/Querymee/dictionaries"
+#else
+    #define DICTIONARY_PATH "/.tinyvoctrainer/dictionaries"
+#endif
 
 TinyVocTrainerSettings* TinyVocTrainerSettings::m_Instance = 0;
 
