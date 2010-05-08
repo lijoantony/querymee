@@ -27,7 +27,7 @@
 
 // Constants
 #ifdef Q_WS_MAEMO_5
-    #define DICTIONARY_PATH "/MyDocs/Querymee/dictionaries"
+    #define DICTIONARY_PATH "/MyDocs/Querymee/"
 #else
     #define DICTIONARY_PATH "/.tinyvoctrainer/dictionaries"
 #endif
