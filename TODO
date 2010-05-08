@@ -1,0 +1,72 @@
+First release 1.0.0 (first release which shall go to extras testing):
+* rename library for querymee (get rid of tinyvoctrainer) - Reto
+* rename src for querymee (get rid of tinyvoctrainer) - Reto
+* help/info page (how to get kvtml files, how to create...)
+* bugzilla (or similar) is needed to pass maemo QA
+* Portrait mode for multiple choice (let's have both portrait and landscape, it can be choosen at start, so we can check what makes more sense)
+* possibility to chose "all" for lessons
+* download dialog for kvtml files
+  http://techbase.kde.org/Development/Tutorials/Collaboration/HotNewStuff/Introduction
+
+  the service which KDE uses to provide in app download possibilities for 
+  new and/or additional vocabulary files is called "Get Hot New Stuff - 
+  GHNS"...
+
+  here the spec:
+
+  http://ghns.freedesktop.org/spec/ghns-spec.html
+
+   * Providers file: http://ghns.freedesktop.org/spec/ghnsproviders.xsd
+   * Download file: http://ghns.freedesktop.org/spec/ghnsdownload.xsd
+
+  some libraries, but non plain qt, or C++...
+  http://ghns.freedesktop.org/software.php
+
+  here the KDE implementation:
+  http://ghns.freedesktop.org/knewstuff2/
+  http://websvn.kde.org/trunk/KDE/kdelibs/knewstuff/
+
+  Provider URLs (from parley: 
+  http://websvn.kde.org/trunk/KDE/kdeedu/parley/src/parley.knsrc):
+  http://edu.kde.org/parley/newstuff/providers41.xml
+  http://edu.kde.org/parley/newstuff/providers44.xml
+
+  here on of the download xml files:
+  http://download.kde.org/khotnewstuff/parley/parley.xml
+
+
+
+For next major release 2.0.0:
+* flash card mode (portrait and landscape)
+* enable support for images in library and use it in flash card mode (show image with question or just image)
+  is deactivated at the moment
+  http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvockvtml2reader.cpp#line368
+* enable support for sound (any idea how to use the sound?!)
+  is deactivated at the moment
+  http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvockvtml2reader.cpp#line376
+
+  kvtml allows URLs and local path images and sound tags, KDE library returns KUrl, not the same as QUrl!
+  handler for download is needed and handler to check if file already locally available!
+* support for kvtml multiple choice feature, fallback to random if not specified
+* support for csv files in library
+  http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvoccsvreader.cpp
+  http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line342
+
+
+itmes for the fare future:
+* enhanded Litner Box algorithm, not just random asking
+  http://en.wikipedia.org/wiki/Leitner_system
+  http://en.wikipedia.org/wiki/Flashcard
+  maybe also some ideas from Parley can be used:
+  http://websvn.kde.org/trunk/KDE/kdeedu/parley/
+* multiple choice with conjucated verbs
+* multiple choice with comparison forms adjectives/adverbs.
+* enable other file formats than kvtml in library (vocwql, vocxdxf, pauker, vokabeln) 
+  http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line290
+  http://gitorious.org/querymee/querymee/trees/master/lib/qtvtvocvokabelnreader.cpp
+  http://gitorious.org/querymee/querymee/trees/master/lib/qtvtvocwqlreader.cpp
+  http://gitorious.org/querymee/querymee/trees/master/lib/qtvtvocxdxfreader.cpp
+  http://gitorious.org/querymee/querymee/trees/master/lib/qtvtvocpaukerreader.cpp
+
+
+
