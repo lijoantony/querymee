@@ -13,5 +13,7 @@ trainer/trainer
 src/core.*
 build-stamp
 builddir/
-debian/tinyvoctrainer.substvars
+debian/querymee.substvars
+debian/querymee
+debian/files
 src/querymee
