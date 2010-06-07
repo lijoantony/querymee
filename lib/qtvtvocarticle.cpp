@@ -25,63 +25,63 @@
 
 #include <QtCore/QMap>
 
-class QTvtVocArticle::Private
+class QmVocArticle::Private
 {
 public:
-    QMap <QTvtVocWordFlags, QString>    m_articles;
+    QMap <QmVocWordFlags, QString>    m_articles;
 };
 
-QTvtVocArticle::QTvtVocArticle()
+QmVocArticle::QmVocArticle()
         :d( new Private )
 {}
 
-QTvtVocArticle::QTvtVocArticle( const QTvtVocArticle &other )
+QmVocArticle::QmVocArticle( const QmVocArticle &other )
         :d( new Private )
 {
     d->m_articles = other.d->m_articles;
 }
 
-QTvtVocArticle &QTvtVocArticle::operator= ( const QTvtVocArticle& other )
+QmVocArticle &QmVocArticle::operator= ( const QmVocArticle& other )
 {
     d->m_articles = other.d->m_articles;
     return *this;
 }
 
-QTvtVocArticle::QTvtVocArticle( const QString &fem_def, const QString &fem_indef, const QString &mal_def, const QString &mal_indef, const QString &neu_def, const QString &neu_indef )
+QmVocArticle::QmVocArticle( const QString &fem_def, const QString &fem_indef, const QString &mal_def, const QString &mal_indef, const QString &neu_def, const QString &neu_indef )
         :d( new Private )
 {
-    setArticle( mal_def, QTvtVocWordFlag::Singular | QTvtVocWordFlag::Definite | QTvtVocWordFlag::Masculine );
-    setArticle( fem_def, QTvtVocWordFlag::Singular | QTvtVocWordFlag::Definite | QTvtVocWordFlag::Feminine );
-    setArticle( neu_def, QTvtVocWordFlag::Singular | QTvtVocWordFlag::Definite | QTvtVocWordFlag::Neuter );
+    setArticle( mal_def, QmVocWordFlag::Singular | QmVocWordFlag::Definite | QmVocWordFlag::Masculine );
+    setArticle( fem_def, QmVocWordFlag::Singular | QmVocWordFlag::Definite | QmVocWordFlag::Feminine );
+    setArticle( neu_def, QmVocWordFlag::Singular | QmVocWordFlag::Definite | QmVocWordFlag::Neuter );
 
-    setArticle( mal_indef, QTvtVocWordFlag::Singular | QTvtVocWordFlag::Indefinite | QTvtVocWordFlag::Masculine );
-    setArticle( fem_indef, QTvtVocWordFlag::Singular | QTvtVocWordFlag::Indefinite | QTvtVocWordFlag::Feminine );
-    setArticle( neu_indef, QTvtVocWordFlag::Singular | QTvtVocWordFlag::Indefinite | QTvtVocWordFlag::Neuter );
+    setArticle( mal_indef, QmVocWordFlag::Singular | QmVocWordFlag::Indefinite | QmVocWordFlag::Masculine );
+    setArticle( fem_indef, QmVocWordFlag::Singular | QmVocWordFlag::Indefinite | QmVocWordFlag::Feminine );
+    setArticle( neu_indef, QmVocWordFlag::Singular | QmVocWordFlag::Indefinite | QmVocWordFlag::Neuter );
 }
 
-QTvtVocArticle::~QTvtVocArticle()
+QmVocArticle::~QmVocArticle()
 {
     delete d;
 }
 
 
-QString QTvtVocArticle::article(const QTvtVocWordFlags& flags)
+QString QmVocArticle::article(const QmVocWordFlags& flags)
 {
-    return d->m_articles.value(flags & (QTvtVocWordFlag::genders | QTvtVocWordFlag::numbers | QTvtVocWordFlag::Definite | QTvtVocWordFlag::Indefinite));
+    return d->m_articles.value(flags & (QmVocWordFlag::genders | QmVocWordFlag::numbers | QmVocWordFlag::Definite | QmVocWordFlag::Indefinite));
 }
 
-void QTvtVocArticle::setArticle(const QString & article, const QTvtVocWordFlags& flags)
+void QmVocArticle::setArticle(const QString & article, const QmVocWordFlags& flags)
 {
-    d->m_articles[flags & (QTvtVocWordFlag::genders | QTvtVocWordFlag::numbers | QTvtVocWordFlag::Definite | QTvtVocWordFlag::Indefinite)] = article;
+    d->m_articles[flags & (QmVocWordFlag::genders | QmVocWordFlag::numbers | QmVocWordFlag::Definite | QmVocWordFlag::Indefinite)] = article;
 }
 
 
-bool QTvtVocArticle::isArticle(const QString & article) const
+bool QmVocArticle::isArticle(const QString & article) const
 {
     return d->m_articles.values().contains(article);
 }
 
-bool QTvtVocArticle::isEmpty()
+bool QmVocArticle::isEmpty()
 {
     // we don't count empty strings as articles
     foreach(const QString& s, d->m_articles)

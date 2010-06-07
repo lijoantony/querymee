@@ -30,10 +30,10 @@
 #include <QUrl>
 #include <QtCore/QList>
 
-class QTvtVocExpression;
+class QmVocExpression;
 
 /** class to store information about a container - that can be a lesson or word types */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocContainer
+class QTVTVOCDOCUMENT_EXPORT QmVocContainer
 {
     // make this a template?
 
@@ -51,13 +51,13 @@ public:
     };
 
     /** default constructor */
-    explicit QTvtVocContainer(const QString& name, EnumContainerType type, QTvtVocContainer *parent = 0);
+    explicit QmVocContainer(const QString& name, EnumContainerType type, QmVocContainer *parent = 0);
 
-    void appendChildContainer(QTvtVocContainer *child);
-    void insertChildContainer(int row, QTvtVocContainer *child);
+    void appendChildContainer(QmVocContainer *child);
+    void insertChildContainer(int row, QmVocContainer *child);
     void deleteChildContainer(int row);
     void removeChildContainer(int row);
-    QTvtVocContainer *childContainer(int row);
+    QmVocContainer *childContainer(int row);
 
     /**
      * Retrieve a child container by its name
@@ -65,30 +65,30 @@ public:
      * @param name container name
      * @return the child container
      */
-    QTvtVocContainer *childContainer(const QString& name);
+    QmVocContainer *childContainer(const QString& name);
 
-    QList<QTvtVocContainer *> childContainers();
+    QList<QmVocContainer *> childContainers();
 
     /**
      * Find a child container
      * @param name
      * @return
      */
-//     QTvtVocContainer *childContainer(const QString& name);
+//     QmVocContainer *childContainer(const QString& name);
 
     int childContainerCount() const;
 
     int row() const;
-    virtual QTvtVocContainer *parent();
+    virtual QmVocContainer *parent();
 
     /** copy constructor for d-pointer safe copying */
-    QTvtVocContainer( const QTvtVocContainer &other );
+    QmVocContainer( const QmVocContainer &other );
 
     /** destructor */
-    virtual ~QTvtVocContainer();
+    virtual ~QmVocContainer();
 
     /** assignment operator */
-    QTvtVocContainer& operator= ( const QTvtVocContainer& );
+    QmVocContainer& operator= ( const QmVocContainer& );
 
     /** set the container name
      * @param name text to set for the name
@@ -99,9 +99,9 @@ public:
     QString name();
 
     /** get a list of all entries in the container */
-    virtual QList < QTvtVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive) =0;
+    virtual QList < QmVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive) =0;
     virtual int entryCount(EnumEntriesRecursive recursive = NotRecursive) =0;
-    virtual QTvtVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive) =0;
+    virtual QmVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive) =0;
 
     /**
      * Removes a translation. This has to be called when a language is removed from a document.
@@ -113,20 +113,20 @@ public:
     void setInPractice( bool inPractice );
 
     /** equality operator */
-    bool operator==(const QTvtVocContainer &other);
+    bool operator==(const QmVocContainer &other);
 
     /**
      * The type of this container. @see EnumContainerType
      * @return
      */
-    QTvtVocContainer::EnumContainerType containerType();
+    QmVocContainer::EnumContainerType containerType();
 
     /**
      * Set the type of container.
      * For convenience by default this is taken over from the parent, so no need to set.
      * @param type the new type
      */
-    void setContainerType(QTvtVocContainer::EnumContainerType type);
+    void setContainerType(QmVocContainer::EnumContainerType type);
 
 
     /** get the image url for this container if it exists */
@@ -149,7 +149,7 @@ public:
     void resetGrades(int translation, EnumEntriesRecursive recursive);
 
 protected:
-    QList< QTvtVocExpression * > entriesRecursive();
+    QList< QmVocExpression * > entriesRecursive();
 
     /**
      * Set the child entry cache to invalid

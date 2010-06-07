@@ -38,16 +38,16 @@
 #include <QUrl>
 
 class QStringList;
-class QTvtVocExpression;
-class QTvtVocLesson;
-class QTvtVocWordType;
-class QTvtVocLeitnerBox;
+class QmVocExpression;
+class QmVocLesson;
+class QmVocWordType;
+class QmVocLeitnerBox;
 
 /**
  * This class contains the expressions of your vocabulary
  * as well as other information about the vocabulary
  */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocDocument : public QObject
+class QTVTVOCDOCUMENT_EXPORT QmVocDocument : public QObject
 {
     Q_OBJECT
 public:
@@ -97,12 +97,12 @@ public:
      *
      * @param parent calling object
      */
-    explicit QTvtVocDocument( QObject* parent = 0 );
+    explicit QmVocDocument( QObject* parent = 0 );
 
     /**
      * Destructor
      */
-    ~QTvtVocDocument();
+    ~QmVocDocument();
 
     // *** whole document methods ***
 
@@ -133,7 +133,7 @@ public:
      * @param matchIdentifiers if true only entries having identifiers present in the
      *                         current document will be mergedurl is empty (or NULL) actual name is preserved
      */
-    void merge( QTvtVocDocument *docToMerge, bool matchIdentifiers );
+    void merge( QmVocDocument *docToMerge, bool matchIdentifiers );
 
     /**
      * Indicates if the document is modified
@@ -224,7 +224,7 @@ public:
      * @param identifier the identifier to append. If empty default names are used.
      * @returns the identifier number
      */
-    int appendIdentifier( const QTvtVocIdentifier & identifier = QTvtVocIdentifier());
+    int appendIdentifier( const QmVocIdentifier & identifier = QmVocIdentifier());
 
     /**
      * Sets the identifier of translation
@@ -232,7 +232,7 @@ public:
      * @param index            number of translation 0..x
      * @param lang             the language identifier: en=english, de=german, ...
      */
-    void setIdentifier( int index, const QTvtVocIdentifier& lang );
+    void setIdentifier( int index, const QmVocIdentifier& lang );
 
     /**
      * Returns the identifier of translation @p index
@@ -240,12 +240,12 @@ public:
      * @param index            number of translation 0..x
      * @returns                the language identifier: en=english, de=german, ...
      */
-    QTvtVocIdentifier& identifier( int index );
+    QmVocIdentifier& identifier( int index );
 
     /**
      * Const overload of identifier(int);
      */
-    const QTvtVocIdentifier& identifier( int index ) const;
+    const QmVocIdentifier& identifier( int index ) const;
 
     /**
      * Removes identifier and the according translation in all entries
@@ -287,11 +287,11 @@ public:
     /** get the lesson root object
      * @returns a pointer to the lesson object
      */
-    QTvtVocLesson * lesson();
+    QmVocLesson * lesson();
 
-    QTvtVocWordType * wordTypeContainer();
+    QmVocWordType * wordTypeContainer();
 
-    QTvtVocLeitnerBox * leitnerContainer();
+    QmVocLeitnerBox * leitnerContainer();
 
     // *** file format specific methods ***
 
@@ -325,7 +325,7 @@ public:
     static QString errorDescription( int errorCode );
 
 Q_SIGNALS:
-    void progressChanged( QTvtVocDocument *, int curr_percent );
+    void progressChanged( QmVocDocument *, int curr_percent );
 
     /**
      * Emitted when the document becomes modified or saved.
@@ -334,11 +334,11 @@ Q_SIGNALS:
     void docModified( bool mod );
 
 private:
-    // The private data of this - see QTvtVocDocument::Private, implemented in qtvtvocdocument.cpp
-    class QTvtVocDocumentPrivate;
-    QTvtVocDocumentPrivate* const d;
+    // The private data of this - see QmVocDocument::Private, implemented in qtvtvocdocument.cpp
+    class QmVocDocumentPrivate;
+    QmVocDocumentPrivate* const d;
 
-    Q_DISABLE_COPY( QTvtVocDocument )
+    Q_DISABLE_COPY( QmVocDocument )
 };
 
 

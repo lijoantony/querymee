@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-                    create a QTvtVocDocument from a text file
+                    create a QmVocDocument from a text file
 
     -----------------------------------------------------------------------
 
@@ -41,7 +41,7 @@
 #include "qtvtvoclesson.h"
 #include "qtvtvocexpression.h"
 
-QTvtVocCsvReader::QTvtVocCsvReader( QIODevice *file )
+QmVocCsvReader::QmVocCsvReader( QIODevice *file )
 {
     // the file must be already open
     m_inputFile = file;
@@ -49,7 +49,7 @@ QTvtVocCsvReader::QTvtVocCsvReader( QIODevice *file )
 }
 
 
-bool QTvtVocCsvReader::readDoc( QTvtVocDocument *doc )
+bool QmVocCsvReader::readDoc( QmVocDocument *doc )
 {
     m_doc = doc;
 
@@ -62,14 +62,14 @@ bool QTvtVocCsvReader::readDoc( QTvtVocDocument *doc )
 
     int languageCount = 0;
 
-    QTvtVocLesson* lesson = new QTvtVocLesson( "Vocabulary", m_doc->lesson());
+    QmVocLesson* lesson = new QmVocLesson( "Vocabulary", m_doc->lesson());
     m_doc->lesson()->appendChildContainer(lesson);
 
     while ( !inputStream.atEnd() ) {
         QString s = inputStream.readLine();
 
         if ( !s.simplified().isEmpty() ) {
-            QTvtVocExpression* expression = new QTvtVocExpression( s.split(separator) );
+            QmVocExpression* expression = new QmVocExpression( s.split(separator) );
             languageCount = qMax( languageCount,
                 expression->translationIndices().count() );
             lesson->appendEntry( expression );

@@ -37,14 +37,14 @@
 
 #include <QtCore/QStringList>
 
-class QTVTVOCDOCUMENT_EXPORT QTvtVocMultipleChoice
+class QTVTVOCDOCUMENT_EXPORT QmVocMultipleChoice
 {
 public:
-    QTvtVocMultipleChoice();
-    QTvtVocMultipleChoice( const QTvtVocMultipleChoice &other );
-    QTvtVocMultipleChoice( const QStringList &choices );
+    QmVocMultipleChoice();
+    QmVocMultipleChoice( const QmVocMultipleChoice &other );
+    QmVocMultipleChoice( const QStringList &choices );
 
-    ~QTvtVocMultipleChoice();
+    ~QmVocMultipleChoice();
 
     QStringList choices() const;
     void appendChoice( const QString &s );
@@ -55,13 +55,13 @@ public:
     void clear();
     unsigned size() const;
 
-    bool operator== ( const QTvtVocMultipleChoice &choice ) const;
+    bool operator== ( const QmVocMultipleChoice &choice ) const;
 
-    QTvtVocMultipleChoice &operator= ( const QTvtVocMultipleChoice &other );
+    QmVocMultipleChoice &operator= ( const QmVocMultipleChoice &other );
 
 private:
-    class QTvtVocMultipleChoicePrivate;
-    QTvtVocMultipleChoicePrivate * const d;
+    class QmVocMultipleChoicePrivate;
+    QmVocMultipleChoicePrivate * const d;
 };
 
 

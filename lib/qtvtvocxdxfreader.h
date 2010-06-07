@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                  create a QTvtVocDocument from a XDXF file
+                  create a QmVocDocument from a XDXF file
     -----------------------------------------------------------------------
     copyright     : (C) 2007 Peter Hedlund <peter.hedlund@kdemail.net>
     Copyright     : (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
@@ -25,12 +25,12 @@
 #include <QXmlStreamReader>
 
 class QIODevice;
-class QTvtVocDocument;
+class QmVocDocument;
 
-class QTvtVocXdxfReader : public QXmlStreamReader
+class QmVocXdxfReader : public QXmlStreamReader
 {
 public:
-    QTvtVocXdxfReader( QTvtVocDocument *doc );
+    QmVocXdxfReader( QmVocDocument *doc );
 
     bool read( QIODevice *device );
 
@@ -39,7 +39,7 @@ private:
     void readXdxf();
     void readEntry();
 
-    QTvtVocDocument *m_doc;
+    QmVocDocument *m_doc;
 };
 
 #endif

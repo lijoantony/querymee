@@ -26,38 +26,38 @@
 
 #include "qtvtvoccontainer.h"
 
-class QTvtVocExpression;
+class QmVocExpression;
 
 /** class to store information about a lesson */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocLesson :public QTvtVocContainer
+class QTVTVOCDOCUMENT_EXPORT QmVocLesson :public QmVocContainer
 {
 public:
     /** default constructor */
-    explicit QTvtVocLesson(const QString& name, QTvtVocContainer *parent = 0);
+    explicit QmVocLesson(const QString& name, QmVocContainer *parent = 0);
 
-//     void appendChildLesson(QTvtVocLesson *child);
+//     void appendChildLesson(QmVocLesson *child);
 
-//     QList<QTvtVocLesson *> childLessons();
-//     QTvtVocLesson *childLesson(int row);
+//     QList<QmVocLesson *> childLessons();
+//     QmVocLesson *childLesson(int row);
 
 //     int childLessonCount() const;
 
 //     int row() const;
-//     QTvtVocLesson *parent();
+//     QmVocLesson *parent();
 
     /** copy constructor for d-pointer safe copying */
-    QTvtVocLesson( const QTvtVocLesson &other );
+    QmVocLesson( const QmVocLesson &other );
 
     /** destructor */
-    ~QTvtVocLesson();
+    ~QmVocLesson();
 
     /** assignment operator */
-    QTvtVocLesson& operator= ( const QTvtVocLesson& );
+    QmVocLesson& operator= ( const QmVocLesson& );
 
-    QTvtVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive);
+    QmVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive);
 
     /** get a list of all entries in the lesson */
-    QList < QTvtVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive);
+    QList < QmVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive);
 
     /** get the number of entries in the lesson */
     int entryCount(EnumEntriesRecursive recursive = NotRecursive);
@@ -65,19 +65,19 @@ public:
     /** append an entry to the lesson
      * @param entryid id of the entry to add
      */
-    void appendEntry(QTvtVocExpression* entry);
+    void appendEntry(QmVocExpression* entry);
 
     /**
      * insert an entry at a specific position
      * @param index 
      * @param entry 
      */
-    void insertEntry(int index, QTvtVocExpression* entry);
+    void insertEntry(int index, QmVocExpression* entry);
 
     /** remove an entry from the lesson
      * @param entryid id of the entry to remove
      */
-    void removeEntry(QTvtVocExpression* entry);
+    void removeEntry(QmVocExpression* entry);
 
 private:
     class Private;

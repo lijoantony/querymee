@@ -31,58 +31,58 @@
 #include <QtCore/QList>
 #include <QtCore/QString>
 
-class QTvtVocExpression;
-class QTvtVocTranslation;
+class QmVocExpression;
+class QmVocTranslation;
 
 /** class to store translation word types */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocWordType :public QTvtVocContainer
+class QTVTVOCDOCUMENT_EXPORT QmVocWordType :public QmVocContainer
 {
 public:
 
 
     /** default constructor */
-    explicit QTvtVocWordType(const QString& name, QTvtVocWordType *parent = 0);
+    explicit QmVocWordType(const QString& name, QmVocWordType *parent = 0);
 
     /** destructor */
-    ~QTvtVocWordType();
+    ~QmVocWordType();
 
     /** assignment operator */
-//     QTvtVocWordType& operator= ( const QTvtVocWordType& );
+//     QmVocWordType& operator= ( const QmVocWordType& );
 
     /**
      * Internally (different from the name) the class can have one of the preset word types. These are used to determine special properties (verbs have conjugations available for example).
      * @param type
      */
-    void setWordType(QTvtVocWordFlags flags);
+    void setWordType(QmVocWordFlags flags);
 
     /**
      * Return the raw WordTypeFlags. Returns NoInformation if no flags are set.
      * @return WordTypeFlags
      */
-     QTvtVocWordFlags wordType() const;
+     QmVocWordFlags wordType() const;
 
     /**
      * Return a child class (or this class) that is of the specified type. Returns 0 if no class of that type is found.
      * @param type
      * @return
      */
-    QTvtVocWordType* childOfType(const QTvtVocWordFlags& flags);
+    QmVocWordType* childOfType(const QmVocWordFlags& flags);
 
     /**
      * The word type class does keep track of individual translations, because for one entry, the translations can have different word types (eg. genders of nouns tend to be different in different langues).
      * @param row
      * @return
      */
-    QTvtVocTranslation * translation(int row);
+    QmVocTranslation * translation(int row);
 
     /**
      * get a list of all entries in the lesson
      * @param recursive include entries in sublessons
      * @return
      */
-    QList < QTvtVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive);
+    QList < QmVocExpression* > entries(EnumEntriesRecursive recursive = NotRecursive);
 
-    QTvtVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive);
+    QmVocExpression* entry(int row, EnumEntriesRecursive recursive = NotRecursive);
 
     /** get the number of entries in the lesson */
     int entryCount(EnumEntriesRecursive recursive = NotRecursive);
@@ -94,14 +94,14 @@ private:
     /** add an entry to the lesson
      * @param entryid id of the entry to add
      */
-    void addTranslation(QTvtVocTranslation* translation);
+    void addTranslation(QmVocTranslation* translation);
 
     /** remove an entry from the lesson
      * @param entryid id of the entry to remove
      */
-    void removeTranslation(QTvtVocTranslation* translation);
+    void removeTranslation(QmVocTranslation* translation);
 
-    friend class QTvtVocTranslation;
+    friend class QmVocTranslation;
 };
 
 #endif

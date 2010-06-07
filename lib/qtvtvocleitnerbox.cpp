@@ -22,43 +22,43 @@
 
 #include <QtCore/QSet>
 
-class QTvtVocLeitnerBox::Private
+class QmVocLeitnerBox::Private
 {
 public:
     // cache the entries
-    QList<QTvtVocExpression*> m_expressions;
+    QList<QmVocExpression*> m_expressions;
     // list of translations
-    QList<QTvtVocTranslation*> m_translations;
+    QList<QmVocTranslation*> m_translations;
 };
 
-QTvtVocLeitnerBox::QTvtVocLeitnerBox(const QString& name, QTvtVocLeitnerBox *parent)
-        : QTvtVocContainer(name, Leitner, parent), d( new Private )
+QmVocLeitnerBox::QmVocLeitnerBox(const QString& name, QmVocLeitnerBox *parent)
+        : QmVocContainer(name, Leitner, parent), d( new Private )
 {
     // only one top level and children, this is only a list
     Q_ASSERT(!parent || !parent->parent());
 }
 
-QTvtVocLeitnerBox::~QTvtVocLeitnerBox()
+QmVocLeitnerBox::~QmVocLeitnerBox()
 {
-    foreach(QTvtVocTranslation* translation, d->m_translations) {
+    foreach(QmVocTranslation* translation, d->m_translations) {
         translation->setLeitnerBox(0);
     }
     delete d;
 }
 
-QList<QTvtVocExpression*> QTvtVocLeitnerBox::entries(EnumEntriesRecursive recursive)
+QList<QmVocExpression*> QmVocLeitnerBox::entries(EnumEntriesRecursive recursive)
 {
     Q_UNUSED(recursive)
     return d->m_expressions;
 }
 
-int QTvtVocLeitnerBox::entryCount(EnumEntriesRecursive recursive)
+int QmVocLeitnerBox::entryCount(EnumEntriesRecursive recursive)
 {
     Q_UNUSED(recursive)
     return d->m_expressions.count();
 }
 
-void QTvtVocLeitnerBox::addTranslation(QTvtVocTranslation* translation)
+void QmVocLeitnerBox::addTranslation(QmVocTranslation* translation)
 {
     // add to expression - if not already there because another translation of the same word is there.
     bool found = false;
@@ -75,7 +75,7 @@ void QTvtVocLeitnerBox::addTranslation(QTvtVocTranslation* translation)
     invalidateChildLessonEntries();
 }
 
-void QTvtVocLeitnerBox::removeTranslation(QTvtVocTranslation* translation)
+void QmVocLeitnerBox::removeTranslation(QmVocTranslation* translation)
 {
     int index = d->m_translations.indexOf(translation);
     d->m_translations.removeAt(index);
@@ -103,12 +103,12 @@ void QTvtVocLeitnerBox::removeTranslation(QTvtVocTranslation* translation)
     invalidateChildLessonEntries();
 }
 
-QTvtVocTranslation * QTvtVocLeitnerBox::translation(int row)
+QmVocTranslation * QmVocLeitnerBox::translation(int row)
 {
     return d->m_translations.value(row);
 }
 
-QTvtVocExpression * QTvtVocLeitnerBox::entry(int row, EnumEntriesRecursive recursive)
+QmVocExpression * QmVocLeitnerBox::entry(int row, EnumEntriesRecursive recursive)
 {
     Q_UNUSED(recursive)
     return entries().value(row);

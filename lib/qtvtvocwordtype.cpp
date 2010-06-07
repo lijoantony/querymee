@@ -26,29 +26,29 @@
 #include <QtCore/QList>
 #include <QtCore/QSet>
 
-class QTvtVocWordType::Private
+class QmVocWordType::Private
 {
 public:
     // bitvector of word type flags
-    QTvtVocWordFlags m_flags;
-    QList<QTvtVocExpression*> m_expressions;
+    QmVocWordFlags m_flags;
+    QList<QmVocExpression*> m_expressions;
     // list of translations
-    QList<QTvtVocTranslation*> m_translations;
+    QList<QmVocTranslation*> m_translations;
 };
 
-QTvtVocWordType::QTvtVocWordType(const QString& name, QTvtVocWordType *parent)
-        : QTvtVocContainer(name, WordType, parent), d( new Private )
+QmVocWordType::QmVocWordType(const QString& name, QmVocWordType *parent)
+        : QmVocContainer(name, WordType, parent), d( new Private )
 {}
 
-QTvtVocWordType::~QTvtVocWordType()
+QmVocWordType::~QmVocWordType()
 {
-    foreach(QTvtVocTranslation* translation, d->m_translations) {
+    foreach(QmVocTranslation* translation, d->m_translations) {
         translation->setWordType(0);
     }
     delete d;
 }
 
-QList<QTvtVocExpression*> QTvtVocWordType::entries(EnumEntriesRecursive recursive)
+QList<QmVocExpression*> QmVocWordType::entries(EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive();
@@ -57,7 +57,7 @@ QList<QTvtVocExpression*> QTvtVocWordType::entries(EnumEntriesRecursive recursiv
     return d->m_expressions;
 }
 
-int QTvtVocWordType::entryCount(EnumEntriesRecursive recursive)
+int QmVocWordType::entryCount(EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive().count();
@@ -65,7 +65,7 @@ int QTvtVocWordType::entryCount(EnumEntriesRecursive recursive)
     return d->m_expressions.count();
 }
 
-void QTvtVocWordType::addTranslation(QTvtVocTranslation* translation)
+void QmVocWordType::addTranslation(QmVocTranslation* translation)
 {
     // add to expression - if not already there because another translation of the same word is there.
     bool found = false;
@@ -82,7 +82,7 @@ void QTvtVocWordType::addTranslation(QTvtVocTranslation* translation)
     invalidateChildLessonEntries();
 }
 
-void QTvtVocWordType::removeTranslation(QTvtVocTranslation* translation)
+void QmVocWordType::removeTranslation(QmVocTranslation* translation)
 {
     d->m_translations.removeAt( d->m_translations.indexOf(translation) );
 
@@ -109,13 +109,13 @@ void QTvtVocWordType::removeTranslation(QTvtVocTranslation* translation)
     invalidateChildLessonEntries();
 }
 
-QTvtVocTranslation * QTvtVocWordType::translation(int row)
+QmVocTranslation * QmVocWordType::translation(int row)
 {
 
     return d->m_translations.value(row);
 }
 
-QTvtVocExpression * QTvtVocWordType::entry(int row, EnumEntriesRecursive recursive)
+QmVocExpression * QmVocWordType::entry(int row, EnumEntriesRecursive recursive)
 {
     if (recursive == Recursive) {
         return entriesRecursive().value(row);
@@ -123,23 +123,23 @@ QTvtVocExpression * QTvtVocWordType::entry(int row, EnumEntriesRecursive recursi
     return entries().value(row);
 }
 
-QTvtVocWordFlags QTvtVocWordType::wordType() const
+QmVocWordFlags QmVocWordType::wordType() const
 {
     return d->m_flags;
 }
 
-void QTvtVocWordType::setWordType(QTvtVocWordFlags flags)
+void QmVocWordType::setWordType(QmVocWordFlags flags)
 {
     d->m_flags = flags;
 }
 
-QTvtVocWordType* QTvtVocWordType::childOfType(const QTvtVocWordFlags& flags)
+QmVocWordType* QmVocWordType::childOfType(const QmVocWordFlags& flags)
 {
     if(d->m_flags == flags) {
         return this;
     }
-    foreach(QTvtVocContainer* child, childContainers()) {
-        QTvtVocWordType* result = static_cast<QTvtVocWordType*>(child)->childOfType(flags);
+    foreach(QmVocContainer* child, childContainers()) {
+        QmVocWordType* result = static_cast<QmVocWordType*>(child)->childOfType(flags);
         if(result) {
             return result;
         }

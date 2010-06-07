@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     read a QTvtVocDocument from a WQL file
+                     read a QmVocDocument from a WQL file
     -----------------------------------------------------------------------
     copyright     : (C) 2004, 2007, 2008 Peter Hedlund <peter.hedlund@kdemail.net>
                     (C) 2005 Eric Pignet
@@ -32,7 +32,7 @@
 #include "qtvtvocdocument.h"
 #include "qtvtvocexpression.h"
 
-QTvtVocWqlReader::QTvtVocWqlReader( QIODevice *file )
+QmVocWqlReader::QmVocWqlReader( QIODevice *file )
 {
     // the file must be already open
     m_inputFile = file;
@@ -40,7 +40,7 @@ QTvtVocWqlReader::QTvtVocWqlReader( QIODevice *file )
 }
 
 
-bool QTvtVocWqlReader::readDoc( QTvtVocDocument *doc )
+bool QmVocWqlReader::readDoc( QmVocDocument *doc )
 {
     m_doc = doc;
 
@@ -144,7 +144,7 @@ bool QTvtVocWqlReader::readDoc( QTvtVocDocument *doc )
     if ( inputStream.atEnd() )
         return false;
 
-    QTvtVocLesson* lesson = new QTvtVocLesson( "Vocabulary", m_doc->lesson());
+    QmVocLesson* lesson = new QmVocLesson( "Vocabulary", m_doc->lesson());
     m_doc->lesson()->appendChildContainer(lesson);
 
     s = inputStream.readLine();
@@ -169,7 +169,7 @@ bool QTvtVocWqlReader::readDoc( QTvtVocDocument *doc )
         QString b;
         b = inputStream.readLine();
 
-        QTvtVocExpression * expr = new QTvtVocExpression( s );
+        QmVocExpression * expr = new QmVocExpression( s );
         expr->setTranslation( 1, b );
         lesson->appendEntry( expr );
     }

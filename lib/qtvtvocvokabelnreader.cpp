@@ -4,7 +4,7 @@
 
 /***************************************************************************
 
-                   create a QTvtVocDocument from a Vokabeln file
+                   create a QmVocDocument from a Vokabeln file
 
     -----------------------------------------------------------------------
 
@@ -38,7 +38,7 @@
 #include "qtvtvocdocument.h"
 #include "qtvtvocexpression.h"
 
-QTvtVocVokabelnReader::QTvtVocVokabelnReader( QIODevice *file )
+QmVocVokabelnReader::QmVocVokabelnReader( QIODevice *file )
 {
     // the file must be already open
     m_inputFile = file;
@@ -46,7 +46,7 @@ QTvtVocVokabelnReader::QTvtVocVokabelnReader( QIODevice *file )
 }
 
 
-bool QTvtVocVokabelnReader::readDoc( QTvtVocDocument *doc )
+bool QmVocVokabelnReader::readDoc( QmVocDocument *doc )
 {
     qDebug() << "Reading vokabeln.de document...";
     m_doc = doc;
@@ -157,16 +157,16 @@ bool QTvtVocVokabelnReader::readDoc( QTvtVocDocument *doc )
         }
 
         while(m_doc->lesson()->childContainerCount() <= lessonNumber) {
-            QTvtVocLesson* lesson = new QTvtVocLesson(QString("Lesson %1").arg(lessonNumber), m_doc->lesson());
+            QmVocLesson* lesson = new QmVocLesson(QString("Lesson %1").arg(lessonNumber), m_doc->lesson());
             m_doc->lesson()->appendChildContainer(lesson);
             qDebug() << "Created lesson " << lessonNumber;
         }
 
-        QTvtVocExpression* kve = new QTvtVocExpression;
+        QmVocExpression* kve = new QmVocExpression;
         kve->setTranslation( 0, original );
         kve->setTranslation( 1, translation );
 
-        static_cast<QTvtVocLesson*>(m_doc->lesson()->childContainer(lessonNumber))->appendEntry(kve);
+        static_cast<QmVocLesson*>(m_doc->lesson()->childContainer(lessonNumber))->appendEntry(kve);
 
         inputStream.readLine();
         inputStream.readLine();

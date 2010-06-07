@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                   export a QTvtVocDocument to a KVTML file
+                   export a QmVocDocument to a KVTML file
     -----------------------------------------------------------------------
     copyright           : (C) 2007 Jeremy Whiting <jpwhiting@kde.org>
                           (C) 2007-2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
@@ -35,13 +35,13 @@
 #include "qtvtvocwordtype.h"
 #include "kvtml2defs.h"
 
-QTvtVocKvtml2Writer::QTvtVocKvtml2Writer( QFile *file )
+QmVocKvtml2Writer::QmVocKvtml2Writer( QFile *file )
 {
     // the file must be already open
     m_outputFile = file;
 }
 
-bool QTvtVocKvtml2Writer::writeDoc( QTvtVocDocument *doc, const QString &generator )
+bool QmVocKvtml2Writer::writeDoc( QmVocDocument *doc, const QString &generator )
 {
     if (createXmlDocument(doc, generator)) {
         QTextStream ts( m_outputFile );
@@ -51,7 +51,7 @@ bool QTvtVocKvtml2Writer::writeDoc( QTvtVocDocument *doc, const QString &generat
     return false;
 }
 
-QByteArray QTvtVocKvtml2Writer::toByteArray(QTvtVocDocument * doc, const QString & generator)
+QByteArray QmVocKvtml2Writer::toByteArray(QmVocDocument * doc, const QString & generator)
 {
     if (createXmlDocument(doc, generator)) {
         return m_domDoc.toByteArray();
@@ -59,7 +59,7 @@ QByteArray QTvtVocKvtml2Writer::toByteArray(QTvtVocDocument * doc, const QString
     return QByteArray();
 }
 
-bool QTvtVocKvtml2Writer::createXmlDocument( QTvtVocDocument *doc, const QString &generator )
+bool QmVocKvtml2Writer::createXmlDocument( QmVocDocument *doc, const QString &generator )
 {
     m_doc = doc;
 
@@ -116,7 +116,7 @@ bool QTvtVocKvtml2Writer::createXmlDocument( QTvtVocDocument *doc, const QString
     return true;
 }
 
-bool QTvtVocKvtml2Writer::writeInformation( QDomElement &informationElement, const QString &generator )
+bool QmVocKvtml2Writer::writeInformation( QDomElement &informationElement, const QString &generator )
 {
     QDomElement currentElement;
     QDomText textNode;
@@ -161,7 +161,7 @@ bool QTvtVocKvtml2Writer::writeInformation( QDomElement &informationElement, con
 }
 
 
-bool QTvtVocKvtml2Writer::writeIdentifiers( QDomElement &identifiersElement )
+bool QmVocKvtml2Writer::writeIdentifiers( QDomElement &identifiersElement )
 {
     for ( int i = 0; i < m_doc->identifierCount(); ++i ) {
         // create the node
@@ -202,12 +202,12 @@ bool QTvtVocKvtml2Writer::writeIdentifiers( QDomElement &identifiersElement )
     return true;
 }
 
-bool QTvtVocKvtml2Writer::writeLessons( QTvtVocLesson *parentLesson, QDomElement &lessonsElement )
+bool QmVocKvtml2Writer::writeLessons( QmVocLesson *parentLesson, QDomElement &lessonsElement )
 {
     // iterate over child lessons.
     // the first time this is called with the root lesson which does not have a <lesson> entry.
     for( int i = 0; i < parentLesson->childContainerCount(); i++ ) {
-        QTvtVocLesson *lesson = static_cast<QTvtVocLesson*>(parentLesson->childContainer(i));
+        QmVocLesson *lesson = static_cast<QmVocLesson*>(parentLesson->childContainer(i));
         // make lesson element
         QDomElement thisLessonElement = m_domDoc.createElement( KVTML_CONTAINER );
 
@@ -223,7 +223,7 @@ bool QTvtVocKvtml2Writer::writeLessons( QTvtVocLesson *parentLesson, QDomElement
         writeLessons(lesson, thisLessonElement);
 
         // child entries
-        foreach(QTvtVocExpression *entry, lesson->entries()) {
+        foreach(QmVocExpression *entry, lesson->entries()) {
             QDomElement entryElement = m_domDoc.createElement( KVTML_ENTRY );
             entryElement.setAttribute( KVTML_ID, QString::number(m_allEntries.indexOf(entry)) );
             thisLessonElement.appendChild(entryElement);
@@ -235,22 +235,22 @@ bool QTvtVocKvtml2Writer::writeLessons( QTvtVocLesson *parentLesson, QDomElement
 
 
 
-void QTvtVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentElement)
+void QmVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentElement)
 {
-    QList< QTvtVocTranslation* > currentList;
+    QList< QmVocTranslation* > currentList;
     QDomElement synonymElement;
     // synonym, antonym, false friend
-    for(int type = QTvtVocTranslation::Synonym; type <= QTvtVocTranslation::FalseFriend; type++) {
+    for(int type = QmVocTranslation::Synonym; type <= QmVocTranslation::FalseFriend; type++) {
         switch (type) {
-            case QTvtVocTranslation::Synonym:
+            case QmVocTranslation::Synonym:
                 synonymElement = m_domDoc.createElement( KVTML_SYNONYM );
                 currentList = m_synonyms;
                 break;
-            case QTvtVocTranslation::Antonym:
+            case QmVocTranslation::Antonym:
                 synonymElement = m_domDoc.createElement( KVTML_ANTONYM );
                 currentList = m_antonyms;
                 break;
-            case QTvtVocTranslation::FalseFriend:
+            case QmVocTranslation::FalseFriend:
                 synonymElement = m_domDoc.createElement( KVTML_FALSEFRIEND );
                 currentList = m_falseFriends;
                 break;
@@ -258,7 +258,7 @@ void QTvtVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentEle
 
         while (!currentList.isEmpty()) {
             // after writing a translation, remove it from the list
-            QTvtVocTranslation* translation = currentList.takeAt(0);
+            QmVocTranslation* translation = currentList.takeAt(0);
 
             // fill the entry element but only add later if it is valid
             QDomElement entryElement = m_domDoc.createElement( KVTML_ENTRY );
@@ -275,19 +275,19 @@ void QTvtVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentEle
             }
 
             QDomElement relatedElement;
-            QList <QTvtVocTranslation*> list;
+            QList <QmVocTranslation*> list;
             switch (type) {
-            case QTvtVocTranslation::Synonym:
+            case QmVocTranslation::Synonym:
                 list = translation->synonyms();
                 break;
-            case QTvtVocTranslation::Antonym:
+            case QmVocTranslation::Antonym:
                 list = translation->antonyms();
                 break;
-            case QTvtVocTranslation::FalseFriend:
+            case QmVocTranslation::FalseFriend:
                 list = translation->falseFriends();
                 break;
             }
-            foreach (QTvtVocTranslation* synonym, list) {
+            foreach (QmVocTranslation* synonym, list) {
                 // if it is not in the list it has already been written and we can move on
                 if (currentList.contains(synonym)) {
                     relatedElement = m_domDoc.createElement( KVTML_PAIR );
@@ -321,9 +321,9 @@ void QTvtVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentEle
     } // iterate over types
 }
 /*
-bool QTvtVocKvtml2Writer::writeRelated(QDomElement & parentElement, QList< QTvtVocTranslation * > relatedList)
+bool QmVocKvtml2Writer::writeRelated(QDomElement & parentElement, QList< QmVocTranslation * > relatedList)
 {
-    foreach (QTvtVocTranslation* synonym, translation->synonyms()) {
+    foreach (QmVocTranslation* synonym, translation->synonyms()) {
         QDomElement entryElement = m_domDoc.createElement( KVTML_ENTRY );
         entryElement.setAttribute( KVTML_ID, QString::number(m_allEntries.indexOf(translation->entry())) );
 
@@ -340,20 +340,20 @@ bool QTvtVocKvtml2Writer::writeRelated(QDomElement & parentElement, QList< QTvtV
     }
 }*/
 
-bool QTvtVocKvtml2Writer::writeArticle( QDomElement &articleElement, int language )
+bool QmVocKvtml2Writer::writeArticle( QDomElement &articleElement, int language )
 {
     ///@todo only write if not empty
-    QMap<int, QTvtVocWordFlag::Flags> numbers;
-    numbers[0] = QTvtVocWordFlag::Singular;
-    numbers[1] = QTvtVocWordFlag::Dual;
-    numbers[2] = QTvtVocWordFlag::Plural;
-    QMap<int, QTvtVocWordFlag::Flags> genders;
-    genders[0] = QTvtVocWordFlag::Masculine;
-    genders[1] = QTvtVocWordFlag::Feminine;
-    genders[2] = QTvtVocWordFlag::Neuter;
-    QMap<int, QTvtVocWordFlag::Flags> defs;
-    defs[0] = QTvtVocWordFlag::Definite;
-    defs[1] = QTvtVocWordFlag::Indefinite;
+    QMap<int, QmVocWordFlag::Flags> numbers;
+    numbers[0] = QmVocWordFlag::Singular;
+    numbers[1] = QmVocWordFlag::Dual;
+    numbers[2] = QmVocWordFlag::Plural;
+    QMap<int, QmVocWordFlag::Flags> genders;
+    genders[0] = QmVocWordFlag::Masculine;
+    genders[1] = QmVocWordFlag::Feminine;
+    genders[2] = QmVocWordFlag::Neuter;
+    QMap<int, QmVocWordFlag::Flags> defs;
+    defs[0] = QmVocWordFlag::Definite;
+    defs[1] = QmVocWordFlag::Indefinite;
 
     for (int num = 0; num <= 2; num++)
     {
@@ -381,41 +381,41 @@ bool QTvtVocKvtml2Writer::writeArticle( QDomElement &articleElement, int languag
 }
 
 
-bool QTvtVocKvtml2Writer::writeWordTypes( QDomElement &typesElement, QTvtVocWordType* parentContainer )
+bool QmVocKvtml2Writer::writeWordTypes( QDomElement &typesElement, QmVocWordType* parentContainer )
 {
-    foreach( QTvtVocContainer* container, parentContainer->childContainers() ) {
-        QTvtVocWordType* wordType = static_cast<QTvtVocWordType*>(container);
+    foreach( QmVocContainer* container, parentContainer->childContainers() ) {
+        QmVocWordType* wordType = static_cast<QmVocWordType*>(container);
 
         QDomElement typeDefinitionElement = m_domDoc.createElement( KVTML_CONTAINER );
         typeDefinitionElement.appendChild( newTextElement( KVTML_NAME, wordType->name() ) );
 
-        if (wordType->wordType().testFlag(QTvtVocWordFlag::Noun))
+        if (wordType->wordType().testFlag(QmVocWordFlag::Noun))
         {
-            if (wordType->wordType().testFlag(QTvtVocWordFlag::Masculine))
+            if (wordType->wordType().testFlag(QmVocWordFlag::Masculine))
                 typeDefinitionElement.appendChild( newTextElement( KVTML_SPECIALWORDTYPE, KVTML_SPECIALWORDTYPE_NOUN_MALE ) );
 
-            else if (wordType->wordType().testFlag(QTvtVocWordFlag::Feminine))
+            else if (wordType->wordType().testFlag(QmVocWordFlag::Feminine))
                 typeDefinitionElement.appendChild( newTextElement( KVTML_SPECIALWORDTYPE, KVTML_SPECIALWORDTYPE_NOUN_FEMALE ) );
 
-            else if (wordType->wordType().testFlag(QTvtVocWordFlag::Neuter))
+            else if (wordType->wordType().testFlag(QmVocWordFlag::Neuter))
                 typeDefinitionElement.appendChild( newTextElement( KVTML_SPECIALWORDTYPE, KVTML_SPECIALWORDTYPE_NOUN_NEUTRAL ) );
             else
                 typeDefinitionElement.appendChild( newTextElement( KVTML_SPECIALWORDTYPE, KVTML_SPECIALWORDTYPE_NOUN ) );
         }
-        else if (wordType->wordType().testFlag(QTvtVocWordFlag::Verb))
+        else if (wordType->wordType().testFlag(QmVocWordFlag::Verb))
             typeDefinitionElement.appendChild( newTextElement( KVTML_SPECIALWORDTYPE, KVTML_SPECIALWORDTYPE_VERB ) );
 
-        else if (wordType->wordType().testFlag(QTvtVocWordFlag::Adjective))
+        else if (wordType->wordType().testFlag(QmVocWordFlag::Adjective))
             typeDefinitionElement.appendChild( newTextElement( KVTML_SPECIALWORDTYPE, KVTML_SPECIALWORDTYPE_ADJECTIVE ) );
 
-        else if (wordType->wordType().testFlag(QTvtVocWordFlag::Adverb))
+        else if (wordType->wordType().testFlag(QmVocWordFlag::Adverb))
             typeDefinitionElement.appendChild( newTextElement( KVTML_SPECIALWORDTYPE, KVTML_SPECIALWORDTYPE_ADVERB ) );
 
 
 // child entries
 
         // child entries
-        foreach(QTvtVocExpression *entry, wordType->entries()) {
+        foreach(QmVocExpression *entry, wordType->entries()) {
             QDomElement entryElement = m_domDoc.createElement( KVTML_ENTRY );
             entryElement.setAttribute( KVTML_ID, QString::number(m_allEntries.indexOf(entry)) );
             for(int translation = 0; translation<m_doc->identifierCount(); translation++) {
@@ -437,16 +437,16 @@ bool QTvtVocKvtml2Writer::writeWordTypes( QDomElement &typesElement, QTvtVocWord
     return true;
 }
 
-bool QTvtVocKvtml2Writer::writeLeitnerBoxes( QDomElement &leitnerParentElement, QTvtVocLeitnerBox* parentContainer )
+bool QmVocKvtml2Writer::writeLeitnerBoxes( QDomElement &leitnerParentElement, QmVocLeitnerBox* parentContainer )
 {
-    foreach( QTvtVocContainer* container, parentContainer->childContainers() ) {
-        QTvtVocLeitnerBox* leitnerBox = static_cast<QTvtVocLeitnerBox*>(container);
+    foreach( QmVocContainer* container, parentContainer->childContainers() ) {
+        QmVocLeitnerBox* leitnerBox = static_cast<QmVocLeitnerBox*>(container);
 
         QDomElement containerElement = m_domDoc.createElement( KVTML_CONTAINER );
         containerElement.appendChild( newTextElement( KVTML_NAME, leitnerBox->name() ) );
 
         // child entries
-        foreach(QTvtVocExpression *entry, leitnerBox->entries()) {
+        foreach(QmVocExpression *entry, leitnerBox->entries()) {
             QDomElement entryElement = m_domDoc.createElement( KVTML_ENTRY );
             entryElement.setAttribute( KVTML_ID, QString::number(m_allEntries.indexOf(entry)) );
             for(int translation = 0; translation<m_doc->identifierCount(); translation++) {
@@ -466,13 +466,13 @@ bool QTvtVocKvtml2Writer::writeLeitnerBoxes( QDomElement &leitnerParentElement, 
     return true;
 }
 
-bool QTvtVocKvtml2Writer::writeEntries( QDomElement &entriesElement )
+bool QmVocKvtml2Writer::writeEntries( QDomElement &entriesElement )
 {
-    m_allEntries = m_doc->lesson()->entries(QTvtVocLesson::Recursive);
+    m_allEntries = m_doc->lesson()->entries(QmVocLesson::Recursive);
 
     // loop through entries
     for ( int i = 0; i < m_allEntries.count(); ++i ) {
-        QTvtVocExpression *thisEntry = m_allEntries.value(i);
+        QmVocExpression *thisEntry = m_allEntries.value(i);
 
         // write entry tag
         QDomElement entryElement = m_domDoc.createElement( KVTML_ENTRY );
@@ -500,9 +500,9 @@ bool QTvtVocKvtml2Writer::writeEntries( QDomElement &entriesElement )
 }
 
 
-bool QTvtVocKvtml2Writer::writeTranslation( QDomElement &translationElement, QTvtVocTranslation* translation )
+bool QmVocKvtml2Writer::writeTranslation( QDomElement &translationElement, QmVocTranslation* translation )
 {
-    // so far only for QTvtVocWord - text and grades
+    // so far only for QmVocWord - text and grades
     translation->toKVTML2(translationElement);
 
     // comparison
@@ -581,7 +581,7 @@ bool QTvtVocKvtml2Writer::writeTranslation( QDomElement &translationElement, QTv
 
 
 
-bool QTvtVocKvtml2Writer::writeComparison( QDomElement &comparisonElement, QTvtVocTranslation* translation )
+bool QmVocKvtml2Writer::writeComparison( QDomElement &comparisonElement, QmVocTranslation* translation )
 /*
  <comparison>
    <absolute>good</absolute>
@@ -597,7 +597,7 @@ bool QTvtVocKvtml2Writer::writeComparison( QDomElement &comparisonElement, QTvtV
 }
 
 
-bool QTvtVocKvtml2Writer::writeMultipleChoice( QDomElement &multipleChoiceElement, QTvtVocTranslation* translation )
+bool QmVocKvtml2Writer::writeMultipleChoice( QDomElement &multipleChoiceElement, QmVocTranslation* translation )
 /*
  <multiplechoice>
    <choice>good</choice>
@@ -614,7 +614,7 @@ bool QTvtVocKvtml2Writer::writeMultipleChoice( QDomElement &multipleChoiceElemen
     return true;
 }
 
-QDomElement QTvtVocKvtml2Writer::newTextElement( const QString &elementName, const QString &text )
+QDomElement QmVocKvtml2Writer::newTextElement( const QString &elementName, const QString &text )
 {
     qDebug() << "append: " << elementName << text;
     QDomElement retval = m_domDoc.createElement( elementName );
@@ -623,7 +623,7 @@ QDomElement QTvtVocKvtml2Writer::newTextElement( const QString &elementName, con
     return retval;
 }
 
-bool QTvtVocKvtml2Writer::writePersonalPronoun(QDomElement & pronounElement, const QTvtVocPersonalPronoun & pronoun)
+bool QmVocKvtml2Writer::writePersonalPronoun(QDomElement & pronounElement, const QmVocPersonalPronoun & pronoun)
 {
     // general pronoun properties
     if ( pronoun.maleFemaleDifferent() ) {
@@ -637,16 +637,16 @@ bool QTvtVocKvtml2Writer::writePersonalPronoun(QDomElement & pronounElement, con
     }
 
 
-    QMap<int, QTvtVocWordFlag::Flags> numbers;
-    numbers[0] = QTvtVocWordFlag::Singular;
-    numbers[1] = QTvtVocWordFlag::Dual;
-    numbers[2] = QTvtVocWordFlag::Plural;
-    QMap<int, QTvtVocWordFlag::Flags> persons;
-    persons[0] = QTvtVocWordFlag::First;
-    persons[1] = QTvtVocWordFlag::Second;
-    persons[2] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Masculine);
-    persons[3] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Feminine);
-    persons[4] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Neuter);
+    QMap<int, QmVocWordFlag::Flags> numbers;
+    numbers[0] = QmVocWordFlag::Singular;
+    numbers[1] = QmVocWordFlag::Dual;
+    numbers[2] = QmVocWordFlag::Plural;
+    QMap<int, QmVocWordFlag::Flags> persons;
+    persons[0] = QmVocWordFlag::First;
+    persons[1] = QmVocWordFlag::Second;
+    persons[2] = (QmVocWordFlag::Flags)((int)QmVocWordFlag::Third | (int)QmVocWordFlag::Masculine);
+    persons[3] = (QmVocWordFlag::Flags)((int)QmVocWordFlag::Third | (int)QmVocWordFlag::Feminine);
+    persons[4] = (QmVocWordFlag::Flags)((int)QmVocWordFlag::Third | (int)QmVocWordFlag::Neuter);
 
 
 
@@ -666,7 +666,7 @@ bool QTvtVocKvtml2Writer::writePersonalPronoun(QDomElement & pronounElement, con
     return true;
 }
 
-void QTvtVocKvtml2Writer::appendTextElement(QDomElement & parent, const QString & elementName, const QString & text)
+void QmVocKvtml2Writer::appendTextElement(QDomElement & parent, const QString & elementName, const QString & text)
 {
     // empty will never be written
     if (text.isEmpty()) {

@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     read a QTvtVocDocument from a KVTML file
+                     read a QmVocDocument from a KVTML file
     -----------------------------------------------------------------------
     copyright           : (C) 1999-2001 Ewald Arnold <kvoctrain@ewald-arnold.de>
 
@@ -43,20 +43,20 @@
 
 // #include <KDebug>
 
-QTvtVocKvtml2Reader::QTvtVocKvtml2Reader( QFile *file )
+QmVocKvtml2Reader::QmVocKvtml2Reader( QFile *file )
         : m_inputFile( file )
 {
     // the file must be already open
     if ( !m_inputFile->isOpen() ) {
         m_errorMessage =  "file must be opened first" ;
     }
-    qDebug("QTvtVocKvtml2Reader constructor");
+    qDebug("QmVocKvtml2Reader constructor");
 }
 
 
-bool QTvtVocKvtml2Reader::readDoc( QTvtVocDocument *doc )
+bool QmVocKvtml2Reader::readDoc( QmVocDocument *doc )
 {
-    qDebug("QTvtVocKvtml2Reader::readDoc");
+    qDebug("QmVocKvtml2Reader::readDoc");
     m_doc = doc;
 
     QDomDocument domDoc( "KEduVocDocument" );
@@ -75,7 +75,7 @@ bool QTvtVocKvtml2Reader::readDoc( QTvtVocDocument *doc )
 
         // first reset the file to the beginning
         m_inputFile->seek( 0 );
-        QTvtVocKvtmlReader oldFormat( m_inputFile );
+        QmVocKvtmlReader oldFormat( m_inputFile );
 
         // get the return value
         bool retval = oldFormat.readDoc( doc );
@@ -100,7 +100,7 @@ bool QTvtVocKvtml2Reader::readDoc( QTvtVocDocument *doc )
     return result;
 }
 
-bool QTvtVocKvtml2Reader::readInformation( QDomElement &informationElement )
+bool QmVocKvtml2Reader::readInformation( QDomElement &informationElement )
 {
     // read the generator
     QDomElement currentElement = informationElement.firstChildElement( KVTML_GENERATOR );
@@ -151,7 +151,7 @@ bool QTvtVocKvtml2Reader::readInformation( QDomElement &informationElement )
     return true;
 }
 
-bool QTvtVocKvtml2Reader::readGroups( QDomElement &domElementParent )
+bool QmVocKvtml2Reader::readGroups( QDomElement &domElementParent )
 {
     bool result = false;
 
@@ -220,10 +220,10 @@ bool QTvtVocKvtml2Reader::readGroups( QDomElement &domElementParent )
     }
 
     // Additional cleanup: Put orphaned entries without a lesson into a default lesson.
-    QTvtVocLesson *defaultLesson = new QTvtVocLesson("Default Lesson", m_doc->lesson());
+    QmVocLesson *defaultLesson = new QmVocLesson("Default Lesson", m_doc->lesson());
 
     // now make sure we don't have any orphan entries
-    foreach (QTvtVocExpression * entry, m_allEntries) {
+    foreach (QmVocExpression * entry, m_allEntries) {
         if (!entry->lesson())
         {
             defaultLesson->appendEntry(entry);
@@ -241,7 +241,7 @@ bool QTvtVocKvtml2Reader::readGroups( QDomElement &domElementParent )
 }
 
 
-bool QTvtVocKvtml2Reader::readIdentifier( QDomElement &identifierElement )
+bool QmVocKvtml2Reader::readIdentifier( QDomElement &identifierElement )
 {
     bool result = true;
     int id = identifierElement.attribute( KVTML_ID ).toInt( &result );
@@ -252,7 +252,7 @@ bool QTvtVocKvtml2Reader::readIdentifier( QDomElement &identifierElement )
 
     // generate empty identifiers in the doc
     for ( int i = m_doc->identifierCount(); i <= id; i++ ) {
-        m_doc->appendIdentifier( QTvtVocIdentifier() );
+        m_doc->appendIdentifier( QmVocIdentifier() );
     }
 
     // the first element, create the identifier, even if empty
@@ -275,7 +275,7 @@ bool QTvtVocKvtml2Reader::readIdentifier( QDomElement &identifierElement )
 
     currentElement = identifierElement.firstChildElement( KVTML_PERSONALPRONOUNS );
     if ( !currentElement.isNull() ) {
-        QTvtVocPersonalPronoun personalPronoun;
+        QmVocPersonalPronoun personalPronoun;
         readPersonalPronoun( currentElement, personalPronoun );
         m_doc->identifier(id).setPersonalPronouns( personalPronoun );
     }
@@ -288,7 +288,7 @@ bool QTvtVocKvtml2Reader::readIdentifier( QDomElement &identifierElement )
     return result;
 }
 
-bool QTvtVocKvtml2Reader::readEntry( QDomElement &entryElement )
+bool QmVocKvtml2Reader::readEntry( QDomElement &entryElement )
 {
     QDomElement currentElement;
     bool result = true;
@@ -300,7 +300,7 @@ bool QTvtVocKvtml2Reader::readEntry( QDomElement &entryElement )
         return false;
     }
 
-    QTvtVocExpression *expr = new QTvtVocExpression;
+    QmVocExpression *expr = new QmVocExpression;
 
     // read info tags: inactive, inquery, and sizehint
     currentElement = entryElement.firstChildElement( KVTML_DEACTIVATED );
@@ -338,8 +338,8 @@ bool QTvtVocKvtml2Reader::readEntry( QDomElement &entryElement )
     return result;
 }
 
-bool QTvtVocKvtml2Reader::readTranslation( QDomElement &translationElement,
-        QTvtVocExpression *expr, int index )
+bool QmVocKvtml2Reader::readTranslation( QDomElement &translationElement,
+        QmVocExpression *expr, int index )
 {
     // read the text, grade, declension and conjugation
     expr->translation(index)->fromKVTML2(translationElement);
@@ -382,7 +382,7 @@ bool QTvtVocKvtml2Reader::readTranslation( QDomElement &translationElement,
     return true;
 }
 
-bool QTvtVocKvtml2Reader::readChildLessons( QTvtVocLesson* parentLesson, QDomElement &lessonElement )
+bool QmVocKvtml2Reader::readChildLessons( QmVocLesson* parentLesson, QDomElement &lessonElement )
 {
     QDomElement currentElement = lessonElement.firstChildElement( KVTML_CONTAINER );
     while ( !currentElement.isNull() ) {
@@ -392,11 +392,11 @@ bool QTvtVocKvtml2Reader::readChildLessons( QTvtVocLesson* parentLesson, QDomEle
     return true;
 }
 
-bool QTvtVocKvtml2Reader::readLesson( QTvtVocLesson* parentLesson, QDomElement &lessonElement )
+bool QmVocKvtml2Reader::readLesson( QmVocLesson* parentLesson, QDomElement &lessonElement )
 {
     //<name>Lesson name</name>
     QDomElement currentElement = lessonElement.firstChildElement( KVTML_NAME );
-    QTvtVocLesson * lesson = new QTvtVocLesson(currentElement.text(), parentLesson);
+    QmVocLesson * lesson = new QmVocLesson(currentElement.text(), parentLesson);
     parentLesson->appendChildContainer( lesson );
 
     readChildLessons( lesson, lessonElement );
@@ -420,18 +420,18 @@ bool QTvtVocKvtml2Reader::readLesson( QTvtVocLesson* parentLesson, QDomElement &
     return true;
 }
 
-bool QTvtVocKvtml2Reader::readSynonymsAntonymsFalseFriends( QDomElement &rootElement )
+bool QmVocKvtml2Reader::readSynonymsAntonymsFalseFriends( QDomElement &rootElement )
 {
     QDomElement pairElement;
-    for(int type = QTvtVocTranslation::Synonym; type <= QTvtVocTranslation::FalseFriend; type++) {
+    for(int type = QmVocTranslation::Synonym; type <= QmVocTranslation::FalseFriend; type++) {
         switch (type) {
-        case QTvtVocTranslation::Synonym:
+        case QmVocTranslation::Synonym:
             pairElement= rootElement.firstChildElement( KVTML_SYNONYM );
             break;
-        case QTvtVocTranslation::Antonym:
+        case QmVocTranslation::Antonym:
             pairElement= rootElement.firstChildElement( KVTML_ANTONYM );
             break;
-        case QTvtVocTranslation::FalseFriend:
+        case QmVocTranslation::FalseFriend:
             pairElement= rootElement.firstChildElement( KVTML_FALSEFRIEND );
             break;
         }
@@ -452,19 +452,19 @@ bool QTvtVocKvtml2Reader::readSynonymsAntonymsFalseFriends( QDomElement &rootEle
             int secondTranslationId = translationElement.attribute( KVTML_ID ).toInt();
 
             // pair them up
-            QTvtVocTranslation *first = m_allEntries[firstEntryId]->translation(firstTranslationId);
-            QTvtVocTranslation *second = m_allEntries[secondEntryId]->translation(secondTranslationId);
+            QmVocTranslation *first = m_allEntries[firstEntryId]->translation(firstTranslationId);
+            QmVocTranslation *second = m_allEntries[secondEntryId]->translation(secondTranslationId);
 
             switch (type) {
-            case QTvtVocTranslation::Synonym:
+            case QmVocTranslation::Synonym:
                 first->addSynonym(second);
                 second->addSynonym(first);
                 break;
-            case QTvtVocTranslation::Antonym:
+            case QmVocTranslation::Antonym:
                 first->addAntonym(second);
                 second->addAntonym(first);
                 break;
-            case QTvtVocTranslation::FalseFriend:
+            case QmVocTranslation::FalseFriend:
                 first->addFalseFriend(second);
                 second->addFalseFriend(first);
                 break;
@@ -475,7 +475,7 @@ bool QTvtVocKvtml2Reader::readSynonymsAntonymsFalseFriends( QDomElement &rootEle
     return true;
 }
 
-bool QTvtVocKvtml2Reader::readArticle( QDomElement &articleElement, int identifierNum )
+bool QmVocKvtml2Reader::readArticle( QDomElement &articleElement, int identifierNum )
 /*
  <article>
   <singlular>
@@ -495,17 +495,17 @@ bool QTvtVocKvtml2Reader::readArticle( QDomElement &articleElement, int identifi
  </article>
 */
 {
-    QMap<int, QTvtVocWordFlag::Flags> numbers;
-    numbers[0] = QTvtVocWordFlag::Singular;
-    numbers[1] = QTvtVocWordFlag::Dual;
-    numbers[2] = QTvtVocWordFlag::Plural;
-    QMap<int, QTvtVocWordFlag::Flags> genders;
-    genders[0] = QTvtVocWordFlag::Masculine;
-    genders[1] = QTvtVocWordFlag::Feminine;
-    genders[2] = QTvtVocWordFlag::Neuter;
-    QMap<int, QTvtVocWordFlag::Flags> defs;
-    defs[0] = QTvtVocWordFlag::Definite;
-    defs[1] = QTvtVocWordFlag::Indefinite;
+    QMap<int, QmVocWordFlag::Flags> numbers;
+    numbers[0] = QmVocWordFlag::Singular;
+    numbers[1] = QmVocWordFlag::Dual;
+    numbers[2] = QmVocWordFlag::Plural;
+    QMap<int, QmVocWordFlag::Flags> genders;
+    genders[0] = QmVocWordFlag::Masculine;
+    genders[1] = QmVocWordFlag::Feminine;
+    genders[2] = QmVocWordFlag::Neuter;
+    QMap<int, QmVocWordFlag::Flags> defs;
+    defs[0] = QmVocWordFlag::Definite;
+    defs[1] = QmVocWordFlag::Indefinite;
 
     for ( int num = 0; num <= 2; ++num) {
         QDomElement numberElement = articleElement.firstChildElement( KVTML_GRAMMATICAL_NUMBER[num] );
@@ -530,7 +530,7 @@ bool QTvtVocKvtml2Reader::readArticle( QDomElement &articleElement, int identifi
 }
 
 
-bool QTvtVocKvtml2Reader::readChildWordTypes(QTvtVocWordType* parentContainer, QDomElement &lessonElement)
+bool QmVocKvtml2Reader::readChildWordTypes(QmVocWordType* parentContainer, QDomElement &lessonElement)
 {
     QDomElement currentElement = lessonElement.firstChildElement( KVTML_CONTAINER );
     while ( !currentElement.isNull() ) {
@@ -540,13 +540,13 @@ bool QTvtVocKvtml2Reader::readChildWordTypes(QTvtVocWordType* parentContainer, Q
     return true;
 }
 
-bool QTvtVocKvtml2Reader::readLeitner( QTvtVocLeitnerBox* parentContainer, QDomElement &leitnerParentElement )
+bool QmVocKvtml2Reader::readLeitner( QmVocLeitnerBox* parentContainer, QDomElement &leitnerParentElement )
 {
     QDomElement leitnerElement = leitnerParentElement.firstChildElement( KVTML_CONTAINER );
     while ( !leitnerElement.isNull() ) {
         QString name = leitnerElement.firstChildElement( KVTML_NAME ).text();
 
-        QTvtVocLeitnerBox * leitner = new QTvtVocLeitnerBox(name, parentContainer);
+        QmVocLeitnerBox * leitner = new QmVocLeitnerBox(name, parentContainer);
         parentContainer->appendChildContainer(leitner);
         // for leitner we only allow a flat list, no sub boxes.
 
@@ -569,38 +569,38 @@ bool QTvtVocKvtml2Reader::readLeitner( QTvtVocLeitnerBox* parentContainer, QDomE
     return true;
 }
 
-bool QTvtVocKvtml2Reader::readWordType( QTvtVocWordType* parentContainer, QDomElement &typeElement )
+bool QmVocKvtml2Reader::readWordType( QmVocWordType* parentContainer, QDomElement &typeElement )
 {
     // set type and specialtype
     QString typeName =
         typeElement.firstChildElement( KVTML_NAME ).text();
 
-    QTvtVocWordType * wordTypeContainer = new QTvtVocWordType(typeName, parentContainer);
+    QmVocWordType * wordTypeContainer = new QmVocWordType(typeName, parentContainer);
     parentContainer->appendChildContainer(wordTypeContainer);
 
     QString specialType = typeElement.firstChildElement( KVTML_SPECIALWORDTYPE ).text();
     if ( !specialType.isEmpty() ) {
         // get the localized version
         if ( specialType == KVTML_SPECIALWORDTYPE_NOUN ) {
-            wordTypeContainer->setWordType(QTvtVocWordFlag::Noun);
+            wordTypeContainer->setWordType(QmVocWordFlag::Noun);
         }
         if ( specialType == KVTML_SPECIALWORDTYPE_VERB ) {
-            wordTypeContainer->setWordType(QTvtVocWordFlag::Verb);
+            wordTypeContainer->setWordType(QmVocWordFlag::Verb);
         }
         if ( specialType == KVTML_SPECIALWORDTYPE_ADVERB ) {
-            wordTypeContainer->setWordType(QTvtVocWordFlag::Adverb);
+            wordTypeContainer->setWordType(QmVocWordFlag::Adverb);
         }
         if ( specialType == KVTML_SPECIALWORDTYPE_ADJECTIVE ) {
-            wordTypeContainer->setWordType(QTvtVocWordFlag::Adjective);
+            wordTypeContainer->setWordType(QmVocWordFlag::Adjective);
         }
         if ( specialType == KVTML_SPECIALWORDTYPE_NOUN_MALE ) {
-            wordTypeContainer->setWordType(QTvtVocWordFlag::Noun | QTvtVocWordFlag::Masculine);
+            wordTypeContainer->setWordType(QmVocWordFlag::Noun | QmVocWordFlag::Masculine);
         }
         if ( specialType == KVTML_SPECIALWORDTYPE_NOUN_FEMALE ) {
-            wordTypeContainer->setWordType(QTvtVocWordFlag::Noun | QTvtVocWordFlag::Feminine);
+            wordTypeContainer->setWordType(QmVocWordFlag::Noun | QmVocWordFlag::Feminine);
         }
         if ( specialType == KVTML_SPECIALWORDTYPE_NOUN_NEUTRAL ) {
-            wordTypeContainer->setWordType(QTvtVocWordFlag::Noun| QTvtVocWordFlag::Neuter);
+            wordTypeContainer->setWordType(QmVocWordFlag::Noun| QmVocWordFlag::Neuter);
         }
     } // special type
 
@@ -625,7 +625,7 @@ bool QTvtVocKvtml2Reader::readWordType( QTvtVocWordType* parentContainer, QDomEl
     return true;
 }
 
-QStringList QTvtVocKvtml2Reader::readTenses( QDomElement &tensesElement )
+QStringList QmVocKvtml2Reader::readTenses( QDomElement &tensesElement )
 {
     QStringList tenses;
 
@@ -640,7 +640,7 @@ QStringList QTvtVocKvtml2Reader::readTenses( QDomElement &tensesElement )
     return tenses;
 }
 
-bool QTvtVocKvtml2Reader::readComparison( QDomElement &domElementParent, QTvtVocTranslation* translation )
+bool QmVocKvtml2Reader::readComparison( QDomElement &domElementParent, QmVocTranslation* translation )
 /*
  <comparison>
    <comparative>better</comparative>
@@ -665,7 +665,7 @@ bool QTvtVocKvtml2Reader::readComparison( QDomElement &domElementParent, QTvtVoc
 }
 
 
-bool QTvtVocKvtml2Reader::readMultipleChoice( QDomElement &multipleChoiceElement, QTvtVocTranslation* translation )
+bool QmVocKvtml2Reader::readMultipleChoice( QDomElement &multipleChoiceElement, QmVocTranslation* translation )
 /*
  <multiplechoice>
    <choice>good</choice>
@@ -689,7 +689,7 @@ bool QTvtVocKvtml2Reader::readMultipleChoice( QDomElement &multipleChoiceElement
 }
 
 
-bool QTvtVocKvtml2Reader::readPersonalPronoun(QDomElement & pronounElement, QTvtVocPersonalPronoun & pronoun)
+bool QmVocKvtml2Reader::readPersonalPronoun(QDomElement & pronounElement, QmVocPersonalPronoun & pronoun)
 {
     pronoun.setMaleFemaleDifferent(!pronounElement.firstChildElement(
         KVTML_THIRD_PERSON_MALE_FEMALE_DIFFERENT).isNull());
@@ -700,30 +700,30 @@ bool QTvtVocKvtml2Reader::readPersonalPronoun(QDomElement & pronounElement, QTvt
 
     QDomElement personElement = pronounElement.firstChildElement( KVTML_GRAMMATICAL_NUMBER[0] );
     if ( !personElement.isNull() ) {
-        readPersonalPronounChild( personElement, pronoun, QTvtVocWordFlag::Singular );
+        readPersonalPronounChild( personElement, pronoun, QmVocWordFlag::Singular );
     }
 
     personElement = pronounElement.firstChildElement( KVTML_GRAMMATICAL_NUMBER[1] );
     if ( !personElement.isNull() ) {
-        readPersonalPronounChild( personElement, pronoun, QTvtVocWordFlag::Dual );
+        readPersonalPronounChild( personElement, pronoun, QmVocWordFlag::Dual );
     }
 
     personElement = pronounElement.firstChildElement( KVTML_GRAMMATICAL_NUMBER[2] );
     if ( !personElement.isNull() ) {
-        readPersonalPronounChild( personElement, pronoun, QTvtVocWordFlag::Plural );
+        readPersonalPronounChild( personElement, pronoun, QmVocWordFlag::Plural );
     }
     return true;
 }
 
 
-bool QTvtVocKvtml2Reader::readPersonalPronounChild(QDomElement & personElement, QTvtVocPersonalPronoun & pronoun, QTvtVocWordFlags number)
+bool QmVocKvtml2Reader::readPersonalPronounChild(QDomElement & personElement, QmVocPersonalPronoun & pronoun, QmVocWordFlags number)
 {
-    QMap<int, QTvtVocWordFlag::Flags> persons;
-    persons[0] = QTvtVocWordFlag::First;
-    persons[1] = QTvtVocWordFlag::Second;
-    persons[2] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Masculine);
-    persons[3] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Feminine);
-    persons[4] = (QTvtVocWordFlag::Flags)((int)QTvtVocWordFlag::Third | (int)QTvtVocWordFlag::Neuter);
+    QMap<int, QmVocWordFlag::Flags> persons;
+    persons[0] = QmVocWordFlag::First;
+    persons[1] = QmVocWordFlag::Second;
+    persons[2] = (QmVocWordFlag::Flags)((int)QmVocWordFlag::Third | (int)QmVocWordFlag::Masculine);
+    persons[3] = (QmVocWordFlag::Flags)((int)QmVocWordFlag::Third | (int)QmVocWordFlag::Feminine);
+    persons[4] = (QmVocWordFlag::Flags)((int)QmVocWordFlag::Third | (int)QmVocWordFlag::Neuter);
 
 
 

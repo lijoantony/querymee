@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     create a QTvtVocDocument from a Pauker file
+                     create a QmVocDocument from a Pauker file
     -----------------------------------------------------------------------
     copyright     : (C) 2004, 2007 Peter Hedlund <peter.hedlund@kdemail.net>
                     (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
@@ -29,13 +29,13 @@
 #include "qtvtvoclesson.h"
 #include "qtvtvocdocument.h"
 
-QTvtVocPaukerReader::QTvtVocPaukerReader( QTvtVocDocument * doc )
+QmVocPaukerReader::QmVocPaukerReader( QmVocDocument * doc )
 {
     m_doc = doc;
 }
 
 
-bool QTvtVocPaukerReader::read( QIODevice * device )
+bool QmVocPaukerReader::read( QIODevice * device )
 {
     setDevice( device );
 
@@ -54,7 +54,7 @@ bool QTvtVocPaukerReader::read( QIODevice * device )
 }
 
 
-void QTvtVocPaukerReader::readUnknownElement()
+void QmVocPaukerReader::readUnknownElement()
 {
     while ( !atEnd() ) {
         readNext();
@@ -68,7 +68,7 @@ void QTvtVocPaukerReader::readUnknownElement()
 }
 
 
-void QTvtVocPaukerReader::readPauker()
+void QmVocPaukerReader::readPauker()
 {
     m_doc->setAuthor( "http://pauker.sf.net" );
     ///Pauker does not provide any column titles
@@ -93,7 +93,7 @@ void QTvtVocPaukerReader::readPauker()
 }
 
 
-void QTvtVocPaukerReader::readBatch()
+void QmVocPaukerReader::readBatch()
 {
     while ( !atEnd() ) {
         readNext();
@@ -111,7 +111,7 @@ void QTvtVocPaukerReader::readBatch()
 }
 
 
-void QTvtVocPaukerReader::readCard()
+void QmVocPaukerReader::readCard()
 {
     QString front;
     QString back;
@@ -132,15 +132,15 @@ void QTvtVocPaukerReader::readCard()
         }
     }
 
-    QTvtVocLesson* lesson = new QTvtVocLesson("Vocabulary", m_doc->lesson());
+    QmVocLesson* lesson = new QmVocLesson("Vocabulary", m_doc->lesson());
     m_doc->lesson()->appendChildContainer(lesson);
 
-    QTvtVocExpression* expr = new QTvtVocExpression( QStringList() << front << back);
+    QmVocExpression* expr = new QmVocExpression( QStringList() << front << back);
     lesson->appendEntry( expr );
 }
 
 
-QString QTvtVocPaukerReader::readText()
+QString QmVocPaukerReader::readText()
 {
     QString result;
 

@@ -38,33 +38,33 @@ A declension contains all forms that a NOUN possibly can have.
 
 	@author Frederik Gladhorn <frederik.gladhorn@kdemail.net>
 */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocDeclension{
+class QTVTVOCDOCUMENT_EXPORT QmVocDeclension{
 public:
 
     /**
      * The constructor without arguments
      */
-    explicit QTvtVocDeclension();
+    explicit QmVocDeclension();
 
     /** copy constructor
      * @param other comparison object to copy
      */
-    QTvtVocDeclension( const QTvtVocDeclension &other );
+    QmVocDeclension( const QmVocDeclension &other );
 
-    ~QTvtVocDeclension();
+    ~QmVocDeclension();
 
     /** equality operator
      * @param a object to compare to
      * @returns true if comparisons are the same, false otherwise
      */
 //     will probably not be necessary
-//     bool operator == ( const QTvtVocDeclension& a ) const;
+//     bool operator == ( const QmVocDeclension& a ) const;
 
     /** assignment operator for d-pointer copying
      * @param other object to copy from
      * @returns reference to this object
      */
-    QTvtVocDeclension& operator= ( const QTvtVocDeclension& other );
+    QmVocDeclension& operator= ( const QmVocDeclension& other );
 
     /**
      * The grammatical number, there is singular and plural for english, some languages have dual for exactly two items.
@@ -72,7 +72,7 @@ public:
      * @param decCase
      * @return
      */
-    QTvtVocText& declension(QTvtVocWordFlags flags);
+    QmVocText& declension(QmVocWordFlags flags);
 
     /**
      * Set a declension
@@ -80,7 +80,7 @@ public:
      * @param number
      * @param decCase
      */
-    void setDeclension(const QTvtVocText& declension, QTvtVocWordFlags flags);
+    void setDeclension(const QmVocText& declension, QmVocWordFlags flags);
 
     bool isEmpty();
 
@@ -96,7 +96,7 @@ public:
      * @param parent
      * @return
      */
-    static QTvtVocDeclension* fromKVTML2(QDomElement& parent);
+    static QmVocDeclension* fromKVTML2(QDomElement& parent);
 
 private:
     class Private;

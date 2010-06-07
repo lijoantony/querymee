@@ -61,20 +61,20 @@ class QDomElement;
  * This should be used instead of strings for all things that can be tested and thus get a grade.
  @author Frederik Gladhorn <frederik.gladhorn@kdemail.net>
 */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocText
+class QTVTVOCDOCUMENT_EXPORT QmVocText
 {
 public:
     /** default constructor */
-    QTvtVocText(const QString& text = QString());
+    QmVocText(const QString& text = QString());
 
     /** copy constructor
      * provides safe copy of d pointer
      * @param other object to copy from
      */
-    QTvtVocText( const QTvtVocText &other );
+    QmVocText( const QmVocText &other );
 
     /** default destructor */
-    ~QTvtVocText();
+    ~QmVocText();
 
     /**
      * The translation as string (the word itself)
@@ -93,13 +93,13 @@ public:
      * @param other grades copied
      * @return reference to the new grades
      */
-    QTvtVocText& operator= ( const QTvtVocText &other );
+    QmVocText& operator= ( const QmVocText &other );
     /**
      * Compare two sets of grades.
      * @param other
      * @return true if equal
      */
-    bool operator== ( const QTvtVocText &other ) const;
+    bool operator== ( const QmVocText &other ) const;
 
 
     /** returns how often this entry has been practiced as int
@@ -168,8 +168,8 @@ public:
     void toKVTML2(QDomElement& parent);
 
 private:
-    class QTvtVocTextPrivate;
-    QTvtVocTextPrivate * const d;
+    class QmVocTextPrivate;
+    QmVocTextPrivate * const d;
 };
 
 #endif

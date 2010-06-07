@@ -28,42 +28,42 @@
 // #include <KDebug>
 
 
-class QTvtVocExpression::QTvtVocExpressionPrivate
+class QmVocExpression::QmVocExpressionPrivate
 {
 public:
-    QTvtVocExpressionPrivate()
+    QmVocExpressionPrivate()
     {
         m_active = true;
         m_lesson = 0;
     }
-    ~QTvtVocExpressionPrivate();
+    ~QmVocExpressionPrivate();
 
-    QTvtVocExpressionPrivate(const QTvtVocExpressionPrivate &other);
-    QTvtVocExpressionPrivate& operator= (const QTvtVocExpressionPrivate &other);
+    QmVocExpressionPrivate(const QmVocExpressionPrivate &other);
+    QmVocExpressionPrivate& operator= (const QmVocExpressionPrivate &other);
 
-    bool operator== ( const QTvtVocExpressionPrivate &p ) const;
+    bool operator== ( const QmVocExpressionPrivate &p ) const;
 
-    QTvtVocLesson* m_lesson;
+    QmVocLesson* m_lesson;
     bool m_active;
 
-    QMap <int, QTvtVocTranslation*> m_translations;
+    QMap <int, QmVocTranslation*> m_translations;
 };
 
-QTvtVocExpression::QTvtVocExpressionPrivate::~QTvtVocExpressionPrivate()
+QmVocExpression::QmVocExpressionPrivate::~QmVocExpressionPrivate()
 {
-    QMap <int, QTvtVocTranslation*> translations = m_translations;
+    QMap <int, QmVocTranslation*> translations = m_translations;
     // empty the translations map, otherwise removal from word type will try to access them again when they don't exist any more
     m_translations.clear();
     qDeleteAll(translations);
 }
 
-QTvtVocExpression::QTvtVocExpressionPrivate::QTvtVocExpressionPrivate(const QTvtVocExpressionPrivate & other)
+QmVocExpression::QmVocExpressionPrivate::QmVocExpressionPrivate(const QmVocExpressionPrivate & other)
 {
     m_active = other.m_active;
     m_lesson = 0;
 }
 
-QTvtVocExpression::QTvtVocExpressionPrivate & QTvtVocExpression::QTvtVocExpressionPrivate::operator =(const QTvtVocExpressionPrivate & other)
+QmVocExpression::QmVocExpressionPrivate & QmVocExpression::QmVocExpressionPrivate::operator =(const QmVocExpressionPrivate & other)
 {
     m_active = other.m_active;
     m_lesson = 0;
@@ -71,7 +71,7 @@ QTvtVocExpression::QTvtVocExpressionPrivate & QTvtVocExpression::QTvtVocExpressi
     return *this;
 }
 
-bool QTvtVocExpression::QTvtVocExpressionPrivate::operator== ( const QTvtVocExpression::QTvtVocExpressionPrivate &p ) const
+bool QmVocExpression::QmVocExpressionPrivate::operator== ( const QmVocExpression::QmVocExpressionPrivate &p ) const
 {
     return
         m_translations == p.m_translations &&
@@ -80,18 +80,18 @@ bool QTvtVocExpression::QTvtVocExpressionPrivate::operator== ( const QTvtVocExpr
 }
 
 
-QTvtVocExpression::QTvtVocExpression()
-        : d( new QTvtVocExpressionPrivate )
+QmVocExpression::QmVocExpression()
+        : d( new QmVocExpressionPrivate )
 {}
 
-QTvtVocExpression::QTvtVocExpression( const QString & expression )
-        : d( new QTvtVocExpressionPrivate )
+QmVocExpression::QmVocExpression( const QString & expression )
+        : d( new QmVocExpressionPrivate )
 {
     setTranslation( 0, expression.simplified() );
 }
 
-QTvtVocExpression::QTvtVocExpression( const QStringList & translations)
-        : d( new QTvtVocExpressionPrivate )
+QmVocExpression::QmVocExpression( const QStringList & translations)
+        : d( new QmVocExpressionPrivate )
 {
     foreach ( const QString &translation, translations ) {
         setTranslation(d->m_translations.count(), translation);
@@ -99,32 +99,32 @@ QTvtVocExpression::QTvtVocExpression( const QStringList & translations)
 }
 
 
-QTvtVocExpression::QTvtVocExpression(const QTvtVocExpression & other)
-    : d(new QTvtVocExpressionPrivate(*other.d))
+QmVocExpression::QmVocExpression(const QmVocExpression & other)
+    : d(new QmVocExpressionPrivate(*other.d))
 {
     foreach (int key, other.d->m_translations.keys()) {
-        d->m_translations[key] = new QTvtVocTranslation(*other.d->m_translations.value(key));
+        d->m_translations[key] = new QmVocTranslation(*other.d->m_translations.value(key));
         d->m_translations[key]->setEntry(this);
     }
 }
 
-QTvtVocExpression& QTvtVocExpression::operator= ( const QTvtVocExpression &other )
+QmVocExpression& QmVocExpression::operator= ( const QmVocExpression &other )
 {
     *d = *other.d;
     foreach (int key, other.d->m_translations.keys()) {
-        d->m_translations[key] = new QTvtVocTranslation(*other.d->m_translations.value(key));
+        d->m_translations[key] = new QmVocTranslation(*other.d->m_translations.value(key));
         d->m_translations[key]->setEntry(this);
     }
     return *this;
 }
 
-QTvtVocExpression::~QTvtVocExpression()
+QmVocExpression::~QmVocExpression()
 {
     setLesson(0);
     delete d;
 }
 
-void QTvtVocExpression::removeTranslation( int index )
+void QmVocExpression::removeTranslation( int index )
 {
     int count = d->m_translations.count();
 
@@ -138,41 +138,41 @@ void QTvtVocExpression::removeTranslation( int index )
 }
 
 
-void QTvtVocExpression::setTranslation( int index, const QString & expr )
+void QmVocExpression::setTranslation( int index, const QString & expr )
 {
     if ( index < 0 ) {
         return;
     }
 
     if (!d->m_translations.contains(index)) {
-        d->m_translations[index] = new QTvtVocTranslation(this);
+        d->m_translations[index] = new QmVocTranslation(this);
     }
     d->m_translations[index]->setText(expr.simplified());
 }
 
 
-QTvtVocLesson* QTvtVocExpression::lesson() const
+QmVocLesson* QmVocExpression::lesson() const
 {
     return d->m_lesson;
 }
 
 
-bool QTvtVocExpression::isActive() const
+bool QmVocExpression::isActive() const
 {
     return d->m_active;
 }
 
 
-void QTvtVocExpression::setActive( bool flag )
+void QmVocExpression::setActive( bool flag )
 {
     d->m_active = flag;
 }
 
 
-void QTvtVocExpression::resetGrades( int index )
+void QmVocExpression::resetGrades( int index )
 {
     if ( index == -1 ) { // clear grades for all languages
-        foreach( QTvtVocTranslation* trans, d->m_translations ) {
+        foreach( QmVocTranslation* trans, d->m_translations ) {
             trans->resetGrades();
         }
         return;
@@ -184,21 +184,21 @@ void QTvtVocExpression::resetGrades( int index )
     }
 }
 
-bool QTvtVocExpression::operator== ( const QTvtVocExpression &expression ) const
+bool QmVocExpression::operator== ( const QmVocExpression &expression ) const
 {
     return ( *d == *expression.d );
 }
 
-QTvtVocTranslation* QTvtVocExpression::translation( int index )
+QmVocTranslation* QmVocExpression::translation( int index )
 {
     if(translationIndices().contains(index)) {
         return d->m_translations[index];
     }
-    d->m_translations[index] = new QTvtVocTranslation(this);
+    d->m_translations[index] = new QmVocTranslation(this);
     return d->m_translations[index];
 }
 
-QTvtVocTranslation * QTvtVocExpression::translation(int index) const
+QmVocTranslation * QmVocExpression::translation(int index) const
 {
     if(d->m_translations.contains(index)) {
         return 0;
@@ -206,12 +206,12 @@ QTvtVocTranslation * QTvtVocExpression::translation(int index) const
     return d->m_translations[index];
 }
 
-QList< int > QTvtVocExpression::translationIndices() const
+QList< int > QmVocExpression::translationIndices() const
 {
     return d->m_translations.keys();
 }
 
-void QTvtVocExpression::setLesson(QTvtVocLesson * l)
+void QmVocExpression::setLesson(QmVocLesson * l)
 {
     if (d->m_lesson) {
         d->m_lesson->removeEntry(this);

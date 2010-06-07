@@ -34,50 +34,50 @@
 
 #include <QtCore/QMap>
 
-class QTvtVocDeclension::Private
+class QmVocDeclension::Private
 {
 public:
-    QMap<QTvtVocWordFlags, QTvtVocText> m_declensions;
+    QMap<QmVocWordFlags, QmVocText> m_declensions;
 };
 
-QTvtVocDeclension::QTvtVocDeclension()
+QmVocDeclension::QmVocDeclension()
     :d (new Private)
 {
 }
 
-QTvtVocDeclension::QTvtVocDeclension(const QTvtVocDeclension & other)
+QmVocDeclension::QmVocDeclension(const QmVocDeclension & other)
     :d (new Private)
 {
     d->m_declensions = other.d->m_declensions;
 }
 
-QTvtVocDeclension & QTvtVocDeclension::operator =(const QTvtVocDeclension & other)
+QmVocDeclension & QmVocDeclension::operator =(const QmVocDeclension & other)
 {
     d->m_declensions = other.d->m_declensions;
     return *this;
 }
 
-QTvtVocDeclension::~QTvtVocDeclension()
+QmVocDeclension::~QmVocDeclension()
 {
     delete d;
 }
 
-QTvtVocText& QTvtVocDeclension::declension(QTvtVocWordFlags flags)
+QmVocText& QmVocDeclension::declension(QmVocWordFlags flags)
 {
     return d->m_declensions[flags];
 }
 
-void QTvtVocDeclension::setDeclension(const QTvtVocText & declension, QTvtVocWordFlags flags)
+void QmVocDeclension::setDeclension(const QmVocText & declension, QmVocWordFlags flags)
 {
     d->m_declensions[flags] = declension;
 }
 
-bool QTvtVocDeclension::isEmpty()
+bool QmVocDeclension::isEmpty()
 {
     return d->m_declensions.isEmpty();
 }
 
-void QTvtVocDeclension::toKVTML2(QDomElement & parent)
+void QmVocDeclension::toKVTML2(QDomElement & parent)
 {
     if (isEmpty()) {
         return;
@@ -85,19 +85,19 @@ void QTvtVocDeclension::toKVTML2(QDomElement & parent)
     QDomDocument domDoc = parent.ownerDocument();
     QDomElement declensionElement = domDoc.createElement( KVTML_DECLENSION );
 
-    QMap<int, QTvtVocWordFlags> numbers;
-    numbers[0] = QTvtVocWordFlag::Singular;
-    numbers[1] = QTvtVocWordFlag::Dual;
-    numbers[2] = QTvtVocWordFlag::Plural;
+    QMap<int, QmVocWordFlags> numbers;
+    numbers[0] = QmVocWordFlag::Singular;
+    numbers[1] = QmVocWordFlag::Dual;
+    numbers[2] = QmVocWordFlag::Plural;
 
-    QMap<int, QTvtVocWordFlags> cases;
-    cases[0] = QTvtVocWordFlag::Nominative;
-    cases[1] = QTvtVocWordFlag::Genitive;
-    cases[2] = QTvtVocWordFlag::Dative;
-    cases[3] = QTvtVocWordFlag::Accusative;
-    cases[4] = QTvtVocWordFlag::Ablative;
-    cases[5] = QTvtVocWordFlag::Locative;
-    cases[6] = QTvtVocWordFlag::Vocative;
+    QMap<int, QmVocWordFlags> cases;
+    cases[0] = QmVocWordFlag::Nominative;
+    cases[1] = QmVocWordFlag::Genitive;
+    cases[2] = QmVocWordFlag::Dative;
+    cases[3] = QmVocWordFlag::Accusative;
+    cases[4] = QmVocWordFlag::Ablative;
+    cases[5] = QmVocWordFlag::Locative;
+    cases[6] = QmVocWordFlag::Vocative;
 
 
 
@@ -120,7 +120,7 @@ void QTvtVocDeclension::toKVTML2(QDomElement & parent)
     }
 }
 
-QTvtVocDeclension* QTvtVocDeclension::fromKVTML2(QDomElement & parent)
+QmVocDeclension* QmVocDeclension::fromKVTML2(QDomElement & parent)
 {
     QDomElement declensionElement = parent.firstChildElement( KVTML_DECLENSION );
     // we don't create empty objects, if necessary, create later on demand.
@@ -129,21 +129,21 @@ QTvtVocDeclension* QTvtVocDeclension::fromKVTML2(QDomElement & parent)
     }
 
 
-    QMap<int, QTvtVocWordFlags> numbers;
-    numbers[0] = QTvtVocWordFlag::Singular;
-    numbers[1] = QTvtVocWordFlag::Dual;
-    numbers[2] = QTvtVocWordFlag::Plural;
+    QMap<int, QmVocWordFlags> numbers;
+    numbers[0] = QmVocWordFlag::Singular;
+    numbers[1] = QmVocWordFlag::Dual;
+    numbers[2] = QmVocWordFlag::Plural;
 
-    QMap<int, QTvtVocWordFlags> cases;
-    cases[0] = QTvtVocWordFlag::Nominative;
-    cases[1] = QTvtVocWordFlag::Genitive;
-    cases[2] = QTvtVocWordFlag::Dative;
-    cases[3] = QTvtVocWordFlag::Accusative;
-    cases[4] = QTvtVocWordFlag::Ablative;
-    cases[5] = QTvtVocWordFlag::Locative;
-    cases[6] = QTvtVocWordFlag::Vocative;
+    QMap<int, QmVocWordFlags> cases;
+    cases[0] = QmVocWordFlag::Nominative;
+    cases[1] = QmVocWordFlag::Genitive;
+    cases[2] = QmVocWordFlag::Dative;
+    cases[3] = QmVocWordFlag::Accusative;
+    cases[4] = QmVocWordFlag::Ablative;
+    cases[5] = QmVocWordFlag::Locative;
+    cases[6] = QmVocWordFlag::Vocative;
 
-    QTvtVocDeclension* declension = new QTvtVocDeclension;
+    QmVocDeclension* declension = new QmVocDeclension;
 
     for ( int num = 0; num <= 2; ++num ) {
         QDomElement numberElement = declensionElement.firstChildElement( KVTML_GRAMMATICAL_NUMBER[num] );
@@ -151,7 +151,7 @@ QTvtVocDeclension* QTvtVocDeclension::fromKVTML2(QDomElement & parent)
             for ( int dcase = 0; dcase <= 6; ++dcase) {
                 QDomElement caseElement = numberElement.firstChildElement( KVTML_DECLENSION_CASE[dcase] );
                 if (!caseElement.isNull()) {
-                    QTvtVocText text;
+                    QmVocText text;
                     text.fromKVTML2(caseElement);
                     declension->setDeclension(text, numbers[num] | cases[dcase]);
                 }

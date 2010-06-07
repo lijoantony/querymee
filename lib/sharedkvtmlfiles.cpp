@@ -99,7 +99,7 @@ void SharedKvtmlFilesPrivate::rescan()
 //         }
 //     }
 // 
-//     QTvtVocDocument *doc = new QTvtVocDocument();
+//     QmVocDocument *doc = new QmVocDocument();
 //     for ( int i = 0; i < this->m_fileList.size(); ++i ) {
 // 
 //         // open the file
@@ -171,7 +171,7 @@ void SharedKvtmlFiles::sortDownloadedFiles()
 //                                  QString( "kvtml/*.kvtml" ) );
 //                                 
 // 
-//     QTvtVocDocument doc;
+//     QmVocDocument doc;
 // 
 //     while ( !unsortedFiles.isEmpty() ) {
 //         KUrl fileUrl( KUrl::fromPath( unsortedFiles.first() ) );

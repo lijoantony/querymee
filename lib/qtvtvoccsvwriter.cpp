@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                   export a QTvtVocDocument to a delimited text file
+                   export a QmVocDocument to a delimited text file
     -----------------------------------------------------------------------
     copyright       : (C) 1999-2001 Ewald Arnold <kvoctrain@ewald-arnold.de>
 
@@ -32,14 +32,14 @@
 #include "qtvtvoclesson.h"
 #include "qtvtvocexpression.h"
 
-QTvtVocCsvWriter::QTvtVocCsvWriter( QFile *file )
+QmVocCsvWriter::QmVocCsvWriter( QFile *file )
 {
     // the file must be already open
     m_outputFile = file;
 }
 
 
-bool QTvtVocCsvWriter::writeDoc( QTvtVocDocument *doc, const QString &generator )
+bool QmVocCsvWriter::writeDoc( QmVocDocument *doc, const QString &generator )
 {
     Q_UNUSED( generator );
 
@@ -55,12 +55,12 @@ bool QTvtVocCsvWriter::writeDoc( QTvtVocDocument *doc, const QString &generator 
     outputStream <<  "Title:"  << separator << m_doc->title() << "\n";
     outputStream <<  "Author:"  << separator << m_doc->author() << "\n";
 
-    QTvtVocExpression *expression;
+    QmVocExpression *expression;
     int idCount = m_doc->identifierCount();
     QString currentRow;
 
-    for ( int e = 0; e < m_doc->lesson()->entryCount(QTvtVocLesson::Recursive); e++ ) {
-        expression = m_doc->lesson()->entries(QTvtVocLesson::Recursive).value( e );
+    for ( int e = 0; e < m_doc->lesson()->entryCount(QmVocLesson::Recursive); e++ ) {
+        expression = m_doc->lesson()->entries(QmVocLesson::Recursive).value( e );
         currentRow = "";
         bool sep = false;
 

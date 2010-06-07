@@ -31,17 +31,17 @@
 #include <QUrl>
 #include <QtCore/QString>
 
-class QTvtVocExpression;
+class QmVocExpression;
 // class KEduVocString;
-class QTvtVocWordType;
-class QTvtVocLeitnerBox;
-class QTvtVocDeclension;
+class QmVocWordType;
+class QmVocLeitnerBox;
+class QmVocDeclension;
 
 /**
  @author Frederik Gladhorn <frederik.gladhorn@kdemail.net>
 */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocTranslation
-    :public QTvtVocText
+class QTVTVOCDOCUMENT_EXPORT QmVocTranslation
+    :public QmVocText
 {
 public:
     enum Related {
@@ -53,23 +53,23 @@ public:
     /**
      * Default constructor for an empty translation.
      */
-    QTvtVocTranslation(QTvtVocExpression* entry);
+    QmVocTranslation(QmVocExpression* entry);
 
     /**
         * Constructor
         * @param translation is used as translation
         */
-    QTvtVocTranslation(QTvtVocExpression* entry, const QString &translation );
+    QmVocTranslation(QmVocExpression* entry, const QString &translation );
 
     /** copy constructor for d-pointer safety */
-    QTvtVocTranslation( const QTvtVocTranslation &other );
+    QmVocTranslation( const QmVocTranslation &other );
 
     /**
      * Destructor
      */
-    ~QTvtVocTranslation();
+    ~QmVocTranslation();
 
-    QTvtVocExpression* entry();
+    QmVocExpression* entry();
 
     /** sets the pronunciation of this expression
     * @param expression       pronunciation of this index
@@ -138,53 +138,53 @@ public:
     *
     * @return                 type or "" if no type available
     */
-    QTvtVocWordType* wordType() const;
+    QmVocWordType* wordType() const;
 
     /** sets the word type of this expression
     * @param type             type of this expression ("" = none)
     */
-    void setWordType( QTvtVocWordType* wordType );
+    void setWordType( QmVocWordType* wordType );
 
     /** returns the leitner box of this translation
      * @return the box
      */
-    QTvtVocLeitnerBox* leitnerBox() const;
+    QmVocLeitnerBox* leitnerBox() const;
 
     /** sets the leitner box of this translation
      * @param leitnerBox the box
      */
-    void setLeitnerBox( QTvtVocLeitnerBox* leitnerBox );
+    void setLeitnerBox( QmVocLeitnerBox* leitnerBox );
 
     /**
      * returns a conjugation if available
      * @param tense tense of the requested conjugation
      * @return the conjugation
      */
-    QTvtVocConjugation& conjugation( const QString& tense );
+    QmVocConjugation& conjugation( const QString& tense );
 
     /** adds conjugations or replaces them, if they exist.
     * @param conjugation      conjugation
     */
-    void setConjugation( const QString& tense, const QTvtVocConjugation & conjugation );
+    void setConjugation( const QString& tense, const QmVocConjugation & conjugation );
 
     /**
      * Returns a pointer to the declension object of this translation.
      * Returns 0 if no declension object exists!
      * @return the declension
      */
-    QTvtVocDeclension* declension();
+    QmVocDeclension* declension();
 
     /**
      * Set a new declension for a translation
      * @param declension
      */
-    void setDeclension(QTvtVocDeclension* declension);
+    void setDeclension(QmVocDeclension* declension);
 
     /**
      * Bad, only used for tense entry page, will be deleted later. Deprecated.
      * @param conjugation
      */
-    void setConjugations( const QMap<QString, QTvtVocConjugation>& conjugations );
+    void setConjugations( const QMap<QString, QmVocConjugation>& conjugations );
 
     QStringList conjugationTenses() const;
 
@@ -192,7 +192,7 @@ public:
      * Bad, only compatibility. Deprecated.
      * @return
      */
-    QMap <QString, QTvtVocConjugation> conjugations() const;
+    QMap <QString, QmVocConjugation> conjugations() const;
 
     /**
      * Comparison forms of adjectives/adverbs.
@@ -230,80 +230,80 @@ public:
      * add a false friend
      * @param falseFriend false friend of this index
      */
-    void addFalseFriend( QTvtVocTranslation* falseFriend );
+    void addFalseFriend( QmVocTranslation* falseFriend );
 
     /**
      * remove a false friend
      * @param falseFriend false friend of this index
      */
-    void removeFalseFriend( QTvtVocTranslation* falseFriend );
+    void removeFalseFriend( QmVocTranslation* falseFriend );
 
     /**
      * returns false friends of this expression
      * @return list of false friends
      */
-    QList<QTvtVocTranslation*> falseFriends() const;
+    QList<QmVocTranslation*> falseFriends() const;
 
     /**
      * add a synonym
      * @param synonym
      */
-    void addSynonym( QTvtVocTranslation* synonym );
+    void addSynonym( QmVocTranslation* synonym );
 
     /**
      * remove a synonym
      * @param synonym
      */
-    void removeSynonym( QTvtVocTranslation* synonym );
+    void removeSynonym( QmVocTranslation* synonym );
 
     /**
      * returns synonyms of this expression
      * @return synonyms
      */
-    QList<QTvtVocTranslation*> synonyms() const;
+    QList<QmVocTranslation*> synonyms() const;
 
     /**
      * add a antonym
      * @param antonym
          */
-    void addAntonym( QTvtVocTranslation* antonym );
+    void addAntonym( QmVocTranslation* antonym );
 
     /**
      * remove a antonym
      * @param antonym
      */
-    void removeAntonym( QTvtVocTranslation* antonym );
+    void removeAntonym( QmVocTranslation* antonym );
 
     /**
      * returns antonyms of this expression
      * @return antonyms
      */
-    QList<QTvtVocTranslation*> antonyms() const;
+    QList<QmVocTranslation*> antonyms() const;
 
     /**
      * Equal operator to assing a translation to another one.
      * @param translation translation to be copied
      * @return reference to the new translation
      */
-    QTvtVocTranslation& operator= ( const QTvtVocTranslation &translation );
+    QmVocTranslation& operator= ( const QmVocTranslation &translation );
 
     /**
      * Compare two translations, including word type etc.
      * @param translation
      * @return true if equal
      */
-    bool operator== ( const QTvtVocTranslation &translation ) const;
+    bool operator== ( const QmVocTranslation &translation ) const;
 
     void fromKVTML2(QDomElement& parent);
     void toKVTML2(QDomElement& parent);
 
 private:
-    class QTvtVocTranslationPrivate;
-    QTvtVocTranslationPrivate* const d;
+    class QmVocTranslationPrivate;
+    QmVocTranslationPrivate* const d;
 
     // for the copy constructor
-    void setEntry(QTvtVocExpression* entry);
-    friend class QTvtVocExpression;
+    void setEntry(QmVocExpression* entry);
+    friend class QmVocExpression;
 };
 
 #endif

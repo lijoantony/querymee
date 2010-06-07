@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     read a QTvtVocDocument from a KVTML2 file
+                     read a QmVocDocument from a KVTML2 file
     -----------------------------------------------------------------------
     copyright      : (C) 2007 Jeremy Whiting <jpwhiting@kde.org>
     Copyright 2007-2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
@@ -33,26 +33,26 @@
 #include "qtvtvocmultiplechoice.h"
 
 class QIODevice;
-class QTvtVocDocument;
-class QTvtVocWordType;
+class QmVocDocument;
+class QmVocWordType;
 
 /**
 * @brief class to read kvtml2 data files into qtvtvocdocument
 * @author Jeremy Whiting
 */
-class QTvtVocKvtml2Reader : public QObject
+class QmVocKvtml2Reader : public QObject
 {
     Q_OBJECT
 public:
     /** default constructor
      * @param file file to read from
      */
-    QTvtVocKvtml2Reader( QFile *file );
+    QmVocKvtml2Reader( QFile *file );
 
     /** read the document
      * @param doc document object to store the data in
      */
-    bool readDoc( QTvtVocDocument *doc );
+    bool readDoc( QmVocDocument *doc );
 
     /** get the errormessage string
      * @returns the errormessage string
@@ -82,25 +82,25 @@ private:
      */
     bool readArticle( QDomElement &articleElement, int identifierNum );
 
-    bool readPersonalPronoun( QDomElement &conjugElement, QTvtVocPersonalPronoun &pronoun );
+    bool readPersonalPronoun( QDomElement &conjugElement, QmVocPersonalPronoun &pronoun );
 
-    bool readPersonalPronounChild(QDomElement & personElement, QTvtVocPersonalPronoun &pronoun, QTvtVocWordFlags flags);
+    bool readPersonalPronounChild(QDomElement & personElement, QmVocPersonalPronoun &pronoun, QmVocWordFlags flags);
 
     /** read the types
      * @param typesElement QDomElement for the types group
      */
-    bool readWordType( QTvtVocWordType* parentContainer, QDomElement &typesElement );
+    bool readWordType( QmVocWordType* parentContainer, QDomElement &typesElement );
 
     /**
      * Read a leitner box container.
      * This is a grading system where the vocabulary are kept in boxes and promoted/demoted during the learning.
      * Be aware that leitner boxes are a list only and no sub boxes will ever be read or written.
-     * While reusing the lesson class is quite easy for this a proper subclass of QTvtVocContainer would be the better solution.
+     * While reusing the lesson class is quite easy for this a proper subclass of QmVocContainer would be the better solution.
      * @param parentContainer the parent to append the new leitner container to
      * @param leitnerElement the element in the dom
      * @return success
      */
-    bool readLeitner( QTvtVocLeitnerBox* parentContainer, QDomElement &leitnerElement );
+    bool readLeitner( QmVocLeitnerBox* parentContainer, QDomElement &leitnerElement );
 
     /**
      * Read all <container> tags within a word type definition.
@@ -108,7 +108,7 @@ private:
      * @param lessonElement
      * @return
      */
-    bool readChildWordTypes( QTvtVocWordType* parentContainer, QDomElement &lessonElement );
+    bool readChildWordTypes( QmVocWordType* parentContainer, QDomElement &lessonElement );
 
     /** read the tenses
      * @param tensesElement QDomElement for the tenses group
@@ -128,19 +128,19 @@ private:
     /** read a translation
      * @param translationElement QDomElement for the translation to read
      */
-    bool readTranslation( QDomElement &translationElement, QTvtVocExpression *expr, int index );
+    bool readTranslation( QDomElement &translationElement, QmVocExpression *expr, int index );
 
     /** read a comparison
      * @param comparisonElement comparison group element
      * @param comp comparison object to read into
      */
-    bool readComparison( QDomElement &comparisonElement, QTvtVocTranslation *translation );
+    bool readComparison( QDomElement &comparisonElement, QmVocTranslation *translation );
 
     /** read a multiple choice group
      * @param multipleChoiceElement element to read from
-     * @param mc QTvtVocMultipleChoice object to read to
+     * @param mc QmVocMultipleChoice object to read to
      */
-    bool readMultipleChoice( QDomElement &multipleChoiceElement, QTvtVocTranslation* translation );
+    bool readMultipleChoice( QDomElement &multipleChoiceElement, QmVocTranslation* translation );
 
     /**
      * Read <lesson> tags.
@@ -148,24 +148,24 @@ private:
      * @param lessonElement
      * @return
      */
-    bool readChildLessons( QTvtVocLesson* parentLesson, QDomElement &lessonElement );
+    bool readChildLessons( QmVocLesson* parentLesson, QDomElement &lessonElement );
 
     /** read a lesson, and append it to the document
      * @param lessonElement element to read from
      */
-    bool readLesson( QTvtVocLesson* parentLesson, QDomElement &lessonElement );
+    bool readLesson( QmVocLesson* parentLesson, QDomElement &lessonElement );
 
     bool readSynonymsAntonymsFalseFriends( QDomElement &rootElement );
 
     /** pre-opened QIODevice to read from */
     QIODevice *m_inputFile;
 
-    /** QTvtVocDocument to read to */
-    QTvtVocDocument *m_doc;
+    /** QmVocDocument to read to */
+    QmVocDocument *m_doc;
 
     /** because we read the entries first, we store them here temporarily.
      * later we read the lessons and put the entries there based on the key (their id) */
-    QMap<int, QTvtVocExpression*> m_allEntries;
+    QMap<int, QmVocExpression*> m_allEntries;
 
     /** error message */
     QString m_errorMessage;

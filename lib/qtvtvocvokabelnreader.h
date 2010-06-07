@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     create a QTvtVocDocument from a Vokabeln file
+                     create a QmVocDocument from a Vokabeln file
     -----------------------------------------------------------------------
     copyright     : (C) 2007 Peter Hedlund <peter.hedlund@kdemail.net>
     Copyright     : (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
@@ -26,14 +26,14 @@
 #include <QString>
 
 class QIODevice;
-class QTvtVocDocument;
+class QmVocDocument;
 
-class QTvtVocVokabelnReader
+class QmVocVokabelnReader
 {
 public:
-    QTvtVocVokabelnReader( QIODevice *file );
+    QmVocVokabelnReader( QIODevice *file );
 
-    bool readDoc( QTvtVocDocument *doc );
+    bool readDoc( QmVocDocument *doc );
 
     QString errorMessage() const
     {
@@ -42,7 +42,7 @@ public:
 
 private:
     QIODevice *m_inputFile;
-    QTvtVocDocument *m_doc;
+    QmVocDocument *m_doc;
     QString m_errorMessage;
 };
 

@@ -35,26 +35,26 @@
 #include "qtvtvocmultiplechoice.h"
 #include "qtvtvoctranslation.h"
 
-class QTvtVocLesson;
+class QmVocLesson;
 
 /**
   This class contains one vocabulary expression as an original with one or more
   translations
   */
-class QTVTVOCDOCUMENT_EXPORT QTvtVocExpression
+class QTVTVOCDOCUMENT_EXPORT QmVocExpression
 {
 public:
 
     /** default constructor for an empty vocabulary expression
      */
-    explicit QTvtVocExpression();
+    explicit QmVocExpression();
 
     /** Constructor for a vocabulary expression with one translation
      *
      * @param expression       translation
      * @param lesson           lesson number
      */
-    explicit QTvtVocExpression( const QString & expression );
+    explicit QmVocExpression( const QString & expression );
 
     /** Constructor for a vocabulary expression with an original and one or more translations
      *
@@ -62,15 +62,15 @@ public:
      * @param separator        expression will be split into an original and one or more translations using separator
      * @param lesson           lesson number, 0 for none
      */
-    explicit QTvtVocExpression( const QStringList & translations );
+    explicit QmVocExpression( const QStringList & translations );
 
-    QTvtVocExpression(const QTvtVocExpression& other);
+    QmVocExpression(const QmVocExpression& other);
 
-    ~QTvtVocExpression();
+    ~QmVocExpression();
 
     /** return the lesson
      */
-    QTvtVocLesson * lesson() const;
+    QmVocLesson * lesson() const;
 
 
     /** reset all grades of the entry
@@ -89,7 +89,7 @@ public:
     int sizeHint() const;
     void setSizeHint( int sizeHint );
 
-    void setTranslation( int index, QTvtVocTranslation* translation );
+    void setTranslation( int index, QmVocTranslation* translation );
     /**
      * Add a translation to this expression
      * @param index            number of translation = the identifier
@@ -108,23 +108,23 @@ public:
      * @param index of the language identifier
      * @return the translation
      */
-    QTvtVocTranslation* translation( int index );
-    QTvtVocTranslation* translation( int index ) const;
+    QmVocTranslation* translation( int index );
+    QmVocTranslation* translation( int index ) const;
 
     QList<int> translationIndices() const;
 
-    QTvtVocExpression& operator= ( const QTvtVocExpression &expression );
-    bool operator== ( const QTvtVocExpression &expression ) const;
+    QmVocExpression& operator= ( const QmVocExpression &expression );
+    bool operator== ( const QmVocExpression &expression ) const;
 
 private:
-    class QTvtVocExpressionPrivate;
-    QTvtVocExpressionPrivate* const d;
+    class QmVocExpressionPrivate;
+    QmVocExpressionPrivate* const d;
 
     /** only called by lesson to add itself to the lesson list
      */
-    void setLesson( QTvtVocLesson * l );
+    void setLesson( QmVocLesson * l );
 
-    friend class QTvtVocLesson;
+    friend class QmVocLesson;
 };
 
 #endif // QTVTVOCEXPRESSION_H

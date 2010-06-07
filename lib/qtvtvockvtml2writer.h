@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     export a QTvtVocDocument to a KVTML file
+                     export a QmVocDocument to a KVTML file
     -----------------------------------------------------------------------
     copyright       : (C) 2007 Jeremy Whiting <jpwhiting@kde.org>
                       (C) 2007-2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
@@ -31,23 +31,23 @@
 #include "qtvtvoctranslation.h"
 #include "qtvtvocpersonalpronoun.h"
 
-class QTvtVocDocument;
-class QTvtVocExpression;
-class QTvtVocLesson;
-class QTvtVocLeitnerBox;
+class QmVocDocument;
+class QmVocExpression;
+class QmVocLesson;
+class QmVocLeitnerBox;
 
 /**
-* @brief Class to write kvtml2 data files from QTvtVocDocument
+* @brief Class to write kvtml2 data files from QmVocDocument
 * @author Jeremy Whiting
 */
-class QTvtVocKvtml2Writer
+class QmVocKvtml2Writer
 {
 public:
-    QTvtVocKvtml2Writer( QFile *file );
+    QmVocKvtml2Writer( QFile *file );
 
-    bool writeDoc( QTvtVocDocument *doc, const QString &generator );
+    bool writeDoc( QmVocDocument *doc, const QString &generator );
 
-    QByteArray toByteArray( QTvtVocDocument *doc, const QString &generator );
+    QByteArray toByteArray( QmVocDocument *doc, const QString &generator );
 
     /**
      * Helper function, appends a new element AND a text child to @p parent
@@ -60,7 +60,7 @@ public:
 
 private:
 
-    bool createXmlDocument( QTvtVocDocument *doc, const QString &generator );
+    bool createXmlDocument( QmVocDocument *doc, const QString &generator );
 
     /** write information entries
      * @param informationElement QDomElement information to write to
@@ -79,19 +79,19 @@ private:
      */
     bool writeArticle( QDomElement &articleElement, int article );
 
-    bool writePersonalPronoun( QDomElement &pronounElement, const QTvtVocPersonalPronoun &pronoun);
+    bool writePersonalPronoun( QDomElement &pronounElement, const QmVocPersonalPronoun &pronoun);
     /** write types
      * @param typesElement QDomElement types to write to
      */
-    bool writeWordTypes( QDomElement &typesElement, QTvtVocWordType* parentContainer );
+    bool writeWordTypes( QDomElement &typesElement, QmVocWordType* parentContainer );
 
     /**
-     * write the leitner boxes @see QTvtVocLeitnerBox
+     * write the leitner boxes @see QmVocLeitnerBox
      * @param leitnerParentElement parent dom element
-     * @param parentContainer parent of the QTvtVocLeitnerBoxes to write
+     * @param parentContainer parent of the QmVocLeitnerBoxes to write
      * @return success
      */
-    bool writeLeitnerBoxes( QDomElement &leitnerParentElement, QTvtVocLeitnerBox* parentContainer );
+    bool writeLeitnerBoxes( QDomElement &leitnerParentElement, QmVocLeitnerBox* parentContainer );
 
     /** write entries
      * @param entriesElement QDomElement entries to write to
@@ -102,7 +102,7 @@ private:
      * @param translationElement QDomElement translation to write to, with id pre-set
      * @param translation object to write
      */
-    bool writeTranslation( QDomElement &translationElement, QTvtVocTranslation* translation );
+    bool writeTranslation( QDomElement &translationElement, QmVocTranslation* translation );
 
     /**
      * Used to write synonym, antonym and false friend lists
@@ -110,13 +110,13 @@ private:
      * @param parentContainer 
      * @return 
      */
-    bool writeRelated( QDomElement &parentElement, QList<QTvtVocTranslation*> relatedList );
+    bool writeRelated( QDomElement &parentElement, QList<QmVocTranslation*> relatedList );
 
     /** write the lesson group
      * @param parentLesson the parent lesson of the current lesson
      * @param lessonsElement QDomElement lessons to write to
      */
-    bool writeLessons( QTvtVocLesson *parentLesson, QDomElement &lessonsElement );
+    bool writeLessons( QmVocLesson *parentLesson, QDomElement &lessonsElement );
 
     
     void writeSynonymAntonymFalseFriend(QDomElement & parentElement);
@@ -126,23 +126,23 @@ private:
      * @param comparison object to write
      * @returns success
      */
-    bool writeComparison( QDomElement &comparisonElement, QTvtVocTranslation *translation );
+    bool writeComparison( QDomElement &comparisonElement, QmVocTranslation *translation );
 
     /** write multiple choice choices
      * @param multipleChoiceElement QDomElement multiplechoice to write to
      * @returns success
      */
-    bool writeMultipleChoice( QDomElement &multipleChoiceElement, QTvtVocTranslation* translation );
+    bool writeMultipleChoice( QDomElement &multipleChoiceElement, QmVocTranslation* translation );
 
     QDomElement newTextElement( const QString &elementName, const QString &text );
 
     QFile *m_outputFile;
-    QTvtVocDocument *m_doc;
+    QmVocDocument *m_doc;
 
-    QList<QTvtVocExpression*>  m_allEntries;
-    QList<QTvtVocTranslation*> m_synonyms;
-    QList<QTvtVocTranslation*> m_antonyms;
-    QList<QTvtVocTranslation*> m_falseFriends;
+    QList<QmVocExpression*>  m_allEntries;
+    QList<QmVocTranslation*> m_synonyms;
+    QList<QmVocTranslation*> m_antonyms;
+    QList<QmVocTranslation*> m_falseFriends;
 
     QDomDocument m_domDoc;
 };

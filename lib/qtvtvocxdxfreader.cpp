@@ -3,7 +3,7 @@
 ***************************************************************************/
 
 /***************************************************************************
-                     create a QTvtVocDocument from a XDXF file
+                     create a QmVocDocument from a XDXF file
     -----------------------------------------------------------------------
     copyright     : (C) 2007 Peter Hedlund <peter.hedlund@kdemail.net>
 
@@ -29,13 +29,13 @@
 #include "qtvtvocexpression.h"
 #include "qtvtvocdocument.h"
 
-QTvtVocXdxfReader::QTvtVocXdxfReader( QTvtVocDocument *doc )
+QmVocXdxfReader::QmVocXdxfReader( QmVocDocument *doc )
 {
     m_doc = doc;
 }
 
 
-bool QTvtVocXdxfReader::read( QIODevice *device )
+bool QmVocXdxfReader::read( QIODevice *device )
 {
     setDevice( device );
 
@@ -54,7 +54,7 @@ bool QTvtVocXdxfReader::read( QIODevice *device )
 }
 
 
-void QTvtVocXdxfReader::readUnknownElement()
+void QmVocXdxfReader::readUnknownElement()
 {
     while ( !atEnd() ) {
         readNext();
@@ -68,7 +68,7 @@ void QTvtVocXdxfReader::readUnknownElement()
 }
 
 
-void QTvtVocXdxfReader::readXdxf()
+void QmVocXdxfReader::readXdxf()
 {
     ///The language attributes are required and should be ISO 639-2 codes, but you never know...
     QStringRef id1 = attributes().value( "lang_from" );
@@ -106,7 +106,7 @@ void QTvtVocXdxfReader::readXdxf()
 }
 
 
-void QTvtVocXdxfReader::readEntry()
+void QmVocXdxfReader::readEntry()
 {
     QString front;
     QString back;
@@ -119,7 +119,7 @@ void QTvtVocXdxfReader::readEntry()
             back.append( text().toString() );
     }
 
-    QTvtVocExpression expr = QTvtVocExpression( front );
+    QmVocExpression expr = QmVocExpression( front );
     expr.setTranslation( 1, back );
     m_doc->lesson()->appendEntry( &expr );
 }

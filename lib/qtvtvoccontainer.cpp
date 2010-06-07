@@ -28,7 +28,7 @@
 #include <QtDebug>
 
 /** private class to store information about a lesson */
-class QTvtVocContainer::Private
+class QmVocContainer::Private
 {
 public:
     ~Private();
@@ -38,24 +38,24 @@ public:
     bool m_inPractice;
 
     // other lessons in the tree
-    QTvtVocContainer *m_parentContainer;
-    QList < QTvtVocContainer * > m_childContainers;
+    QmVocContainer *m_parentContainer;
+    QList < QmVocContainer * > m_childContainers;
 
     EnumContainerType m_type;
 
-    QList < QTvtVocExpression* > m_childLessonEntries;
+    QList < QmVocExpression* > m_childLessonEntries;
     bool m_childLessonEntriesValid;
 
     /// Image url
     QUrl m_imageUrl;
 };
 
-QTvtVocContainer::Private::~ Private()
+QmVocContainer::Private::~ Private()
 {
     qDeleteAll(m_childContainers);
 }
 
-QTvtVocContainer::QTvtVocContainer(const QString& name, EnumContainerType type, QTvtVocContainer *parent)
+QmVocContainer::QmVocContainer(const QString& name, EnumContainerType type, QmVocContainer *parent)
         : d( new Private )
 {
     d->m_parentContainer = parent;
@@ -65,7 +65,7 @@ QTvtVocContainer::QTvtVocContainer(const QString& name, EnumContainerType type, 
     d->m_childLessonEntriesValid = false;
 }
 
-QTvtVocContainer::QTvtVocContainer( const QTvtVocContainer &other )
+QmVocContainer::QmVocContainer( const QmVocContainer &other )
         : d( new Private )
 {
     d->m_name = other.d->m_name;
@@ -75,12 +75,12 @@ QTvtVocContainer::QTvtVocContainer( const QTvtVocContainer &other )
     d->m_childLessonEntriesValid = false;
 }
 
-QTvtVocContainer::~QTvtVocContainer()
+QmVocContainer::~QmVocContainer()
 {
     delete d;
 }
 
-void QTvtVocContainer::appendChildContainer(QTvtVocContainer * child)
+void QmVocContainer::appendChildContainer(QmVocContainer * child)
 {
     d->m_childContainers.append(child);
     child->d->m_parentContainer = this;
@@ -88,15 +88,15 @@ void QTvtVocContainer::appendChildContainer(QTvtVocContainer * child)
     invalidateChildLessonEntries();
 }
 
-QTvtVocContainer * QTvtVocContainer::childContainer(int row)
+QmVocContainer * QmVocContainer::childContainer(int row)
 {
     return d->m_childContainers.value(row);
 }
 
 
-QTvtVocContainer * QTvtVocContainer::childContainer(const QString & name)
+QmVocContainer * QmVocContainer::childContainer(const QString & name)
 {
-    foreach (QTvtVocContainer *container, d->m_childContainers) {
+    foreach (QmVocContainer *container, d->m_childContainers) {
         if (container->name() == name) {
             return container;
         }
@@ -105,7 +105,7 @@ QTvtVocContainer * QTvtVocContainer::childContainer(const QString & name)
 }
 
 
-void QTvtVocContainer::deleteChildContainer(int row)
+void QmVocContainer::deleteChildContainer(int row)
 {
     qDebug() << "Delete of container - check entry deletion!";
     delete d->m_childContainers.takeAt(row);
@@ -113,35 +113,35 @@ void QTvtVocContainer::deleteChildContainer(int row)
     invalidateChildLessonEntries();
 }
 
-void QTvtVocContainer::removeChildContainer(int row)
+void QmVocContainer::removeChildContainer(int row)
 {
     d->m_childContainers.removeAt(row);
     invalidateChildLessonEntries();
 }
 
 
-int QTvtVocContainer::childContainerCount() const
+int QmVocContainer::childContainerCount() const
 {
     return d->m_childContainers.count();
 }
 
-int QTvtVocContainer::row() const
+int QmVocContainer::row() const
 {
     if (d->m_parentContainer) {
-        return d->m_parentContainer->d->m_childContainers.indexOf(const_cast<QTvtVocContainer*>(this));
+        return d->m_parentContainer->d->m_childContainers.indexOf(const_cast<QmVocContainer*>(this));
     }
     return 0;
 }
 
 
-QTvtVocContainer& QTvtVocContainer::operator= ( const QTvtVocContainer &other )
+QmVocContainer& QmVocContainer::operator= ( const QmVocContainer &other )
 {
     d->m_name = other.d->m_name;
     d->m_inPractice = other.d->m_inPractice;
     return *this;
 }
 
-bool QTvtVocContainer::operator==(const QTvtVocContainer &other)
+bool QmVocContainer::operator==(const QmVocContainer &other)
 {
     return  d->m_name == other.d->m_name &&
             d->m_inPractice == other.d->m_inPractice
@@ -149,38 +149,38 @@ bool QTvtVocContainer::operator==(const QTvtVocContainer &other)
             ;
 }
 
-void QTvtVocContainer::setName( const QString &name )
+void QmVocContainer::setName( const QString &name )
 {
     d->m_name = name;
 }
 
-QString QTvtVocContainer::name()
+QString QmVocContainer::name()
 {
     return d->m_name;
 }
 
-bool QTvtVocContainer::inPractice()
+bool QmVocContainer::inPractice()
 {
     return d->m_inPractice;
 }
 
-void QTvtVocContainer::setInPractice(bool inPractice)
+void QmVocContainer::setInPractice(bool inPractice)
 {
     d->m_inPractice = inPractice;
 }
 
-void QTvtVocContainer::removeTranslation(int translation)
+void QmVocContainer::removeTranslation(int translation)
 {
-    foreach(QTvtVocContainer *childContainer, d->m_childContainers) {
+    foreach(QmVocContainer *childContainer, d->m_childContainers) {
         childContainer->removeTranslation(translation);
     }
 
-    foreach(QTvtVocExpression *entry, entries() ) {
+    foreach(QmVocExpression *entry, entries() ) {
         entry->removeTranslation( translation );
     }
 }
 
-QList< QTvtVocExpression * > QTvtVocContainer::entriesRecursive()
+QList< QmVocExpression * > QmVocContainer::entriesRecursive()
 {
 //     kDebug() << "entriesRecursive: " << name();
     if (!d->m_childLessonEntriesValid) {
@@ -189,38 +189,38 @@ QList< QTvtVocExpression * > QTvtVocContainer::entriesRecursive()
     return d->m_childLessonEntries;
 }
 
-QList< QTvtVocContainer * > QTvtVocContainer::childContainers()
+QList< QmVocContainer * > QmVocContainer::childContainers()
 {
     return d->m_childContainers;
 }
 
-QTvtVocContainer * QTvtVocContainer::parent()
+QmVocContainer * QmVocContainer::parent()
 {
     return d->m_parentContainer;
 }
 
-void QTvtVocContainer::setContainerType(QTvtVocContainer::EnumContainerType type)
+void QmVocContainer::setContainerType(QmVocContainer::EnumContainerType type)
 {
     d->m_type = type;
 }
 
-QTvtVocContainer::EnumContainerType QTvtVocContainer::containerType()
+QmVocContainer::EnumContainerType QmVocContainer::containerType()
 {
     return d->m_type;
 }
 
 
-QUrl QTvtVocContainer::imageUrl()
+QUrl QmVocContainer::imageUrl()
 {
     return d->m_imageUrl;
 }
 
-void QTvtVocContainer::setImageUrl(const QUrl &url)
+void QmVocContainer::setImageUrl(const QUrl &url)
 {
     d->m_imageUrl = url;
 }
 
-void QTvtVocContainer::insertChildContainer(int row, QTvtVocContainer * child)
+void QmVocContainer::insertChildContainer(int row, QmVocContainer * child)
 {
     d->m_childContainers.insert(row, child);
     child->d->m_parentContainer = this;
@@ -228,19 +228,19 @@ void QTvtVocContainer::insertChildContainer(int row, QTvtVocContainer * child)
     invalidateChildLessonEntries();
 }
 
-void QTvtVocContainer::updateChildLessonEntries()
+void QmVocContainer::updateChildLessonEntries()
 {
-    QList < QTvtVocExpression* > entriesRecursive = entries();
+    QList < QmVocExpression* > entriesRecursive = entries();
 
-    foreach(QTvtVocContainer *childContainer, d->m_childContainers)
-        foreach(QTvtVocExpression * expr, childContainer->entries(Recursive))
+    foreach(QmVocContainer *childContainer, d->m_childContainers)
+        foreach(QmVocExpression * expr, childContainer->entries(Recursive))
             entriesRecursive.append(expr);
 
     d->m_childLessonEntries = entriesRecursive;
     d->m_childLessonEntriesValid = true;
 }
 
-void QTvtVocContainer::invalidateChildLessonEntries()
+void QmVocContainer::invalidateChildLessonEntries()
 {
     d->m_childLessonEntriesValid = false;
     // propagate to parent
@@ -249,21 +249,21 @@ void QTvtVocContainer::invalidateChildLessonEntries()
     }
 }
 
-double QTvtVocContainer::averageGrade(int translation, EnumEntriesRecursive recursive)
+double QmVocContainer::averageGrade(int translation, EnumEntriesRecursive recursive)
 {
     // grades range from 0..7 right now
     int sum = 0;
-    foreach (QTvtVocExpression *entry, entries(recursive)) {
+    foreach (QmVocExpression *entry, entries(recursive)) {
         sum += entry->translation(translation)->grade();
     }
     // make that a percentage
     return (sum * 100.0/7.0)/entryCount(recursive);
 }
 
-int QTvtVocContainer::expressionsOfGrade(int translation, grade_t grade, EnumEntriesRecursive recursive)
+int QmVocContainer::expressionsOfGrade(int translation, grade_t grade, EnumEntriesRecursive recursive)
 {
     int sum = 0;
-    foreach (QTvtVocExpression *entry, entries(recursive)) {
+    foreach (QmVocExpression *entry, entries(recursive)) {
         if (entry->translation(translation)->grade() == grade) {
             sum++;
         }
@@ -271,9 +271,9 @@ int QTvtVocContainer::expressionsOfGrade(int translation, grade_t grade, EnumEnt
     return sum;
 }
 
-void QTvtVocContainer::resetGrades(int translation, EnumEntriesRecursive recursive)
+void QmVocContainer::resetGrades(int translation, EnumEntriesRecursive recursive)
 {
-    foreach (QTvtVocExpression *entry, entries(recursive)) {
+    foreach (QmVocExpression *entry, entries(recursive)) {
         entry->resetGrades(translation);
     }
 }

@@ -51,7 +51,7 @@ private slots:
         const QString translation2 = QString::fromLatin1( "das ist Deutsch" );
         const QString lessonName = QString::fromLatin1( "Lesson No 1" );
         
-        QTvtVocDocument doc;
+        QmVocDocument doc;
         doc.setAuthor( author );
         doc.setLicense( license );
         doc.setDocumentComment( comment );
@@ -65,26 +65,26 @@ private slots:
         doc.identifier(1).setName( lang2 );
         doc.identifier(1).setLocale( locale2 );
 
-        QTvtVocLesson* lesson = new QTvtVocLesson(lessonName, doc.lesson());
+        QmVocLesson* lesson = new QmVocLesson(lessonName, doc.lesson());
         doc.lesson()->appendChildContainer(lesson);
-        lesson->appendEntry(new QTvtVocExpression);
+        lesson->appendEntry(new QmVocExpression);
         lesson->entry(0)->setTranslation(0, translation1);
         lesson->entry(0)->setTranslation(1, translation2);
 
-        doc.saveAs(fileName, QTvtVocDocument::Kvtml, generator);
+        doc.saveAs(fileName, QmVocDocument::Kvtml, generator);
 
-        QTvtVocDocument docRead;
+        QmVocDocument docRead;
         docRead.open(fileName);
 
 
         
-        QList<QTvtVocContainer *>  lessons = docRead.lesson()->childContainers();
+        QList<QmVocContainer *>  lessons = docRead.lesson()->childContainers();
         
-        QTvtVocLesson *m_lesson;
+        QmVocLesson *m_lesson;
         
-        foreach(QTvtVocContainer * c, lessons) {
-            if (c->containerType() == QTvtVocLesson::Lesson) {
-                    m_lesson = static_cast<QTvtVocLesson *>(c);
+        foreach(QmVocContainer * c, lessons) {
+            if (c->containerType() == QmVocLesson::Lesson) {
+                    m_lesson = static_cast<QmVocLesson *>(c);
             }
         }
 
