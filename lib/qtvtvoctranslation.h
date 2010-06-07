@@ -20,8 +20,8 @@
  ***************************************************************************/
 
 
-#ifndef QTVTVOCTRANSLATION_H
-#define QTVTVOCTRANSLATION_H
+#ifndef QMVOCTRANSLATION_H
+#define QMVOCTRANSLATION_H
 
 #include "libqtvtvocdocument_export.h"
 #include "qtvtvocarticle.h"

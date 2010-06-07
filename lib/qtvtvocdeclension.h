@@ -25,8 +25,8 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#ifndef QTVTVOCDECLENSION_H
-#define QTVTVOCDECLENSION_H
+#ifndef QMVOCDECLENSION_H
+#define QMVOCDECLENSION_H
 
 #include "libqtvtvocdocument_export.h"
 

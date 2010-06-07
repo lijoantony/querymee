@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCWQLREADER_H
-#define QTVTVOCWQLREADER_H
+#ifndef QMVOCWQLREADER_H
+#define QMVOCWQLREADER_H
 
 #include <QString>
 

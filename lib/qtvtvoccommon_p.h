@@ -13,8 +13,8 @@
  *   (at your option) any later version.                                   *
  ***************************************************************************/
 
-#ifndef QTVTVOCCOMMON_P_H
-#define QTVTVOCCOMMON_P_H
+#ifndef QMVOCCOMMON_P_H
+#define QMVOCCOMMON_P_H
 
 #define KVD_VERS_PREFIX " v"       // kvoctrain v0.1.0
 

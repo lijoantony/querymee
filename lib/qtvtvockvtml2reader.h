@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCKVTML2READER_H
-#define QTVTVOCKVTML2READER_H
+#ifndef QMVOCKVTML2READER_H
+#define QMVOCKVTML2READER_H
 
 #include <QtXml/QDomDocument>
 #include <QList>

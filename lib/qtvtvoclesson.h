@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCLESSON_H
-#define QTVTVOCLESSON_H
+#ifndef QMVOCLESSON_H
+#define QMVOCLESSON_H
 
 #include "libqtvtvocdocument_export.h"
 

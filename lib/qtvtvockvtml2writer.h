@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCKVTML2WRITER_H
-#define QTVTVOCKVTML2WRITER_H
+#ifndef QMVOCKVTML2WRITER_H
+#define QMVOCKVTML2WRITER_H
 
 #include <QtXml/QDomDocument>
 #include <QtCore/QList>

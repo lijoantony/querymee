@@ -22,8 +22,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCEXPRESSION_H
-#define QTVTVOCEXPRESSION_H
+#ifndef QMVOCEXPRESSION_H
+#define QMVOCEXPRESSION_H
 
 #include "libqtvtvocdocument_export.h"
 

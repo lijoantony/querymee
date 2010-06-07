@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCCSVREADER_H
-#define QTVTVOCCSVREADER_H
+#ifndef QMVOCCSVREADER_H
+#define QMVOCCSVREADER_H
 
 #include <QString>
 

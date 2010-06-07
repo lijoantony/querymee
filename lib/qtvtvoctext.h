@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCTEXT_H
-#define QTVTVOCTEXT_H
+#ifndef QMVOCTEXT_H
+#define QMVOCTEXT_H
 
 #include "libqtvtvocdocument_export.h"
 #include <QtCore/QDateTime>

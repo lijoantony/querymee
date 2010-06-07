@@ -30,8 +30,8 @@
  ***************************************************************************/
 
 
-#ifndef QTVTVOCMULTIPLECHOICE_H
-#define QTVTVOCMULTIPLECHOICE_H
+#ifndef QMVOCMULTIPLECHOICE_H
+#define QMVOCMULTIPLECHOICE_H
 
 #include "libqtvtvocdocument_export.h"
 

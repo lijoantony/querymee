@@ -17,8 +17,8 @@
  ***************************************************************************/
 
 
-#ifndef QTVTVOCPERSONALPRONOUN_H
-#define QTVTVOCPERSONALPRONOUN_H
+#ifndef QMVOCPERSONALPRONOUN_H
+#define QMVOCPERSONALPRONOUN_H
 
 #include "libqtvtvocdocument_export.h"
 #include "qtvtvocconjugation.h"

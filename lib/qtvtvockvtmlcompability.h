@@ -26,8 +26,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCKVTMLCOMPABILITY_H
-#define QTVTVOCKVTMLCOMPABILITY_H
+#ifndef QMVOCKVTMLCOMPABILITY_H
+#define QMVOCKVTMLCOMPABILITY_H
 
 #include <QtCore/QString>
 #include <QtCore/QMap>

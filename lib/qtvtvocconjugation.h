@@ -27,8 +27,8 @@
  ***************************************************************************/
 
 
-#ifndef QTVTVOCCONJUGATION_H
-#define QTVTVOCCONJUGATION_H
+#ifndef QMVOCCONJUGATION_H
+#define QMVOCCONJUGATION_H
 
 #include "libqtvtvocdocument_export.h"
 #include "qtvtvoctext.h"

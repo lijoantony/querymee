@@ -22,8 +22,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCKVTMLREADER_H
-#define QTVTVOCKVTMLREADER_H
+#ifndef QMVOCKVTMLREADER_H
+#define QMVOCKVTMLREADER_H
 
 #include <QtXml/QDomDocument>
 #include <QtCore/QList>

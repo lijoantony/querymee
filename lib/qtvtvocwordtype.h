@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCWORDTYPE_H
-#define QTVTVOCWORDTYPE_H
+#ifndef QMVOCWORDTYPE_H
+#define QMVOCWORDTYPE_H
 
 #include "libqtvtvocdocument_export.h"
 

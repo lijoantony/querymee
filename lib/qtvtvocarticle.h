@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCARTICLE_H
-#define QTVTVOCARTICLE_H
+#ifndef QMVOCARTICLE_H
+#define QMVOCARTICLE_H
 
 #include "libqtvtvocdocument_export.h"
 

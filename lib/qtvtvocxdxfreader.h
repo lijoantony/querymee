@@ -19,8 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCXDXFREADER_H
-#define QTVTVOCXDXFREADER_H
+#ifndef QMVOCXDXFREADER_H
+#define QMVOCXDXFREADER_H
 
 #include <QXmlStreamReader>
 

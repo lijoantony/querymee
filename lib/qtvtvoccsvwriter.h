@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef QTVTVOCCSVWRITER_H
-#define QTVTVOCCSVWRITER_H
+#ifndef QMVOCCSVWRITER_H
+#define QMVOCCSVWRITER_H
 
 class QFile;
 class QString;
