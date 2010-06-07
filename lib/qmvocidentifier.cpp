@@ -15,7 +15,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "qtvtvocidentifier.h"
+#include "qmvocidentifier.h"
 
 class QmVocIdentifier::Private
 {

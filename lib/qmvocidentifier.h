@@ -18,10 +18,10 @@
 #ifndef QMVOCIDENTIFIER_H
 #define QMVOCIDENTIFIER_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
-#include "qtvtvocpersonalpronoun.h"
-#include "qtvtvocarticle.h"
+#include "qmvocpersonalpronoun.h"
+#include "qmvocarticle.h"
 
 #include <QtCore/QList>
 #include <QtCore/QString>

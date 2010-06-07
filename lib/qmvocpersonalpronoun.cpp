@@ -16,8 +16,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocpersonalpronoun.h"
-#include "qtvtvoccommon_p.h"
+#include "qmvocpersonalpronoun.h"
+#include "qmvoccommon_p.h"
 
 #include <QtCore/QMap>
 

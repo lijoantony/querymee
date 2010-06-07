@@ -30,9 +30,9 @@
 #ifndef QMVOCCONJUGATION_H
 #define QMVOCCONJUGATION_H
 
-#include "libqtvtvocdocument_export.h"
-#include "qtvtvoctext.h"
-#include "qtvtvocwordflags.h"
+#include "libqmvocdocument_export.h"
+#include "qmvoctext.h"
+#include "qmvocwordflags.h"
 
 #include <QtCore/QStringList>
 

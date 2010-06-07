@@ -22,9 +22,9 @@
 #ifndef QMVOCLESSON_H
 #define QMVOCLESSON_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
-#include "qtvtvoccontainer.h"
+#include "qmvoccontainer.h"
 
 class QmVocExpression;
 

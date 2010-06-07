@@ -23,7 +23,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvockvtml2reader.h"
+#include "qmvockvtml2reader.h"
 
 #include <QtCore/QTextStream>
 #include <QtCore/QList>
@@ -33,13 +33,13 @@
 
 // #include <klocale.h>
 
-#include "qtvtvocdocument.h"
-#include "qtvtvoclesson.h"
-#include "qtvtvocleitnerbox.h"
-#include "qtvtvocwordtype.h"
+#include "qmvocdocument.h"
+#include "qmvoclesson.h"
+#include "qmvocleitnerbox.h"
+#include "qmvocwordtype.h"
 #include "kvtml2defs.h"
-#include "qtvtvockvtmlreader.h"
-#include "qtvtvoccommon_p.h"
+#include "qmvockvtmlreader.h"
+#include "qmvoccommon_p.h"
 
 // #include <KDebug>
 

@@ -16,10 +16,10 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvoctext.h"
+#include "qmvoctext.h"
 
 #include "kvtml2defs.h"
-#include "qtvtvockvtml2writer.h"
+#include "qmvockvtml2writer.h"
 
 #include <QtXml/QDomDocument>
 

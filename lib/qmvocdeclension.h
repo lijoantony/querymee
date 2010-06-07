@@ -28,10 +28,10 @@
 #ifndef QMVOCDECLENSION_H
 #define QMVOCDECLENSION_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
-#include "qtvtvoctext.h"
-#include "qtvtvocwordflags.h"
+#include "qmvoctext.h"
+#include "qmvocwordflags.h"
 
 /**
 A declension contains all forms that a NOUN possibly can have.

@@ -26,9 +26,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocconjugation.h"
-#include "qtvtvoccommon_p.h"
-#include "qtvtvoctext.h"
+#include "qmvocconjugation.h"
+#include "qmvoccommon_p.h"
+#include "qmvoctext.h"
 #include "kvtml2defs.h"
 
 #include <QtCore/QMap>

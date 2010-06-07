@@ -22,7 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocdocument.h"
+#include "qmvocdocument.h"
 
 #include <QtCore/QFileInfo>
 // #include <QtCore/QTextStream>
@@ -38,19 +38,19 @@
 // #include <krandomsequence.h>
 // #include <kfilterdev.h>
 
-#include "qtvtvocexpression.h"
-#include "qtvtvoclesson.h"
-#include "qtvtvocleitnerbox.h"
-#include "qtvtvocwordtype.h"
-#include "qtvtvockvtmlwriter.h"
-#include "qtvtvockvtml2writer.h"
-#include "qtvtvoccsvreader.h"
-#include "qtvtvoccsvwriter.h"
-#include "qtvtvockvtml2reader.h"
-#include "qtvtvocwqlreader.h"
-#include "qtvtvocpaukerreader.h"
-#include "qtvtvocvokabelnreader.h"
-#include "qtvtvocxdxfreader.h"
+#include "qmvocexpression.h"
+#include "qmvoclesson.h"
+#include "qmvocleitnerbox.h"
+#include "qmvocwordtype.h"
+#include "qmvockvtmlwriter.h"
+#include "qmvockvtml2writer.h"
+#include "qmvoccsvreader.h"
+#include "qmvoccsvwriter.h"
+#include "qmvockvtml2reader.h"
+#include "qmvocwqlreader.h"
+#include "qmvocpaukerreader.h"
+#include "qmvocvokabelnreader.h"
+#include "qmvocxdxfreader.h"
 
 #define WQL_IDENT      "WordQuiz"
 

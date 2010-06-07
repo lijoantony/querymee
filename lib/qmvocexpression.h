@@ -25,15 +25,15 @@
 #ifndef QMVOCEXPRESSION_H
 #define QMVOCEXPRESSION_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
 #include <QtCore/QDateTime>
 #include <QMap>
 
-#include "qtvtvoclesson.h"
-#include "qtvtvocarticle.h"
-#include "qtvtvocmultiplechoice.h"
-#include "qtvtvoctranslation.h"
+#include "qmvoclesson.h"
+#include "qmvocarticle.h"
+#include "qmvocmultiplechoice.h"
+#include "qmvoctranslation.h"
 
 class QmVocLesson;
 

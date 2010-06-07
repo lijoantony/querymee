@@ -26,10 +26,10 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocdeclension.h"
+#include "qmvocdeclension.h"
 
 #include "kvtml2defs.h"
-#include "qtvtvockvtml2writer.h"
+#include "qmvockvtml2writer.h"
 #include <QtXml/QDomDocument>
 
 #include <QtCore/QMap>

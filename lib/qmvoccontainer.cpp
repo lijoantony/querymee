@@ -19,9 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvoccontainer.h"
+#include "qmvoccontainer.h"
 
-#include "qtvtvocexpression.h"
+#include "qmvocexpression.h"
 
 // #include <KDebug>
 #include <QList>

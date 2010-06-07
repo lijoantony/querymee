@@ -23,11 +23,11 @@
 #ifndef QMVOCARTICLE_H
 #define QMVOCARTICLE_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
 #include <QtCore/QStringList>
 
-#include "qtvtvocwordflags.h"
+#include "qmvocwordflags.h"
 
 class QmVocWordType;
 /**

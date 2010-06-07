@@ -22,9 +22,9 @@
 #ifndef QMVOCCONTAINER_H
 #define QMVOCCONTAINER_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
-#include "qtvtvoctext.h"
+#include "qmvoctext.h"
 
 // #include <KDE/KUrl>
 #include <QUrl>

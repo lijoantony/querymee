@@ -33,7 +33,7 @@
 #ifndef QMVOCMULTIPLECHOICE_H
 #define QMVOCMULTIPLECHOICE_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
 #include <QtCore/QStringList>
 

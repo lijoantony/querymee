@@ -20,7 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvockvtml2writer.h"
+#include "qmvockvtml2writer.h"
 
 #include <QtCore/QTextStream>
 #include <QtCore/QFile>
@@ -28,11 +28,11 @@
 // #include <KDebug>
 #include <QDebug>
 
-#include "qtvtvocdocument.h"
-#include "qtvtvocexpression.h"
-#include "qtvtvoclesson.h"
-#include "qtvtvocleitnerbox.h"
-#include "qtvtvocwordtype.h"
+#include "qmvocdocument.h"
+#include "qmvocexpression.h"
+#include "qmvoclesson.h"
+#include "qmvocleitnerbox.h"
+#include "qmvocwordtype.h"
 #include "kvtml2defs.h"
 
 QmVocKvtml2Writer::QmVocKvtml2Writer( QFile *file )

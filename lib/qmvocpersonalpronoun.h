@@ -20,8 +20,8 @@
 #ifndef QMVOCPERSONALPRONOUN_H
 #define QMVOCPERSONALPRONOUN_H
 
-#include "libqtvtvocdocument_export.h"
-#include "qtvtvocconjugation.h"
+#include "libqmvocdocument_export.h"
+#include "qmvocconjugation.h"
 #include <QtCore/QStringList>
 
 /**

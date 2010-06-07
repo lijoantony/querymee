@@ -22,11 +22,11 @@
 #ifndef QMVOCWORDTYPE_H
 #define QMVOCWORDTYPE_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
-#include "qtvtvoccontainer.h"
+#include "qmvoccontainer.h"
 
-#include "qtvtvocwordflags.h"
+#include "qmvocwordflags.h"
 
 #include <QtCore/QList>
 #include <QtCore/QString>

@@ -23,7 +23,7 @@
 #ifndef SHAREDKVTMLFILES_H
 #define SHAREDKVTMLFILES_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
 #include <QtCore/QStringList>
 

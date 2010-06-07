@@ -24,11 +24,11 @@
 #ifndef QMVOCDOCUMENT_H
 #define QMVOCDOCUMENT_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
-#include "qtvtvocidentifier.h"
-#include "qtvtvocarticle.h"
-#include "qtvtvocconjugation.h"
+#include "qmvocidentifier.h"
+#include "qmvocarticle.h"
+#include "qmvocconjugation.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QList>

@@ -29,7 +29,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocmultiplechoice.h"
+#include "qmvocmultiplechoice.h"
 
 class QmVocMultipleChoice::QmVocMultipleChoicePrivate
 {

@@ -27,10 +27,10 @@
 #include <QList>
 #include <QFile>
 
-#include "qtvtvocexpression.h"
-#include "qtvtvocpersonalpronoun.h"
-#include "qtvtvocarticle.h"
-#include "qtvtvocmultiplechoice.h"
+#include "qmvocexpression.h"
+#include "qmvocpersonalpronoun.h"
+#include "qmvocarticle.h"
+#include "qmvocmultiplechoice.h"
 
 class QIODevice;
 class QmVocDocument;

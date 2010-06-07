@@ -19,9 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvoclesson.h"
+#include "qmvoclesson.h"
 
-#include "qtvtvocexpression.h"
+#include "qmvocexpression.h"
 
 #include <QtCore/QList>
 

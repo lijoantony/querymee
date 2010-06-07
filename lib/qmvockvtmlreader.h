@@ -29,11 +29,11 @@
 #include <QtCore/QList>
 
 
-#include "qtvtvocexpression.h"
-#include "qtvtvocarticle.h"
-#include "qtvtvocmultiplechoice.h"
-#include "qtvtvockvtmlcompability.h"
-#include "qtvtvocpersonalpronoun.h"
+#include "qmvocexpression.h"
+#include "qmvocarticle.h"
+#include "qmvocmultiplechoice.h"
+#include "qmvockvtmlcompability.h"
+#include "qmvocpersonalpronoun.h"
 
 class QIODevice;
 class QmVocDocument;

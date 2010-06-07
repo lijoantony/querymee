@@ -26,8 +26,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvockvtmlcompability.h"
-#include "qtvtvocwordtype.h"
+#include "qmvockvtmlcompability.h"
+#include "qmvocwordtype.h"
 
 // #include <KLocale>
 // #include <KDebug>

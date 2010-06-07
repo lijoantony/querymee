@@ -10,36 +10,36 @@ INCLUDEPATH += .
 QT += core xml
 
 # Input
-HEADERS += qtvtvocarticle.h \
-           qtvtvoccommon_p.h \
-           qtvtvocconjugation.h \
-           qtvtvoccontainer.h \
-#           qtvtvoccsvreader.h \
-           qtvtvoccsvwriter.h \
-           qtvtvocdeclension.h \
-           qtvtvocdocument.h \
-           qtvtvocexpression.h \
-           qtvtvocidentifier.h \
-           qtvtvockvtml2reader.h \
-           qtvtvockvtml2writer.h \
-           qtvtvockvtmlcompability.h \
-           qtvtvockvtmlreader.h \
-#           qtvtvockvtmlwriter.h \
-           qtvtvocleitnerbox.h \
-           qtvtvoclesson.h \
-           qtvtvocmultiplechoice.h \
-           qtvtvocpaukerreader.h \
-           qtvtvocpersonalpronoun.h \
-           qtvtvoctext.h \
-           qtvtvoctranslation.h \
-           qtvtvocvokabelnreader.h \
-           qtvtvocwordflags.h \
-           qtvtvocwordtype.h \
-#           qtvtvocwqlreader.h \
-#           qtvtvocxdxfreader.h \
+HEADERS += qmvocarticle.h \
+           qmvoccommon_p.h \
+           qmvocconjugation.h \
+           qmvoccontainer.h \
+#           qmvoccsvreader.h \
+           qmvoccsvwriter.h \
+           qmvocdeclension.h \
+           qmvocdocument.h \
+           qmvocexpression.h \
+           qmvocidentifier.h \
+           qmvockvtml2reader.h \
+           qmvockvtml2writer.h \
+           qmvockvtmlcompability.h \
+           qmvockvtmlreader.h \
+#           qmvockvtmlwriter.h \
+           qmvocleitnerbox.h \
+           qmvoclesson.h \
+           qmvocmultiplechoice.h \
+           qmvocpaukerreader.h \
+           qmvocpersonalpronoun.h \
+           qmvoctext.h \
+           qmvoctranslation.h \
+           qmvocvokabelnreader.h \
+           qmvocwordflags.h \
+           qmvocwordtype.h \
+#           qmvocwqlreader.h \
+#           qmvocxdxfreader.h \
            kvtml2defs.h \
            kvtmldefs.h \
-           libqtvtvocdocument_export.h \
+           libqmvocdocument_export.h \
            sharedkvtmlfiles.h
 SOURCES += qmvocarticle.cpp \
            qmvocconjugation.cpp \

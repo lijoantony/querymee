@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocarticle.h"
-#include "qtvtvocwordflags.h"
+#include "qmvocarticle.h"
+#include "qmvocwordflags.h"
 
 #include <QtCore/QMap>
 

@@ -19,9 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocwordtype.h"
+#include "qmvocwordtype.h"
 
-#include "qtvtvocexpression.h"
+#include "qmvocexpression.h"
 
 #include <QtCore/QList>
 #include <QtCore/QSet>

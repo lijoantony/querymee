@@ -27,7 +27,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocvokabelnreader.h"
+#include "qmvocvokabelnreader.h"
 
 #include <QIODevice>
 
@@ -35,8 +35,8 @@
 // #include <kdebug.h>
 #include <QDebug>
 
-#include "qtvtvocdocument.h"
-#include "qtvtvocexpression.h"
+#include "qmvocdocument.h"
+#include "qmvocexpression.h"
 
 QmVocVokabelnReader::QmVocVokabelnReader( QIODevice *file )
 {

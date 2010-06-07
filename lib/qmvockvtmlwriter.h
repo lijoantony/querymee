@@ -29,12 +29,12 @@
 #include <QtCore/QList>
 #include <QtCore/QFile>
 
-#include "qtvtvocarticle.h"
-#include "qtvtvocpersonalpronoun.h"
-#include "qtvtvocconjugation.h"
-#include "qtvtvocmultiplechoice.h"
-#include "qtvtvockvtmlcompability.h"
-#include "qtvtvoctranslation.h"
+#include "qmvocarticle.h"
+#include "qmvocpersonalpronoun.h"
+#include "qmvocconjugation.h"
+#include "qmvocmultiplechoice.h"
+#include "qmvockvtmlcompability.h"
+#include "qmvoctranslation.h"
 
 class QmVocDocument;
 

@@ -19,9 +19,9 @@
 #ifndef QMVOCLEITNERBOX_H
 #define QMVOCLEITNERBOX_H
 
-#include "libqtvtvocdocument_export.h"
+#include "libqmvocdocument_export.h"
 
-#include "qtvtvoccontainer.h"
+#include "qmvoccontainer.h"
 
 #include <QtCore/QList>
 #include <QtCore/QString>

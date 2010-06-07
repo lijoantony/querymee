@@ -16,9 +16,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocleitnerbox.h"
+#include "qmvocleitnerbox.h"
 
-#include "qtvtvocexpression.h"
+#include "qmvocexpression.h"
 
 #include <QtCore/QSet>
 

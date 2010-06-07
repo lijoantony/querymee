@@ -21,13 +21,13 @@
  ***************************************************************************/
 
 
-#include "qtvtvoctranslation.h"
+#include "qmvoctranslation.h"
 
-#include "qtvtvocdeclension.h"
-#include "qtvtvocwordtype.h"
-#include "qtvtvocleitnerbox.h"
+#include "qmvocdeclension.h"
+#include "qmvocwordtype.h"
+#include "qmvocleitnerbox.h"
 #include "kvtml2defs.h"
-#include "qtvtvockvtml2writer.h"
+#include "qmvockvtml2writer.h"
 // #include <KDebug>
 #include <QtCore/QMap>
 

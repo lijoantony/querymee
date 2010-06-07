@@ -19,15 +19,15 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "qtvtvocpaukerreader.h"
+#include "qmvocpaukerreader.h"
 
 #include <QIODevice>
 
 // #include <KLocale>
 
-#include "qtvtvocexpression.h"
-#include "qtvtvoclesson.h"
-#include "qtvtvocdocument.h"
+#include "qmvocexpression.h"
+#include "qmvoclesson.h"
+#include "qmvocdocument.h"
 
 QmVocPaukerReader::QmVocPaukerReader( QmVocDocument * doc )
 {

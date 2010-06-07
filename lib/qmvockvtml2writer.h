@@ -26,10 +26,10 @@
 #include <QtCore/QList>
 #include <QtCore/QFile>
 
-#include "qtvtvocarticle.h"
-#include "qtvtvocmultiplechoice.h"
-#include "qtvtvoctranslation.h"
-#include "qtvtvocpersonalpronoun.h"
+#include "qmvocarticle.h"
+#include "qmvocmultiplechoice.h"
+#include "qmvoctranslation.h"
+#include "qmvocpersonalpronoun.h"
 
 class QmVocDocument;
 class QmVocExpression;

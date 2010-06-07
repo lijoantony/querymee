@@ -23,10 +23,10 @@
 #ifndef QMVOCTRANSLATION_H
 #define QMVOCTRANSLATION_H
 
-#include "libqtvtvocdocument_export.h"
-#include "qtvtvocarticle.h"
-#include "qtvtvocconjugation.h"
-#include "qtvtvoctext.h"
+#include "libqmvocdocument_export.h"
+#include "qmvocarticle.h"
+#include "qmvocconjugation.h"
+#include "qmvoctext.h"
 // #include <KDE/KUrl>
 #include <QUrl>
 #include <QtCore/QString>

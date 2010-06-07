@@ -23,7 +23,7 @@
  ***************************************************************************/
 
 
-#include "qtvtvocexpression.h"
+#include "qmvocexpression.h"
 
 // #include <KDebug>
 
