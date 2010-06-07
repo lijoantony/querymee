@@ -1,10 +1,10 @@
 First release 1.0.0 (first release which shall go to extras testing):
 * rename library for querymee (get rid of tinyvoctrainer) - DONE
-* rename src for querymee (get rid of tinyvoctrainer) - Reto
+* rename src for querymee (get rid of tinyvoctrainer) - DONE
 * help/info page (how to get kvtml files, how to create...)
 * bugzilla (or similar) is needed to pass maemo QA
-* Portrait mode for multiple choice (let's have both portrait and landscape, it can be choosen at start, so we can check what makes more sense)
 * possibility to chose "all" for lessons
+* Portrait mode for multiple choice (let's have both portrait and landscape, it can be choosen at start, so we can check what makes more sense)
 * download dialog for kvtml files
   http://techbase.kde.org/Development/Tutorials/Collaboration/HotNewStuff/Introduction
 
@@ -62,11 +62,11 @@ itmes for the fare future:
 * multiple choice with conjucated verbs
 * multiple choice with comparison forms adjectives/adverbs.
 * enable other file formats than kvtml in library (vocwql, vocxdxf, pauker, vokabeln) 
-  http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line290
-  http://gitorious.org/querymee/querymee/trees/master/lib/qtvtvocvokabelnreader.cpp
-  http://gitorious.org/querymee/querymee/trees/master/lib/qtvtvocwqlreader.cpp
-  http://gitorious.org/querymee/querymee/trees/master/lib/qtvtvocxdxfreader.cpp
-  http://gitorious.org/querymee/querymee/trees/master/lib/qtvtvocpaukerreader.cpp
+  http://gitorious.org/querymee/querymee/blobs/master/lib/qmvocdocument.cpp#line290
+  http://gitorious.org/querymee/querymee/trees/master/lib/qmvocvokabelnreader.cpp
+  http://gitorious.org/querymee/querymee/trees/master/lib/qmvocwqlreader.cpp
+  http://gitorious.org/querymee/querymee/trees/master/lib/qmvocxdxfreader.cpp
+  http://gitorious.org/querymee/querymee/trees/master/lib/qmvocpaukerreader.cpp
 
 
 
