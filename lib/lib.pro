@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = lib
-TARGET = qtvtvocdocument
+TARGET = qmvocdocument
 DEPENDPATH += .
 INCLUDEPATH += .
 
@@ -41,31 +41,31 @@ HEADERS += qtvtvocarticle.h \
            kvtmldefs.h \
            libqtvtvocdocument_export.h \
            sharedkvtmlfiles.h
-SOURCES += qtvtvocarticle.cpp \
-           qtvtvocconjugation.cpp \
-           qtvtvoccontainer.cpp \
-#           qtvtvoccsvreader.cpp \
-           qtvtvoccsvwriter.cpp \
-           qtvtvocdeclension.cpp \
-           qtvtvocdocument.cpp \
-           qtvtvocexpression.cpp \
-           qtvtvocidentifier.cpp \
-           qtvtvockvtml2reader.cpp \
-           qtvtvockvtml2writer.cpp \
-           qtvtvockvtmlcompability.cpp \
-           qtvtvockvtmlreader.cpp \
-#           qtvtvockvtmlwriter.cpp \
-           qtvtvocleitnerbox.cpp \
-           qtvtvoclesson.cpp \
-           qtvtvocmultiplechoice.cpp \
-           qtvtvocpaukerreader.cpp \
-           qtvtvocpersonalpronoun.cpp \
-           qtvtvoctext.cpp \
-           qtvtvoctranslation.cpp \
-#           qtvtvocvokabelnreader.cpp \
-           qtvtvocwordtype.cpp \
-#           qtvtvocwqlreader.cpp \
-#           qtvtvocxdxfreader.cpp \
+SOURCES += qmvocarticle.cpp \
+           qmvocconjugation.cpp \
+           qmvoccontainer.cpp \
+#           qmvoccsvreader.cpp \
+           qmvoccsvwriter.cpp \
+           qmvocdeclension.cpp \
+           qmvocdocument.cpp \
+           qmvocexpression.cpp \
+           qmvocidentifier.cpp \
+           qmvockvtml2reader.cpp \
+           qmvockvtml2writer.cpp \
+           qmvockvtmlcompability.cpp \
+           qmvockvtmlreader.cpp \
+#           qmvockvtmlwriter.cpp \
+           qmvocleitnerbox.cpp \
+           qmvoclesson.cpp \
+           qmvocmultiplechoice.cpp \
+           qmvocpaukerreader.cpp \
+           qmvocpersonalpronoun.cpp \
+           qmvoctext.cpp \
+           qmvoctranslation.cpp \
+#           qmvocvokabelnreader.cpp \
+           qmvocwordtype.cpp \
+#           qmvocwqlreader.cpp \
+#           qmvocxdxfreader.cpp \
            sharedkvtmlfiles.cpp
 
 
