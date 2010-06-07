@@ -69,8 +69,8 @@ private:
 
 private:
     QString m_CurrentlyOpenedFile;
-    QTvtVocDocument* m_CurrentDocument;
-    QList<QTvtVocLesson*> m_Lessons;
+    QmVocDocument* m_CurrentDocument;
+    QList<QmVocLesson*> m_Lessons;
     QStringList m_Languages;
     // <FileName,Path>
     QMap<QString,QString> m_Dictionaries;

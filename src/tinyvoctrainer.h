@@ -18,7 +18,7 @@
 
 #include <QWidget>
 
-class QTvtVocExpression;
+class QmVocExpression;
 class QPushButton;
 class QLabel;
 
@@ -37,7 +37,7 @@ public:
     void startTraining();
 
 private:
-    QTvtVocExpression * getAnyEntryFromLesson();
+    QmVocExpression * getAnyEntryFromLesson();
 
     void closeEvent ( QCloseEvent * event );
 
@@ -50,7 +50,7 @@ private:
     int m_LessionIndex;
     int m_QuestionLanguage;
     int m_AnswerLanguage;
-    QList<QTvtVocExpression *> m_ChoiceList;
+    QList<QmVocExpression *> m_ChoiceList;
     QList<QPushButton *> m_AnswerButtonsList;
     QLabel* m_QuestionLabel;
     QLabel *statusLabel;
