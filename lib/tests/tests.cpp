@@ -14,10 +14,10 @@
 #include <QtTest/QtTest>
 
 
-#include "qtvtvocdocument.h"
-#include "qtvtvoclesson.h"
-#include "qtvtvocexpression.h"
-#include "qtvtvocleitnerbox.h"
+#include "qmvocdocument.h"
+#include "qmvoclesson.h"
+#include "qmvocexpression.h"
+#include "qmvocleitnerbox.h"
 
 #include <QTemporaryFile>
 #include <QDebug>

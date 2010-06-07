@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . ../
 INCLUDEPATH += . ../
-LIBS += -L../ -lqtvtvocdocument
+LIBS += -L../ -lqmvocdocument
 QT += core testlib
 CONFIG += qtestlib
 
