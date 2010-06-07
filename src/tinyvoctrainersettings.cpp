@@ -16,9 +16,9 @@
 #include "tinyvoctrainersettings.h"
 #include "tinyvoctrainer.h"
 
-#include "qtvtvoclesson.h"
-#include "qtvtvocexpression.h"
-#include "qtvtvocdocument.h"
+#include "qmvoclesson.h"
+#include "qmvocexpression.h"
+#include "qmvocdocument.h"
 
 #include <QCoreApplication>
 #include <QFileDialog>
@@ -98,7 +98,7 @@ QStringList TinyVocTrainerSettings::languages() const
 QStringList TinyVocTrainerSettings::lessons() const
 {
     QStringList lessonList;
-    foreach(QTvtVocLesson* lession, m_Lessons) {
+    foreach(QmVocLesson* lession, m_Lessons) {
         if(lession) {
             lessonList.append(lession->name());
         }
@@ -106,9 +106,9 @@ QStringList TinyVocTrainerSettings::lessons() const
     return lessonList;
 }
 
-QTvtVocLesson* TinyVocTrainerSettings::lesson(int index) const
+QmVocLesson* TinyVocTrainerSettings::lesson(int index) const
 {
-    QTvtVocLesson* lesson = 0;
+    QmVocLesson* lesson = 0;
     if(index < m_Lessons.count() && index >= 0) {
         lesson = m_Lessons.at(index);
     }
@@ -127,10 +127,10 @@ void TinyVocTrainerSettings::openDictionaryFile(const QString& fileName)
         || fileName == m_CurrentlyOpenedFile)
         return;
 
-    QTvtVocDocument* document = new QTvtVocDocument(this);
+    QmVocDocument* document = new QmVocDocument(this);
     document->open(fileName);
 
-    QList< QTvtVocContainer* > lessonContainers =
+    QList< QmVocContainer* > lessonContainers =
             document->lesson()->childContainers();
 
     // no lessons, delete document, return
@@ -140,10 +140,10 @@ void TinyVocTrainerSettings::openDictionaryFile(const QString& fileName)
     }
 
     // Read lessons
-    QList<QTvtVocLesson*> lessonList;
-    foreach(QTvtVocContainer *c, lessonContainers) {
-        if (c && c->containerType() == QTvtVocLesson::Lesson) {
-            QTvtVocLesson* lesson = static_cast<QTvtVocLesson *>(c);
+    QList<QmVocLesson*> lessonList;
+    foreach(QmVocContainer *c, lessonContainers) {
+        if (c && c->containerType() == QmVocLesson::Lesson) {
+            QmVocLesson* lesson = static_cast<QmVocLesson *>(c);
             lessonList.append(lesson);
         }
     }

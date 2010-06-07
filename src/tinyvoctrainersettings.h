@@ -20,8 +20,8 @@
 #include <QMap>
 #include <QStringList>
 
-class QTvtVocLesson;
-class QTvtVocDocument;
+class QmVocLesson;
+class QmVocDocument;
 
 class TinyVocTrainerSettings : public QObject
 {
@@ -38,7 +38,7 @@ public:
     QStringList languages() const;
     QStringList lessons() const;
 
-    QTvtVocLesson* lesson(int index) const;
+    QmVocLesson* lesson(int index) const;
     int openedDictionary() const;
 
 public Q_SLOTS:

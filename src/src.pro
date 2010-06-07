@@ -4,7 +4,7 @@
 TARGET = querymee
 TEMPLATE = app
 LIBS += -L../lib \
-    -lqtvtvocdocument
+    -lqmvocdocument
 DEPENDPATH += . \
     ../lib
 INCLUDEPATH += . \

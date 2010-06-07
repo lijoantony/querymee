@@ -26,10 +26,10 @@
 #include <QSignalMapper>
 #include <QTimer>
 
-#include "qtvtvocdocument.h"
-#include "qtvtvoclesson.h"
-#include "qtvtvocexpression.h"
-#include "qtvtvocleitnerbox.h"
+#include "qmvocdocument.h"
+#include "qmvoclesson.h"
+#include "qmvocexpression.h"
+#include "qmvocleitnerbox.h"
 
 #define NumberOfButtons 4
 
@@ -89,10 +89,10 @@ TinyVocTrainer::~TinyVocTrainer()
 {
 }
 
-QTvtVocExpression * TinyVocTrainer::getAnyEntryFromLesson()
+QmVocExpression * TinyVocTrainer::getAnyEntryFromLesson()
 {
-    QTvtVocExpression* vocExpression = 0;
-    QTvtVocLesson* lesson =
+    QmVocExpression* vocExpression = 0;
+    QmVocLesson* lesson =
     TinyVocTrainerSettings::instance()->lesson(m_LessionIndex);
     if(lesson) {
         int random_int = ( rand() %  ( lesson->entries().size() - 1 ) ) + 0;
@@ -144,7 +144,7 @@ void TinyVocTrainer::slotInit(){
     
     for (int i=0; i < NumberOfButtons; ++i){
         m_AnswerButtonsList.at(i)->setDown(0);
-        QTvtVocExpression* expression = NULL;
+        QmVocExpression* expression = NULL;
         do {
             expression = getAnyEntryFromLesson();
         } while (m_ChoiceList.contains(expression));
@@ -158,7 +158,7 @@ void TinyVocTrainer::slotInit(){
     qDebug() << "ask for random_int: " <<  random_int;
 
     if(random_int < m_ChoiceList.count() && random_int >= 0) {
-        QTvtVocExpression* expression = m_ChoiceList.at(random_int);
+        QmVocExpression* expression = m_ChoiceList.at(random_int);
         if(expression) {
             m_QuestionLabel->setText(expression->translation(m_QuestionLanguage)->text());
         }
