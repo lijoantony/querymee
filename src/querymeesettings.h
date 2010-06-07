@@ -23,14 +23,14 @@
 class QmVocLesson;
 class QmVocDocument;
 
-class TinyVocTrainerSettings : public QObject
+class QueryMeeSettings : public QObject
 {
 
 Q_OBJECT
 
 public:
 
-    static TinyVocTrainerSettings* instance();
+    static QueryMeeSettings* instance();
     /*!
      * \brief Returns list of dictionaries ( filenames )
      */
@@ -60,8 +60,8 @@ Q_SIGNALS:
     void dictionaryChanged();
 
 private:
-    explicit TinyVocTrainerSettings(QObject *parent = 0);
-    static TinyVocTrainerSettings* m_Instance;
+    explicit QueryMeeSettings(QObject *parent = 0);
+    static QueryMeeSettings* m_Instance;
     void init();
 
 private:

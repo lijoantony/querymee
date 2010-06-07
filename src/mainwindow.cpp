@@ -18,7 +18,7 @@
 
 #include "mainwindow.h"
 #include "trainingselectionview.h"
-#include "tinyvoctrainersettings.h"
+#include "querymeesettings.h"
 
 MainWindow::MainWindow()
 {
@@ -34,7 +34,7 @@ void MainWindow::createActions(){
     settingAction = new QAction(tr("Open dictionary"), this);
     connect(settingAction,
             SIGNAL(triggered()),
-            TinyVocTrainerSettings::instance(),
+            QueryMeeSettings::instance(),
             SLOT(openDictionary()));
 }
 

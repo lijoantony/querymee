@@ -14,8 +14,8 @@
  ***************************************************************************/
 
 #include "trainingselectionview.h"
-#include "tinyvoctrainer.h"
-#include "tinyvoctrainersettings.h"
+#include "querymee.h"
+#include "querymeesettings.h"
 
 #include <QComboBox>
 #include <QHBoxLayout>
@@ -68,7 +68,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 
     setLayout(vbox);
 
-    connect(TinyVocTrainerSettings::instance(),
+    connect(QueryMeeSettings::instance(),
             SIGNAL(dictionaryChanged()),
             SLOT(slotDictionaryChanged()));
 
@@ -81,7 +81,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 
 void TrainingSelectionView::slotInitView()
 {
-    TinyVocTrainerSettings* settings = TinyVocTrainerSettings::instance();
+    QueryMeeSettings* settings = QueryMeeSettings::instance();
     if(settings->dictionaries().count()) {
         QString dictionaryName = settings->dictionaries().first();
         settings->openDictionary(dictionaryName);
@@ -93,19 +93,19 @@ void TrainingSelectionView::start()
     // check what is selected
     if(m_ComboDictionary && m_ComboDictionary->count()) {
         slotDictionarySelected(m_ComboDictionary->currentIndex());
-        TinyVocTrainer* trainer = new TinyVocTrainer();
+        QueryMee* trainer = new QueryMee();
         trainer->setLession(m_ComboLesson->currentIndex());
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
         trainer->startTraining();
     } else {
-        TinyVocTrainerSettings::instance()->openDictionary();
+        QueryMeeSettings::instance()->openDictionary();
     }
 }
 
 void TrainingSelectionView::slotDictionaryChanged()
 {
-    TinyVocTrainerSettings* settings = TinyVocTrainerSettings::instance();
+    QueryMeeSettings* settings = QueryMeeSettings::instance();
 
     m_ComboDictionary->clear();
     m_ComboLesson->clear();
@@ -124,6 +124,6 @@ void TrainingSelectionView::slotDictionarySelected(int index)
 {
     if(index >= 0) {
         QString dictionaryName = m_ComboDictionary->itemText(index);
-        TinyVocTrainerSettings::instance()->openDictionary(dictionaryName);
+        QueryMeeSettings::instance()->openDictionary(dictionaryName);
     }
 }

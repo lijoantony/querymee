@@ -11,12 +11,12 @@ INCLUDEPATH += . \
     ../lib
 QMAKE_LFLAGS += -Wl,-rpath,../lib
 SOURCES += main.cpp \
-    tinyvoctrainer.cpp \
-    tinyvoctrainersettings.cpp \
+    querymee.cpp \
+    querymeesettings.cpp \
     mainwindow.cpp \
     trainingselectionview.cpp
-HEADERS += tinyvoctrainer.h \
-    tinyvoctrainersettings.h \
+HEADERS += querymee.h \
+    querymeesettings.h \
     mainwindow.h \
     trainingselectionview.h
 FORMS +=

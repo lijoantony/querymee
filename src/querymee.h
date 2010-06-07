@@ -22,13 +22,13 @@ class QmVocExpression;
 class QPushButton;
 class QLabel;
 
-class TinyVocTrainer : public QWidget
+class QueryMee : public QWidget
 {
     Q_OBJECT
 
 public:
-    TinyVocTrainer(QWidget *parent = 0);
-    ~TinyVocTrainer();
+    QueryMee(QWidget *parent = 0);
+    ~QueryMee();
 
 public:
     void setLession(int lessionIndex);

@@ -1,5 +1,5 @@
 First release 1.0.0 (first release which shall go to extras testing):
-* rename library for querymee (get rid of tinyvoctrainer) - Reto
+* rename library for querymee (get rid of tinyvoctrainer) - DONE
 * rename src for querymee (get rid of tinyvoctrainer) - Reto
 * help/info page (how to get kvtml files, how to create...)
 * bugzilla (or similar) is needed to pass maemo QA

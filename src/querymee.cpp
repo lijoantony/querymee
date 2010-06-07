@@ -13,8 +13,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "tinyvoctrainer.h"
-#include "tinyvoctrainersettings.h"
+#include "querymee.h"
+#include "querymeesettings.h"
 
 #include <ctime>
 
@@ -33,7 +33,7 @@
 
 #define NumberOfButtons 4
 
-TinyVocTrainer::TinyVocTrainer(QWidget *parent) :
+QueryMee::QueryMee(QWidget *parent) :
         QWidget(parent),
         m_CorrectId(0),
         m_LessionIndex(-1),
@@ -73,7 +73,7 @@ TinyVocTrainer::TinyVocTrainer(QWidget *parent) :
     setLayout(vbox);
 }
 
-void TinyVocTrainer::startTraining()
+void QueryMee::startTraining()
 {
     if(m_LessionIndex >= 0
        && m_QuestionLanguage >= 0
@@ -85,15 +85,15 @@ void TinyVocTrainer::startTraining()
     }
 }
 
-TinyVocTrainer::~TinyVocTrainer()
+QueryMee::~QueryMee()
 {
 }
 
-QmVocExpression * TinyVocTrainer::getAnyEntryFromLesson()
+QmVocExpression * QueryMee::getAnyEntryFromLesson()
 {
     QmVocExpression* vocExpression = 0;
     QmVocLesson* lesson =
-    TinyVocTrainerSettings::instance()->lesson(m_LessionIndex);
+    QueryMeeSettings::instance()->lesson(m_LessionIndex);
     if(lesson) {
         int random_int = ( rand() %  ( lesson->entries().size() - 1 ) ) + 0;
         qDebug() << "anyEntry random_int: " << random_int << "Lesson Size: " << lesson->entries().size();
@@ -102,24 +102,24 @@ QmVocExpression * TinyVocTrainer::getAnyEntryFromLesson()
     return vocExpression;
 }
 
-void TinyVocTrainer::setLession(int lessionIndex)
+void QueryMee::setLession(int lessionIndex)
 {
     m_LessionIndex = lessionIndex;
 }
 
-void TinyVocTrainer::setQuestionLanguage(int languageIndex)
+void QueryMee::setQuestionLanguage(int languageIndex)
 {
     m_QuestionLanguage = languageIndex;
 }
 
-void TinyVocTrainer::setAnswerLanguage(int languageIndex)
+void QueryMee::setAnswerLanguage(int languageIndex)
 {
     m_AnswerLanguage = languageIndex;
 }
 
-void TinyVocTrainer::slotClicked(int id)
+void QueryMee::slotClicked(int id)
 {
-    qDebug() << "slotCheck(): buton id: " << id << "Correct Id: " << m_CorrectId;
+    qDebug() << "slotCheck(): button id: " << id << "Correct Id: " << m_CorrectId;
     
     if(id == m_CorrectId){
         qDebug() << "\\o/ correct answer...";
@@ -137,7 +137,7 @@ void TinyVocTrainer::slotClicked(int id)
     }
 }
 
-void TinyVocTrainer::slotInit(){
+void QueryMee::slotInit(){
     m_ChoiceList.clear();
     statusLabel->clear();
     answerLabel->clear();
@@ -167,7 +167,7 @@ void TinyVocTrainer::slotInit(){
 
 }
 
-void TinyVocTrainer::closeEvent ( QCloseEvent * event )
+void QueryMee::closeEvent ( QCloseEvent * event )
 {
     QWidget::closeEvent(event);
     this->deleteLater();

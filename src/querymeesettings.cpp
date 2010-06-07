@@ -13,8 +13,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "tinyvoctrainersettings.h"
-#include "tinyvoctrainer.h"
+#include "querymeesettings.h"
+#include "querymee.h"
 
 #include "qmvoclesson.h"
 #include "qmvocexpression.h"
@@ -29,26 +29,26 @@
 #ifdef Q_WS_MAEMO_5
     #define DICTIONARY_PATH "/MyDocs/Querymee/"
 #else
-    #define DICTIONARY_PATH "/.tinyvoctrainer/dictionaries"
+    #define DICTIONARY_PATH "/.querymee/dictionaries"
 #endif
 
-TinyVocTrainerSettings* TinyVocTrainerSettings::m_Instance = 0;
+QueryMeeSettings* QueryMeeSettings::m_Instance = 0;
 
-TinyVocTrainerSettings* TinyVocTrainerSettings::instance()
+QueryMeeSettings* QueryMeeSettings::instance()
 {
     if(!m_Instance) {
-        m_Instance = new TinyVocTrainerSettings(QCoreApplication::instance());
+        m_Instance = new QueryMeeSettings(QCoreApplication::instance());
         m_Instance->init();
     }
     return m_Instance;
 }
 
-TinyVocTrainerSettings::TinyVocTrainerSettings(QObject *parent)
+QueryMeeSettings::QueryMeeSettings(QObject *parent)
     : QObject(parent), m_CurrentlyOpenedFile(QString()), m_CurrentDocument(0)
 {
 }
 
-void TinyVocTrainerSettings::init()
+void QueryMeeSettings::init()
 {
     bool pathExist;
     QString settingsPath = QDir::homePath() + QString(DICTIONARY_PATH);
@@ -67,7 +67,7 @@ void TinyVocTrainerSettings::init()
     }
 }
 
-void TinyVocTrainerSettings::openDictionary()
+void QueryMeeSettings::openDictionary()
 {
     QString fileName = QFileDialog::getOpenFileName(0,
                                                     tr("Open dictionary"),
@@ -75,7 +75,7 @@ void TinyVocTrainerSettings::openDictionary()
     openDictionaryFile(fileName);
 }
 
-void TinyVocTrainerSettings::openDictionary(const QString& dictionaryName)
+void QueryMeeSettings::openDictionary(const QString& dictionaryName)
 {
     if(m_Dictionaries.contains(dictionaryName)) {
         QString filename = m_Dictionaries.value(dictionaryName);
@@ -85,17 +85,17 @@ void TinyVocTrainerSettings::openDictionary(const QString& dictionaryName)
     }
 }
 
-QStringList TinyVocTrainerSettings::dictionaries() const
+QStringList QueryMeeSettings::dictionaries() const
 {
     return m_Dictionaries.uniqueKeys();
 }
 
-QStringList TinyVocTrainerSettings::languages() const
+QStringList QueryMeeSettings::languages() const
 {
     return m_Languages;
 }
 
-QStringList TinyVocTrainerSettings::lessons() const
+QStringList QueryMeeSettings::lessons() const
 {
     QStringList lessonList;
     foreach(QmVocLesson* lession, m_Lessons) {
@@ -106,7 +106,7 @@ QStringList TinyVocTrainerSettings::lessons() const
     return lessonList;
 }
 
-QmVocLesson* TinyVocTrainerSettings::lesson(int index) const
+QmVocLesson* QueryMeeSettings::lesson(int index) const
 {
     QmVocLesson* lesson = 0;
     if(index < m_Lessons.count() && index >= 0) {
@@ -115,12 +115,12 @@ QmVocLesson* TinyVocTrainerSettings::lesson(int index) const
     return lesson;
 }
 
-int TinyVocTrainerSettings::openedDictionary() const
+int QueryMeeSettings::openedDictionary() const
 {
     return m_Dictionaries.values().indexOf(m_CurrentlyOpenedFile);
 }
 
-void TinyVocTrainerSettings::openDictionaryFile(const QString& fileName)
+void QueryMeeSettings::openDictionaryFile(const QString& fileName)
 {
     if(fileName.isEmpty()
         || !QFileInfo(fileName).exists()
