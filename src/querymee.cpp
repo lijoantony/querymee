@@ -46,17 +46,20 @@ QueryMee::QueryMee(QWidget *parent) :
     QVBoxLayout *vbox_label = new QVBoxLayout();
     QHBoxLayout *hbox = new QHBoxLayout();
 
+    vbox_label->addStretch();
+
     m_QuestionLabel = new QLabel();
     m_QuestionLabel->setText(tr("Here comes..."));
-    hbox->addWidget(m_QuestionLabel);
+    vbox_label->addWidget(m_QuestionLabel);
     
     answerLabel = new QLabel();
     hbox->addWidget(answerLabel);
     
-    vbox_label->addLayout(hbox);
-    
     statusLabel = new QLabel();
-    vbox_label->addWidget(statusLabel);
+    hbox->addWidget(statusLabel);
+
+    vbox_label->addLayout(hbox);
+    vbox_label->addStretch();
 
     QSignalMapper* signalMapper = new QSignalMapper(this);
     for (int i = 0; i < NumberOfButtons; i++) {
@@ -71,6 +74,7 @@ QueryMee::QueryMee(QWidget *parent) :
 
     vbox->addLayout(vbox_label);
     setLayout(vbox);
+
 }
 
 void QueryMee::startTraining()

@@ -33,10 +33,6 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     QHBoxLayout *hbox_lession = new QHBoxLayout();
     QHBoxLayout *hbox_question_lang = new QHBoxLayout();
     QHBoxLayout *hbox_answer_lang = new QHBoxLayout();
-    QHBoxLayout *hbox_start = new QHBoxLayout();
-
-    m_checkbox = new QCheckBox("Portrait", this);
-    hbox_start->addWidget(m_checkbox);
 
     m_ComboDictionary = new QComboBox();
     m_ComboLesson = new QComboBox();
@@ -59,19 +55,21 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     hbox_answer_lang->addWidget(label_answer);
     hbox_answer_lang->addWidget(m_ComboAnswerLang);
 
+    m_checkbox = new QCheckBox("Portrait", this);
+
+
     QDialogButtonBox *buttons = new QDialogButtonBox(this);
     buttons->setOrientation(Qt::Horizontal);
     buttons->addButton(tr("Start"),QDialogButtonBox::AcceptRole);
 
     connect(buttons, SIGNAL(accepted()),this,SLOT(start()));
 
-    hbox_start->addWidget(buttons);
-
     vbox->addLayout(hbox_dictionary);
     vbox->addLayout(hbox_lession);
     vbox->addLayout(hbox_question_lang);
     vbox->addLayout(hbox_answer_lang);
-    vbox->addLayout(hbox_start);
+    vbox->addWidget(m_checkbox);
+    vbox->addWidget(buttons);
 
     setLayout(vbox);
 
