@@ -36,9 +36,21 @@ void MainWindow::createActions(){
             SIGNAL(triggered()),
             QueryMeeSettings::instance(),
             SLOT(openDictionary()));
+
+    downloadFiles = new QAction(tr("Download KVTML files"), this);
+
+    connect(downloadFiles,
+            SIGNAL(triggered()),
+            this,
+            SLOT());
+
 }
 
 void MainWindow::createMenus(){
     mainMenu = menuBar()->addMenu("Main");
     mainMenu->addAction(settingAction);
+}
+
+void MainWindow::downloadFiles(){
+
 }

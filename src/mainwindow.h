@@ -22,8 +22,13 @@ class QAction;
 
 class MainWindow : public QMainWindow
 {
+    Q_OBJECT
 public:
     MainWindow();
+
+public slots:
+    void downloadFiles();
+
 private:
     QAction *settingAction;
     QMenu *mainMenu;

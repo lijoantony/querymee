@@ -36,6 +36,8 @@ First release 1.0.0 (first release which shall go to extras testing):
   here on of the download xml files:
   http://download.kde.org/khotnewstuff/parley/parley.xml
 
+  Parser with QXmlStreamReader proof of concept:
+  http://www.gitorious.org/querymee/knewstuff
 
 
 For next major release 2.0.0:

@@ -14,10 +14,18 @@ SOURCES += main.cpp \
     querymee.cpp \
     querymeesettings.cpp \
     mainwindow.cpp \
-    trainingselectionview.cpp
+    trainingselectionview.cpp \
+    downloadmanager.cpp \
+    downloadwidget.cpp \
+    xmlstreamreader.cpp
 HEADERS += querymee.h \
     querymeesettings.h \
     mainwindow.h \
-    trainingselectionview.h
-FORMS +=
+    trainingselectionview.h \
+    downloadmanager.h \
+    downloadwidget.h \
+    xmlstreamreader.h \
+    querymee_defaults.h
+FORMS += 
 
+QT += network xml

@@ -25,12 +25,7 @@
 #include <QDir>
 #include <QDebug>
 
-// Constants
-#ifdef Q_WS_MAEMO_5
-    #define DICTIONARY_PATH "/MyDocs/Querymee/"
-#else
-    #define DICTIONARY_PATH "/.querymee/dictionaries"
-#endif
+#include <querymee_defaults.h>
 
 QueryMeeSettings* QueryMeeSettings::m_Instance = 0;
 
