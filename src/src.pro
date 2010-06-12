@@ -27,5 +27,5 @@ HEADERS += querymee.h \
     xmlstreamreader.h \
     querymee_defaults.h
 FORMS += 
-
-QT += network xml
+QT += network \
+    xml

@@ -102,9 +102,11 @@ void TrainingSelectionView::start()
         trainer->setLession(m_ComboLesson->currentIndex());
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
-        if(m_checkbox->isChecked() == true){
+#ifdef Q_WS_MAEMO_5
+       if(m_checkbox->isChecked() == true){
             trainer->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
         }
+#endif
         trainer->startTraining();
     } else {
         QueryMeeSettings::instance()->openDictionary();

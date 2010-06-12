@@ -13,38 +13,35 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef DOWNLOADWIDGET_H
+#define DOWNLOADWIDGET_H
 
-#include <QMainWindow>
-#include <QtGui>
-#include <QFlags>
+#include <QWidget>
+#include <QListWidget>
+#include <QLabel>
 
-#include "trainingselectionview.h"
-#include "querymeesettings.h"
-#include "downloadwidget.h"
+class QListWidget;
 
-class QAction;
-
-class MainWindow : public QMainWindow
+class DownloadWidget : public QWidget
 {
-    Q_OBJECT
-
+Q_OBJECT
 public:
-    MainWindow();
-//    TrainingSelectionView* trainingView;
-//    DownloadWidget *dlw;
+    explicit DownloadWidget(QWidget *parent = 0);
+
+signals:
 
 public slots:
-    void downloadFiles();
+    void slotDownloadButton();
+    void slotUpDateButton();
+    void slotItemClicked(QListWidgetItem *item);
+    void slotDownloadDone();
 
 private:
-    QAction *settingAction;
-    QAction *downloadAction;
-    QMenu *mainMenu;
+    void updateListWidget();
 
-    void createActions();
-    void createMenus();
+    QListWidget *listWidget;
+    QLabel *label;
+
 };
 
-#endif // MAINWINDOW_H
+#endif // DOWNLOADWIDGET_H

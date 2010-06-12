@@ -33,11 +33,12 @@ public Q_SLOTS:
      * \brief Starts training
      */
     void start();
+    void slotInitView();
 
 private Q_SLOTS:
     void slotDictionaryChanged();
     void slotDictionarySelected(int index);
-    void slotInitView();
+
 
 private:
     QComboBox *m_ComboDictionary;

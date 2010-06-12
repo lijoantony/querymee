@@ -13,38 +13,14 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef QUERYMEE_DEFAULTS_H
+#define QUERYMEE_DEFAULTS_H
 
-#include <QMainWindow>
-#include <QtGui>
-#include <QFlags>
+// Constants
+#ifdef Q_WS_MAEMO_5
+    #define DICTIONARY_PATH "/MyDocs/Querymee/"
+#else
+    #define DICTIONARY_PATH "/.querymee/"
+#endif
 
-#include "trainingselectionview.h"
-#include "querymeesettings.h"
-#include "downloadwidget.h"
-
-class QAction;
-
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
-
-public:
-    MainWindow();
-//    TrainingSelectionView* trainingView;
-//    DownloadWidget *dlw;
-
-public slots:
-    void downloadFiles();
-
-private:
-    QAction *settingAction;
-    QAction *downloadAction;
-    QMenu *mainMenu;
-
-    void createActions();
-    void createMenus();
-};
-
-#endif // MAINWINDOW_H
+#endif // QUERYMEE_DEFAULTS_H

@@ -13,38 +13,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef XMLSTREAMREADER_H
+#define XMLSTREAMREADER_H
 
-#include <QMainWindow>
-#include <QtGui>
-#include <QFlags>
+#include <QXmlStreamReader>
 
-#include "trainingselectionview.h"
-#include "querymeesettings.h"
-#include "downloadwidget.h"
+class QListWidget;
+class QListWidgetItem;
+class QXmlStreamReader;
 
-class QAction;
-
-class MainWindow : public QMainWindow
+class XmlStreamReader
 {
-    Q_OBJECT
-
 public:
-    MainWindow();
-//    TrainingSelectionView* trainingView;
-//    DownloadWidget *dlw;
+    XmlStreamReader(QListWidget *list);
 
-public slots:
-    void downloadFiles();
+    bool readFile(const QString &fileName);
 
 private:
-    QAction *settingAction;
-    QAction *downloadAction;
-    QMenu *mainMenu;
+    void readKnewStuffElement();
+    void readStuffElement();
+    void readNameElement(QListWidgetItem *item);
+    void readSummaryElement(QListWidgetItem *item);
+    void readPayloadElement(QListWidgetItem *item);
+    void skipUnknownElement();
 
-    void createActions();
-    void createMenus();
+
+    QXmlStreamReader reader;
+    QListWidget *listWidget;
 };
 
-#endif // MAINWINDOW_H
+#endif

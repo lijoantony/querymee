@@ -57,7 +57,8 @@ void QueryMeeSettings::init()
     if(pathExist) {
         QFileInfoList dictionaries = dir.entryInfoList(QDir::Files, QDir::Name);
         foreach(QFileInfo info, dictionaries) {
-            m_Dictionaries.insert(info.fileName(),info.absoluteFilePath());
+            if (info.fileName().endsWith(".kvtml",Qt::CaseInsensitive))
+                m_Dictionaries.insert(info.fileName(),info.absoluteFilePath());
         }
     }
 }

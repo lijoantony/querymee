@@ -13,12 +13,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <QtGui>
-#include <QFlags>
-
 #include "mainwindow.h"
-#include "trainingselectionview.h"
-#include "querymeesettings.h"
 
 MainWindow::MainWindow()
 {
@@ -27,29 +22,35 @@ MainWindow::MainWindow()
     createActions();
     createMenus();
     setCentralWidget(trainingView);
+
 }
 
 void MainWindow::createActions(){
+
+
     settingAction = new QAction(tr("Open dictionary"), this);
     connect(settingAction,
             SIGNAL(triggered()),
             QueryMeeSettings::instance(),
             SLOT(openDictionary()));
 
-    downloadFiles = new QAction(tr("Download KVTML files"), this);
 
-    connect(downloadFiles,
+    downloadAction = new QAction(tr("Download KVTML files"), this);
+    connect(downloadAction,
             SIGNAL(triggered()),
             this,
-            SLOT());
-
+            SLOT(downloadFiles()));
 }
 
 void MainWindow::createMenus(){
     mainMenu = menuBar()->addMenu("Main");
     mainMenu->addAction(settingAction);
+    mainMenu->addAction(downloadAction);
 }
 
-void MainWindow::downloadFiles(){
-
+void MainWindow::downloadFiles()
+{
+    DownloadWidget *dlw = new DownloadWidget();
+    dlw->show();
 }
+
