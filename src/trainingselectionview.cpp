@@ -23,6 +23,7 @@
 #include <QLabel>
 #include <QDialogButtonBox>
 #include <QTimer>
+#include <QCheckBox>
 
 TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 {
@@ -54,6 +55,9 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     hbox_answer_lang->addWidget(label_answer);
     hbox_answer_lang->addWidget(m_ComboAnswerLang);
 
+    m_checkbox = new QCheckBox("Portrait", this);
+
+
     QDialogButtonBox *buttons = new QDialogButtonBox(this);
     buttons->setOrientation(Qt::Horizontal);
     buttons->addButton(tr("Start"),QDialogButtonBox::AcceptRole);
@@ -64,6 +68,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     vbox->addLayout(hbox_lession);
     vbox->addLayout(hbox_question_lang);
     vbox->addLayout(hbox_answer_lang);
+    vbox->addWidget(m_checkbox);
     vbox->addWidget(buttons);
 
     setLayout(vbox);
@@ -97,6 +102,9 @@ void TrainingSelectionView::start()
         trainer->setLession(m_ComboLesson->currentIndex());
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
+        if(m_checkbox->isChecked() == true){
+            trainer->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
+        }
         trainer->startTraining();
     } else {
         QueryMeeSettings::instance()->openDictionary();

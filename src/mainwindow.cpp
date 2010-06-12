@@ -26,7 +26,6 @@ MainWindow::MainWindow()
 
     createActions();
     createMenus();
-
     setCentralWidget(trainingView);
 }
 

@@ -17,6 +17,7 @@
 #define TRAININGSELECTIONVIEW_H
 
 #include <QWidget>
+#include <QCheckBox>
 
 class QComboBox;
 
@@ -43,6 +44,7 @@ private:
     QComboBox *m_ComboLesson;
     QComboBox *m_ComboQuestionLang;
     QComboBox *m_ComboAnswerLang;
+    QCheckBox *m_checkbox;
 };
 
 #endif // TRAININGSELECTIONVIEW_H
