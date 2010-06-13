@@ -17,14 +17,14 @@ SOURCES += main.cpp \
     trainingselectionview.cpp \
     downloadmanager.cpp \
     downloadwidget.cpp \
-    xmlstreamreader.cpp
+    knsxmlstreamreader.cpp
 HEADERS += querymee.h \
     querymeesettings.h \
     mainwindow.h \
     trainingselectionview.h \
     downloadmanager.h \
     downloadwidget.h \
-    xmlstreamreader.h \
+    knsxmlstreamreader.h \
     querymee_defaults.h
 FORMS += 
 QT += network \

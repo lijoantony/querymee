@@ -19,12 +19,12 @@
 
 #include "xmlstreamreader.h"
 
-XmlStreamReader::XmlStreamReader(QListWidget *list)
+KNSXmlStreamReader::KNSXmlStreamReader(QListWidget *list)
 {
     listWidget = list;
 }
 
-bool XmlStreamReader::readFile(const QString &fileName)
+bool KNSXmlStreamReader::readFile(const QString &fileName)
 {
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
@@ -66,7 +66,7 @@ bool XmlStreamReader::readFile(const QString &fileName)
     return true;
 }
 
-void XmlStreamReader::readKnewStuffElement()
+void KNSXmlStreamReader::readKnewStuffElement()
 {
     reader.readNext();
 
@@ -89,7 +89,7 @@ void XmlStreamReader::readKnewStuffElement()
 }
 
 
-void XmlStreamReader::readStuffElement()
+void KNSXmlStreamReader::readStuffElement()
 {
 
     QListWidgetItem *item = new QListWidgetItem();
@@ -125,7 +125,7 @@ void XmlStreamReader::readStuffElement()
 }
 
 
-void XmlStreamReader::readNameElement(QListWidgetItem *item)
+void KNSXmlStreamReader::readNameElement(QListWidgetItem *item)
 {
     QString name = reader.readElementText();
     if (reader.isEndElement())
@@ -134,7 +134,7 @@ void XmlStreamReader::readNameElement(QListWidgetItem *item)
     item->setText(name);
 }
 
-void XmlStreamReader::readSummaryElement(QListWidgetItem *item)
+void KNSXmlStreamReader::readSummaryElement(QListWidgetItem *item)
 {
     QString summary = reader.readElementText();
     if (reader.isEndElement())
@@ -143,7 +143,7 @@ void XmlStreamReader::readSummaryElement(QListWidgetItem *item)
     item->setData(32, summary);
 }
 
-void XmlStreamReader::readPayloadElement(QListWidgetItem *item)
+void KNSXmlStreamReader::readPayloadElement(QListWidgetItem *item)
 {
     QString payload = reader.readElementText();
     if (reader.isEndElement())
@@ -152,7 +152,7 @@ void XmlStreamReader::readPayloadElement(QListWidgetItem *item)
     item->setData(33, payload);
 }
 
-void XmlStreamReader::skipUnknownElement()
+void KNSXmlStreamReader::skipUnknownElement()
 {
     reader.readNext();
     while (!reader.atEnd()) {

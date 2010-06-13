@@ -13,8 +13,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef XMLSTREAMREADER_H
-#define XMLSTREAMREADER_H
+#ifndef KNSXMLSTREAMREADER_H
+#define KNSXMLSTREAMREADER_H
 
 #include <QXmlStreamReader>
 
@@ -22,10 +22,10 @@ class QListWidget;
 class QListWidgetItem;
 class QXmlStreamReader;
 
-class XmlStreamReader
+class KNSXmlStreamReader
 {
 public:
-    XmlStreamReader(QListWidget *list);
+    KNSXmlStreamReader(QListWidget *list);
 
     bool readFile(const QString &fileName);
 

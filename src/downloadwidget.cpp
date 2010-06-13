@@ -136,7 +136,7 @@ void DownloadWidget::updateListWidget(){
 
     listWidget->clear();
 
-    XmlStreamReader reader(listWidget);
+    KNSXmlStreamReader reader(listWidget);
 
     QString Path = QDir::homePath() + QString(DICTIONARY_PATH);
 
