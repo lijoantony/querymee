@@ -17,7 +17,7 @@
 #include <QtXml>
 #include <iostream>
 
-#include "xmlstreamreader.h"
+#include "knsxmlstreamreader.h"
 
 KNSXmlStreamReader::KNSXmlStreamReader(QListWidget *list)
 {

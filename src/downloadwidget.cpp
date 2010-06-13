@@ -18,7 +18,7 @@
 
 #include "downloadwidget.h"
 
-#include "xmlstreamreader.h"
+#include "knsxmlstreamreader.h"
 
 #include "downloadmanager.h"
 
