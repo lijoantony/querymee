@@ -19,6 +19,7 @@
 #include "downloadwidget.h"
 
 #include "knsxmlstreamreader.h"
+#include "ocsxmlstreamreader.h"
 
 #include "downloadmanager.h"
 
@@ -100,6 +101,7 @@ void DownloadWidget::slotUpDateButton(){
     QList<QUrl> urls;
     urls.append(QUrl("http://edu.kde.org/contrib/kvtml/kvtml.xml"));
     urls.append(QUrl("http://edu.kde.org/contrib/kvtml2/provider41.xml"));
+    urls.append(QUrl("http://api.opendesktop.org/v1/content/data?categories=687x694x693&pagesize=100"));
 
     DownloadManager *dm = new DownloadManager();
 
@@ -142,6 +144,10 @@ void DownloadWidget::updateListWidget(){
 
     for (int i = 0; i < files.count(); ++i)
         reader.readFile( Path + files[i]);
+
+    OCSXmlStreamReader ocsreader(listWidget);
+
+    ocsreader.readFile( Path + "data");
 
 }
 

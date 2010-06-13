@@ -17,14 +17,14 @@
 #include <QtXml>
 #include <iostream>
 
-#include "knsxmlstreamreader.h"
+#include "ocsxmlstreamreader.h"
 
-KNSXmlStreamReader::KNSXmlStreamReader(QListWidget *list)
+OCSXmlStreamReader::OCSXmlStreamReader(QListWidget *list)
 {
     listWidget = list;
 }
 
-bool KNSXmlStreamReader::readFile(const QString &fileName)
+bool OCSXmlStreamReader::readFile(const QString &fileName)
 {
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
@@ -39,10 +39,10 @@ bool KNSXmlStreamReader::readFile(const QString &fileName)
     reader.readNext();
     while (!reader.atEnd()) {
         if (reader.isStartElement()) {
-            if (reader.name() == "knewstuff") {
-                readKnewStuffElement();
+            if (reader.name() == "ocs") {
+                readOcsElement();
             } else {
-                reader.raiseError(QObject::tr("Not a kns file"));
+                reader.raiseError(QObject::tr("Not a ocs file"));
             }
         } else {
             reader.readNext();
@@ -66,7 +66,10 @@ bool KNSXmlStreamReader::readFile(const QString &fileName)
     return true;
 }
 
-void KNSXmlStreamReader::readKnewStuffElement()
+
+
+
+void OCSXmlStreamReader::readOcsElement()
 {
     reader.readNext();
 
@@ -77,8 +80,10 @@ void KNSXmlStreamReader::readKnewStuffElement()
         }
 
         if (reader.isStartElement()) {
-            if (reader.name() == "stuff") {
-                readStuffElement();
+            if (reader.name() == "data") {
+                readDataElement();
+            } else {
+                skipUnknownElement();
             }
         } else {
             reader.readNext();
@@ -89,9 +94,32 @@ void KNSXmlStreamReader::readKnewStuffElement()
 }
 
 
-void KNSXmlStreamReader::readStuffElement()
+void OCSXmlStreamReader::readDataElement()
 {
+    reader.readNext();
 
+    while (!reader.atEnd()) {
+        if (reader.isEndElement()) {
+            reader.readNext();
+            break;
+        }
+
+        if (reader.isStartElement()) {
+            if (reader.name() == "content") {
+                readContentElement();
+            } else {
+                skipUnknownElement();
+            }
+        } else {
+            reader.readNext();
+        }
+
+
+    }
+}
+
+void OCSXmlStreamReader::readContentElement()
+{
     QListWidgetItem *item = new QListWidgetItem();
     listWidget->addItem(item);
 
@@ -109,11 +137,11 @@ void KNSXmlStreamReader::readStuffElement()
             if (reader.name() == "name") {
                 readNameElement(item);
             }
-            else if (reader.name() == "summary") {
-                readSummaryElement(item);
+            else if (reader.name() == "description") {
+                readDescriptionElement(item);
             }
-            else if (reader.name() == "payload") {
-                readPayloadElement(item);
+            else if (reader.name() == "downloadlink1") {
+                readDownloadlinkElement(item);
             }
             else {
                 skipUnknownElement();
@@ -124,8 +152,7 @@ void KNSXmlStreamReader::readStuffElement()
     }
 }
 
-
-void KNSXmlStreamReader::readNameElement(QListWidgetItem *item)
+void OCSXmlStreamReader::readNameElement(QListWidgetItem *item)
 {
     QString name = reader.readElementText();
     if (reader.isEndElement())
@@ -134,7 +161,7 @@ void KNSXmlStreamReader::readNameElement(QListWidgetItem *item)
     item->setText(name);
 }
 
-void KNSXmlStreamReader::readSummaryElement(QListWidgetItem *item)
+void OCSXmlStreamReader::readDescriptionElement(QListWidgetItem *item)
 {
     QString summary = reader.readElementText();
     if (reader.isEndElement())
@@ -143,7 +170,7 @@ void KNSXmlStreamReader::readSummaryElement(QListWidgetItem *item)
     item->setData(32, summary);
 }
 
-void KNSXmlStreamReader::readPayloadElement(QListWidgetItem *item)
+void OCSXmlStreamReader::readDownloadlinkElement(QListWidgetItem *item)
 {
     QString payload = reader.readElementText();
     if (reader.isEndElement())
@@ -152,7 +179,7 @@ void KNSXmlStreamReader::readPayloadElement(QListWidgetItem *item)
     item->setData(33, payload);
 }
 
-void KNSXmlStreamReader::skipUnknownElement()
+void OCSXmlStreamReader::skipUnknownElement()
 {
     reader.readNext();
     while (!reader.atEnd()) {

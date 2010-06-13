@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     trainingselectionview.cpp \
     downloadmanager.cpp \
     downloadwidget.cpp \
-    knsxmlstreamreader.cpp
+    knsxmlstreamreader.cpp \
+    ocsxmlstreamreader.cpp
 HEADERS += querymee.h \
     querymeesettings.h \
     mainwindow.h \
@@ -25,7 +26,8 @@ HEADERS += querymee.h \
     downloadmanager.h \
     downloadwidget.h \
     knsxmlstreamreader.h \
-    querymee_defaults.h
+    querymee_defaults.h \
+    ocsxmlstreamreader.h
 FORMS += 
 QT += network \
     xml
