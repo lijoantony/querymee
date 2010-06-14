@@ -36,9 +36,11 @@ public slots:
     void slotUpDateButton();
     void slotItemClicked(QListWidgetItem *item);
     void slotDownloadDone();
+    void slotDownloadError(QByteArray url);
 
 private:
     void updateListWidget();
+    void downloadStarted();
 
     QListWidget *listWidget;
     QLabel *label;

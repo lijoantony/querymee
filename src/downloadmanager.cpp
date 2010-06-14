@@ -78,16 +78,6 @@ QString DownloadManager::saveFileName(const QUrl &url)
     if (basename.isEmpty())
         basename = "download";
 
-//    if (QFile::exists(basename)) {
-//        // already exists, don't overwrite
-//        int i = 0;
-//        basename += '.';
-//        while (QFile::exists(basename + QString::number(i)))
-//            ++i;
-//
-//        basename += QString::number(i);
-//    }
-
     savePathName.append(settingsPath);
     savePathName.append(basename);
 
@@ -111,9 +101,22 @@ bool DownloadManager::saveToDisk(const QString &filename, QIODevice *data)
 void DownloadManager::downloadFinished(QNetworkReply *reply)
 {
     QUrl url = reply->url();
+
     if (reply->error()) {
         qDebug() << "Download of" << url.toEncoded().constData() << "failed:" << qPrintable(reply->errorString());
-    } else {
+        emit downloadFailed( url.toEncoded() );
+    } else if(url.host() == "opendesktop.org" && url.hasQuery()){
+        QByteArray refresh = reply->rawHeader("Refresh");
+        int equalIndex = refresh.indexOf("=");
+        if ( equalIndex > 0 ){
+            refresh.remove(0, equalIndex + 1);
+            QUrl realurl = QUrl("http://opendesktop.org/");
+            realurl.setPath(refresh);
+            qDebug() << "start 2nd download:" << realurl.toEncoded().constData();
+            this->doDownload(realurl);
+        }
+    }
+    else {
         QString filename = saveFileName(url);
         if (saveToDisk(filename, reply)){
             qDebug() << "Download of" << url.toEncoded().constData() << "succeded saved to:"  << qPrintable(filename);

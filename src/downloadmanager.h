@@ -83,6 +83,7 @@ public slots:
 
 signals:
     void done();
+    void downloadFailed(QByteArray);
 
 };
 

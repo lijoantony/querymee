@@ -83,6 +83,13 @@ void DownloadWidget::slotDownloadButton(){
             this,
             SLOT(slotDownloadDone()));
 
+    connect(dm,
+            SIGNAL(downloadFailed(QByteArray)),
+            this,
+            SLOT(slotDownloadError(QByteArray)));
+
+    downloadStarted();
+
 }
 
 void DownloadWidget::slotItemClicked(QListWidgetItem *item){
@@ -113,11 +120,16 @@ void DownloadWidget::slotUpDateButton(){
             this,
             SLOT(slotDownloadDone()));
 
+    connect(dm,
+            SIGNAL(downloadFailed(QByteArray)),
+            this,
+            SLOT(slotDownloadError(QByteArray)));
+
+    downloadStarted();
 
 }
 
 void DownloadWidget::slotDownloadDone(){
-    qDebug() << "slotDownloadDone";
 
     QMessageBox::information(this,
                              tr("Download Manager"),
@@ -130,8 +142,14 @@ void DownloadWidget::slotDownloadDone(){
 
 }
 
+void DownloadWidget::slotDownloadError(QByteArray url){
+    QMessageBox::information(this,
+                             tr("Download Manager: download failed for:"),
+                             url,
+                             QMessageBox::Ok);
+}
+
 void DownloadWidget::updateListWidget(){
-    qDebug() << "updateListWidget";
 
     QStringList files;
 
@@ -153,3 +171,9 @@ void DownloadWidget::updateListWidget(){
 
 }
 
+void DownloadWidget::downloadStarted(){
+    QMessageBox::information(this,
+                             tr("Download Manager"),
+                             tr("Downloads started in background"),
+                             QMessageBox::Ok);
+}
