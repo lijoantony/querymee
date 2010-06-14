@@ -18,6 +18,7 @@
 
 #include <QWidget>
 #include <QCheckBox>
+#include <QPushButton>
 
 class QComboBox;
 
@@ -46,6 +47,7 @@ private:
     QComboBox *m_ComboQuestionLang;
     QComboBox *m_ComboAnswerLang;
     QCheckBox *m_checkbox;
+    QPushButton *m_button;
 };
 
 #endif // TRAININGSELECTIONVIEW_H

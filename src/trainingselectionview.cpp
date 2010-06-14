@@ -21,7 +21,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QDialogButtonBox>
+#include <QPushButton>
 #include <QTimer>
 #include <QCheckBox>
 #include <QDebug>
@@ -34,6 +34,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     QHBoxLayout *hbox_lession = new QHBoxLayout();
     QHBoxLayout *hbox_question_lang = new QHBoxLayout();
     QHBoxLayout *hbox_answer_lang = new QHBoxLayout();
+    QHBoxLayout *hbox_bottom = new QHBoxLayout();
 
     m_ComboDictionary = new QComboBox();
     m_ComboLesson = new QComboBox();
@@ -59,18 +60,27 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     m_checkbox = new QCheckBox("Portrait", this);
 
 
-    QDialogButtonBox *buttons = new QDialogButtonBox(this);
-    buttons->setOrientation(Qt::Horizontal);
-    buttons->addButton(tr("Start"),QDialogButtonBox::AcceptRole);
+//    QDialogButtonBox *buttons = new QDialogButtonBox(this);
+//    buttons->setOrientation(Qt::Horizontal);
+//    buttons->addButton(tr("Start"),QDialogButtonBox::AcceptRole);
+//
+//    connect(buttons, SIGNAL(accepted()),this,SLOT(start()));
 
-    connect(buttons, SIGNAL(accepted()),this,SLOT(start()));
+    QPushButton *m_button = new QPushButton();
+    m_button->setText(tr("Start"));
+
+    connect(m_button,
+            SIGNAL(clicked()),
+            this,
+            SLOT(start()));
 
     vbox->addLayout(hbox_dictionary);
     vbox->addLayout(hbox_lession);
     vbox->addLayout(hbox_question_lang);
     vbox->addLayout(hbox_answer_lang);
-    vbox->addWidget(m_checkbox);
-    vbox->addWidget(buttons);
+    hbox_bottom->addWidget(m_checkbox);
+    hbox_bottom->addWidget(m_button);
+    vbox->addLayout(hbox_bottom);
 
     setLayout(vbox);
 
