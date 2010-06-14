@@ -1,0 +1,31 @@
+  http://techbase.kde.org/Development/Tutorials/Collaboration/HotNewStuff/Introduction
+
+  the service which KDE uses to provide in app download possibilities for
+  new and/or additional vocabulary files is called "Get Hot New Stuff -
+  GHNS"...
+
+  here the spec:
+
+  http://ghns.freedesktop.org/spec/ghns-spec.html
+
+   * Providers file: http://ghns.freedesktop.org/spec/ghnsproviders.xsd
+   * Download file: http://ghns.freedesktop.org/spec/ghnsdownload.xsd
+
+  some libraries, but non plain qt, or C++...
+  http://ghns.freedesktop.org/software.php
+
+  here the KDE implementation:
+  http://ghns.freedesktop.org/knewstuff2/
+  http://websvn.kde.org/trunk/KDE/kdelibs/knewstuff/
+
+  Provider URLs (from parley:
+  http://websvn.kde.org/trunk/KDE/kdeedu/parley/src/parley.knsrc):
+  http://edu.kde.org/parley/newstuff/providers41.xml
+  http://edu.kde.org/parley/newstuff/providers44.xml
+
+  here on of the download xml files:
+  http://download.kde.org/khotnewstuff/parley/parley.xml
+
+  Parser with QXmlStreamReader proof of concept:
+  http://www.gitorious.org/querymee/knewstuff
+
