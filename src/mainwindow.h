@@ -34,6 +34,8 @@ public:
     MainWindow();
 //    TrainingSelectionView* trainingView;
 //    DownloadWidget *dlw;
+signals:
+    void updateFileList();
 
 public slots:
     void downloadFiles();

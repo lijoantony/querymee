@@ -63,11 +63,8 @@ private:
     explicit QueryMeeSettings(QObject *parent = 0);
     static QueryMeeSettings* m_Instance;
     void init();
-
-private:
     void openDictionaryFile(const QString& fileName);
 
-private:
     QString m_CurrentlyOpenedFile;
     QmVocDocument* m_CurrentDocument;
     QList<QmVocLesson*> m_Lessons;

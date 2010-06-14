@@ -24,6 +24,7 @@
 #include <QDialogButtonBox>
 #include <QTimer>
 #include <QCheckBox>
+#include <QDebug>
 
 TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 {

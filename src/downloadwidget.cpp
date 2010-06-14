@@ -126,6 +126,8 @@ void DownloadWidget::slotDownloadDone(){
 
     updateListWidget();
 
+    emit finished();
+
 }
 
 void DownloadWidget::updateListWidget(){

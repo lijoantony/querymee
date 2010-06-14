@@ -33,8 +33,8 @@ QueryMeeSettings* QueryMeeSettings::instance()
 {
     if(!m_Instance) {
         m_Instance = new QueryMeeSettings(QCoreApplication::instance());
-        m_Instance->init();
     }
+    m_Instance->init();
     return m_Instance;
 }
 

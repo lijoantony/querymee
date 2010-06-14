@@ -19,6 +19,11 @@ MainWindow::MainWindow()
 {
     TrainingSelectionView* trainingView = new TrainingSelectionView(this);
 
+    connect(this,
+            SIGNAL(updateFileList()),
+            trainingView,
+            SLOT(slotInitView()));
+
     createActions();
     createMenus();
     setCentralWidget(trainingView);
@@ -51,6 +56,13 @@ void MainWindow::createMenus(){
 void MainWindow::downloadFiles()
 {
     DownloadWidget *dlw = new DownloadWidget();
+
+    connect(dlw,
+            SIGNAL(finished()),
+            this,
+            SIGNAL(updateFileList()));
+
     dlw->show();
+
 }
 

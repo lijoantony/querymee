@@ -7,6 +7,8 @@ First release 1.0.0 (first release which shall go to extras testing):
 * bugzilla (or similar) is needed to pass maemo QA
 * possibility to chose "all" for lessons
 * have stackable windows
+* if download fails, no note to user
+* notify the user that download started in background
 * download dialog for kvtml files
   http://techbase.kde.org/Development/Tutorials/Collaboration/HotNewStuff/Introduction
 

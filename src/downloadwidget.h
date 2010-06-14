@@ -29,6 +29,7 @@ public:
     explicit DownloadWidget(QWidget *parent = 0);
 
 signals:
+    void finished();
 
 public slots:
     void slotDownloadButton();
