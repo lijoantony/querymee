@@ -102,7 +102,7 @@ void TrainingSelectionView::start()
     // check what is selected
     if(m_ComboDictionary && m_ComboDictionary->count()) {
         slotDictionarySelected(m_ComboDictionary->currentIndex());
-        QueryMee* trainer = new QueryMee();
+        QueryMee* trainer = new QueryMee(this);
         trainer->setLession(m_ComboLesson->currentIndex());
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
@@ -110,6 +110,9 @@ void TrainingSelectionView::start()
        if(m_checkbox->isChecked() == true){
             trainer->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
         }
+
+        trainer->setAttribute(Qt::WA_Maemo5StackedWindow);
+        trainer->setWindowFlags(trainer->windowFlags() | Qt::Window);
 #endif
         trainer->startTraining();
     } else {

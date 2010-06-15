@@ -28,6 +28,10 @@ MainWindow::MainWindow()
     createMenus();
     setCentralWidget(trainingView);
 
+#ifdef Q_WS_MAEMO_5
+    this->setAttribute(Qt::WA_Maemo5StackedWindow);
+#endif
+
 }
 
 void MainWindow::createActions(){
@@ -55,12 +59,17 @@ void MainWindow::createMenus(){
 
 void MainWindow::downloadFiles()
 {
-    DownloadWidget *dlw = new DownloadWidget();
+    DownloadWidget *dlw = new DownloadWidget(this);
 
     connect(dlw,
             SIGNAL(finished()),
             this,
             SIGNAL(updateFileList()));
+
+#ifdef Q_WS_MAEMO_5
+    dlw->setAttribute(Qt::WA_Maemo5StackedWindow);
+    dlw->setWindowFlags(dlw->windowFlags() | Qt::Window);
+#endif
 
     dlw->show();
 
