@@ -50,13 +50,11 @@ QmVocKvtml2Reader::QmVocKvtml2Reader( QFile *file )
     if ( !m_inputFile->isOpen() ) {
         m_errorMessage =  "file must be opened first" ;
     }
-    qDebug("QmVocKvtml2Reader constructor");
 }
 
 
 bool QmVocKvtml2Reader::readDoc( QmVocDocument *doc )
 {
-    qDebug("QmVocKvtml2Reader::readDoc");
     m_doc = doc;
 
     QDomDocument domDoc( "KEduVocDocument" );
@@ -281,7 +279,6 @@ bool QmVocKvtml2Reader::readIdentifier( QDomElement &identifierElement )
     }
 
     QStringList tenses = readTenses(identifierElement);
-    qDebug() << tenses;
 
     m_doc->identifier(id).setTenseList(tenses);
 

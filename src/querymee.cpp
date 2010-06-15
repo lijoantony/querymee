@@ -100,7 +100,6 @@ QmVocExpression * QueryMee::getAnyEntryFromLesson()
     QueryMeeSettings::instance()->lesson(m_LessionIndex);
     if(lesson) {
         int random_int = ( rand() %  ( lesson->entries().size() - 1 ) ) + 0;
-        qDebug() << "anyEntry random_int: " << random_int << "Lesson Size: " << lesson->entries().size();
         vocExpression = lesson->entry(random_int);
     }
     return vocExpression;
@@ -123,10 +122,7 @@ void QueryMee::setAnswerLanguage(int languageIndex)
 
 void QueryMee::slotClicked(int id)
 {
-    qDebug() << "slotCheck(): button id: " << id << "Correct Id: " << m_CorrectId;
-    
     if(id == m_CorrectId){
-        qDebug() << "\\o/ correct answer...";
         statusLabel->setText("\\o/ correct answer");
         answerLabel->setText( m_AnswerButtonsList.at(id)->text() );
         m_AnswerButtonsList.at(id)->setDown(1);
@@ -136,7 +132,6 @@ void QueryMee::slotClicked(int id)
     else{
         QString str = ":-( sorry wrong... it's not: ";
         str.append(m_AnswerButtonsList.at(id)->text());
-        qDebug() << str ;
         statusLabel->setText( str );
     }
 }
@@ -159,7 +154,6 @@ void QueryMee::slotInit(){
     }
 
     int random_int = rand() % NumberOfButtons  + 0;
-    qDebug() << "ask for random_int: " <<  random_int;
 
     if(random_int < m_ChoiceList.count() && random_int >= 0) {
         QmVocExpression* expression = m_ChoiceList.at(random_int);

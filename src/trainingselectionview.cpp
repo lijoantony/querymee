@@ -59,13 +59,6 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 
     m_checkbox = new QCheckBox("Portrait", this);
 
-
-//    QDialogButtonBox *buttons = new QDialogButtonBox(this);
-//    buttons->setOrientation(Qt::Horizontal);
-//    buttons->addButton(tr("Start"),QDialogButtonBox::AcceptRole);
-//
-//    connect(buttons, SIGNAL(accepted()),this,SLOT(start()));
-
     QPushButton *m_button = new QPushButton();
     m_button->setText(tr("Start"));
 

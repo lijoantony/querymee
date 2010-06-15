@@ -156,7 +156,7 @@ void QmVocDocument::QmVocDocumentPrivate::init()
 QmVocDocument::QmVocDocument( QObject *parent )
         : QObject( parent ), d( new QmVocDocumentPrivate( this ) )
 {
-    qDebug() << "constructor done";
+
 }
 
 
@@ -241,7 +241,6 @@ QmVocDocument::FileType QmVocDocument::detectFileType( const QString &fileName )
         if ( line2.indexOf( "xdxf", 0 ) >  0 ) {
             return Xdxf;
         } else {
-            qDebug("assuming this is a kvtml file...");
             return Kvtml;
         }
     }
@@ -289,7 +288,6 @@ int QmVocDocument::open( const QUrl& url )
 
         switch ( ft ) {
             case Kvtml: {
-                qDebug() << "Reading KVTML document...";
                 QmVocKvtml2Reader kvtmlReader( f );
                 read = kvtmlReader.readDoc( this );
                 if ( !read ) {
@@ -365,7 +363,6 @@ int QmVocDocument::open( const QUrl& url )
             break;
 
             default: {
-                qDebug() << "Reading KVTML document (fallback)...";
                 QmVocKvtml2Reader kvtmlReader( f );
                 read = kvtmlReader.readDoc( this );
                 if ( !read ) {
@@ -738,7 +735,6 @@ int QmVocDocument::identifierCount() const
 int QmVocDocument::appendIdentifier( const QmVocIdentifier& id )
 {
     int i = d->m_identifiers.size();
-    qDebug() << "appendIdentifier: " << i << id.name() << id.locale();
     d->m_identifiers.append( id );
     if ( id.name().isEmpty() ) {
         if ( i == 0 ) {

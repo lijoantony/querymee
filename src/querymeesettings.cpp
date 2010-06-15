@@ -131,13 +131,24 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
 
 
     QList<QmVocLesson*> lessonList;
-    // no lessons, delete document, return
+    // if the list is empty, then there should be a default lesson "Document Lesson"
+    // in the object document->lesson()
     if(lessonContainers.isEmpty()) {
-        qDebug() << "no lessons, delete document, return, is that good idea?";
-        // there are no lessons in the document (this is valid!)
-        qDebug() << "lesson name" << document->lesson()->name();
+        // just append the one lesson
         lessonList.append(document->lesson());
     } else {
+
+        // add an all lesson if there is more than one lesson
+        // and add all the entries from the document
+        if (lessonContainers.count() > 1){
+            QmVocLesson* allLesson = new QmVocLesson("All", document->lesson());
+            foreach (QmVocExpression * entry, document->lesson()->entries(QmVocLesson::Recursive))
+            {
+                allLesson->appendEntry(entry);
+            }
+            lessonList.append(allLesson);
+        }
+
         // Read lessons
         foreach(QmVocContainer *c, lessonContainers) {
             if (c && c->containerType() == QmVocLesson::Lesson) {
@@ -145,6 +156,7 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
                 lessonList.append(lesson);
             }
         }
+
     }
 
     // if there are no languages, delete document, return

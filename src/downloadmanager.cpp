@@ -112,14 +112,13 @@ void DownloadManager::downloadFinished(QNetworkReply *reply)
             refresh.remove(0, equalIndex + 1);
             QUrl realurl = QUrl("http://opendesktop.org/");
             realurl.setPath(refresh);
-            qDebug() << "start 2nd download:" << realurl.toEncoded().constData();
             this->doDownload(realurl);
         }
     }
     else {
         QString filename = saveFileName(url);
         if (saveToDisk(filename, reply)){
-            qDebug() << "Download of" << url.toEncoded().constData() << "succeded saved to:"  << qPrintable(filename);
+            // qDebug() << "Download of" << url.toEncoded().constData() << "succeded saved to:"  << qPrintable(filename);
         }
     }
 
