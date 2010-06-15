@@ -129,18 +129,21 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
     QList< QmVocContainer* > lessonContainers =
             document->lesson()->childContainers();
 
+
+    QList<QmVocLesson*> lessonList;
     // no lessons, delete document, return
     if(lessonContainers.isEmpty()) {
-        delete document;
-        return;
-    }
-
-    // Read lessons
-    QList<QmVocLesson*> lessonList;
-    foreach(QmVocContainer *c, lessonContainers) {
-        if (c && c->containerType() == QmVocLesson::Lesson) {
-            QmVocLesson* lesson = static_cast<QmVocLesson *>(c);
-            lessonList.append(lesson);
+        qDebug() << "no lessons, delete document, return, is that good idea?";
+        // there are no lessons in the document (this is valid!)
+        qDebug() << "lesson name" << document->lesson()->name();
+        lessonList.append(document->lesson());
+    } else {
+        // Read lessons
+        foreach(QmVocContainer *c, lessonContainers) {
+            if (c && c->containerType() == QmVocLesson::Lesson) {
+                QmVocLesson* lesson = static_cast<QmVocLesson *>(c);
+                lessonList.append(lesson);
+            }
         }
     }
 
