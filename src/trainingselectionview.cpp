@@ -112,8 +112,8 @@ void TrainingSelectionView::start()
         }
 
         trainer->setAttribute(Qt::WA_Maemo5StackedWindow);
-        trainer->setWindowFlags(trainer->windowFlags() | Qt::Window);
 #endif
+        trainer->setWindowFlags(trainer->windowFlags() | Qt::Window);
         trainer->startTraining();
     } else {
         QueryMeeSettings::instance()->openDictionary();

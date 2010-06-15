@@ -68,8 +68,9 @@ void MainWindow::downloadFiles()
 
 #ifdef Q_WS_MAEMO_5
     dlw->setAttribute(Qt::WA_Maemo5StackedWindow);
-    dlw->setWindowFlags(dlw->windowFlags() | Qt::Window);
 #endif
+
+    dlw->setWindowFlags(dlw->windowFlags() | Qt::Window);
 
     dlw->show();
 
