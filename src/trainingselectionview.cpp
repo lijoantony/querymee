@@ -95,6 +95,7 @@ void TrainingSelectionView::slotInitView()
         QString dictionaryName = settings->dictionaries().first();
         settings->openDictionary(dictionaryName);
     }
+    slotDictionaryChanged();
 }
 
 void TrainingSelectionView::start()
