@@ -38,14 +38,17 @@ signals:
 
 public slots:
     void downloadFiles();
+        void help();
 
 private:
     QAction *settingAction;
     QAction *downloadAction;
+    QAction *helpAction;
     QMenu *mainMenu;
 
     void createActions();
     void createMenus();
+
 };
 
 #endif // MAINWINDOW_H

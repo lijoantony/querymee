@@ -14,6 +14,7 @@
  ***************************************************************************/
 
 #include "mainwindow.h"
+#include "querymee_defaults.h"
 
 MainWindow::MainWindow()
 {
@@ -49,12 +50,19 @@ void MainWindow::createActions(){
             SIGNAL(triggered()),
             this,
             SLOT(downloadFiles()));
+
+    helpAction = new QAction(tr("Help"), this);
+    connect(helpAction,
+            SIGNAL(triggered()),
+            this,
+            SLOT(help()));
 }
 
 void MainWindow::createMenus(){
     mainMenu = menuBar()->addMenu("Main");
     mainMenu->addAction(settingAction);
     mainMenu->addAction(downloadAction);
+    mainMenu->addAction(helpAction);
 }
 
 void MainWindow::downloadFiles()
@@ -76,3 +84,6 @@ void MainWindow::downloadFiles()
 
 }
 
+void MainWindow::help(){
+    QDesktopServices::openUrl(QUrl("../doc/help.html"));
+}
