@@ -85,5 +85,5 @@ void MainWindow::downloadFiles()
 }
 
 void MainWindow::help(){
-    QDesktopServices::openUrl(QUrl("../doc/help.html"));
+    QDesktopServices::openUrl(QUrl("file:///opt/querymee/doc/help.html"));
 }
