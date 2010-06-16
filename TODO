@@ -6,9 +6,10 @@ First release 1.0.0 (first release which shall go to extras testing):
 * DONE - notify the user that download started in background
 * DONE - download dialog for kvtml files
 * DONE - have stackable windows see comment about bug: 10521 / QTBUG-11190
+* DONE - bugzilla (or similar) is needed to pass maemo QA
+         https://garage.maemo.org/tracker/?func=browse&group_id=1694&atid=5986
 
 * help/info page (how to get kvtml files, how to create...)
-* bugzilla (or similar) is needed to pass maemo QA
 
 due to bug:
   * https://bugs.maemo.org/show_bug.cgi?id=10521
