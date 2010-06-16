@@ -108,11 +108,17 @@ void TrainingSelectionView::start()
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
 #ifdef Q_WS_MAEMO_5
+       /* due to bug:
+        * https://bugs.maemo.org/show_bug.cgi?id=10521
+        * http://bugreports.qt.nokia.com/browse/QTBUG-11190
+        * it's not possible to have Portrait and Stackedwindows
+        * so we have either one
+       */
        if(m_checkbox->isChecked() == true){
             trainer->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
-        }
-
-        trainer->setAttribute(Qt::WA_Maemo5StackedWindow);
+       } else {
+            trainer->setAttribute(Qt::WA_Maemo5StackedWindow, true);
+       }
 #endif
         trainer->setWindowFlags(trainer->windowFlags() | Qt::Window);
         trainer->startTraining();

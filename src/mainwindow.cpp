@@ -29,7 +29,7 @@ MainWindow::MainWindow()
     setCentralWidget(trainingView);
 
 #ifdef Q_WS_MAEMO_5
-    this->setAttribute(Qt::WA_Maemo5StackedWindow);
+    this->setAttribute(Qt::WA_Maemo5StackedWindow, true);
 #endif
 
 }
@@ -67,7 +67,7 @@ void MainWindow::downloadFiles()
             SIGNAL(updateFileList()));
 
 #ifdef Q_WS_MAEMO_5
-    dlw->setAttribute(Qt::WA_Maemo5StackedWindow);
+    dlw->setAttribute(Qt::WA_Maemo5StackedWindow, true);
 #endif
 
     dlw->setWindowFlags(dlw->windowFlags() | Qt::Window);
