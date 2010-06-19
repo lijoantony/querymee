@@ -136,6 +136,10 @@ void DownloadWidget::slotDownloadDone(){
                              tr("all downloads finished..."),
                              QMessageBox::Ok);
 
+#ifdef Q_WS_MAEMO_5
+    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+#endif
+
     updateListWidget();
 
     emit finished();
@@ -172,8 +176,14 @@ void DownloadWidget::updateListWidget(){
 }
 
 void DownloadWidget::downloadStarted(){
+
+#ifdef Q_WS_MAEMO_5
+    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+#else
     QMessageBox::information(this,
                              tr("Download Manager"),
                              tr("Downloads started in background"),
                              QMessageBox::Ok);
+#endif
+
 }
