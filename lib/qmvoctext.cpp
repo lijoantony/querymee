@@ -96,7 +96,7 @@ void QmVocText::setGrade( grade_t grade )
 
 void QmVocText::incGrade()
 {
-    setGrade( grade() + 1 );
+    setGrade( qMax<grade_t>(grade(), KV_LEV1_GRADE ) + 1 );
 }
 
 
@@ -180,7 +180,7 @@ bool QmVocText::operator ==(const QmVocText & other) const
 void QmVocText::toKVTML2(QDomElement& parent)
 {
     QDomDocument domDoc = parent.ownerDocument();
-    if (text().isEmpty()) {
+    if (d->m_text.isEmpty() && d->m_totalPracticeCount == 0) {
         return;
     }
 
@@ -188,7 +188,7 @@ void QmVocText::toKVTML2(QDomElement& parent)
     QmVocKvtml2Writer::appendTextElement( parent, KVTML_TEXT, text() );
 
     // grades
-    if ( practiceCount() > 0 ) {
+    if ( d->m_totalPracticeCount > 0 ) {
         QDomElement gradeElement = domDoc.createElement( KVTML_GRADE );
 
             //<currentgrade>2</currentgrade>
