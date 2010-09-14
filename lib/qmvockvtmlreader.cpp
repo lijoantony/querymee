@@ -738,6 +738,7 @@ bool QmVocKvtmlReader::readExpressionChildAttributes( QDomElement &domElementExp
         QSet<QString> &usages,
         QString &paraphrase )
 {
+    Q_UNUSED(usages)
     int pos;
     QDomAttr attribute;
 
@@ -952,7 +953,7 @@ bool QmVocKvtmlReader::readExpression( QDomElement &domElementParent )
         return false;
     }
 
-    QmVocExpression* entry;
+    QmVocExpression* entry = 0;
 
     while ( !currentElement.isNull() ) {
 
