@@ -81,6 +81,4 @@ private:
 };
 
 
-
 #endif // QTVTVOCCONJUGATION_H
-
