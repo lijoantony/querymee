@@ -50,7 +50,7 @@ public:
     QUrl m_imageUrl;
 };
 
-QmVocContainer::Private::~ Private()
+QmVocContainer::Private::~Private()
 {
     qDeleteAll(m_childContainers);
 }
@@ -96,9 +96,14 @@ QmVocContainer * QmVocContainer::childContainer(int row)
 
 QmVocContainer * QmVocContainer::childContainer(const QString & name)
 {
+    if (d->m_name == name) {
+        return this;
+    }
+
     foreach (QmVocContainer *container, d->m_childContainers) {
-        if (container->name() == name) {
-            return container;
+        QmVocContainer *found = container->childContainer(name);
+        if (found) {
+            return found;
         }
     }
     return 0;
@@ -182,7 +187,6 @@ void QmVocContainer::removeTranslation(int translation)
 
 QList< QmVocExpression * > QmVocContainer::entriesRecursive()
 {
-//     kDebug() << "entriesRecursive: " << name();
     if (!d->m_childLessonEntriesValid) {
         updateChildLessonEntries();
     }
