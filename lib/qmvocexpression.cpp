@@ -25,9 +25,6 @@
 
 #include "qmvocexpression.h"
 
-// #include <KDebug>
-
-
 class QmVocExpression::QmVocExpressionPrivate
 {
 public:
@@ -78,7 +75,6 @@ bool QmVocExpression::QmVocExpressionPrivate::operator== ( const QmVocExpression
         m_lesson == p.m_lesson &&
         m_active == p.m_active;
 }
-
 
 QmVocExpression::QmVocExpression()
         : d( new QmVocExpressionPrivate )
