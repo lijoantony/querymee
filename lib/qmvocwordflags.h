@@ -74,10 +74,10 @@ public:
     static const Flags numbers = (Flags)(Singular | Plural | Dual);
     static const Flags cases = (Flags)(Nominative|Genitive|Dative|Accusative|Ablative|Locative|Vocative);
     static const Flags persons = (Flags)(First | Second | Third);
+
 };
 
 Q_DECLARE_FLAGS(QmVocWordFlags, QmVocWordFlag::Flags)
 Q_DECLARE_OPERATORS_FOR_FLAGS(QmVocWordFlags)
-
 
 #endif
