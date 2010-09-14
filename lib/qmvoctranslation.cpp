@@ -6,7 +6,7 @@
                         Vocabulary Expression Translation for KDE Edu
     -----------------------------------------------------------------------
 
-    Copyright 2007-2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
+    Copyright 2007-2010 Frederik Gladhorn <gladhorn@kde.org>
     Copyright 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
 
  ***************************************************************************/
@@ -28,7 +28,6 @@
 #include "qmvocleitnerbox.h"
 #include "kvtml2defs.h"
 #include "qmvockvtml2writer.h"
-// #include <KDebug>
 #include <QtCore/QMap>
 
 class QmVocTranslation::QmVocTranslationPrivate
@@ -68,8 +67,11 @@ public:
     QMap <QString, QmVocConjugation> m_conjugations;
 
     /// The comparison forms of adjectives and adverbs: (fast), faster, fastest
-    QString m_comparative;
-    QString m_superlative;
+    QmVocText* m_comparative;
+    QmVocText* m_superlative;
+
+    /// The grade of an article. The text part should not be used.
+    QmVocText* m_articleGrade;
 
     QmVocDeclension* m_declension;
 
@@ -88,6 +90,10 @@ QmVocTranslation::QmVocTranslationPrivate::QmVocTranslationPrivate(QmVocExpressi
     m_wordType = 0;
     m_leitnerBox = 0;
     m_declension = 0;
+
+    m_comparative = 0;
+    m_superlative = 0;
+    m_articleGrade = 0;
 }
 
 
@@ -394,22 +400,87 @@ QmVocExpression * QmVocTranslation::entry()
 
 QString QmVocTranslation::comparative() const
 {
-    return d->m_comparative;
+    if (d->m_comparative) {
+        return d->m_comparative->text();
+    }
+    return QString();
 }
 
 void QmVocTranslation::setComparative(const QString & comparative)
 {
-    d->m_comparative = comparative;
+    if (!d->m_comparative) {
+        d->m_comparative = new QmVocText(comparative);
+    } else {
+        d->m_comparative->setText(comparative);
+    }
 }
 
 QString QmVocTranslation::superlative() const
 {
-    return d->m_superlative;
+    if (d->m_superlative) {
+        return d->m_superlative->text();
+    }
+    return QString();
 }
 
 void QmVocTranslation::setSuperlative(const QString & superlative)
 {
-    d->m_superlative = superlative;
+    if (!d->m_superlative) {
+        d->m_superlative = new QmVocText(superlative);
+    } else {
+        d->m_superlative->setText(superlative);
+    }
+}
+
+QmVocText QmVocTranslation::comparativeForm() const
+{
+    if (!d->m_comparative) {
+        return QmVocText();
+    }
+    QmVocText t(*(d->m_comparative));
+    return t;
+}
+
+void QmVocTranslation::setComparativeForm(const QmVocText& comparative)
+{
+    if (!d->m_comparative) {
+        d->m_comparative = new QmVocText();
+    }
+    *(d->m_comparative) = comparative;
+}
+
+QmVocText QmVocTranslation::superlativeForm() const
+{
+    if (!d->m_superlative) {
+        return QmVocText();
+    }
+    QmVocText t(*d->m_superlative);
+    return t;
+}
+
+void QmVocTranslation::setSuperlativeForm(const QmVocText& superlative)
+{
+    if (!d->m_superlative) {
+        d->m_superlative = new QmVocText();
+    }
+    *d->m_superlative = superlative;
+}
+
+QmVocText QmVocTranslation::article() const
+{
+    if (!d->m_articleGrade) {
+        return QmVocText();
+    }
+    QmVocText t(*d->m_articleGrade);
+    return t;
+}
+
+void QmVocTranslation::setArticle(const QmVocText& article)
+{
+    if (!d->m_articleGrade) {
+        d->m_articleGrade = new QmVocText();
+    }
+    *d->m_articleGrade = article;
 }
 
 QmVocDeclension * QmVocTranslation::declension()
@@ -438,7 +509,9 @@ void QmVocTranslation::toKVTML2(QDomElement & parent)
     foreach ( const QString &tense, conjugationTenses() ) {
         QDomElement conjugationElement = parent.ownerDocument().createElement( KVTML_CONJUGATION );
         conjugation(tense).toKVTML2(conjugationElement, tense);
-        parent.appendChild( conjugationElement );
+        if (conjugationElement.hasChildNodes()) {
+            parent.appendChild( conjugationElement );
+        }
     }
 
     // <comment>
