@@ -345,7 +345,7 @@ bool QmVocKvtml2Reader::readTranslation( QDomElement &translationElement,
     // article grade
     currentElement = translationElement.firstChildElement( KVTML_ARTICLE );
     if ( !currentElement.isNull() ) {
-        KEduVocText article;
+        QmVocText article;
         article.fromKVTML2(currentElement);
         expr->translation(index)->setArticle(article);
     }
