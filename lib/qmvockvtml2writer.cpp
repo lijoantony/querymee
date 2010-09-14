@@ -258,7 +258,7 @@ void QmVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentEleme
 
         while (!currentList.isEmpty()) {
             // after writing a translation, remove it from the list
-            KEduVocTranslation* translation = currentList.takeFirst();
+            QmVocTranslation* translation = currentList.takeFirst();
 	    
             QDomElement relatedElement;
             QList <QmVocTranslation*> list;
@@ -505,7 +505,7 @@ bool QmVocKvtml2Writer::writeTranslation( QDomElement &translationElement, QmVoc
 
     // comparison
     if ( !(translation->comparativeForm().text().isEmpty() || translation->superlativeForm().text().isEmpty())) {
-        kDebug() << "Write comp";
+        qDebug() << "Write comp";
         QDomElement comparisonElement = m_domDoc.createElement( KVTML_COMPARISON );
         translationElement.appendChild(comparisonElement);
 
