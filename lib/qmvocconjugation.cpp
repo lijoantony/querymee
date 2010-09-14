@@ -33,6 +33,7 @@
 
 #include <QtCore/QMap>
 #include <QtXml/QDomDocument>
+#include <QDebug>
 
 class QmVocConjugation::Private
 {
@@ -83,15 +84,13 @@ void QmVocConjugation::setConjugation(const QmVocText& conjugation, QmVocWordFla
 
 bool QmVocConjugation::isEmpty()
 {
-    return d->m_conjugations.count() == 0;
+    return d->m_conjugations.isEmpty();
 }
 
 QList< QmVocWordFlags > QmVocConjugation::keys()
 {
     return d->m_conjugations.keys();
 }
-
-
 
 void QmVocConjugation::toKVTML2(QDomElement & parent, const QString &tense)
 {
@@ -110,11 +109,16 @@ void QmVocConjugation::toKVTML2(QDomElement & parent, const QString &tense)
     persons[3] = (QmVocWordFlag::Flags)((int)QmVocWordFlag::Third | (int)QmVocWordFlag::Feminine);
     persons[4] = (QmVocWordFlag::Flags)((int)QmVocWordFlag::Third | (int)QmVocWordFlag::Neuter);
 
-    // write the tense tag
     QDomDocument domDoc = parent.ownerDocument();
-    QDomElement tenseElement = domDoc.createElement( KVTML_TENSE );
-    tenseElement.appendChild( domDoc.createTextNode(tense) );
-    parent.appendChild(tenseElement);
+
+    // write the tense tag
+    if (!tense.isEmpty()) {
+        QDomElement tenseElement = domDoc.createElement( KVTML_TENSE );
+        tenseElement.appendChild( domDoc.createTextNode(tense) );
+        parent.appendChild(tenseElement);
+    } else {
+        qDebug() << "Saving conjugation with empty tense";
+    }
 
     for ( int num = 0; num <= 2; ++num) {
         QDomElement numberElement = domDoc.createElement( KVTML_GRAMMATICAL_NUMBER[num] );
