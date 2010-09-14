@@ -6,7 +6,7 @@
                    export a QmVocDocument to a KVTML file
     -----------------------------------------------------------------------
     copyright           : (C) 2007 Jeremy Whiting <jpwhiting@kde.org>
-                          (C) 2007-2008 Frederik Gladhorn <frederik.gladhorn@kdemail.net>
+    Copyright 2007-2010 Frederik Gladhorn <gladhorn@kde.org>
                           (C) 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
 
  ***************************************************************************/
@@ -258,22 +258,8 @@ void QmVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentEleme
 
         while (!currentList.isEmpty()) {
             // after writing a translation, remove it from the list
-            QmVocTranslation* translation = currentList.takeAt(0);
-
-            // fill the entry element but only add later if it is valid
-            QDomElement entryElement = m_domDoc.createElement( KVTML_ENTRY );
-            entryElement.setAttribute( KVTML_ID, QString::number(m_allEntries.indexOf(translation->entry())) );
-            // find out which id that is... silly
-            foreach(int index, translation->entry()->translationIndices()) {
-                if (translation->entry()->translation(index) == translation) {
-                    // create <translation id="123">
-                    QDomElement translationElement = m_domDoc.createElement( KVTML_TRANSLATION );
-                    translationElement.setAttribute( KVTML_ID, QString::number(index) );
-                    entryElement.appendChild(translationElement);
-                    break;
-                }
-            }
-
+            KEduVocTranslation* translation = currentList.takeFirst();
+	    
             QDomElement relatedElement;
             QList <QmVocTranslation*> list;
             switch (type) {
@@ -291,13 +277,26 @@ void QmVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentEleme
                 // if it is not in the list it has already been written and we can move on
                 if (currentList.contains(synonym)) {
                     relatedElement = m_domDoc.createElement( KVTML_PAIR );
-                    synonymElement.appendChild(relatedElement);
+
+		    // fill the entry element but only add later if it is valid
+		    QDomElement entryElement = m_domDoc.createElement( KVTML_ENTRY );
+		    entryElement.setAttribute( KVTML_ID, QString::number(m_allEntries.indexOf(translation->entry())) );
+		    // find out which id that is... silly
+		    foreach(int index, translation->entry()->translationIndices()) {
+			if (translation->entry()->translation(index) == translation) {
+			    // create <translation id="123">
+			    QDomElement translationElement = m_domDoc.createElement( KVTML_TRANSLATION );
+			    translationElement.setAttribute( KVTML_ID, QString::number(index) );
+			    entryElement.appendChild(translationElement);
+			    break;
+			}
+		    }
+		    
                     relatedElement.appendChild(entryElement);
 
 
                     QDomElement partnerElement = m_domDoc.createElement( KVTML_ENTRY );
                     partnerElement.setAttribute( KVTML_ID, QString::number(m_allEntries.indexOf(synonym->entry())) );
-
                     // find out which id that is
                     foreach(int index, synonym->entry()->translationIndices()) {
                         if (synonym->entry()->translation(index) == synonym) {
@@ -309,11 +308,10 @@ void QmVocKvtml2Writer::writeSynonymAntonymFalseFriend(QDomElement & parentEleme
                         }
                     }
                     relatedElement.appendChild( partnerElement );
+		    synonymElement.appendChild(relatedElement);
                 }
             }
-            if (relatedElement.hasChildNodes()) {
-                synonymElement.appendChild( relatedElement );
-            }
+            
         }
         if (synonymElement.hasChildNodes()) {
             parentElement.appendChild( synonymElement );
@@ -506,10 +504,24 @@ bool QmVocKvtml2Writer::writeTranslation( QDomElement &translationElement, QmVoc
     translation->toKVTML2(translationElement);
 
     // comparison
-    if ( !(translation->comparative().isEmpty() || translation->comparative().isEmpty())) {
+    if ( !(translation->comparativeForm().text().isEmpty() || translation->superlativeForm().text().isEmpty())) {
+        kDebug() << "Write comp";
         QDomElement comparisonElement = m_domDoc.createElement( KVTML_COMPARISON );
-        writeComparison( comparisonElement, translation );
-        translationElement.appendChild( comparisonElement );
+        translationElement.appendChild(comparisonElement);
+
+        QDomElement comparativeElement = m_domDoc.createElement( KVTML_COMPARATIVE );
+        comparisonElement.appendChild(comparativeElement);
+        translation->comparativeForm().toKVTML2(comparativeElement);
+
+        QDomElement superlativeElement = m_domDoc.createElement( KVTML_SUPERLATIVE );
+        comparisonElement.appendChild(superlativeElement);
+        translation->superlativeForm().toKVTML2(superlativeElement);
+    }
+
+    if (translation->article().practiceCount() != 0) {
+        QDomElement articleElement = m_domDoc.createElement( KVTML_ARTICLE );
+        translation->article().toKVTML2(articleElement);
+        translationElement.appendChild(articleElement);
     }
 
     // multiplechoice
@@ -576,27 +588,6 @@ bool QmVocKvtml2Writer::writeTranslation( QDomElement &translationElement, QmVoc
 //         }
 //     }
 
-
-
-
-
-
-bool QmVocKvtml2Writer::writeComparison( QDomElement &comparisonElement, QmVocTranslation* translation )
-/*
- <comparison>
-   <absolute>good</absolute>
-   <comparative>better</comparative>
-   <superlative>best</superlative>
- </comparison>
-*/
-{
-    comparisonElement.appendChild( newTextElement( KVTML_COMPARATIVE, translation->comparative() ) );
-    comparisonElement.appendChild( newTextElement( KVTML_SUPERLATIVE, translation->superlative() ) );
-
-    return true;
-}
-
-
 bool QmVocKvtml2Writer::writeMultipleChoice( QDomElement &multipleChoiceElement, QmVocTranslation* translation )
 /*
  <multiplechoice>
@@ -616,7 +607,6 @@ bool QmVocKvtml2Writer::writeMultipleChoice( QDomElement &multipleChoiceElement,
 
 QDomElement QmVocKvtml2Writer::newTextElement( const QString &elementName, const QString &text )
 {
-    qDebug() << "append: " << elementName << text;
     QDomElement retval = m_domDoc.createElement( elementName );
     QDomText textNode = m_domDoc.createTextNode( text );
     retval.appendChild( textNode );
