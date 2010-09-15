@@ -148,7 +148,7 @@ bool QmVocVokabelnReader::readDoc( QmVocDocument *doc )
         translation = words[1].mid( 1 );
         lessonNumber = words[2].toInt() - 1;
 
-        qDebug() << "Reading entry: " << original << " - " << translation << " Lesson: " << lessonNumber;
+        // qDebug() << "Reading entry: " << original << " - " << translation << " Lesson: " << lessonNumber;
 
         // fallback if it's not read correctly
         if (lessonNumber < 0) {

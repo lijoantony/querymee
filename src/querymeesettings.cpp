@@ -68,7 +68,7 @@ void QueryMeeSettings::openDictionary()
 {
     QString fileName = QFileDialog::getOpenFileName(0,
                                                     tr("Open dictionary"),
-                                                    QDir::homePath(),"*.kvtml");
+                                                    QDir::homePath(),"*.kvtml *.voc *.csv");
     openDictionaryFile(fileName);
 }
 
