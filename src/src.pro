@@ -31,3 +31,19 @@ HEADERS += querymee.h \
 FORMS += 
 QT += network \
     xml
+
+unix {
+    #VARIABLES
+    isEmpty(PREFIX) {
+        PREFIX = /usr/local
+    }
+
+    BINDIR = $$PREFIX/lib
+
+    #MAKE INSTALL
+
+    INSTALLS += target
+
+    target.path =$$BINDIR
+
+}
