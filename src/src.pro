@@ -38,7 +38,7 @@ unix {
         PREFIX = /usr/local
     }
 
-    BINDIR = $$PREFIX/lib
+    BINDIR = $$PREFIX/bin
 
     #MAKE INSTALL
 
