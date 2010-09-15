@@ -5,7 +5,7 @@ due to bug:
 it's not possible to have Portrait and Stackedwindow at the same time
 
 
-For next major release 2.0.0:
+For next major release 0.2.0:
 * possibility to chose "all" for lessons
 * flash card mode (portrait and landscape)
 * enable support for images in library and use it in flash card mode (show image with question or just image)
@@ -18,9 +18,10 @@ For next major release 2.0.0:
   kvtml allows URLs and local path images and sound tags, KDE library returns KUrl, not the same as QUrl!
   handler for download is needed and handler to check if file already locally available!
 * support for kvtml multiple choice feature, fallback to random if not specified
-* support for csv files in library
-  http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvoccsvreader.cpp
-  http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line342
+* update help file and example for .csv files
+* DONE support for csv files in library
+       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvoccsvreader.cpp
+       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line342
 
 
 itmes for the fare future:
