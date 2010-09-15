@@ -326,14 +326,14 @@ int QmVocDocument::open( const QUrl& url )
 
             case Vokabeln: {
                 qDebug() << "Reading Vokabeln document...";
-                qCritical ("Vokabeln document not yet supported...");
-                errorMessage = "Vokabeln document not yet supported...";
-//                 QmVocVokabelnReader vokabelnReader( f );
-//                 d->m_url.setFileName( "Untitled" );
-//                 read = vokabelnReader.readDoc( this );
-//                 if ( !read ) {
-//                     errorMessage = vokabelnReader.errorMessage();
-//                 }
+//                qCritical ("Vokabeln document not yet supported...");
+//                errorMessage = "Vokabeln document not yet supported...";
+                 QmVocVokabelnReader vokabelnReader( f );
+                 // d->m_url.setFileName( "Untitled" );
+                 read = vokabelnReader.readDoc( this );
+                 if ( !read ) {
+                     errorMessage = vokabelnReader.errorMessage();
+                 }
             }
             break;
 

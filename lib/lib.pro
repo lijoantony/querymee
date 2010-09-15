@@ -32,7 +32,7 @@ HEADERS += qmvocarticle.h \
            qmvocpersonalpronoun.h \
            qmvoctext.h \
            qmvoctranslation.h \
-#           qmvocvokabelnreader.h \
+           qmvocvokabelnreader.h \
            qmvocwordflags.h \
            qmvocwordtype.h \
 #           qmvocwqlreader.h \
@@ -62,7 +62,7 @@ SOURCES += qmvocarticle.cpp \
            qmvocpersonalpronoun.cpp \
            qmvoctext.cpp \
            qmvoctranslation.cpp \
-#           qmvocvokabelnreader.cpp \
+           qmvocvokabelnreader.cpp \
            qmvocwordtype.cpp \
 #           qmvocwqlreader.cpp \
 #           qmvocxdxfreader.cpp \

@@ -179,10 +179,10 @@ bool QmVocVokabelnReader::readDoc( QmVocDocument *doc )
     for ( int i = 0; !inputStream.atEnd() && i < lines; i++ ) {
         QString lessonDescr = inputStream.readLine();
         lessonDescr = lessonDescr.mid( 1, lessonDescr.length() - 2 );
-        m_doc->lesson()->childContainer(i)->setName(lessonDescr);
         if ( lessonDescr.isEmpty() ) {
             break;
         }
+        m_doc->lesson()->childContainer(i)->setName(lessonDescr);
         inputStream.readLine();
     }
 
