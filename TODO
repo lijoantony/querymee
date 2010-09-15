@@ -4,6 +4,16 @@ due to bug:
 
 it's not possible to have Portrait and Stackedwindow at the same time
 
+For next release 0.1.X:
+* update help file and example for .csv files
+* update help file where to get vokabeln http://www.vokabeln.de/v1/download.htm
+  (just Version 1 works!)
+* DONE support for csv files in library
+       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvoccsvreader.cpp
+       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line342
+* DONE enable vokabeln reader
+       http://gitorious.org/querymee/querymee/trees/master/lib/qmvocvokabelnreader.cpp
+
 
 For next major release 0.2.0:
 * possibility to chose "all" for lessons
@@ -18,10 +28,6 @@ For next major release 0.2.0:
   kvtml allows URLs and local path images and sound tags, KDE library returns KUrl, not the same as QUrl!
   handler for download is needed and handler to check if file already locally available!
 * support for kvtml multiple choice feature, fallback to random if not specified
-* update help file and example for .csv files
-* DONE support for csv files in library
-       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvoccsvreader.cpp
-       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line342
 
 
 itmes for the fare future:
@@ -32,9 +38,8 @@ itmes for the fare future:
   http://websvn.kde.org/trunk/KDE/kdeedu/parley/
 * multiple choice with conjucated verbs
 * multiple choice with comparison forms adjectives/adverbs.
-* enable other file formats than kvtml in library (vocwql, vocxdxf, pauker, vokabeln) 
+* enable other file formats than kvtml in library (vocwql, vocxdxf, pauker) 
   http://gitorious.org/querymee/querymee/blobs/master/lib/qmvocdocument.cpp#line290
-  http://gitorious.org/querymee/querymee/trees/master/lib/qmvocvokabelnreader.cpp
   http://gitorious.org/querymee/querymee/trees/master/lib/qmvocwqlreader.cpp
   http://gitorious.org/querymee/querymee/trees/master/lib/qmvocxdxfreader.cpp
   http://gitorious.org/querymee/querymee/trees/master/lib/qmvocpaukerreader.cpp
