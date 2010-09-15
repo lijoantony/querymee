@@ -5,7 +5,7 @@ due to bug:
 it's not possible to have Portrait and Stackedwindow at the same time
 
 For next release 0.1.X:
-* update help file and example for .csv files
+* update help file for .csv files
 * update help file where to get vokabeln http://www.vokabeln.de/v1/download.htm
   (just Version 1 works!)
 * DONE support for csv files in library
