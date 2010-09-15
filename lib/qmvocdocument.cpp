@@ -339,13 +339,13 @@ int QmVocDocument::open( const QUrl& url )
 
             case Csv: {
                 qDebug() << "Reading CVS document...";
-                qCritical ("CVS document not yet supported...");
-                errorMessage = "CVS document not yet supported...";
-//                 QmVocCsvReader csvReader( f );
-//                 read = csvReader.readDoc( this );
-//                 if ( !read ) {
-//                     errorMessage = csvReader.errorMessage();
-//                 }
+//                qCritical ("CVS document not yet supported...");
+//                errorMessage = "CVS document not yet supported...";
+                 QmVocCsvReader csvReader( f );
+                 read = csvReader.readDoc( this );
+                 if ( !read ) {
+                     errorMessage = csvReader.errorMessage();
+                 }
             }
             break;
 

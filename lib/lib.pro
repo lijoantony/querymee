@@ -14,7 +14,7 @@ HEADERS += qmvocarticle.h \
            qmvoccommon_p.h \
            qmvocconjugation.h \
            qmvoccontainer.h \
-#           qmvoccsvreader.h \
+           qmvoccsvreader.h \
            qmvoccsvwriter.h \
            qmvocdeclension.h \
            qmvocdocument.h \
@@ -32,7 +32,7 @@ HEADERS += qmvocarticle.h \
            qmvocpersonalpronoun.h \
            qmvoctext.h \
            qmvoctranslation.h \
-           qmvocvokabelnreader.h \
+#           qmvocvokabelnreader.h \
            qmvocwordflags.h \
            qmvocwordtype.h \
 #           qmvocwqlreader.h \
@@ -44,7 +44,7 @@ HEADERS += qmvocarticle.h \
 SOURCES += qmvocarticle.cpp \
            qmvocconjugation.cpp \
            qmvoccontainer.cpp \
-#           qmvoccsvreader.cpp \
+           qmvoccsvreader.cpp \
            qmvoccsvwriter.cpp \
            qmvocdeclension.cpp \
            qmvocdocument.cpp \
