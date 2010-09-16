@@ -43,12 +43,15 @@ itmes for the fare future:
   http://gitorious.org/querymee/querymee/trees/master/lib/qmvocwqlreader.cpp
    -> http://peterandlinda.com/wordquiz/vocabularies/ .wql files
    -> no files available anymore, but wordquiz which writes kvtml files -> help file
+   -> skip ?!
   http://gitorious.org/querymee/querymee/trees/master/lib/qmvocxdxfreader.cpp
    -> http://xdxf.revdanica.com/down/ .xdxf files
    -> this allows mulitlines which leads to empty entries !
+   -> skip ?!
   http://gitorious.org/querymee/querymee/trees/master/lib/qmvocpaukerreader.cpp
    -> http://pauker.sourceforge.net/pauker.php?page=lessons&lang=en  pauker files
    -> these files are gzipped -> handler or in doku mention to gzip -d
+   -> makes for each entry a new Lesson!
 * from: http://maemo.org/downloads/product/Maemo5/querymee/
   # a really neccessary feature would be a lineedit where you can type in the word.
   # it should be implemented very easy. you just have to compare the input string
