@@ -20,6 +20,8 @@
 #include <QMap>
 #include <QStringList>
 
+#include "qmvoccontainer.h"
+
 class QmVocLesson;
 class QmVocDocument;
 
@@ -64,6 +66,7 @@ private:
     static QueryMeeSettings* m_Instance;
     void init();
     void openDictionaryFile(const QString& fileName);
+    QList<QmVocContainer*> getChildLessons(QmVocContainer *container);
 
     QString m_CurrentlyOpenedFile;
     QmVocDocument* m_CurrentDocument;

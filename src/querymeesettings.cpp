@@ -157,11 +157,23 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
         // Read lessons
         foreach(QmVocContainer *c, lessonContainers) {
             if (c && c->containerType() == QmVocLesson::Lesson) {
+
                 QmVocLesson* lesson = static_cast<QmVocLesson *>(c);
-                lessonList.append(lesson);
+
+                // check if in the lesson are any entries, if not we don't need it in the list
+                if (lesson->entries().count() > 0 ){
+                    lessonList.append(lesson);
+                }
+
+                // if there are child lessons we need to add them
+                if(c->childContainers().count() > 0){
+                    foreach (QmVocContainer *cc, getChildLessons(c)){
+                        QmVocLesson* childLessons = static_cast<QmVocLesson *>(cc);
+                        lessonList.append(childLessons);
+                    }
+                }
             }
         }
-
     }
 
     // if there are no languages, delete document, return
@@ -185,4 +197,30 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
     m_Dictionaries.insert(QFileInfo(fileName).fileName(), fileName);
 
     emit dictionaryChanged();
+}
+
+QList<QmVocContainer*> QueryMeeSettings::getChildLessons(QmVocContainer* container){
+
+    QList<QmVocContainer*> childLessons;
+
+    foreach (QmVocContainer *cc, container->childContainers()){
+
+        // add a child lesson to the list
+        if(cc && cc->containerType() == QmVocLesson::Lesson){
+
+            QmVocLesson* lesson = static_cast<QmVocLesson *>(cc);
+
+            // check if in the lesson are any entries, if not we don't need it in the list
+            if (lesson->entries().count() > 0 ){
+                childLessons.append(cc);
+            }
+        }
+
+        // check if there are child lessons in the child...
+        if(cc && cc->childContainers().count() > 0){
+            childLessons.append(getChildLessons(cc));
+        }
+    }
+
+    return childLessons;
 }
