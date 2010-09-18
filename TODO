@@ -4,16 +4,10 @@ due to bug:
 
 it's not possible to have Portrait and Stackedwindow at the same time
 
-For next release 0.1.X:
-* update help file for .csv files
-* update help file where to get vokabeln http://www.vokabeln.de/v1/download.htm
-  (just Version 1 works!)
-* DONE support for csv files in library
-       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvoccsvreader.cpp
-       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line342
-* DONE enable vokabeln reader
-       http://gitorious.org/querymee/querymee/trees/master/lib/qmvocvokabelnreader.cpp
-
+for next release 0.1.X:
+* pre choose the 2nd landguage as question language
+* in MC mode change the showing of failed on OK status msg
+  the way it is atm is not that good...
 
 For next major release 0.2.0:
 * possibility to chose "all" for lessons
@@ -70,3 +64,12 @@ First release 1.0.0 (first release which shall go to extras testing):
          https://garage.maemo.org/tracker/?func=browse&group_id=1694&atid=5986
 * help/info page (how to get kvtml files, how to create...)
 
+release 0.1.8:
+* DONE update help file for .csv files
+* DONE update help file where to get vokabeln http://www.vokabeln.de/v1/download.htm
+  (just Version 1 works!)
+* DONE support for csv files in library
+       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvoccsvreader.cpp
+       http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvocdocument.cpp#line342
+* DONE enable vokabeln reader
+       http://gitorious.org/querymee/querymee/trees/master/lib/qmvocvokabelnreader.cpp
