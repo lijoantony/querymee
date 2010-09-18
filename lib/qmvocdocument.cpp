@@ -899,13 +899,16 @@ QString QmVocDocument::pattern( FileDialogMode mode )
         const char* extensions;
         const char* description;
     }
+
+    // removed filters
+    //                    { true, false, "*.wql", "KWordQuiz Document"  },
+    //                    { true, false, "*.xml.gz *.pau.gz", "Pauker Lesson" },
+    //                    { true, false, "*.xdxf", "XML Dictionary Exchange Format" },
+
     filters[] = {
                     { true, true, "*.kvtml", "KDE Vocabulary Document" },
-                    { true, false, "*.wql", "KWordQuiz Document"  },
-                    { true, false, "*.xml.qz *.pau.gz", "Pauker Lesson" },
                     { true, false, "*.voc", "Vokabeltrainer" },
-                    { true, false, "*.xdxf", "XML Dictionary Exchange Format" },
-                    { true, true, "*.csv", "Comma Separated Values (CSV)" },
+                    { true, true, "*.tsv", "Tab Separated Values (TSV)" },
                     // last is marker for the end, do not remove it
                     { false, false, 0, 0 }
                 };

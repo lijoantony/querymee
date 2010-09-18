@@ -57,7 +57,9 @@ void QueryMeeSettings::init()
     if(pathExist) {
         QFileInfoList dictionaries = dir.entryInfoList(QDir::Files, QDir::Name);
         foreach(QFileInfo info, dictionaries) {
-            if (info.fileName().endsWith(".kvtml",Qt::CaseInsensitive)){
+            if (   info.fileName().endsWith(".kvtml",Qt::CaseInsensitive)
+                || info.fileName().endsWith(".voc",Qt::CaseInsensitive)
+                || info.fileName().endsWith(".tsv",Qt::CaseInsensitive)){
                 m_Dictionaries.insert(info.fileName(),info.absoluteFilePath());
             }
         }
@@ -68,7 +70,7 @@ void QueryMeeSettings::openDictionary()
 {
     QString fileName = QFileDialog::getOpenFileName(0,
                                                     tr("Open dictionary"),
-                                                    QDir::homePath(),"*.kvtml *.voc *.csv");
+                                                    QDir::homePath(),"*.kvtml *.voc *.tsv");
     openDictionaryFile(fileName);
 }
 
