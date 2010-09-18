@@ -6,14 +6,24 @@
 <BODY>
  <H1>Querymee</H1>
  <P>Vocabulary trainer for mobile devices, written in QT which
- supports kvtml files from the KDE (kdeedu) project, so many ready
+ supports <A HREF="#KVTML">kvtml</A> files from the KDE (kdeedu) project, so many ready
  made training files are available. Querymee allows you to train
  languages and to memorize things.</P>
 
+ <P>Additionally the following file formats are supported (read only):
+    <ul>
+         <li><A HREF="#VOC">.voc</A> files from <A HREF="http://www.vokabeln.de/v1/download.htm">http://www.vokabeln.de/</A></li>
+         <li><A HREF="#VOC">.tsv</A> files (Tab Separated Values) created with openoffice.org calc, excel or any text editor</li>
+    </ul>
+ </P>
+ 
  <P>At the moment just multiple choice is supported, but so called
- flash card learning is planned.</P>
+ flash card learning is planned (we are looking for developers
+ to help with that).</P>
 
- <P>As file format KDEs kvtml XML format is used, so you can easily
+ <P><H2><A name="KVTML">.kvtml files</A></H2></P>
+
+ <P>As main file format KDEs kvtml format is used (a XML format), so you can easily
  edit and create your own files with <A HREF="http://edu.kde.org/parley/">Parley</A>
  or <A HREF="http://edu.kde.org/kwordquiz/">KwordQuiz</A>. Parley
  and KwordQuiz run also under windows (might be that not all
@@ -21,15 +31,29 @@
  sufficent), please see the
  <A HREF="http://windows.kde.org/">The KDE on Windows Project</A>.</P>
 
+ <P>The program <A HREF="http://peterandlinda.com/wordquiz/">WordQuiz</A>
+ from Peter B. Hedlund also creates kvtml files. It works under
+ Windows and Mac OS X. It might be easier to
+ <A HREF="http://peterandlinda.com/wordquiz/download/">install</A>
+ than the KDE programs under Windows. It can be used to create your own
+ kvtml files.</P>
+
  <P>Store your own kvtml files under MyDocs/Querymee in your N900 so
  Querymee finds it and offers it in the pull-down menu. You can
- store the file anywhere, then use the “open dictionary“ dialog
- from the menu to use it. Please make the files public available,
+ store the file anywhere, then use the “open dictionary“ dialogue
+ from the menu to open it.
+
+ <P>Please make the files public available,
  <A HREF="http://edu.kde.org/parley/">Parley</A>
- has build in support to upload files.</P>
+ has build in support to upload files. To upload files on kde-files.org you need
+ an account, you can register at:
+ <A HREF="http://kde-files.org/usermanager/new.php">http://kde-files.org/usermanager/new.php</A>.
+ You can upload files also via the web interface without Parley at:
+ <A HREF="http://kde-files.org/content/add.php">http://kde-files.org/content/add.php</A>.
+ It takes some time until the file shows up in the catalogue...</P>
 
  <P>You can also use ready made kvtml files from the KDE project,
- use the “Download KVTML files” dialog from the menu. The first
+ use the “Download KVTML files” dialogue from the menu. The first
  time you open it the list will be empty, just click the button
  “update list” and Querymee will download the freshest list from
  the internet. Unfortunately some kvtml files are uploaded in
@@ -43,6 +67,52 @@
  <A HREF="http://kde-files.org/">http://kde-files.org</A><BR>
  <A HREF="http://opendesktop.org/?xcontentmode=687x694x693">
  http://opendesktop.org/?xcontentmode=687x694x693</A></P>
+
+ <P><H2><A name="VOC">.voc files</A></H2></P>
+
+ <P>Querymee (starting from version 0.1.2) is able to open vocabulary files from
+ <A HREF="http://www.vokabeln.de/v1/funktionen.htm">Langenscheidt
+ Vokabeltrainer Version 1</A>. More than 150 ready made files are
+ listed on the <A HREF="http://www.vokabeln.de/v1/download.htm">download page.</A>
+ The files are zipped, so extract the .voc files first and store them under
+ MyDocs/Querymee in your N900 so Querymee finds it and offers it in the pull-down menu.
+ You can store the file anywhere, then use the “open dictionary“ dialogue
+ from the menu to open it.</P>
+
+ <P><H2><A name="TSV">.tsv files</A></H2></P>
+
+ <P>Querymee (starting from version 0.1.2) is able to open "Tab Separated Values"
+ vocabulary files. An example .tsv file can be found in the sources under
+ <A HREF="http://gitorious.org/querymee/querymee/blobs/master/doc/example.tsv">doc/example.tsv</A>.</P>
+
+ <P>The example, where <font color="red">&lt;TAB&gt;</font> denotes a TAB character (TAB-Key),
+ do not surround the values with any text indicating character like " or ':</P>
+
+ <pre>
+ Expression<font color="red">&lt;TAB&gt;</font>Translation 1<font color="red">&lt;TAB&gt;</font>Translation 2
+ ajaa<font color="red">&lt;TAB&gt;</font>fahren<font color="red">&lt;TAB&gt;</font>to drive
+ aloittaa<font color="red">&lt;TAB&gt;</font>anfangen<font color="red">&lt;TAB&gt;</font>to start
+ </pre>
+
+ <P>You can write such files with any text editor, but it's much easier with a spreadsheet application:
+    <ul>
+         <li><A HREF="http://www.openoffice.org/product/calc.html">OpenOffice.org Calc</A>:
+         <A HREF="http://user.services.openoffice.org/en/forum/viewtopic.php?f=5&t=2720&p=11987">
+         saving calc files as tab delimited</A><br>In short: To save it, you Save As a "Text CSV", and when asked for a Field Delimiter, select {Tab}, instead of ",".</li>
+         <li>Microsoft Office Excel:
+         <A HREF="http://blogs.howtogeek.com/mysticgeek/2008/08/03/convert-an-excel-spreadsheet-to-a-tab-delimited-text-file/">
+         Convert An Excel Spreadsheet To A Tab Delimited Text File</A></li>
+         <li><A HREF="http://www.koffice.org/kspread/">KOffice kspread</A></li>
+         <li><A HREF="http://projects.gnome.org/gnumeric/">Gnumeric</A>:
+         <A HREF="http://projects.gnome.org/gnumeric/doc/sect-file-textExport.shtml">Exporting Text Files</A></li>
+    </ul>
+ Just make sure you save your file with the file ending .tsv before you transfer it to the N900.
+ Store your own tsv files under MyDocs/Querymee in your N900 so
+ Querymee finds it and offers it in the pull-down menu. You can
+ store the file anywhere, then use the “open dictionary“ dialogue
+ from the menu to open it.</P>
+
+ <P><H2>Feedback</H2></P>
 
  <P>Bugs can be reported here:<BR>
  <A HREF="https://garage.maemo.org/tracker/?func=browse&amp;group_id=1694&amp;atid=5986">
