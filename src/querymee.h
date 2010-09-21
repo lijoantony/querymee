@@ -19,6 +19,7 @@
 #include <QWidget>
 
 class QmVocExpression;
+class QmVocLesson;
 class QPushButton;
 class QLabel;
 
@@ -38,8 +39,10 @@ public:
 
 private:
     QmVocExpression * getAnyEntryFromLesson();
+    QmVocExpression * getNextEntry();
 
     void closeEvent ( QCloseEvent * event );
+    int randomInt(int min, int max);
 
 private Q_SLOTS:
     void slotInit();
@@ -50,11 +53,17 @@ private:
     int m_LessionIndex;
     int m_QuestionLanguage;
     int m_AnswerLanguage;
+    int m_firstAnswerWrong;
     QList<QmVocExpression *> m_ChoiceList;
     QList<QPushButton *> m_AnswerButtonsList;
     QLabel* m_QuestionLabel;
     QLabel *statusLabel;
     QLabel *answerLabel;
+    QmVocLesson *m_lesson;
+    QList<QmVocExpression *> m_entries;
+    QList<QmVocExpression *> inPractice;
+    QmVocExpression *m_CorrectExp;
+    QmVocExpression *m_LastExp;
 };
 
 #endif // TINYVOCTRAINER_H
