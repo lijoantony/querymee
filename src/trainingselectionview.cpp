@@ -28,6 +28,11 @@
 
 TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 {
+
+#ifdef Q_WS_MAEMO_5
+    this->parentWidget()->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+#endif
+
     QVBoxLayout *vbox = new QVBoxLayout();
 
     QHBoxLayout *hbox_dictionary = new QHBoxLayout();
@@ -90,10 +95,6 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 
 void TrainingSelectionView::slotInitView()
 {
-
-#ifdef Q_WS_MAEMO_5
-    this->parentWidget()->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
-#endif
 
     QueryMeeSettings* settings = QueryMeeSettings::instance();
     if(settings->dictionaries().count()) {
