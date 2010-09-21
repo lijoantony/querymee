@@ -28,7 +28,6 @@
 
 TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 {
-    QWidget *m_parent = parent;
     QVBoxLayout *vbox = new QVBoxLayout();
 
     QHBoxLayout *hbox_dictionary = new QHBoxLayout();
@@ -147,7 +146,7 @@ void TrainingSelectionView::slotDictionaryChanged()
     m_ComboAnswerLang->setCurrentIndex(1);
 
 #ifdef Q_WS_MAEMO_5
-    m_parent->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    this->parentWidget()->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
 #endif
 }
 

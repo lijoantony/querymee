@@ -48,7 +48,6 @@ private:
     QComboBox *m_ComboAnswerLang;
     QCheckBox *m_checkbox;
     QPushButton *m_button;
-    QWidget *m_parent;
 };
 
 #endif // TRAININGSELECTIONVIEW_H
