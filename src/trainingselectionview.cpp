@@ -142,6 +142,8 @@ void TrainingSelectionView::slotDictionaryChanged()
     m_ComboAnswerLang->addItems(settings->languages());
 
     m_ComboDictionary->setCurrentIndex(settings->openedDictionary());
+    m_ComboQuestionLang->setCurrentIndex(0);
+    m_ComboAnswerLang->setCurrentIndex(1);
 }
 
 void TrainingSelectionView::slotDictionarySelected(int index)
