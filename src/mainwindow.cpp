@@ -31,7 +31,6 @@ MainWindow::MainWindow()
 
 #ifdef Q_WS_MAEMO_5
     this->setAttribute(Qt::WA_Maemo5StackedWindow, true);
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
 #endif
 
 }
