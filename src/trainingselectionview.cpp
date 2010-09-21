@@ -30,7 +30,8 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 {
 
 #ifdef Q_WS_MAEMO_5
-    this->parentWidget()->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    // this->parentWidget()->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
 #endif
 
     QVBoxLayout *vbox = new QVBoxLayout();
