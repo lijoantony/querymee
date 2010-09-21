@@ -85,7 +85,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
             SIGNAL(activated(int)),
             SLOT(slotDictionarySelected(int)));
 
-    QTimer::singleShot(1000,this,SLOT(slotInitView()));
+    QTimer::singleShot(10000,this,SLOT(slotInitView()));
 }
 
 void TrainingSelectionView::slotInitView()
