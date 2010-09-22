@@ -62,6 +62,13 @@ private:
     QmVocLesson *m_lesson;
     QList<QmVocExpression *> m_entries;
     QList<QmVocExpression *> inPractice;
+    QList<QmVocExpression *> leitnerBox1;
+    QList<QmVocExpression *> leitnerBox2;
+    QList<QmVocExpression *> leitnerBox3;
+    QList<QmVocExpression *> leitnerBox4;
+    QList<QmVocExpression *> leitnerBox5;
+    QList<QmVocExpression *> leitnerBox6;
+    QList<QmVocExpression *> leitnerBox7;
     QmVocExpression *m_CorrectExp;
     QmVocExpression *m_LastExp;
 };

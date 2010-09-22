@@ -113,19 +113,34 @@ QmVocExpression * QueryMee::getNextEntry()
 {
     QmVocExpression* vocExpression = 0;
 
-    if (inPractice.count() < MaxGrade0 && m_entries.count() > 0){
-        int i = 0;
+    qDebug() << "inPractice:" << inPractice.count();
+    qDebug() << "m_entries" << m_entries.count() << __LINE__;
+    qDebug() << "leitnerBox1" << leitnerBox1.count() << __LINE__;
+    qDebug() << "leitnerBox2" << leitnerBox2.count() << __LINE__;
+    qDebug() << "leitnerBox3" << leitnerBox3.count() << __LINE__;
+    qDebug() << "leitnerBox4" << leitnerBox4.count() << __LINE__;
+    qDebug() << "leitnerBox5" << leitnerBox5.count() << __LINE__;
+    qDebug() << "leitnerBox6" << leitnerBox6.count() << __LINE__;
+    qDebug() << "leitnerBox7" << leitnerBox7.count() << __LINE__;
 
-        do{
-            do {
-                 vocExpression = m_entries.at( randomInt(0, m_entries.count() - 1) );
-                 i++;
-            } while (vocExpression->translation(m_QuestionLanguage)->grade() != 0 || i > m_entries.count() );
+    /******************************************************************************
+    **
+    ** Pool
+    **
+    ******************************************************************************/
+    if (inPractice.count() < MaxGrade0 && m_entries.count() > 0){
+        qDebug() << "Pool";
+
+        do{           
+
+            vocExpression = m_entries.at( randomInt(0, m_entries.count() - 1) );
 
             inPractice.append(vocExpression);
             m_entries.removeOne(vocExpression);
+
             qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
             qDebug() << "inPractice: " << inPractice.count() << "m_entries:" << m_entries.count();
+
         } while ( inPractice.count() < MaxGrade0);
 
         do {
@@ -134,7 +149,192 @@ QmVocExpression * QueryMee::getNextEntry()
 
         return vocExpression;
 
-    } else {
+    }
+    /******************************************************************************
+    **
+    ** Leitner Box 1
+    **
+    ******************************************************************************/
+    else if (inPractice.count() < MaxGrade0 && leitnerBox1.count() > 0){
+        qDebug() << "-- leitnerBox1";
+
+        do{
+
+            vocExpression = leitnerBox1.at( randomInt(0, leitnerBox1.count() - 1) );
+
+            inPractice.append(vocExpression);
+            leitnerBox1.removeOne(vocExpression);
+
+            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
+            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox1:" << leitnerBox1.count();
+
+        } while ( inPractice.count() < MaxGrade0);
+
+        do {
+            vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
+        } while (m_LastExp == vocExpression);
+
+        return vocExpression;
+
+    }
+    /******************************************************************************
+    **
+    ** Leitner Box 2
+    **
+    ******************************************************************************/
+    else if (inPractice.count() < MaxGrade0 && leitnerBox2.count() > 0) {
+        qDebug() << "-- leitnerBox2";
+
+        do{
+
+            vocExpression = leitnerBox2.at( randomInt(0, leitnerBox2.count() - 1) );
+
+            inPractice.append(vocExpression);
+            leitnerBox2.removeOne(vocExpression);
+
+            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
+            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox2:" << leitnerBox2.count();
+
+        } while ( inPractice.count() < MaxGrade0);
+
+        do {
+            vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
+        } while (m_LastExp == vocExpression);
+
+        return vocExpression;
+    }
+    /******************************************************************************
+    **
+    ** Leitner Box 3
+    **
+    ******************************************************************************/
+    else if (inPractice.count() < MaxGrade0 && leitnerBox3.count() > 0) {
+        qDebug() << "-- leitnerBox3";
+
+        do{
+
+            vocExpression = leitnerBox3.at( randomInt(0, leitnerBox3.count() - 1) );
+
+            inPractice.append(vocExpression);
+            leitnerBox3.removeOne(vocExpression);
+
+            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
+            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox3:" << leitnerBox3.count();
+
+        } while ( inPractice.count() < MaxGrade0);
+
+        do {
+            vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
+        } while (m_LastExp == vocExpression);
+
+        return vocExpression;
+    }
+    /******************************************************************************
+    **
+    ** Leitner Box 4
+    **
+    ******************************************************************************/
+    else if (inPractice.count() < MaxGrade0 && leitnerBox4.count() > 0) {
+        qDebug() << "-- leitnerBox4";
+
+        do{
+
+            vocExpression = leitnerBox4.at( randomInt(0, leitnerBox4.count() - 1) );
+
+            inPractice.append(vocExpression);
+            leitnerBox4.removeOne(vocExpression);
+
+            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
+            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox4:" << leitnerBox4.count();
+
+        } while ( inPractice.count() < MaxGrade0);
+
+        do {
+            vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
+        } while (m_LastExp == vocExpression);
+
+        return vocExpression;
+    }
+    /******************************************************************************
+    **
+    ** Leitner Box 5
+    **
+    ******************************************************************************/
+    else if (inPractice.count() < MaxGrade0 && leitnerBox5.count() > 0) {
+        qDebug() << "-- leitnerBox5";
+
+        do{
+
+            vocExpression = leitnerBox5.at( randomInt(0, leitnerBox5.count() - 1) );
+
+            inPractice.append(vocExpression);
+            leitnerBox5.removeOne(vocExpression);
+
+            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
+            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox5:" << leitnerBox5.count();
+
+        } while ( inPractice.count() < MaxGrade0);
+
+        do {
+            vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
+        } while (m_LastExp == vocExpression);
+
+        return vocExpression;
+    }
+    /******************************************************************************
+    **
+    ** Leitner Box 6
+    **
+    ******************************************************************************/
+    else if (inPractice.count() < MaxGrade0 && leitnerBox6.count() > 0) {
+        qDebug() << "-- leitnerBox6";
+
+        do{
+
+            vocExpression = leitnerBox6.at( randomInt(0, leitnerBox6.count() - 1) );
+
+            inPractice.append(vocExpression);
+            leitnerBox6.removeOne(vocExpression);
+
+            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
+            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox6:" << leitnerBox6.count();
+
+        } while ( inPractice.count() < MaxGrade0);
+
+        do {
+            vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
+        } while (m_LastExp == vocExpression);
+
+        return vocExpression;
+    }
+    /******************************************************************************
+    **
+    ** Leitner Box 7
+    **
+    ******************************************************************************/
+    else if (inPractice.count() < MaxGrade0 && leitnerBox7.count() > 0) {
+        qDebug() << "-- leitnerBox7";
+
+        do{
+
+            vocExpression = leitnerBox7.at( randomInt(0, leitnerBox7.count() - 1) );
+
+            inPractice.append(vocExpression);
+            leitnerBox7.removeOne(vocExpression);
+
+            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
+            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox7:" << leitnerBox7.count();
+
+        } while ( inPractice.count() < MaxGrade0);
+
+        do {
+            vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
+        } while (m_LastExp == vocExpression);
+
+        return vocExpression;
+    }
+    else if (inPractice.count() == 5){
+        qDebug() << "-- no new entry inPractice needed...";
 
         do {
             vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
@@ -143,6 +343,8 @@ QmVocExpression * QueryMee::getNextEntry()
         return vocExpression;
     }
 
+    // we never should end up here, but we never know...
+    qDebug() << "we never should end up here...";
     return getAnyEntryFromLesson();
 }
 
@@ -154,10 +356,71 @@ void QueryMee::setLession(int lessionIndex)
 
     m_entries = m_lesson->entries();
 
-//    foreach(QmVocExpression* entry ,m_entries){
-//       qDebug() << entry->translation(0)->leitnerBox()->name();
-//       qDebug() << entry->translation(0)->grade();
-//    }
+    foreach(QmVocExpression* entry ,m_entries){
+        // qDebug() << entry->translation(m_QuestionLanguage)->leitnerBox()->name();
+        qDebug() <<  entry->translation(m_QuestionLanguage)->text() << entry->translation(m_AnswerLanguage)->grade();
+
+        switch ( entry->translation(m_AnswerLanguage)->grade() ) {
+
+            case 1 :
+            // Process for entry->translation(m_AnswerLanguage)->grade() = 1
+                leitnerBox1.append(entry);
+                m_entries.removeOne(entry);
+                break;
+
+            case 2 :
+            // Process for entry->translation(m_AnswerLanguage)->grade() = 2
+                leitnerBox2.append(entry);
+                m_entries.removeOne(entry);
+                break;
+
+            case 3 :
+            // Process for entry->translation(m_AnswerLanguage)->grade() = 3
+                leitnerBox3.append(entry);
+                m_entries.removeOne(entry);
+                break;
+
+            case 4 :
+            // Process for entry->translation(m_AnswerLanguage)->grade() = 4
+                leitnerBox4.append(entry);
+                m_entries.removeOne(entry);
+                break;
+
+            case 5 :
+            // Process for entry->translation(m_AnswerLanguage)->grade() = 5
+                leitnerBox5.append(entry);
+                m_entries.removeOne(entry);
+                break;
+
+            case 6 :
+            // Process for entry->translation(m_AnswerLanguage)->grade() = 6
+                leitnerBox6.append(entry);
+                m_entries.removeOne(entry);
+                break;
+
+            case 7 :
+            // Process for entry->translation(m_AnswerLanguage)->grade() = 7
+                leitnerBox7.append(entry);
+                m_entries.removeOne(entry);
+                break;
+
+            default :
+            // Process for all other cases.
+                if (entry->translation(m_AnswerLanguage)->grade() > 7){
+                    leitnerBox7.append(entry);
+                    m_entries.removeOne(entry);
+                }
+        }
+    }
+
+    qDebug() << "m_entries" << m_entries.count() << __LINE__;
+    qDebug() << "leitnerBox1" << leitnerBox1.count() << __LINE__;
+    qDebug() << "leitnerBox2" << leitnerBox2.count() << __LINE__;
+    qDebug() << "leitnerBox3" << leitnerBox3.count() << __LINE__;
+    qDebug() << "leitnerBox4" << leitnerBox4.count() << __LINE__;
+    qDebug() << "leitnerBox5" << leitnerBox5.count() << __LINE__;
+    qDebug() << "leitnerBox6" << leitnerBox6.count() << __LINE__;
+    qDebug() << "leitnerBox7" << leitnerBox7.count() << __LINE__;
 
 }
 
@@ -179,10 +442,93 @@ void QueryMee::slotClicked(int id)
         m_AnswerButtonsList.at(id)->setDown(1);
         qDebug() << "Correct Exp: " << m_CorrectExp->translation(m_QuestionLanguage)->text();
         qDebug() << "m_firstAnswerWrong" << m_firstAnswerWrong;
+
         if(m_firstAnswerWrong == 0){
+
             inPractice.removeOne(m_CorrectExp);
+
             qDebug() << "inPractice: " << inPractice.count();
+
+            qDebug() << "Grade: " << m_CorrectExp->translation(m_AnswerLanguage)->grade();
+
+            switch ( m_CorrectExp->translation(m_AnswerLanguage)->grade() ) {
+
+                case 0 :
+                // Process = 1
+                    qDebug() << __LINE__;
+                    leitnerBox1.append(m_CorrectExp);
+                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(1);
+                    break;
+
+                case 1 :
+                // Process = 1
+                    qDebug() << __LINE__;
+                    leitnerBox2.append(m_CorrectExp);
+                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(2);
+                    break;
+
+                case 2 :
+                // Process = 2
+                    qDebug() << __LINE__;
+                    leitnerBox3.append(m_CorrectExp);
+                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(3);
+                    break;
+
+                case 3 :
+                // Process = 3
+                    qDebug() << __LINE__;
+                    leitnerBox4.append(m_CorrectExp);
+                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(4);
+                    break;
+
+                case 4 :
+                // Process = 4
+                    qDebug() << __LINE__;
+                    leitnerBox5.append(m_CorrectExp);
+                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(5);
+                    break;
+
+                case 5 :
+                // Process = 5
+                    qDebug() << __LINE__;
+                    leitnerBox6.append(m_CorrectExp);
+                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(6);
+                    break;
+
+                case 6 :
+                // Process = 6
+                    qDebug() << __LINE__;
+                    leitnerBox7.append(m_CorrectExp);
+                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(7);
+                    break;
+
+                default :
+                        qDebug() << __LINE__;
+                        ;
+                // Process for all other cases.
+//                    if (entry->translation(m_AnswerLanguage)->grade() > 7){
+//                        leitnerBox7.append(entry);
+//                        leitnerBox1.removeOne(entry);
+//                    }
+            }
+
+
+        qDebug() << "m_entries" << m_entries.count() << __LINE__;
+        qDebug() << "leitnerBox1" << leitnerBox1.count() << __LINE__;
+        qDebug() << "leitnerBox2" << leitnerBox2.count() << __LINE__;
+        qDebug() << "leitnerBox3" << leitnerBox3.count() << __LINE__;
+        qDebug() << "leitnerBox4" << leitnerBox4.count() << __LINE__;
+        qDebug() << "leitnerBox5" << leitnerBox5.count() << __LINE__;
+        qDebug() << "leitnerBox6" << leitnerBox6.count() << __LINE__;
+        qDebug() << "leitnerBox7" << leitnerBox7.count() << __LINE__;
+
         }
+        else{
+            // the answer was not correct in the first attempt
+            // set grade back to 0
+            m_CorrectExp->translation(m_AnswerLanguage)->setGrade(0);
+        }
+
         m_firstAnswerWrong = 0;
         QTimer::singleShot(2200, this, SLOT(slotInit()));
         m_LastExp = m_CorrectExp;
@@ -193,7 +539,19 @@ void QueryMee::slotClicked(int id)
         QString str = ":-( sorry wrong... it's not: ";
         str.append(m_AnswerButtonsList.at(id)->text());
         statusLabel->setText( str );
+        m_LastExp = m_CorrectExp;
     }
+
+
+    qDebug() << "m_entries" << m_entries.count() << __LINE__;
+    qDebug() << "leitnerBox1" << leitnerBox1.count() << __LINE__;
+    qDebug() << "leitnerBox2" << leitnerBox2.count() << __LINE__;
+    qDebug() << "leitnerBox3" << leitnerBox3.count() << __LINE__;
+    qDebug() << "leitnerBox4" << leitnerBox4.count() << __LINE__;
+    qDebug() << "leitnerBox5" << leitnerBox5.count() << __LINE__;
+    qDebug() << "leitnerBox6" << leitnerBox6.count() << __LINE__;
+    qDebug() << "leitnerBox7" << leitnerBox7.count() << __LINE__;
+
 }
 
 void QueryMee::slotInit(){
@@ -231,7 +589,6 @@ void QueryMee::slotInit(){
            }
         }
     }
-
 }
 
 void QueryMee::closeEvent ( QCloseEvent * event )

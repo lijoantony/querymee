@@ -104,9 +104,11 @@ void TrainingSelectionView::start()
     if(m_ComboDictionary && m_ComboDictionary->count()) {
         slotDictionarySelected(m_ComboDictionary->currentIndex());
         QueryMee* trainer = new QueryMee(this);
-        trainer->setLession(m_ComboLesson->currentIndex());
+
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
+        trainer->setLession(m_ComboLesson->currentIndex());
+
 #ifdef Q_WS_MAEMO_5
        /* due to bug:
         * https://bugs.maemo.org/show_bug.cgi?id=10521
