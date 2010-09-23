@@ -14,7 +14,8 @@
  ***************************************************************************/
 
 #include "trainingselectionview.h"
-#include "querymee.h"
+#include "querymee_random.h"
+#include "querymee_leitner.h"
 #include "querymeesettings.h"
 
 #include <QComboBox>
@@ -58,6 +59,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     hbox_answer_lang->addWidget(m_ComboAnswerLang);
 
     m_checkbox = new QCheckBox("Portrait", this);
+    m_checkbox_random = new QCheckBox("Random", this);
 
     QPushButton *m_button = new QPushButton();
     m_button->setText(tr("Start"));
@@ -72,6 +74,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     vbox->addLayout(hbox_question_lang);
     vbox->addLayout(hbox_answer_lang);
     hbox_bottom->addWidget(m_checkbox);
+    hbox_bottom->addWidget(m_checkbox_random);
     hbox_bottom->addWidget(m_button);
     vbox->addLayout(hbox_bottom);
 
@@ -105,29 +108,60 @@ void TrainingSelectionView::start()
     // check what is selected
     if(m_ComboDictionary && m_ComboDictionary->count()) {
         slotDictionarySelected(m_ComboDictionary->currentIndex());
-        QueryMee* trainer = new QueryMee(this);
+        // QueryMee* trainer = new QueryMee(this);
 
-        trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
-        trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
-        trainer->setLession(m_ComboLesson->currentIndex());
-        trainer->setQmVocDocument(settings->getQmVocDocument());
-        trainer->setCurrentFileName(settings->getCurrentlyOpenedFile());
+        if (m_checkbox_random->isChecked() == true){
+            QueryMeeRandom  *trainer = new QueryMeeRandom(this);
 
-#ifdef Q_WS_MAEMO_5
-       /* due to bug:
-        * https://bugs.maemo.org/show_bug.cgi?id=10521
-        * http://bugreports.qt.nokia.com/browse/QTBUG-11190
-        * it's not possible to have Portrait and Stackedwindows
-        * so we have either one
-       */
-       if(m_checkbox->isChecked() == true){
-            trainer->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
-       } else {
-            trainer->setAttribute(Qt::WA_Maemo5StackedWindow, true);
-       }
-#endif
-        trainer->setWindowFlags(trainer->windowFlags() | Qt::Window);
-        trainer->startTraining();
+            trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
+            trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
+            trainer->setLession(m_ComboLesson->currentIndex());
+
+            #ifdef Q_WS_MAEMO_5
+            /* due to bug:
+            * https://bugs.maemo.org/show_bug.cgi?id=10521
+            * http://bugreports.qt.nokia.com/browse/QTBUG-11190
+            * it's not possible to have Portrait and Stackedwindows
+            * so we have either one
+            */
+            if(m_checkbox->isChecked() == true){
+                 trainer->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
+            } else {
+                 trainer->setAttribute(Qt::WA_Maemo5StackedWindow, true);
+            }
+            #endif
+
+            trainer->setWindowFlags(trainer->windowFlags() | Qt::Window);
+            trainer->startTraining();
+
+        }
+        else {
+            QueryMeeLeitner *trainer = new QueryMeeLeitner(this);
+
+            trainer->setQmVocDocument(settings->getQmVocDocument());
+            trainer->setCurrentFileName(settings->getCurrentlyOpenedFile());
+
+            trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
+            trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
+            trainer->setLession(m_ComboLesson->currentIndex());
+            #ifdef Q_WS_MAEMO_5
+            /* due to bug:
+            * https://bugs.maemo.org/show_bug.cgi?id=10521
+            * http://bugreports.qt.nokia.com/browse/QTBUG-11190
+            * it's not possible to have Portrait and Stackedwindows
+            * so we have either one
+            */
+            if(m_checkbox->isChecked() == true){
+                trainer->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
+            } else {
+                 trainer->setAttribute(Qt::WA_Maemo5StackedWindow, true);
+            }
+            #endif
+
+            trainer->setWindowFlags(trainer->windowFlags() | Qt::Window);
+            trainer->startTraining();
+        }
+
     } else {
         QueryMeeSettings::instance()->openDictionary();
     }

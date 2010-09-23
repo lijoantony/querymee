@@ -13,7 +13,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "querymee.h"
+#include "querymee_random.h"
 #include "querymeesettings.h"
 
 #include <ctime>
@@ -33,7 +33,7 @@
 
 #define NumberOfButtons 4
 
-QueryMee::QueryMee(QWidget *parent) :
+QueryMeeRandom::QueryMeeRandom(QWidget *parent) :
         QWidget(parent),
         m_CorrectId(0),
         m_LessionIndex(-1),
@@ -77,7 +77,11 @@ QueryMee::QueryMee(QWidget *parent) :
 
 }
 
-void QueryMee::startTraining()
+QueryMeeRandom::~QueryMeeRandom()
+{
+}
+
+void QueryMeeRandom::startTraining()
 {
     if(m_LessionIndex >= 0
        && m_QuestionLanguage >= 0
@@ -89,11 +93,7 @@ void QueryMee::startTraining()
     }
 }
 
-QueryMee::~QueryMee()
-{
-}
-
-QmVocExpression * QueryMee::getAnyEntryFromLesson()
+QmVocExpression * QueryMeeRandom::getAnyEntryFromLesson()
 {
     QmVocExpression* vocExpression = 0;
     QmVocLesson* lesson =
@@ -105,22 +105,22 @@ QmVocExpression * QueryMee::getAnyEntryFromLesson()
     return vocExpression;
 }
 
-void QueryMee::setLession(int lessionIndex)
+void QueryMeeRandom::setLession(int lessionIndex)
 {
     m_LessionIndex = lessionIndex;
 }
 
-void QueryMee::setQuestionLanguage(int languageIndex)
+void QueryMeeRandom::setQuestionLanguage(int languageIndex)
 {
     m_QuestionLanguage = languageIndex;
 }
 
-void QueryMee::setAnswerLanguage(int languageIndex)
+void QueryMeeRandom::setAnswerLanguage(int languageIndex)
 {
     m_AnswerLanguage = languageIndex;
 }
 
-void QueryMee::slotClicked(int id)
+void QueryMeeRandom::slotClicked(int id)
 {
     if(id == m_CorrectId){
         statusLabel->setText("\\o/ correct answer");
@@ -136,7 +136,7 @@ void QueryMee::slotClicked(int id)
     }
 }
 
-void QueryMee::slotInit(){
+void QueryMeeRandom::slotInit(){
     m_ChoiceList.clear();
     statusLabel->clear();
     answerLabel->clear();
@@ -165,7 +165,7 @@ void QueryMee::slotInit(){
 
 }
 
-void QueryMee::closeEvent ( QCloseEvent * event )
+void QueryMeeRandom::closeEvent ( QCloseEvent * event )
 {
     QWidget::closeEvent(event);
     this->deleteLater();

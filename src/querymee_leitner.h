@@ -13,8 +13,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TINYVOCTRAINER_H
-#define TINYVOCTRAINER_H
+#ifndef QUERYMEELEITNER_H
+#define QUERYMEELEITNER_H
 
 #include <QWidget>
 #include <qmvocdocument.h>
@@ -24,13 +24,13 @@ class QmVocLesson;
 class QPushButton;
 class QLabel;
 
-class QueryMee : public QWidget
+class QueryMeeLeitner : public QWidget
 {
     Q_OBJECT
 
 public:
-    QueryMee(QWidget *parent = 0);
-    ~QueryMee();
+    QueryMeeLeitner(QWidget *parent = 0);
+    ~QueryMeeLeitner();
 
 public:
     void setLession(int lessionIndex);
@@ -78,4 +78,4 @@ private:
     QString m_CurrentFileName;
 };
 
-#endif // TINYVOCTRAINER_H
+#endif // QUERYMEELEITNER_H

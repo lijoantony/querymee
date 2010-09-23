@@ -13,7 +13,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "querymee.h"
+#include "querymee_leitner.h"
 #include "querymeesettings.h"
 #include "version.h"
 
@@ -36,7 +36,7 @@
 #define NumberOfButtons 4
 #define MaxGrade0 5
 
-QueryMee::QueryMee(QWidget *parent) :
+QueryMeeLeitner::QueryMeeLeitner(QWidget *parent) :
         QWidget(parent),
         m_CorrectId(0),
         m_LessionIndex(-1),
@@ -83,19 +83,7 @@ QueryMee::QueryMee(QWidget *parent) :
 
 }
 
-void QueryMee::startTraining()
-{
-    if(m_LessionIndex >= 0
-       && m_QuestionLanguage >= 0
-       && m_AnswerLanguage >= 0) {
-        slotInit();
-        show();
-    } else {
-        qDebug() << "Something is not selected";
-    }
-}
-
-QueryMee::~QueryMee()
+QueryMeeLeitner::~QueryMeeLeitner()
 {
 
     // FIXME: should we ask the user if overwritting is OK?
@@ -111,8 +99,19 @@ QueryMee::~QueryMee()
                             QString("Querymee ").append(QM_VERSION));
 }
 
+void QueryMeeLeitner::startTraining()
+{
+    if(m_LessionIndex >= 0
+       && m_QuestionLanguage >= 0
+       && m_AnswerLanguage >= 0) {
+        slotInit();
+        show();
+    } else {
+        qDebug() << "Something is not selected";
+    }
+}
 
-QmVocExpression * QueryMee::getAnyEntryFromLesson()
+QmVocExpression * QueryMeeLeitner::getAnyEntryFromLesson()
 {
     QmVocExpression* vocExpression = 0;
     QmVocLesson* lesson =
@@ -125,11 +124,43 @@ QmVocExpression * QueryMee::getAnyEntryFromLesson()
 }
 
 
-QmVocExpression * QueryMee::getNextEntry()
+QmVocExpression * QueryMeeLeitner::getNextEntry()
 {
     QmVocExpression* vocExpression = 0;
 
     // FIXME: there has to be a better solution for that?!
+
+
+    if( leitnerBox1.count() > 15 ){
+        inPractice.append(leitnerBox1);
+        leitnerBox1.clear();
+    }
+
+    if( leitnerBox2.count() > 30 ){
+        inPractice.append(leitnerBox2);
+        leitnerBox2.clear();
+    }
+
+    if( leitnerBox3.count() > 60 ){
+        inPractice.append(leitnerBox3);
+        leitnerBox3.clear();
+    }
+
+    if( leitnerBox4.count() > 120 ){
+        inPractice.append(leitnerBox4);
+        leitnerBox4.clear();
+    }
+
+    if( leitnerBox5.count() > 240 ){
+        inPractice.append(leitnerBox5);
+        leitnerBox5.clear();
+    }
+
+    if( leitnerBox6.count() > 480 ){
+        inPractice.append(leitnerBox6);
+        leitnerBox6.clear();
+    }
+
 
     /******************************************************************************
     **
@@ -309,7 +340,7 @@ QmVocExpression * QueryMee::getNextEntry()
 
         return vocExpression;
     }
-    else if (inPractice.count() == 5){
+    else if (inPractice.count() >= MaxGrade0 ){
 
         do {
             vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
@@ -324,7 +355,7 @@ QmVocExpression * QueryMee::getNextEntry()
 }
 
 
-void QueryMee::setLession(int lessionIndex)
+void QueryMeeLeitner::setLession(int lessionIndex)
 {
     m_LessionIndex = lessionIndex;
     m_lesson = QueryMeeSettings::instance()->lesson(m_LessionIndex);
@@ -390,7 +421,7 @@ void QueryMee::setLession(int lessionIndex)
     }
 }
 
-void QueryMee::slotClicked(int id)
+void QueryMeeLeitner::slotClicked(int id)
 {
     if(id == m_CorrectId){
 
@@ -408,6 +439,8 @@ void QueryMee::slotClicked(int id)
 
             // remove from the practice pool
             inPractice.removeOne(m_CorrectExp);
+
+            qDebug() << "Grade:" << m_CorrectExp->translation(m_AnswerLanguage)->grade();
 
             // FIXME: there must be a easier solution
             switch ( m_CorrectExp->translation(m_AnswerLanguage)->grade() ) {
@@ -451,8 +484,10 @@ void QueryMee::slotClicked(int id)
                         ;
             }
 
+            qDebug() << "before Grade:" << m_CorrectExp->translation(m_AnswerLanguage)->grade();
             // answer was correct so increase the grade
             m_CorrectExp->translation(m_AnswerLanguage)->incGrade();
+            qDebug() << "after Grade:" << m_CorrectExp->translation(m_AnswerLanguage)->grade();
 
         }
         else{
@@ -489,7 +524,7 @@ void QueryMee::slotClicked(int id)
 
 }
 
-void QueryMee::slotInit(){
+void QueryMeeLeitner::slotInit(){
 
     m_ChoiceList.clear();
     statusLabel->clear();
@@ -500,6 +535,18 @@ void QueryMee::slotInit(){
 
     m_AnswerButtonsList.at(random_int)->setDown(0);
     QmVocExpression* expression =  getNextEntry();
+
+    qDebug() << expression->translation(m_QuestionLanguage)->text();
+    qDebug() << "Pool:" << m_entries.count();
+    qDebug() << "Practice: " << inPractice.count();
+    qDebug() << "Box 1:" << leitnerBox1.count();
+    qDebug() << "Box 2:" << leitnerBox2.count();
+    qDebug() << "Box 3:" << leitnerBox3.count();
+    qDebug() << "Box 4:" << leitnerBox4.count();
+    qDebug() << "Box 5:" << leitnerBox5.count();
+    qDebug() << "Box 6:" << leitnerBox6.count();
+    qDebug() << "Box 7:" << leitnerBox7.count();
+
     if(expression) {
         m_QuestionLabel->setText(expression->translation(m_QuestionLanguage)->text());
         m_AnswerButtonsList.at(random_int)->setText( expression->translation(m_AnswerLanguage)->text() );
@@ -524,13 +571,13 @@ void QueryMee::slotInit(){
     }
 }
 
-void QueryMee::closeEvent ( QCloseEvent * event )
+void QueryMeeLeitner::closeEvent ( QCloseEvent * event )
 {
     QWidget::closeEvent(event);
     this->deleteLater();
 }
 
-int QueryMee::randomInt(int min, int max){
+int QueryMeeLeitner::randomInt(int min, int max){
     int i = 0;
 
     if (max != 0){
@@ -543,20 +590,20 @@ int QueryMee::randomInt(int min, int max){
     return i;
 }
 
-void QueryMee::setCurrentFileName(QString fileName){
+void QueryMeeLeitner::setCurrentFileName(QString fileName){
     m_CurrentFileName = fileName;
 }
 
-void QueryMee::setQuestionLanguage(int languageIndex)
+void QueryMeeLeitner::setQuestionLanguage(int languageIndex)
 {
     m_QuestionLanguage = languageIndex;
 }
 
-void QueryMee::setAnswerLanguage(int languageIndex)
+void QueryMeeLeitner::setAnswerLanguage(int languageIndex)
 {
     m_AnswerLanguage = languageIndex;
 }
 
-void QueryMee::setQmVocDocument(QmVocDocument *doc){
+void QueryMeeLeitner::setQmVocDocument(QmVocDocument *doc){
     m_QmVocDocument = doc;
 }

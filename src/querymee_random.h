@@ -13,8 +13,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TINYVOCTRAINER_H
-#define TINYVOCTRAINER_H
+#ifndef QUERYMEERANDOM_H
+#define QUERYMEERANDOM_H
 
 #include <QWidget>
 
@@ -22,13 +22,13 @@ class QmVocExpression;
 class QPushButton;
 class QLabel;
 
-class QueryMee : public QWidget
+class QueryMeeRandom : public QWidget
 {
     Q_OBJECT
 
 public:
-    QueryMee(QWidget *parent = 0);
-    ~QueryMee();
+    QueryMeeRandom(QWidget *parent = 0);
+    ~QueryMeeRandom();
 
 public:
     void setLession(int lessionIndex);
@@ -57,4 +57,4 @@ private:
     QLabel *answerLabel;
 };
 
-#endif // TINYVOCTRAINER_H
+#endif // QUERYMEERANDOM_H

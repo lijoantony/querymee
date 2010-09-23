@@ -96,7 +96,8 @@ void QmVocText::setGrade( grade_t grade )
 
 void QmVocText::incGrade()
 {
-    setGrade( qMax<grade_t>(grade(), KV_LEV1_GRADE ) + 1 );
+    // setGrade( qMax<grade_t>(grade(), KV_LEV1_GRADE ) + 1 );
+    setGrade( grade() + 1 );
 }
 
 

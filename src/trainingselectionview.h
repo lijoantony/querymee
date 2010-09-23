@@ -47,6 +47,7 @@ private:
     QComboBox *m_ComboQuestionLang;
     QComboBox *m_ComboAnswerLang;
     QCheckBox *m_checkbox;
+    QCheckBox *m_checkbox_random;
     QPushButton *m_button;
 };
 
