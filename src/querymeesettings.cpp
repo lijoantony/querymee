@@ -129,8 +129,6 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
     QmVocDocument* document = new QmVocDocument(this);
     document->open(fileName);
 
-    qDebug() << "fileName:" << fileName;
-
     QList< QmVocContainer* > lessonContainers =
             document->lesson()->childContainers();
 

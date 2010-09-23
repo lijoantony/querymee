@@ -100,10 +100,15 @@ QueryMee::~QueryMee()
 
     // FIXME: should we ask the user if overwritting is OK?
     // FIXME: is it OK to have it in the destructor?
-    qDebug() << "We are gonna overwrite the file, should we ask the user?";
+
+    if(m_CurrentFileName.endsWith(".tsv") || m_CurrentFileName.endsWith(".voc")){
+        m_CurrentFileName.append(".kvtml");
+    }
+
+    qDebug() << "We are gonna overwrite the file, should we ask the user?" << m_CurrentFileName;
     m_QmVocDocument->saveAs(QUrl(m_CurrentFileName),
                             QmVocDocument::Kvtml,
-                            QString("Querymee ").append(QM_VERSION).append(" build date: ").append(__DATE__));
+                            QString("Querymee ").append(QM_VERSION));
 }
 
 
@@ -132,7 +137,6 @@ QmVocExpression * QueryMee::getNextEntry()
     **
     ******************************************************************************/
     if (inPractice.count() < MaxGrade0 && m_entries.count() > 0){
-        qDebug() << "Pool";
 
         do{           
 
@@ -140,9 +144,6 @@ QmVocExpression * QueryMee::getNextEntry()
 
             inPractice.append(vocExpression);
             m_entries.removeOne(vocExpression);
-
-            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
-            qDebug() << "inPractice: " << inPractice.count() << "m_entries:" << m_entries.count();
 
         } while ( inPractice.count() < MaxGrade0);
 
@@ -159,7 +160,6 @@ QmVocExpression * QueryMee::getNextEntry()
     **
     ******************************************************************************/
     else if (inPractice.count() < MaxGrade0 && leitnerBox1.count() > 0){
-        qDebug() << "-- leitnerBox1";
 
         do{
 
@@ -183,7 +183,6 @@ QmVocExpression * QueryMee::getNextEntry()
     **
     ******************************************************************************/
     else if (inPractice.count() < MaxGrade0 && leitnerBox2.count() > 0) {
-        qDebug() << "-- leitnerBox2";
 
         do{
 
@@ -206,7 +205,6 @@ QmVocExpression * QueryMee::getNextEntry()
     **
     ******************************************************************************/
     else if (inPractice.count() < MaxGrade0 && leitnerBox3.count() > 0) {
-        qDebug() << "-- leitnerBox3";
 
         do{
 
@@ -229,7 +227,6 @@ QmVocExpression * QueryMee::getNextEntry()
     **
     ******************************************************************************/
     else if (inPractice.count() < MaxGrade0 && leitnerBox4.count() > 0) {
-        qDebug() << "-- leitnerBox4";
 
         do{
 
@@ -252,7 +249,6 @@ QmVocExpression * QueryMee::getNextEntry()
     **
     ******************************************************************************/
     else if (inPractice.count() < MaxGrade0 && leitnerBox5.count() > 0) {
-        qDebug() << "-- leitnerBox5";
 
         do{
 
@@ -275,7 +271,6 @@ QmVocExpression * QueryMee::getNextEntry()
     **
     ******************************************************************************/
     else if (inPractice.count() < MaxGrade0 && leitnerBox6.count() > 0) {
-        qDebug() << "-- leitnerBox6";
 
         do{
 
@@ -298,7 +293,6 @@ QmVocExpression * QueryMee::getNextEntry()
     **
     ******************************************************************************/
     else if (inPractice.count() < MaxGrade0 && leitnerBox7.count() > 0) {
-        qDebug() << "-- leitnerBox7";
 
         do{
 
