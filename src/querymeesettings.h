@@ -42,6 +42,8 @@ public:
 
     QmVocLesson* lesson(int index) const;
     int openedDictionary() const;
+    QmVocDocument* getQmVocDocument();
+    QString getCurrentlyOpenedFile();
 
 public Q_SLOTS:
     /*!

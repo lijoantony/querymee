@@ -15,6 +15,7 @@
 
 #include "querymee.h"
 #include "querymeesettings.h"
+#include "version.h"
 
 #include <ctime>
 
@@ -25,6 +26,7 @@
 #include <QButtonGroup>
 #include <QSignalMapper>
 #include <QTimer>
+#include <QDateTime>
 
 #include "qmvocdocument.h"
 #include "qmvoclesson.h"
@@ -95,7 +97,15 @@ void QueryMee::startTraining()
 
 QueryMee::~QueryMee()
 {
+
+    // FIXME: should we ask the user if overwritting is OK?
+    // FIXME: is it OK to have it in the destructor?
+    qDebug() << "We are gonna overwrite the file, should we ask the user?";
+    m_QmVocDocument->saveAs(QUrl(m_CurrentFileName),
+                            QmVocDocument::Kvtml,
+                            QString("Querymee ").append(QM_VERSION).append(" build date: ").append(__DATE__));
 }
+
 
 QmVocExpression * QueryMee::getAnyEntryFromLesson()
 {
@@ -109,19 +119,12 @@ QmVocExpression * QueryMee::getAnyEntryFromLesson()
     return vocExpression;
 }
 
+
 QmVocExpression * QueryMee::getNextEntry()
 {
     QmVocExpression* vocExpression = 0;
 
-    qDebug() << "inPractice:" << inPractice.count();
-    qDebug() << "m_entries" << m_entries.count() << __LINE__;
-    qDebug() << "leitnerBox1" << leitnerBox1.count() << __LINE__;
-    qDebug() << "leitnerBox2" << leitnerBox2.count() << __LINE__;
-    qDebug() << "leitnerBox3" << leitnerBox3.count() << __LINE__;
-    qDebug() << "leitnerBox4" << leitnerBox4.count() << __LINE__;
-    qDebug() << "leitnerBox5" << leitnerBox5.count() << __LINE__;
-    qDebug() << "leitnerBox6" << leitnerBox6.count() << __LINE__;
-    qDebug() << "leitnerBox7" << leitnerBox7.count() << __LINE__;
+    // FIXME: there has to be a better solution for that?!
 
     /******************************************************************************
     **
@@ -165,9 +168,6 @@ QmVocExpression * QueryMee::getNextEntry()
             inPractice.append(vocExpression);
             leitnerBox1.removeOne(vocExpression);
 
-            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
-            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox1:" << leitnerBox1.count();
-
         } while ( inPractice.count() < MaxGrade0);
 
         do {
@@ -192,9 +192,6 @@ QmVocExpression * QueryMee::getNextEntry()
             inPractice.append(vocExpression);
             leitnerBox2.removeOne(vocExpression);
 
-            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
-            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox2:" << leitnerBox2.count();
-
         } while ( inPractice.count() < MaxGrade0);
 
         do {
@@ -217,9 +214,6 @@ QmVocExpression * QueryMee::getNextEntry()
 
             inPractice.append(vocExpression);
             leitnerBox3.removeOne(vocExpression);
-
-            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
-            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox3:" << leitnerBox3.count();
 
         } while ( inPractice.count() < MaxGrade0);
 
@@ -244,9 +238,6 @@ QmVocExpression * QueryMee::getNextEntry()
             inPractice.append(vocExpression);
             leitnerBox4.removeOne(vocExpression);
 
-            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
-            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox4:" << leitnerBox4.count();
-
         } while ( inPractice.count() < MaxGrade0);
 
         do {
@@ -269,9 +260,6 @@ QmVocExpression * QueryMee::getNextEntry()
 
             inPractice.append(vocExpression);
             leitnerBox5.removeOne(vocExpression);
-
-            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
-            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox5:" << leitnerBox5.count();
 
         } while ( inPractice.count() < MaxGrade0);
 
@@ -296,9 +284,6 @@ QmVocExpression * QueryMee::getNextEntry()
             inPractice.append(vocExpression);
             leitnerBox6.removeOne(vocExpression);
 
-            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
-            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox6:" << leitnerBox6.count();
-
         } while ( inPractice.count() < MaxGrade0);
 
         do {
@@ -322,9 +307,6 @@ QmVocExpression * QueryMee::getNextEntry()
             inPractice.append(vocExpression);
             leitnerBox7.removeOne(vocExpression);
 
-            qDebug() << "Entry: " << vocExpression->translation(m_QuestionLanguage)->text();
-            qDebug() << "inPractice: " << inPractice.count() << "leitnerBox7:" << leitnerBox7.count();
-
         } while ( inPractice.count() < MaxGrade0);
 
         do {
@@ -334,7 +316,6 @@ QmVocExpression * QueryMee::getNextEntry()
         return vocExpression;
     }
     else if (inPractice.count() == 5){
-        qDebug() << "-- no new entry inPractice needed...";
 
         do {
             vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
@@ -344,7 +325,7 @@ QmVocExpression * QueryMee::getNextEntry()
     }
 
     // we never should end up here, but we never know...
-    qDebug() << "we never should end up here...";
+    qDebug() << "Uups, the Leitner System failed... return a random value...";
     return getAnyEntryFromLesson();
 }
 
@@ -357,9 +338,8 @@ void QueryMee::setLession(int lessionIndex)
     m_entries = m_lesson->entries();
 
     foreach(QmVocExpression* entry ,m_entries){
-        // qDebug() << entry->translation(m_QuestionLanguage)->leitnerBox()->name();
-        qDebug() <<  entry->translation(m_QuestionLanguage)->text() << entry->translation(m_AnswerLanguage)->grade();
 
+        // FIXME: there has to be a better solution add the cards to the "box" resp. QList
         switch ( entry->translation(m_AnswerLanguage)->grade() ) {
 
             case 1 :
@@ -406,165 +386,125 @@ void QueryMee::setLession(int lessionIndex)
 
             default :
             // Process for all other cases.
+            // grades higher than 7 should be well know already
+
                 if (entry->translation(m_AnswerLanguage)->grade() > 7){
                     leitnerBox7.append(entry);
                     m_entries.removeOne(entry);
                 }
         }
     }
-
-    qDebug() << "m_entries" << m_entries.count() << __LINE__;
-    qDebug() << "leitnerBox1" << leitnerBox1.count() << __LINE__;
-    qDebug() << "leitnerBox2" << leitnerBox2.count() << __LINE__;
-    qDebug() << "leitnerBox3" << leitnerBox3.count() << __LINE__;
-    qDebug() << "leitnerBox4" << leitnerBox4.count() << __LINE__;
-    qDebug() << "leitnerBox5" << leitnerBox5.count() << __LINE__;
-    qDebug() << "leitnerBox6" << leitnerBox6.count() << __LINE__;
-    qDebug() << "leitnerBox7" << leitnerBox7.count() << __LINE__;
-
-}
-
-void QueryMee::setQuestionLanguage(int languageIndex)
-{
-    m_QuestionLanguage = languageIndex;
-}
-
-void QueryMee::setAnswerLanguage(int languageIndex)
-{
-    m_AnswerLanguage = languageIndex;
 }
 
 void QueryMee::slotClicked(int id)
 {
     if(id == m_CorrectId){
+
+        // show the user the answer was right
         statusLabel->setText("\\o/ correct answer");
         answerLabel->setText( m_AnswerButtonsList.at(id)->text() );
         m_AnswerButtonsList.at(id)->setDown(1);
-        qDebug() << "Correct Exp: " << m_CorrectExp->translation(m_QuestionLanguage)->text();
-        qDebug() << "m_firstAnswerWrong" << m_firstAnswerWrong;
+
+        // update the time when this expression was practiced
+        m_CorrectExp->translation(m_AnswerLanguage)->setPracticeDate(QDateTime::currentDateTime());
+        // increment the practice counter
+        m_CorrectExp->translation(m_AnswerLanguage)->incPracticeCount();
 
         if(m_firstAnswerWrong == 0){
 
+            // remove from the practice pool
             inPractice.removeOne(m_CorrectExp);
 
-            qDebug() << "inPractice: " << inPractice.count();
-
-            qDebug() << "Grade: " << m_CorrectExp->translation(m_AnswerLanguage)->grade();
-
+            // FIXME: there must be a easier solution
             switch ( m_CorrectExp->translation(m_AnswerLanguage)->grade() ) {
 
                 case 0 :
                 // Process = 1
-                    qDebug() << __LINE__;
                     leitnerBox1.append(m_CorrectExp);
-                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(1);
                     break;
 
                 case 1 :
                 // Process = 1
-                    qDebug() << __LINE__;
                     leitnerBox2.append(m_CorrectExp);
-                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(2);
                     break;
 
                 case 2 :
                 // Process = 2
-                    qDebug() << __LINE__;
                     leitnerBox3.append(m_CorrectExp);
-                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(3);
                     break;
 
                 case 3 :
                 // Process = 3
-                    qDebug() << __LINE__;
                     leitnerBox4.append(m_CorrectExp);
-                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(4);
                     break;
 
                 case 4 :
                 // Process = 4
-                    qDebug() << __LINE__;
                     leitnerBox5.append(m_CorrectExp);
-                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(5);
                     break;
 
                 case 5 :
                 // Process = 5
-                    qDebug() << __LINE__;
                     leitnerBox6.append(m_CorrectExp);
-                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(6);
                     break;
 
                 case 6 :
                 // Process = 6
-                    qDebug() << __LINE__;
                     leitnerBox7.append(m_CorrectExp);
-                    m_CorrectExp->translation(m_AnswerLanguage)->setGrade(7);
                     break;
 
                 default :
-                        qDebug() << __LINE__;
                         ;
-                // Process for all other cases.
-//                    if (entry->translation(m_AnswerLanguage)->grade() > 7){
-//                        leitnerBox7.append(entry);
-//                        leitnerBox1.removeOne(entry);
-//                    }
             }
 
-
-        qDebug() << "m_entries" << m_entries.count() << __LINE__;
-        qDebug() << "leitnerBox1" << leitnerBox1.count() << __LINE__;
-        qDebug() << "leitnerBox2" << leitnerBox2.count() << __LINE__;
-        qDebug() << "leitnerBox3" << leitnerBox3.count() << __LINE__;
-        qDebug() << "leitnerBox4" << leitnerBox4.count() << __LINE__;
-        qDebug() << "leitnerBox5" << leitnerBox5.count() << __LINE__;
-        qDebug() << "leitnerBox6" << leitnerBox6.count() << __LINE__;
-        qDebug() << "leitnerBox7" << leitnerBox7.count() << __LINE__;
+            // answer was correct so increase the grade
+            m_CorrectExp->translation(m_AnswerLanguage)->incGrade();
 
         }
         else{
             // the answer was not correct in the first attempt
-            // set grade back to 0
+            // set grade back to 0 and increment the errorcount
             m_CorrectExp->translation(m_AnswerLanguage)->setGrade(0);
+            m_CorrectExp->translation(m_AnswerLanguage)->incBadCount();
+
         }
 
-        m_firstAnswerWrong = 0;
+        // reset the flag
+        m_firstAnswerWrong = false;
+
+        // this allows the user to see the correct answer
+        // FIXME: this could be a setting!
         QTimer::singleShot(2200, this, SLOT(slotInit()));
+
+        // store the expression so we can check later that it isn't used 2 times in a row
         m_LastExp = m_CorrectExp;
+
         return;
     }
     else{
-        m_firstAnswerWrong = 1;
+        // set the flag so the grade will not be incremented
+        m_firstAnswerWrong = true;
+
+        // show the user that the answer was wrong
         QString str = ":-( sorry wrong... it's not: ";
         str.append(m_AnswerButtonsList.at(id)->text());
         statusLabel->setText( str );
-        m_LastExp = m_CorrectExp;
+
+        return;
     }
-
-
-    qDebug() << "m_entries" << m_entries.count() << __LINE__;
-    qDebug() << "leitnerBox1" << leitnerBox1.count() << __LINE__;
-    qDebug() << "leitnerBox2" << leitnerBox2.count() << __LINE__;
-    qDebug() << "leitnerBox3" << leitnerBox3.count() << __LINE__;
-    qDebug() << "leitnerBox4" << leitnerBox4.count() << __LINE__;
-    qDebug() << "leitnerBox5" << leitnerBox5.count() << __LINE__;
-    qDebug() << "leitnerBox6" << leitnerBox6.count() << __LINE__;
-    qDebug() << "leitnerBox7" << leitnerBox7.count() << __LINE__;
 
 }
 
 void QueryMee::slotInit(){
+
     m_ChoiceList.clear();
     statusLabel->clear();
     answerLabel->clear();
     
 
-
-    int random_int = randomInt(0, NumberOfButtons) ;
+    int random_int = randomInt(0, NumberOfButtons);
 
     m_AnswerButtonsList.at(random_int)->setDown(0);
-    // QmVocExpression* expression = m_ChoiceList.at(random_int);
     QmVocExpression* expression =  getNextEntry();
     if(expression) {
         m_QuestionLabel->setText(expression->translation(m_QuestionLanguage)->text());
@@ -579,7 +519,6 @@ void QueryMee::slotInit(){
         if(i != random_int){
            m_AnswerButtonsList.at(i)->setDown(0);
            QmVocExpression* expression = NULL;
-           // qDebug() << "returned entry" << getNextEntry()->translation(m_QuestionLanguage)->text();
            do {
                expression = getAnyEntryFromLesson();
            } while (m_ChoiceList.contains(expression));
@@ -598,15 +537,32 @@ void QueryMee::closeEvent ( QCloseEvent * event )
 }
 
 int QueryMee::randomInt(int min, int max){
-//    qDebug() << "RandomInt Min: " << min;
-//    qDebug() << "RandomInt Max: " << max;
     int i = 0;
+
     if (max != 0){
         i = ( rand() %  max ) + min ;
     }
     else{
         i = min;
     }
-//    qDebug() << "RandomInt: " << i;
+
     return i;
+}
+
+void QueryMee::setCurrentFileName(QString fileName){
+    m_CurrentFileName = fileName;
+}
+
+void QueryMee::setQuestionLanguage(int languageIndex)
+{
+    m_QuestionLanguage = languageIndex;
+}
+
+void QueryMee::setAnswerLanguage(int languageIndex)
+{
+    m_AnswerLanguage = languageIndex;
+}
+
+void QueryMee::setQmVocDocument(QmVocDocument *doc){
+    m_QmVocDocument = doc;
 }

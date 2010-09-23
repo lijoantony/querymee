@@ -27,7 +27,8 @@ HEADERS += querymee.h \
     downloadwidget.h \
     knsxmlstreamreader.h \
     querymee_defaults.h \
-    ocsxmlstreamreader.h
+    ocsxmlstreamreader.h \
+    version.h
 FORMS += 
 QT += network \
     xml

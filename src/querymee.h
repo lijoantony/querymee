@@ -17,6 +17,7 @@
 #define TINYVOCTRAINER_H
 
 #include <QWidget>
+#include <qmvocdocument.h>
 
 class QmVocExpression;
 class QmVocLesson;
@@ -35,7 +36,9 @@ public:
     void setLession(int lessionIndex);
     void setQuestionLanguage(int languageIndex);
     void setAnswerLanguage(int languageIndex);
+    void setQmVocDocument(QmVocDocument *doc);
     void startTraining();
+    void setCurrentFileName(QString fileName);
 
 private:
     QmVocExpression * getAnyEntryFromLesson();
@@ -53,7 +56,7 @@ private:
     int m_LessionIndex;
     int m_QuestionLanguage;
     int m_AnswerLanguage;
-    int m_firstAnswerWrong;
+    bool m_firstAnswerWrong;
     QList<QmVocExpression *> m_ChoiceList;
     QList<QPushButton *> m_AnswerButtonsList;
     QLabel* m_QuestionLabel;
@@ -71,6 +74,8 @@ private:
     QList<QmVocExpression *> leitnerBox7;
     QmVocExpression *m_CorrectExp;
     QmVocExpression *m_LastExp;
+    QmVocDocument *m_QmVocDocument;
+    QString m_CurrentFileName;
 };
 
 #endif // TINYVOCTRAINER_H

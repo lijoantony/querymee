@@ -100,6 +100,8 @@ void TrainingSelectionView::slotInitView()
 
 void TrainingSelectionView::start()
 {
+    QueryMeeSettings* settings = QueryMeeSettings::instance();
+
     // check what is selected
     if(m_ComboDictionary && m_ComboDictionary->count()) {
         slotDictionarySelected(m_ComboDictionary->currentIndex());
@@ -108,6 +110,8 @@ void TrainingSelectionView::start()
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
         trainer->setLession(m_ComboLesson->currentIndex());
+        trainer->setQmVocDocument(settings->getQmVocDocument());
+        trainer->setCurrentFileName(settings->getCurrentlyOpenedFile());
 
 #ifdef Q_WS_MAEMO_5
        /* due to bug:

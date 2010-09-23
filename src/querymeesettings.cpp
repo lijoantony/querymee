@@ -129,6 +129,8 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
     QmVocDocument* document = new QmVocDocument(this);
     document->open(fileName);
 
+    qDebug() << "fileName:" << fileName;
+
     QList< QmVocContainer* > lessonContainers =
             document->lesson()->childContainers();
 
@@ -197,6 +199,14 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
     m_Dictionaries.insert(QFileInfo(fileName).fileName(), fileName);
 
     emit dictionaryChanged();
+}
+
+QmVocDocument* QueryMeeSettings::getQmVocDocument(){
+    return m_CurrentDocument;
+}
+
+QString QueryMeeSettings::getCurrentlyOpenedFile(){
+    return m_CurrentlyOpenedFile;
 }
 
 QList<QmVocContainer*> QueryMeeSettings::getChildLessons(QmVocContainer* container){
