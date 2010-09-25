@@ -11,8 +11,6 @@ INCLUDEPATH += . \
     ../lib
 QMAKE_LFLAGS += -Wl,-rpath,../lib
 SOURCES += main.cpp \
-    querymee_random.cpp \
-    querymee_leitner.cpp \
     querymeesettings.cpp \
     mainwindow.cpp \
     trainingselectionview.cpp \
@@ -22,9 +20,7 @@ SOURCES += main.cpp \
     ocsxmlstreamreader.cpp \
     qmtrainer.cpp \
     qmmultiplechoice.cpp
-HEADERS += querymee_random.h \
-    querymee_leitner.h \
-    querymeesettings.h \
+HEADERS += querymeesettings.h \
     mainwindow.h \
     trainingselectionview.h \
     downloadmanager.h \

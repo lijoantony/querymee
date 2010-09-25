@@ -109,7 +109,7 @@ QStringList QueryMeeSettings::lessons() const
 QmVocLesson* QueryMeeSettings::lesson(int index) const
 {
     QmVocLesson* lesson = 0;
-    if(index < m_Lessons.count() && index >= 0) {
+    if(index < m_Lessons.size() && index >= 0) {
         lesson = m_Lessons.at(index);
     }
     return lesson;
@@ -144,7 +144,7 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
 
 //        // add an all lesson if there is more than one lesson
 //        // and add all the entries from the document
-//        if (lessonContainers.count() > 1){
+//        if (lessonContainers.size() > 1){
 //            QmVocLesson* allLesson = new QmVocLesson("All", document->lesson());
 //            foreach (QmVocExpression * entry, document->lesson()->entries(QmVocLesson::Recursive))
 //            {
@@ -162,12 +162,12 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
                 QmVocLesson* lesson = static_cast<QmVocLesson *>(c);
 
                 // check if in the lesson are any entries, if not we don't need it in the list
-                if (lesson->entries().count() > 0 ){
+                if (lesson->entries().size() > 0 ){
                     lessonList.append(lesson);
                 }
 
                 // if there are child lessons we need to add them
-                if(c->childContainers().count() > 0){
+                if(c->childContainers().size() > 0){
                     foreach (QmVocContainer *cc, getChildLessons(c)){
                         QmVocLesson* childLessons = static_cast<QmVocLesson *>(cc);
                         lessonList.append(childLessons);
@@ -220,13 +220,13 @@ QList<QmVocContainer*> QueryMeeSettings::getChildLessons(QmVocContainer* contain
             QmVocLesson* lesson = static_cast<QmVocLesson *>(cc);
 
             // check if in the lesson are any entries, if not we don't need it in the list
-            if (lesson->entries().count() > 0 ){
+            if (lesson->entries().size() > 0 ){
                 childLessons.append(cc);
             }
         }
 
         // check if there are child lessons in the child...
-        if(cc && cc->childContainers().count() > 0){
+        if(cc && cc->childContainers().size() > 0){
             childLessons.append(getChildLessons(cc));
         }
     }

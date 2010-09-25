@@ -30,7 +30,8 @@
 
 QmMultipleChoice::QmMultipleChoice(QWidget *parent) :
         QmTrainer(parent),
-        m_CorrectId(0)
+        m_CorrectId(0),
+        m_firstAnswerWrong(false)
 {
     QVBoxLayout *vbox = new QVBoxLayout();
     QVBoxLayout *vbox_label = new QVBoxLayout();
@@ -73,8 +74,6 @@ QmMultipleChoice::~QmMultipleChoice()
 
 void QmMultipleChoice::startTraining()
 {
-    qDebug() << QmTrainer::m_LessionIndex << QmTrainer::m_QuestionLanguage << QmTrainer::m_AnswerLanguage;
-
     if(QmTrainer::m_LessionIndex >= 0
        && QmTrainer::m_QuestionLanguage >= 0
        && QmTrainer::m_AnswerLanguage >= 0) {
@@ -94,14 +93,16 @@ void QmMultipleChoice::slotClicked(int id)
 
         bool countAnswerRight;
 
-        if(m_firstAnswerWrong == 0){
+        if(m_firstAnswerWrong == false){
             countAnswerRight = true;
         }
         else {
             countAnswerRight = false;
         }
 
+
         QmTrainer::handleAnswer(countAnswerRight);
+        QmTrainer::setLastAnswerRight(countAnswerRight);
 
         // reset the flag
         m_firstAnswerWrong = false;
@@ -115,6 +116,8 @@ void QmMultipleChoice::slotClicked(int id)
         QString str = ":-( sorry wrong... it's not: ";
         str.append(m_AnswerButtonsList.at(id)->text());
         statusLabel->setText( str );
+
+        m_firstAnswerWrong = true;
     }
 }
 

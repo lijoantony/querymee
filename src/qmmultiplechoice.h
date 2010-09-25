@@ -39,13 +39,14 @@ public slots:
     void slotClicked(int id);
 
 private:
+    int m_CorrectId;
+    bool m_firstAnswerWrong;
     void closeEvent ( QCloseEvent * event );
     QList<QmVocExpression *> m_ChoiceList;
     QList<QPushButton *> m_AnswerButtonsList;
     QLabel* m_QuestionLabel;
     QLabel *statusLabel;
     QLabel *answerLabel;
-    int m_CorrectId;
 };
 
 #endif // QMMULTIPLECHOICE_H

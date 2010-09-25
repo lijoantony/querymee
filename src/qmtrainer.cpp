@@ -27,11 +27,11 @@ QmTrainer::QmTrainer(QWidget *parent) :
     m_LessionIndex(-1),
     m_QuestionLanguage(-1),
     m_AnswerLanguage(-1),
-    m_randomOnly(false)
+    m_randomOnly(false),
+    m_lastAnswerRight(true)
 {
     srand(time(NULL));
 
-    m_firstAnswerWrong = 0;
     m_LastExp = new QmVocExpression();
 }
 
@@ -72,220 +72,173 @@ QmVocExpression * QmTrainer::getNextEntry()
 
         // FIXME: there has to be a better solution for that?!
 
-        if( leitnerBox1.count() > 15 ){
+        if( leitnerBox1.size() >= 15 ){
             inPractice.append(leitnerBox1);
             leitnerBox1.clear();
         }
 
-        if( leitnerBox2.count() > 30 ){
+        if( leitnerBox2.size() >= 30 ){
             inPractice.append(leitnerBox2);
             leitnerBox2.clear();
         }
 
-        if( leitnerBox3.count() > 60 ){
+        if( leitnerBox3.size() >= 60 ){
             inPractice.append(leitnerBox3);
             leitnerBox3.clear();
         }
 
-        if( leitnerBox4.count() > 120 ){
+        if( leitnerBox4.size() >= 120 ){
             inPractice.append(leitnerBox4);
             leitnerBox4.clear();
         }
 
-        if( leitnerBox5.count() > 240 ){
+        if( leitnerBox5.size() >= 240 ){
             inPractice.append(leitnerBox5);
             leitnerBox5.clear();
         }
 
-        if( leitnerBox6.count() > 480 ){
+        if( leitnerBox6.size() >= 480 ){
             inPractice.append(leitnerBox6);
             leitnerBox6.clear();
         }
-
 
     /******************************************************************************
     **
     ** Pool
     **
     ******************************************************************************/
-        if (inPractice.count() < MaxGrade0 && m_entries.count() > 0){
+        if (inPractice.size() < MaxGrade0 && m_entries.size() > 0 && m_lastAnswerRight == false){
 
-            do{
+            vocExpression = m_entries.at( randomInt(0, m_entries.size()) );
 
-                vocExpression = m_entries.at( randomInt(0, m_entries.count() - 1) );
+            inPractice.append(vocExpression);
+            m_entries.removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                m_entries.removeOne(vocExpression);
-
-            } while ( inPractice.count() < MaxGrade0);
-
-            do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
-            } while (m_LastExp == vocExpression);
-
-            return vocExpression;
-
+            m_lastAnswerRight = true;
         }
     /******************************************************************************
     **
     ** Leitner Box 1
     **
     ******************************************************************************/
-        else if (inPractice.count() < MaxGrade0 && leitnerBox1.count() > 0){
+        else if (inPractice.size() < MaxGrade0 && leitnerBox1.size() > 0 && m_lastAnswerRight == false){
 
-            do{
+            vocExpression = leitnerBox1.at( randomInt(0, leitnerBox1.size()) );
 
-                vocExpression = leitnerBox1.at( randomInt(0, leitnerBox1.count() - 1) );
+            inPractice.append(vocExpression);
+            leitnerBox1.removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                leitnerBox1.removeOne(vocExpression);
-
-            } while ( inPractice.count() < MaxGrade0);
-
-            do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
-            } while (m_LastExp == vocExpression);
-
-            return vocExpression;
-
+            m_lastAnswerRight = true;
         }
     /******************************************************************************
     **
     ** Leitner Box 2
     **
     ******************************************************************************/
-        else if (inPractice.count() < MaxGrade0 && leitnerBox2.count() > 0) {
+        else if (inPractice.size() < MaxGrade0 && leitnerBox2.size() > 0 && m_lastAnswerRight == false) {
 
-            do{
+            vocExpression = leitnerBox2.at( randomInt(0, leitnerBox2.size()) );
 
-                vocExpression = leitnerBox2.at( randomInt(0, leitnerBox2.count() - 1) );
+            inPractice.append(vocExpression);
+            leitnerBox2.removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                leitnerBox2.removeOne(vocExpression);
-
-            } while ( inPractice.count() < MaxGrade0);
-
-            do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
-            } while (m_LastExp == vocExpression);
-
-            return vocExpression;
+            m_lastAnswerRight = true;
         }
     /******************************************************************************
     **
     ** Leitner Box 3
     **
     ******************************************************************************/
-        else if (inPractice.count() < MaxGrade0 && leitnerBox3.count() > 0) {
+        else if (inPractice.size() < MaxGrade0 && leitnerBox3.size() > 0 && m_lastAnswerRight == false) {
 
-            do{
+            vocExpression = leitnerBox3.at( randomInt(0, leitnerBox3.size()) );
 
-                vocExpression = leitnerBox3.at( randomInt(0, leitnerBox3.count() - 1) );
+            inPractice.append(vocExpression);
+            leitnerBox3.removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                leitnerBox3.removeOne(vocExpression);
-
-            } while ( inPractice.count() < MaxGrade0);
-
-            do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
-            } while (m_LastExp == vocExpression);
-
-            return vocExpression;
+            m_lastAnswerRight = true;
         }
     /******************************************************************************
     **
     ** Leitner Box 4
     **
     ******************************************************************************/
-        else if (inPractice.count() < MaxGrade0 && leitnerBox4.count() > 0) {
+        else if (inPractice.size() < MaxGrade0 && leitnerBox4.size() > 0 && m_lastAnswerRight == false) {
 
-            do{
+            vocExpression = leitnerBox4.at( randomInt(0, leitnerBox4.size()) );
 
-                vocExpression = leitnerBox4.at( randomInt(0, leitnerBox4.count() - 1) );
+            inPractice.append(vocExpression);
+            leitnerBox4.removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                leitnerBox4.removeOne(vocExpression);
-
-            } while ( inPractice.count() < MaxGrade0);
-
-            do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
-            } while (m_LastExp == vocExpression);
-
-            return vocExpression;
+            m_lastAnswerRight = true;
         }
     /******************************************************************************
     **
     ** Leitner Box 5
     **
     ******************************************************************************/
-        else if (inPractice.count() < MaxGrade0 && leitnerBox5.count() > 0) {
+        else if (inPractice.size() < MaxGrade0 && leitnerBox5.size() > 0 && m_lastAnswerRight == false) {
 
-            do{
+            vocExpression = leitnerBox5.at( randomInt(0, leitnerBox5.size()) );
 
-                vocExpression = leitnerBox5.at( randomInt(0, leitnerBox5.count() - 1) );
+            inPractice.append(vocExpression);
+            leitnerBox5.removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                leitnerBox5.removeOne(vocExpression);
-
-            } while ( inPractice.count() < MaxGrade0);
-
-            do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
-            } while (m_LastExp == vocExpression);
-
-            return vocExpression;
+            m_lastAnswerRight = true;
         }
     /******************************************************************************
     **
     ** Leitner Box 6
     **
     ******************************************************************************/
-        else if (inPractice.count() < MaxGrade0 && leitnerBox6.count() > 0) {
+        else if (inPractice.size() < MaxGrade0 && leitnerBox6.size() > 0 && m_lastAnswerRight == false) {
 
-            do{
+            vocExpression = leitnerBox6.at( randomInt(0, leitnerBox6.size()) );
 
-                vocExpression = leitnerBox6.at( randomInt(0, leitnerBox6.count() - 1) );
+            inPractice.append(vocExpression);
+            leitnerBox6.removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                leitnerBox6.removeOne(vocExpression);
-
-            } while ( inPractice.count() < MaxGrade0);
-
-            do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
-            } while (m_LastExp == vocExpression);
-
-            return vocExpression;
+            m_lastAnswerRight = true;
         }
     /******************************************************************************
     **
     ** Leitner Box 7
     **
     ******************************************************************************/
-        else if (inPractice.count() < MaxGrade0 && leitnerBox7.count() > 0) {
+        else if (inPractice.size() < MaxGrade0 && leitnerBox7.size() > 0 && m_lastAnswerRight == false) {
 
-            do{
+            vocExpression = leitnerBox7.at( randomInt(0, leitnerBox7.size()) );
 
-                vocExpression = leitnerBox7.at( randomInt(0, leitnerBox7.count() - 1) );
+            inPractice.append(vocExpression);
+            leitnerBox7.removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                leitnerBox7.removeOne(vocExpression);
+            m_lastAnswerRight = true;
+        }
 
-            } while ( inPractice.count() < MaxGrade0);
+
+        if ( inPractice.size() > 2 ){
 
             do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
+                vocExpression = inPractice.at(randomInt(0, inPractice.size()));
             } while (m_LastExp == vocExpression);
 
             return vocExpression;
         }
-        else if (inPractice.count() >= MaxGrade0 ){
+        else if (inPractice.size() > 0 && inPractice.isEmpty() == false){
 
-            do {
-                vocExpression = inPractice.at(randomInt(0, MaxGrade0 - 1));
-            } while (m_LastExp == vocExpression);
+            if (inPractice.last() == m_LastExp){
+                vocExpression = inPractice.first();
+            } else {
+                vocExpression = inPractice.last();
+            }
+            return vocExpression;
+        }
+        else if ( m_entries.size()  > 0) {
+
+            vocExpression = m_entries.at(randomInt(0 ,m_entries.size()));
+
+            inPractice.append(vocExpression);
+            m_entries.removeOne(vocExpression);
 
             return vocExpression;
         }
@@ -293,7 +246,6 @@ QmVocExpression * QmTrainer::getNextEntry()
         // we never should end up here, but we never know...
         qDebug() << "Uups, the Leitner System failed... return a random value...";
         return getAnyEntryFromLesson();
-
     }
 }
 
@@ -301,6 +253,7 @@ QmVocExpression * QmTrainer::getNextEntry()
 void QmTrainer::setLession(int lessionIndex)
 {
     m_LessionIndex = lessionIndex;
+
     m_lesson = QueryMeeSettings::instance()->lesson(m_LessionIndex);
 
     m_entries = m_lesson->entries();
@@ -396,52 +349,52 @@ int QmTrainer::randomInt(int min, int max){
 }
 
 void QmTrainer::handleAnswer(bool answerCountsAsRight){
+
     // update the time when this expression was practiced
     m_CorrectExp->translation(m_AnswerLanguage)->setPracticeDate(QDateTime::currentDateTime());
     // increment the practice counter
     m_CorrectExp->translation(m_AnswerLanguage)->incPracticeCount();
 
-    if(answerCountsAsRight == true){
+    if(answerCountsAsRight == true && m_randomOnly == false){
+
         // remove from the practice pool
         inPractice.removeOne(m_CorrectExp);
-
-        qDebug() << "Grade:" << m_CorrectExp->translation(m_AnswerLanguage)->grade();
 
         // FIXME: there must be a easier solution
         switch ( m_CorrectExp->translation(m_AnswerLanguage)->grade() ) {
 
             case 0 :
-            // Process = 1
+                // Process = 1
                 leitnerBox1.append(m_CorrectExp);
                 break;
 
             case 1 :
-            // Process = 1
+                // Process = 1
                 leitnerBox2.append(m_CorrectExp);
                 break;
 
             case 2 :
-            // Process = 2
+                // Process = 2
                 leitnerBox3.append(m_CorrectExp);
                 break;
 
             case 3 :
-            // Process = 3
+                // Process = 3
                 leitnerBox4.append(m_CorrectExp);
                 break;
 
             case 4 :
-            // Process = 4
+                // Process = 4
                 leitnerBox5.append(m_CorrectExp);
                 break;
 
             case 5 :
-            // Process = 5
+                // Process = 5
                 leitnerBox6.append(m_CorrectExp);
                 break;
 
             case 6 :
-            // Process = 6
+                // Process = 6
                 leitnerBox7.append(m_CorrectExp);
                 break;
 
@@ -449,26 +402,40 @@ void QmTrainer::handleAnswer(bool answerCountsAsRight){
                     ;
         }
 
-        qDebug() << "before Grade:" << m_CorrectExp->translation(m_AnswerLanguage)->grade();
         // answer was correct so increase the grade
         m_CorrectExp->translation(m_AnswerLanguage)->incGrade();
-        qDebug() << "after Grade:" << m_CorrectExp->translation(m_AnswerLanguage)->grade();
+        qDebug() << "New Grade:" << m_CorrectExp->translation(m_AnswerLanguage)->grade();
 
     }
     else{
-        // the answer was not correct in the first attempt
-        // set grade back to 0 and increment the errorcount
-        m_CorrectExp->translation(m_AnswerLanguage)->setGrade(0);
-        m_CorrectExp->translation(m_AnswerLanguage)->incBadCount();
-
+        if(m_randomOnly == false){
+            // the answer was not correct in the first attempt
+            // set grade back to 0 and increment the errorcount
+            m_CorrectExp->translation(m_AnswerLanguage)->setGrade(0);
+            m_CorrectExp->translation(m_AnswerLanguage)->incBadCount();
+        }
     }
 
     // store the expression so we can check later that it isn't used 2 times in a row
     m_LastExp = m_CorrectExp;
+
+    qDebug() << "Pool:" << m_entries.size();
+    qDebug() << "Practice: " << inPractice.size();
+    qDebug() << "Box 1:" << leitnerBox1.size();
+    qDebug() << "Box 2:" << leitnerBox2.size();
+    qDebug() << "Box 3:" << leitnerBox3.size();
+    qDebug() << "Box 4:" << leitnerBox4.size();
+    qDebug() << "Box 5:" << leitnerBox5.size();
+    qDebug() << "Box 6:" << leitnerBox6.size();
+    qDebug() << "Box 7:" << leitnerBox7.size();
 
     return;
 }
 
 void QmTrainer::setRandomOnly(bool randomOnly){
     m_randomOnly = randomOnly;
+}
+
+void QmTrainer::setLastAnswerRight(bool lastAnswerRight){
+    m_lastAnswerRight = lastAnswerRight;
 }

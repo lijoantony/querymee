@@ -48,10 +48,9 @@ protected:
     int m_LessionIndex;
     int m_QuestionLanguage;
     int m_AnswerLanguage;
-    bool m_firstAnswerWrong;
     bool m_randomOnly;
+    bool m_lastAnswerRight;
     QList<QmVocExpression *> m_ChoiceList;
-    QLabel* m_QuestionLabel;
     QmVocLesson *m_lesson;
     QList<QmVocExpression *> m_entries;
     QList<QmVocExpression *> inPractice;
@@ -67,6 +66,7 @@ protected:
     QmVocDocument *m_QmVocDocument;
     QString m_CurrentFileName;
     void handleAnswer(bool answerCountsAsRight);
+    void setLastAnswerRight(bool lastAnswerRight);
 
     QmVocExpression * getNextEntry();
     QmVocExpression * getAnyEntryFromLesson();
