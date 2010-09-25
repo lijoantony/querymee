@@ -19,7 +19,9 @@ SOURCES += main.cpp \
     downloadmanager.cpp \
     downloadwidget.cpp \
     knsxmlstreamreader.cpp \
-    ocsxmlstreamreader.cpp
+    ocsxmlstreamreader.cpp \
+    qmtrainer.cpp \
+    qmmultiplechoice.cpp
 HEADERS += querymee_random.h \
     querymee_leitner.h \
     querymeesettings.h \
@@ -30,7 +32,9 @@ HEADERS += querymee_random.h \
     knsxmlstreamreader.h \
     querymee_defaults.h \
     ocsxmlstreamreader.h \
-    version.h
+    version.h \
+    qmtrainer.h \
+    qmmultiplechoice.h
 FORMS += 
 QT += network \
     xml
