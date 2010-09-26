@@ -13,43 +13,35 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TINYVOCTRAINER_H
-#define TINYVOCTRAINER_H
+#ifndef QMMULTIPLECHOICE_H
+#define QMMULTIPLECHOICE_H
 
 #include <QWidget>
+
+#include "qmtrainer.h"
 
 class QmVocExpression;
 class QPushButton;
 class QLabel;
 
-class QueryMee : public QWidget
+class QmMultipleChoice : public QmTrainer
 {
     Q_OBJECT
-
 public:
-    QueryMee(QWidget *parent = 0);
-    ~QueryMee();
-
-public:
-    void setLession(int lessionIndex);
-    void setQuestionLanguage(int languageIndex);
-    void setAnswerLanguage(int languageIndex);
+    explicit QmMultipleChoice(QWidget *parent = 0);
+    ~QmMultipleChoice();
     void startTraining();
 
-private:
-    QmVocExpression * getAnyEntryFromLesson();
+signals:
 
-    void closeEvent ( QCloseEvent * event );
-
-private Q_SLOTS:
+public slots:
     void slotInit();
     void slotClicked(int id);
 
 private:
     int m_CorrectId;
-    int m_LessionIndex;
-    int m_QuestionLanguage;
-    int m_AnswerLanguage;
+    bool m_firstAnswerWrong;
+    void closeEvent ( QCloseEvent * event );
     QList<QmVocExpression *> m_ChoiceList;
     QList<QPushButton *> m_AnswerButtonsList;
     QLabel* m_QuestionLabel;
@@ -57,4 +49,4 @@ private:
     QLabel *answerLabel;
 };
 
-#endif // TINYVOCTRAINER_H
+#endif // QMMULTIPLECHOICE_H

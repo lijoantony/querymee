@@ -13,12 +13,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "querymee.h"
-#include "querymeesettings.h"
-
-#include <ctime>
-
 #include <QDebug>
+#include <QWidget>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
@@ -26,22 +22,17 @@
 #include <QSignalMapper>
 #include <QTimer>
 
-#include "qmvocdocument.h"
-#include "qmvoclesson.h"
+#include "qmmultiplechoice.h"
+#include "qmtrainer.h"
 #include "qmvocexpression.h"
-#include "qmvocleitnerbox.h"
 
 #define NumberOfButtons 4
 
-QueryMee::QueryMee(QWidget *parent) :
-        QWidget(parent),
+QmMultipleChoice::QmMultipleChoice(QWidget *parent) :
+        QmTrainer(parent),
         m_CorrectId(0),
-        m_LessionIndex(-1),
-        m_QuestionLanguage(-1),
-        m_AnswerLanguage(-1)
+        m_firstAnswerWrong(false)
 {
-    srand(time(NULL));
-
     QVBoxLayout *vbox = new QVBoxLayout();
     QVBoxLayout *vbox_label = new QVBoxLayout();
     QHBoxLayout *hbox = new QHBoxLayout();
@@ -51,10 +42,10 @@ QueryMee::QueryMee(QWidget *parent) :
     m_QuestionLabel = new QLabel();
     m_QuestionLabel->setText(tr("Here comes..."));
     vbox_label->addWidget(m_QuestionLabel);
-    
+
     answerLabel = new QLabel();
     hbox->addWidget(answerLabel);
-    
+
     statusLabel = new QLabel();
     hbox->addWidget(statusLabel);
 
@@ -74,14 +65,18 @@ QueryMee::QueryMee(QWidget *parent) :
 
     vbox->addLayout(vbox_label);
     setLayout(vbox);
+}
+
+QmMultipleChoice::~QmMultipleChoice()
+{
 
 }
 
-void QueryMee::startTraining()
+void QmMultipleChoice::startTraining()
 {
-    if(m_LessionIndex >= 0
-       && m_QuestionLanguage >= 0
-       && m_AnswerLanguage >= 0) {
+    if(QmTrainer::m_LessionIndex >= 0
+       && QmTrainer::m_QuestionLanguage >= 0
+       && QmTrainer::m_AnswerLanguage >= 0) {
         slotInit();
         show();
     } else {
@@ -89,43 +84,31 @@ void QueryMee::startTraining()
     }
 }
 
-QueryMee::~QueryMee()
-{
-}
-
-QmVocExpression * QueryMee::getAnyEntryFromLesson()
-{
-    QmVocExpression* vocExpression = 0;
-    QmVocLesson* lesson =
-    QueryMeeSettings::instance()->lesson(m_LessionIndex);
-    if(lesson) {
-        int random_int = ( rand() %  ( lesson->entries().size() - 1 ) ) + 0;
-        vocExpression = lesson->entry(random_int);
-    }
-    return vocExpression;
-}
-
-void QueryMee::setLession(int lessionIndex)
-{
-    m_LessionIndex = lessionIndex;
-}
-
-void QueryMee::setQuestionLanguage(int languageIndex)
-{
-    m_QuestionLanguage = languageIndex;
-}
-
-void QueryMee::setAnswerLanguage(int languageIndex)
-{
-    m_AnswerLanguage = languageIndex;
-}
-
-void QueryMee::slotClicked(int id)
+void QmMultipleChoice::slotClicked(int id)
 {
     if(id == m_CorrectId){
         statusLabel->setText("\\o/ correct answer");
         answerLabel->setText( m_AnswerButtonsList.at(id)->text() );
         m_AnswerButtonsList.at(id)->setDown(1);
+
+        bool countAnswerRight;
+
+        if(m_firstAnswerWrong == false){
+            countAnswerRight = true;
+        }
+        else {
+            countAnswerRight = false;
+        }
+
+
+        QmTrainer::handleAnswer(countAnswerRight);
+        QmTrainer::setLastAnswerRight(countAnswerRight);
+
+        // reset the flag
+        m_firstAnswerWrong = false;
+
+        // this allows the user to see the correct answer
+        // FIXME: this could be a setting!
         QTimer::singleShot(2200, this, SLOT(slotInit()));
         return;
     }
@@ -133,39 +116,49 @@ void QueryMee::slotClicked(int id)
         QString str = ":-( sorry wrong... it's not: ";
         str.append(m_AnswerButtonsList.at(id)->text());
         statusLabel->setText( str );
+
+        m_firstAnswerWrong = true;
     }
 }
 
-void QueryMee::slotInit(){
+
+void QmMultipleChoice::slotInit(){
+
     m_ChoiceList.clear();
     statusLabel->clear();
     answerLabel->clear();
-    
-    for (int i=0; i < NumberOfButtons; ++i){
-        m_AnswerButtonsList.at(i)->setDown(0);
-        QmVocExpression* expression = NULL;
-        do {
-            expression = getAnyEntryFromLesson();
-        } while (m_ChoiceList.contains(expression));
-        if(expression) {
-            m_ChoiceList.append(expression);
-            m_AnswerButtonsList.at(i)->setText( expression->translation(m_AnswerLanguage)->text() );
-        }
+
+
+    int random_int = QmTrainer::randomInt(0, NumberOfButtons);
+
+    m_AnswerButtonsList.at(random_int)->setDown(0);
+    QmVocExpression* expression =  QmTrainer::getNextEntry();
+
+    if(expression) {
+        m_QuestionLabel->setText(expression->translation(QmTrainer::m_QuestionLanguage)->text());
+        m_AnswerButtonsList.at(random_int)->setText( expression->translation(QmTrainer::m_AnswerLanguage)->text() );
+        QmTrainer::m_CorrectExp = expression;
+        m_ChoiceList.append(expression);
     }
 
-    int random_int = rand() % NumberOfButtons  + 0;
-
-    if(random_int < m_ChoiceList.count() && random_int >= 0) {
-        QmVocExpression* expression = m_ChoiceList.at(random_int);
-        if(expression) {
-            m_QuestionLabel->setText(expression->translation(m_QuestionLanguage)->text());
-        }
-    }
     m_CorrectId = random_int;
 
+    for (int i=0; i < NumberOfButtons; ++i){
+        if(i != random_int){
+           m_AnswerButtonsList.at(i)->setDown(0);
+           QmVocExpression* expression = NULL;
+           do {
+               expression = QmTrainer::getAnyEntryFromLesson();
+           } while (m_ChoiceList.contains(expression));
+           if(expression) {
+               m_ChoiceList.append(expression);
+               m_AnswerButtonsList.at(i)->setText( expression->translation(QmTrainer::m_AnswerLanguage)->text() );
+           }
+        }
+    }
 }
 
-void QueryMee::closeEvent ( QCloseEvent * event )
+void QmMultipleChoice::closeEvent ( QCloseEvent * event )
 {
     QWidget::closeEvent(event);
     this->deleteLater();

@@ -505,7 +505,7 @@ bool QmVocKvtml2Writer::writeTranslation( QDomElement &translationElement, QmVoc
 
     // comparison
     if ( !(translation->comparativeForm().text().isEmpty() || translation->superlativeForm().text().isEmpty())) {
-        qDebug() << "Write comp";
+        // qDebug() << "Write comp";
         QDomElement comparisonElement = m_domDoc.createElement( KVTML_COMPARISON );
         translationElement.appendChild(comparisonElement);
 

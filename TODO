@@ -25,6 +25,8 @@ For next major release 0.2.0:
 
 
 itmes for the fare future:
+* reset option for the grades
+  if the grade for all entries is >=7 then the Leitner Box system doesn't work anymore...
 * enhanded Litner Box algorithm, not just random asking
   http://en.wikipedia.org/wiki/Leitner_system
   http://en.wikipedia.org/wiki/Flashcard
