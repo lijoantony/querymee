@@ -14,8 +14,6 @@
  ***************************************************************************/
 
 #include "trainingselectionview.h"
-#include "querymee_random.h"
-#include "querymee_leitner.h"
 #include "querymeesettings.h"
 #include "qmmultiplechoice.h"
 

@@ -14,8 +14,6 @@
  ***************************************************************************/
 
 #include "querymeesettings.h"
-#include "querymee_random.h"
-#include "querymee_leitner.h"
 
 #include "qmvoclesson.h"
 #include "qmvocexpression.h"
