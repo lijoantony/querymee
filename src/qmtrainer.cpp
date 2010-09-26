@@ -102,17 +102,22 @@ QmVocExpression * QmTrainer::getNextEntry()
 
             m_lastAnswerRight = true;
         }
+        else if   ((m_lastAnswerRight == false && inPractice.size() < MaxGrade0)
+                || (m_lastAnswerRight == true  && m_entries.size() == 0 && inPractice.size() == 0 )) {
+            // check if we should add an entry to inPractice from one of the leitner boxes
+            for(int i=0;i <= NumberOfLeitnerBoxes; i++){
 
-        // check if we should add an entry to inPractice from one of the leitner boxes
-        for(int i=0;i <= NumberOfLeitnerBoxes; i++){
+                if (leitnerBoxes.at(i)->size() > 0){
+                    vocExpression = leitnerBoxes.at(i)->at( randomInt(0, leitnerBoxes.at(i)->size()) );
 
-            if (inPractice.size() < MaxGrade0 && leitnerBoxes.at(i)->size() > 0 && m_lastAnswerRight == false){
-                vocExpression = leitnerBoxes.at(i)->at( randomInt(0, leitnerBoxes.at(i)->size()) );
+                    inPractice.append(vocExpression);
+                    leitnerBoxes.at(i)->removeOne(vocExpression);
 
-                inPractice.append(vocExpression);
-                leitnerBoxes.at(i)->removeOne(vocExpression);
-
-                m_lastAnswerRight = true;
+                    if (vocExpression != m_LastExp && inPractice.size() == 1){
+                        m_lastAnswerRight = true;
+                        break;
+                    }
+                }
             }
         }
 
@@ -208,6 +213,8 @@ void QmTrainer::handleAnswer(bool answerCountsAsRight){
         // put it to the next leitner box
         if (grade < NumberOfLeitnerBoxes){
             leitnerBoxes.at(grade + 1)->append(m_CorrectExp);
+        } else {
+            leitnerBoxes.at(7)->append(m_CorrectExp);
         }
 
         // answer was correct so increase the grade
