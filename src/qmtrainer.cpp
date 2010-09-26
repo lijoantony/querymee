@@ -84,9 +84,11 @@ QmVocExpression * QmTrainer::getNextEntry()
         // if so add the entries to the inPractice QList
         for(int i=1;i < NumberOfLeitnerBoxes; i++){
             if (i != 0 && leitnerBoxes.at(i)->size() >= maxEntries[i]){
+
                 inPractice.append(*leitnerBoxes.at(i));
                 leitnerBoxes.at(i)->clear();
-                entryAdded == true;
+
+                m_lastAnswerRight = true;
             }
         }
 
