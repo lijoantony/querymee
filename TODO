@@ -4,36 +4,41 @@ due to bug:
 
 it's not possible to have Portrait and Stackedwindow at the same time
 
-for next release 0.1.X:
-* pre choose the 2nd landguage as question language
-* in MC mode change the showing of failed on OK status msg
-  the way it is atm is not that good...
 
 For next major release 0.2.0:
-* possibility to chose "all" for lessons
-* flash card mode (portrait and landscape)
+* DONE pre choose the 2nd landguage as question language
+* DONE in MC mode change the showing of failed on OK status msg
+  the way it is atm is not that good...
+* DONE flash card mode (portrait and landscape)
+* DONE enhanded Litner Box algorithm, not just random asking
+  http://en.wikipedia.org/wiki/Leitner_system
+  http://en.wikipedia.org/wiki/Flashcard
+  maybe also some ideas from Parley can be used:
+  http://websvn.kde.org/trunk/KDE/kdeedu/parley/
+
+For next major release 0.3.0:
 * enable support for images in library and use it in flash card mode (show image with question or just image)
   is deactivated at the moment
   http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvockvtml2reader.cpp#line368
+* support for kvtml multiple choice feature, fallback to random if not specified
+* reset option for the grades
+  if the grade for all entries is >=7 then the Leitner Box system doesn't work anymore...
+* from: http://maemo.org/downloads/product/Maemo5/querymee/
+  # a really neccessary feature would be a lineedit where you can type in the word.
+  # it should be implemented very easy. you just have to compare the input string
+  # with the value of the flashcard.
+
+itmes for the fare future:
 * enable support for sound (any idea how to use the sound?!)
   is deactivated at the moment
   http://gitorious.org/querymee/querymee/blobs/master/lib/qtvtvockvtml2reader.cpp#line376
 
   kvtml allows URLs and local path images and sound tags, KDE library returns KUrl, not the same as QUrl!
   handler for download is needed and handler to check if file already locally available!
-* support for kvtml multiple choice feature, fallback to random if not specified
 
-
-itmes for the fare future:
-* reset option for the grades
-  if the grade for all entries is >=7 then the Leitner Box system doesn't work anymore...
-* enhanded Litner Box algorithm, not just random asking
-  http://en.wikipedia.org/wiki/Leitner_system
-  http://en.wikipedia.org/wiki/Flashcard
-  maybe also some ideas from Parley can be used:
-  http://websvn.kde.org/trunk/KDE/kdeedu/parley/
-* multiple choice with conjucated verbs
-* multiple choice with comparison forms adjectives/adverbs.
+* possibility to chose "all" for lessons
+* multiple choice with conjucated verbs - does that make sense?
+* multiple choice with comparison forms adjectives/adverbs. - does that make sense?
 * enable other file formats than kvtml in library (vocwql, vocxdxf, pauker) 
   http://gitorious.org/querymee/querymee/blobs/master/lib/qmvocdocument.cpp#line290
   http://gitorious.org/querymee/querymee/trees/master/lib/qmvocwqlreader.cpp
@@ -48,13 +53,10 @@ itmes for the fare future:
    -> http://pauker.sourceforge.net/pauker.php?page=lessons&lang=en  pauker files
    -> these files are gzipped -> handler or in doku mention to gzip -d
    -> makes for each entry a new Lesson!
-* from: http://maemo.org/downloads/product/Maemo5/querymee/
-  # a really neccessary feature would be a lineedit where you can type in the word.
-  # it should be implemented very easy. you just have to compare the input string
-  # with the value of the flashcard.
+  http://www.mnemosyne-proj.org/
+   -> http://www.mnemosyne-proj.org/help/mnemosyne-xml-dtd.php
 
-
-First release 1.0.0 (first release which shall go to extras testing):
+First release 0.1.1 (first release which shall go to extras testing):
 * DONE - rename library for querymee (get rid of tinyvoctrainer)
 * DONE - rename src for querymee (get rid of tinyvoctrainer)
 * DONE - Portrait mode for multiple choice (let's have both portrait and landscape, it can be choosen at start, so we can check what makes more sense)
