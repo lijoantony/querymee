@@ -13,43 +13,35 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TRAININGSELECTIONVIEW_H
-#define TRAININGSELECTIONVIEW_H
+#ifndef QMFLASHCARD_H
+#define QMFLASHCARD_H
 
 #include <QWidget>
-#include <QCheckBox>
-#include <QPushButton>
 
-class QComboBox;
+#include "qmtrainer.h"
 
-class TrainingSelectionView : public QWidget
+class QmFlashCard : public QmTrainer
 {
     Q_OBJECT
-
 public:
-    TrainingSelectionView(QWidget* parent = 0);
+    explicit QmFlashCard(QWidget *parent = 0);
+    ~QmFlashCard();
+    void startTraining();
 
-public Q_SLOTS:
-    /*!
-     * \brief Starts training
-     */
-    void start();
-    void slotInitView();
+signals:
 
-private Q_SLOTS:
-    void slotDictionaryChanged();
-    void slotDictionarySelected(int index);
+public slots:
 
+private slots:
+    void button_showBackSideClicked();
+    void button_correctClicked();
+    void button_wrongClicked();
+    void init();
 
 private:
-    QComboBox *m_ComboDictionary;
-    QComboBox *m_ComboLesson;
-    QComboBox *m_ComboQuestionLang;
-    QComboBox *m_ComboAnswerLang;
-    QComboBox *m_ComboTrainer;
-    QCheckBox *m_checkbox;
-    QCheckBox *m_checkbox_random;
-    QPushButton *m_button;
+    void closeEvent ( QCloseEvent * event );
+    QLabel *label_frontside;
+    QLabel *label_backside;
 };
 
-#endif // TRAININGSELECTIONVIEW_H
+#endif // QMFLASHCARD_H
