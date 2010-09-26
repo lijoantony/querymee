@@ -35,7 +35,9 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
     QHBoxLayout *hbox_button = new QHBoxLayout();
 
     label_frontside = new QLabel("Front Side");
+    label_frontside->setWordWrap(true);
     label_backside = new QLabel("Back Side");
+    label_backside->setWordWrap(true);
 
     QPushButton *button_showBackSide = new QPushButton();
     button_showBackSide->setText(tr("show answer"));

@@ -70,8 +70,8 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     hbox_trainer->addWidget(label_trainer);
     hbox_trainer->addWidget(m_ComboTrainer);
 
-    m_checkbox = new QCheckBox("Portrait", this);
-    m_checkbox_random = new QCheckBox("Random", this);
+    m_checkbox = new QCheckBox(tr("Portrait"), this);
+    m_checkbox_random = new QCheckBox(tr("Random"), this);
 
     QPushButton *m_button = new QPushButton();
     m_button->setText(tr("Start"));

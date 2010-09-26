@@ -40,10 +40,12 @@ QmMultipleChoice::QmMultipleChoice(QWidget *parent) :
     vbox_label->addStretch();
 
     m_QuestionLabel = new QLabel();
-    m_QuestionLabel->setText(tr("Here comes..."));
+    m_QuestionLabel->setText("Question");
+    m_QuestionLabel->setWordWrap(true);
     vbox_label->addWidget(m_QuestionLabel);
 
     answerLabel = new QLabel();
+    answerLabel->setWordWrap(true);
     hbox->addWidget(answerLabel);
 
     statusLabel = new QLabel();
@@ -87,7 +89,7 @@ void QmMultipleChoice::startTraining()
 void QmMultipleChoice::slotClicked(int id)
 {
     if(id == m_CorrectId){
-        statusLabel->setText("\\o/ correct answer");
+        statusLabel->clear();
         answerLabel->setText( m_AnswerButtonsList.at(id)->text() );
         m_AnswerButtonsList.at(id)->setDown(1);
 
@@ -113,10 +115,7 @@ void QmMultipleChoice::slotClicked(int id)
         return;
     }
     else{
-        QString str = ":-( sorry wrong... it's not: ";
-        str.append(m_AnswerButtonsList.at(id)->text());
-        statusLabel->setText( str );
-
+        statusLabel->setText(tr(":-( sorry wrong"));
         m_firstAnswerWrong = true;
     }
 }
