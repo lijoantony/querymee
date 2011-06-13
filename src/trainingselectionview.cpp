@@ -18,6 +18,7 @@
 #include "qmtrainer.h"
 #include "qmmultiplechoice.h"
 #include "qmflashcard.h"
+#include "lessonchoosewidget.h"
 
 #include <QComboBox>
 #include <QHBoxLayout>
@@ -41,6 +42,15 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 
     m_ComboDictionary = new QComboBox();
     m_ComboLesson = new QComboBox();
+
+    QPushButton *m_buttonLesson = new QPushButton();
+    m_buttonLesson->setText(tr("Choose Lessons"));
+
+    connect(m_buttonLesson,
+            SIGNAL(clicked()),
+            this,
+            SLOT(slotLessonDialog()));
+
     m_ComboQuestionLang = new QComboBox();
     m_ComboAnswerLang = new QComboBox();
     m_ComboTrainer = new QComboBox();
@@ -57,6 +67,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     QLabel *label_lesson = new QLabel(tr("Lesson:"));
     hbox_lession->addWidget(label_lesson);
     hbox_lession->addWidget(m_ComboLesson);
+    hbox_lession->addWidget(m_buttonLesson);
 
     QLabel *label_question = new QLabel(tr("Question:"));
     hbox_question_lang->addWidget(label_question);
@@ -70,7 +81,6 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     hbox_trainer->addWidget(label_trainer);
     hbox_trainer->addWidget(m_ComboTrainer);
 
-    m_checkbox = new QCheckBox(tr("Portrait"), this);
     m_checkbox_random = new QCheckBox(tr("Random"), this);
 
     QPushButton *m_button = new QPushButton();
@@ -86,9 +96,13 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     vbox->addLayout(hbox_question_lang);
     vbox->addLayout(hbox_answer_lang);
     vbox->addLayout(hbox_trainer);
-    hbox_bottom->addWidget(m_checkbox);
+#ifdef Q_WS_MAEMO_5
+    m_checkbox_portrait = new QCheckBox(tr("Portrait"), this);
+    hbox_bottom->addWidget(m_checkbox_portrait);
+#endif
     hbox_bottom->addWidget(m_checkbox_random);
     hbox_bottom->addWidget(m_button);
+
     vbox->addLayout(hbox_bottom);
 
     setLayout(vbox);
@@ -153,7 +167,7 @@ void TrainingSelectionView::start()
                     * it's not possible to have Portrait and Stackedwindows
                     * so we have either one
                     */
-        if(m_checkbox->isChecked() == true){
+        if(m_checkbox_portrait->isChecked() == true){
             trainer->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
         } else {
             trainer->setAttribute(Qt::WA_Maemo5StackedWindow, true);
@@ -198,4 +212,14 @@ void TrainingSelectionView::slotDictionarySelected(int index)
         QString dictionaryName = m_ComboDictionary->itemText(index);
         QueryMeeSettings::instance()->openDictionary(dictionaryName);
     }
+}
+
+void TrainingSelectionView::slotLessonDialog(){
+    QueryMeeSettings *settings = QueryMeeSettings::instance();
+    LessonChooseWidget *lessonDialog = new LessonChooseWidget(this, settings);
+    lessonDialog->setWindowFlags(lessonDialog->windowFlags() | Qt::Window);
+#ifdef Q_WS_MAEMO_5
+    lessonDialog->setAttribute(Qt::WA_Maemo5StackedWindow, true);
+#endif
+    lessonDialog->show();
 }

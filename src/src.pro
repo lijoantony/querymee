@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     ocsxmlstreamreader.cpp \
     qmtrainer.cpp \
     qmmultiplechoice.cpp \
-    qmflashcard.cpp
+    qmflashcard.cpp \
+    lessonchoosewidget.cpp
 HEADERS += querymeesettings.h \
     mainwindow.h \
     trainingselectionview.h \
@@ -32,7 +33,8 @@ HEADERS += querymeesettings.h \
     version.h \
     qmtrainer.h \
     qmmultiplechoice.h \
-    qmflashcard.h
+    qmflashcard.h \
+    lessonchoosewidget.h
 FORMS += 
 QT += network \
     xml

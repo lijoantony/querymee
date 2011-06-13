@@ -140,19 +140,6 @@ void QueryMeeSettings::openDictionaryFile(const QString& fileName)
         lessonList.append(document->lesson());
     } else {
 
-//        // add an all lesson if there is more than one lesson
-//        // and add all the entries from the document
-//        if (lessonContainers.size() > 1){
-//            QmVocLesson* allLesson = new QmVocLesson("All", document->lesson());
-//            foreach (QmVocExpression * entry, document->lesson()->entries(QmVocLesson::Recursive))
-//            {
-//                QmVocExpression *newentry;
-//                newentry = entry;
-//                allLesson->appendEntry(newentry);
-//            }
-//            lessonList.append(allLesson);
-//        }
-
         // Read lessons
         foreach(QmVocContainer *c, lessonContainers) {
             if (c && c->containerType() == QmVocLesson::Lesson) {

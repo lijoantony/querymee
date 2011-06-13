@@ -35,6 +35,7 @@ public Q_SLOTS:
      */
     void start();
     void slotInitView();
+    void slotLessonDialog();
 
 private Q_SLOTS:
     void slotDictionaryChanged();
@@ -47,9 +48,11 @@ private:
     QComboBox *m_ComboQuestionLang;
     QComboBox *m_ComboAnswerLang;
     QComboBox *m_ComboTrainer;
-    QCheckBox *m_checkbox;
     QCheckBox *m_checkbox_random;
     QPushButton *m_button;
+#ifdef Q_WS_MAEMO_5
+    QCheckBox *m_checkbox_portrait;
+#endif
 };
 
 #endif // TRAININGSELECTIONVIEW_H
