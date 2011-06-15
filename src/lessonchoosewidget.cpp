@@ -2,15 +2,20 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QDebug>
+#include <QCloseEvent>
 
 #include "qmvoclesson.h"
 #include "querymeesettings.h"
 #include "lessonchoosewidget.h"
+#include "trainingselectionview.h"
 
-LessonChooseWidget::LessonChooseWidget(QWidget *parent, QueryMeeSettings *settings) :
+LessonChooseWidget::LessonChooseWidget(TrainingSelectionView *parent, QueryMeeSettings *settings) :
     QWidget(parent)
 {
     m_settings = settings;
+    m_parent = parent;
+    m_isAllSelected = false;
     QVBoxLayout *vbox = new QVBoxLayout(this);
     QHBoxLayout *hbox = new QHBoxLayout(this);
 
@@ -18,11 +23,14 @@ LessonChooseWidget::LessonChooseWidget(QWidget *parent, QueryMeeSettings *settin
     doneButton->setText(tr("Done"));
     hbox->addWidget(doneButton);
 
-    QPushButton *selectAllButton = new QPushButton(this);
-    selectAllButton->setText(tr("Select All"));
-    hbox->addWidget(selectAllButton);
+    connect(doneButton,
+            SIGNAL(clicked()),
+            this,
+            SLOT(close()));
 
-
+    QPushButton *selectButton = new QPushButton(this);
+    selectButton->setText(tr("Toggle Selection"));
+    hbox->addWidget(selectButton);
 
     vbox->addLayout(hbox);
 
@@ -30,11 +38,20 @@ LessonChooseWidget::LessonChooseWidget(QWidget *parent, QueryMeeSettings *settin
     listWidget->setSortingEnabled(true);
     listWidget->setSelectionMode(QAbstractItemView::MultiSelection);
 
-    connect(selectAllButton,
+    connect(selectButton,
             SIGNAL(clicked()),
+            this,
+            SLOT(toggleSelection()));
+
+    connect(this,
+            SIGNAL(signalClearAll()),
+            listWidget,
+            SLOT(clearSelection()));
+
+    connect(this,
+            SIGNAL(signalSelectAll()),
             listWidget,
             SLOT(selectAll()));
-
 
     vbox->addWidget(listWidget);
 
@@ -44,10 +61,46 @@ LessonChooseWidget::LessonChooseWidget(QWidget *parent, QueryMeeSettings *settin
 
 }
 
+LessonChooseWidget::~LessonChooseWidget(){
+
+}
+
 void LessonChooseWidget::updateListWidget(){
+    int counter = 0;
     foreach (QString lesson, m_settings->lessons()){
         QListWidgetItem *item = new QListWidgetItem();
         listWidget->addItem(item);
         item->setText(lesson);
+        item->setData(33, counter);
+        if(counter == 0){
+            item->setSelected(true);
+        }
+        counter++;
     }
 }
+
+void LessonChooseWidget::toggleSelection(){
+    if(m_isAllSelected){
+        emit signalClearAll();
+        m_isAllSelected = false;
+    } else {
+        emit signalSelectAll();
+        m_isAllSelected = true;
+    }
+}
+
+void LessonChooseWidget::closeEvent(QCloseEvent *event)
+ {
+    QList<int> *selectedLessons = new QList<int>();
+    foreach (QListWidgetItem *item, listWidget->selectedItems()){
+        selectedLessons->append((item->data(33).toInt()));
+    }
+
+    if(selectedLessons->size() >= 1){
+        m_parent->setTrainingsLessons(selectedLessons);
+    } else {
+        selectedLessons->append(0);
+        m_parent->setTrainingsLessons(selectedLessons);
+    }
+    event->accept();
+ }

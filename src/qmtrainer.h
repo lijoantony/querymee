@@ -18,6 +18,7 @@
 
 #include <QWidget>
 #include <qmvocdocument.h>
+#include <QList>
 
 class QmVocExpression;
 class QmVocLesson;
@@ -31,7 +32,7 @@ public:
     explicit QmTrainer(QWidget *parent = 0);
     ~QmTrainer();
 
-    void setLession(int lessionIndex);
+    void setLesson(QList<int>*);
     void setQuestionLanguage(int languageIndex);
     void setAnswerLanguage(int languageIndex);
     void setQmVocDocument(QmVocDocument *doc);
@@ -45,23 +46,15 @@ signals:
 public slots:
 
 protected:
-    int m_LessionIndex;
+    QList<int> *m_lessonIndexes;
     int m_QuestionLanguage;
     int m_AnswerLanguage;
     bool m_randomOnly;
     bool m_lastAnswerRight;
     QList<QmVocExpression *> m_ChoiceList;
-    QmVocLesson *m_lesson;
     QList<QmVocExpression *> m_entries;
     QList<QmVocExpression *> inPractice;
     QList<QList<QmVocExpression *>*> leitnerBoxes;
-//    QList<QmVocExpression *> leitnerBox1;
-//    QList<QmVocExpression *> leitnerBox2;
-//    QList<QmVocExpression *> leitnerBox3;
-//    QList<QmVocExpression *> leitnerBox4;
-//    QList<QmVocExpression *> leitnerBox5;
-//    QList<QmVocExpression *> leitnerBox6;
-//    QList<QmVocExpression *> leitnerBox7;
     QmVocExpression *m_CorrectExp;
     QmVocExpression *m_LastExp;
     QmVocDocument *m_QmVocDocument;

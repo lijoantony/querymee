@@ -27,6 +27,7 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QCheckBox>
+#include <QList>
 #include <QDebug>
 
 TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
@@ -41,7 +42,6 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     QHBoxLayout *hbox_bottom = new QHBoxLayout();
 
     m_ComboDictionary = new QComboBox();
-    m_ComboLesson = new QComboBox();
 
     QPushButton *m_buttonLesson = new QPushButton();
     m_buttonLesson->setText(tr("Choose Lessons"));
@@ -66,7 +66,6 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
 
     QLabel *label_lesson = new QLabel(tr("Lesson:"));
     hbox_lession->addWidget(label_lesson);
-    hbox_lession->addWidget(m_ComboLesson);
     hbox_lession->addWidget(m_buttonLesson);
 
     QLabel *label_question = new QLabel(tr("Question:"));
@@ -115,6 +114,9 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
             SIGNAL(activated(int)),
             SLOT(slotDictionarySelected(int)));
 
+    m_TrainingLessons = new QList<int>;
+    m_TrainingLessons->append(0);
+
     QTimer::singleShot(1000,this,SLOT(slotInitView()));
 }
 
@@ -156,7 +158,7 @@ void TrainingSelectionView::start()
         trainer->setRandomOnly(m_checkbox_random->isChecked());
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
-        trainer->setLession(m_ComboLesson->currentIndex());
+        trainer->setLesson(m_TrainingLessons);
         trainer->setQmVocDocument(settings->getQmVocDocument());
         trainer->setCurrentFileName(settings->getCurrentlyOpenedFile());
 
@@ -188,18 +190,18 @@ void TrainingSelectionView::slotDictionaryChanged()
     QueryMeeSettings* settings = QueryMeeSettings::instance();
 
     m_ComboDictionary->clear();
-    m_ComboLesson->clear();
     m_ComboQuestionLang->clear();
     m_ComboAnswerLang->clear();
+    m_TrainingLessons->clear();
 
     m_ComboDictionary->addItems(settings->dictionaries());
-    m_ComboLesson->addItems(settings->lessons());
     m_ComboQuestionLang->addItems(settings->languages());
     m_ComboAnswerLang->addItems(settings->languages());
 
     m_ComboDictionary->setCurrentIndex(settings->openedDictionary());
     m_ComboQuestionLang->setCurrentIndex(0);
     m_ComboAnswerLang->setCurrentIndex(1);
+    m_TrainingLessons->append(0);
 
 #ifdef Q_WS_MAEMO_5
     this->parentWidget()->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
@@ -222,4 +224,9 @@ void TrainingSelectionView::slotLessonDialog(){
     lessonDialog->setAttribute(Qt::WA_Maemo5StackedWindow, true);
 #endif
     lessonDialog->show();
+}
+
+void TrainingSelectionView::setTrainingsLessons(QList<int> *trainingLessons){
+    m_TrainingLessons->clear();
+    m_TrainingLessons = trainingLessons;
 }

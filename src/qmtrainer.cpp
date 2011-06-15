@@ -26,7 +26,6 @@
 
 QmTrainer::QmTrainer(QWidget *parent) :
     QWidget(parent),
-    m_LessionIndex(-1),
     m_QuestionLanguage(-1),
     m_AnswerLanguage(-1),
     m_randomOnly(false),
@@ -35,6 +34,7 @@ QmTrainer::QmTrainer(QWidget *parent) :
     srand(time(NULL));
 
     m_LastExp = new QmVocExpression();
+    m_lessonIndexes = new QList<int>();
 
     for(int i=0; i <= NumberOfLeitnerBoxes; i++){
         QList<QmVocExpression *> *leitnerBox = new QList<QmVocExpression *>();
@@ -60,7 +60,7 @@ QmVocExpression * QmTrainer::getAnyEntryFromLesson()
 {
     QmVocExpression* vocExpression = 0;
     QmVocLesson* lesson =
-    QueryMeeSettings::instance()->lesson(m_LessionIndex);
+    QueryMeeSettings::instance()->lesson(m_lessonIndexes->at(randomInt(0, m_lessonIndexes->size() - 1 )));
     if(lesson) {
         int random_int = randomInt(0, lesson->entries().size() - 1 );
         vocExpression = lesson->entry(random_int);
@@ -155,14 +155,18 @@ QmVocExpression * QmTrainer::getNextEntry()
 }
 
 
-void QmTrainer::setLession(int lessionIndex)
+void QmTrainer::setLesson(QList<int> *lessonIndexes)
 {
-    m_LessionIndex = lessionIndex;
+    m_lessonIndexes = lessonIndexes;
 
-    m_lesson = QueryMeeSettings::instance()->lesson(m_LessionIndex);
+    foreach (int lessonIndex, *m_lessonIndexes){
+        QmVocLesson *lesson;
+        lesson = QueryMeeSettings::instance()->lesson(lessonIndex);
+        qDebug() << "Entries from the following lesson are selected for the training:" << lesson->name();
 
-    // put all entries to a pool list
-    m_entries = m_lesson->entries();
+        // put all entries to a pool list
+        m_entries.append(lesson->entries());
+    }
 
     foreach (QmVocExpression* entry ,m_entries){
 

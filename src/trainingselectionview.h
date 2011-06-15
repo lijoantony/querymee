@@ -28,6 +28,7 @@ class TrainingSelectionView : public QWidget
 
 public:
     TrainingSelectionView(QWidget* parent = 0);
+    void setTrainingsLessons(QList<int>*);
 
 public Q_SLOTS:
     /*!
@@ -44,7 +45,7 @@ private Q_SLOTS:
 
 private:
     QComboBox *m_ComboDictionary;
-    QComboBox *m_ComboLesson;
+    QList<int> *m_TrainingLessons;
     QComboBox *m_ComboQuestionLang;
     QComboBox *m_ComboAnswerLang;
     QComboBox *m_ComboTrainer;

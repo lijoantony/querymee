@@ -85,7 +85,7 @@ QmFlashCard::~QmFlashCard(){
 }
 
 void QmFlashCard::startTraining(){
-    if(QmTrainer::m_LessionIndex >= 0
+    if(QmTrainer::m_lessonIndexes->size() >= 1
        && QmTrainer::m_QuestionLanguage >= 0
        && QmTrainer::m_AnswerLanguage >= 0) {
         init();
