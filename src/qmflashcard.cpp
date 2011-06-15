@@ -39,7 +39,7 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
     label_backside = new QLabel("Back Side");
     label_backside->setWordWrap(true);
 
-    QPushButton *button_showBackSide = new QPushButton();
+    button_showBackSide = new QPushButton();
     button_showBackSide->setText(tr("show answer"));
 
     connect(button_showBackSide,
@@ -47,16 +47,18 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
             this,
             SLOT(button_showBackSideClicked()));
 
-    QPushButton *button_correct = new QPushButton();
+    button_correct = new QPushButton();
     button_correct->setText(tr("I knew"));
+    button_correct->hide();
 
     connect(button_correct,
             SIGNAL(clicked()),
             this,
             SLOT(button_correctClicked()));
 
-    QPushButton *button_wrong = new QPushButton();
+    button_wrong = new QPushButton();
     button_wrong->setText(tr("I didn't knew"));
+    button_wrong->hide();
 
     connect(button_wrong,
             SIGNAL(clicked()),
@@ -129,12 +131,19 @@ void QmFlashCard::button_showBackSideClicked(){
 
     label_backside->setText(*backside);
 
+    button_wrong->show();
+    button_correct->show();
+    button_showBackSide->hide();
 }
 
 void QmFlashCard::button_correctClicked(){
 
     QmTrainer::handleAnswer(true);
     QmTrainer::setLastAnswerRight(true);
+
+    button_wrong->hide();
+    button_correct->hide();
+    button_showBackSide->show();
 
     QTimer::singleShot(200, this, SLOT(init()));
     return;
@@ -144,6 +153,10 @@ void QmFlashCard::button_wrongClicked(){
 
     QmTrainer::handleAnswer(false);
     QmTrainer::setLastAnswerRight(false);
+
+    button_wrong->hide();
+    button_correct->hide();
+    button_showBackSide->show();
 
     QTimer::singleShot(200, this, SLOT(init()));
     return;

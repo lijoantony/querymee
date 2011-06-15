@@ -51,6 +51,9 @@ protected:
     int m_AnswerLanguage;
     bool m_randomOnly;
     bool m_lastAnswerRight;
+    QPushButton *button_correct;
+    QPushButton *button_wrong;
+    QPushButton *button_showBackSide;
     QList<QmVocExpression *> m_ChoiceList;
     QList<QmVocExpression *> m_entries;
     QList<QmVocExpression *> inPractice;
