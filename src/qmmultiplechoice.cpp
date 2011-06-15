@@ -65,6 +65,9 @@ QmMultipleChoice::QmMultipleChoice(QWidget *parent) :
 
     connect(signalMapper, SIGNAL(mapped(int)), SLOT(slotClicked(int)));
 
+#ifndef Q_WS_MAEMO_5
+    vbox->addWidget(QmTrainer::m_leitnerWidget);
+#endif
     vbox->addLayout(vbox_label);
     setLayout(vbox);
 }

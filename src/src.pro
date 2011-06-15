@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     qmtrainer.cpp \
     qmmultiplechoice.cpp \
     qmflashcard.cpp \
-    lessonchoosewidget.cpp
+    lessonchoosewidget.cpp \
+    leitnerwidget.cpp
 HEADERS += querymeesettings.h \
     mainwindow.h \
     trainingselectionview.h \
@@ -34,7 +35,8 @@ HEADERS += querymeesettings.h \
     qmtrainer.h \
     qmmultiplechoice.h \
     qmflashcard.h \
-    lessonchoosewidget.h
+    lessonchoosewidget.h \
+    leitnerwidget.h
 FORMS += 
 QT += network \
     xml

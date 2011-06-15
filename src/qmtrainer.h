@@ -19,6 +19,7 @@
 #include <QWidget>
 #include <qmvocdocument.h>
 #include <QList>
+#include "leitnerwidget.h"
 
 class QmVocExpression;
 class QmVocLesson;
@@ -62,6 +63,10 @@ protected:
     QmVocExpression *m_LastExp;
     QmVocDocument *m_QmVocDocument;
     QString m_CurrentFileName;
+#ifndef Q_WS_MAEMO_5
+    LeitnerWidget *m_leitnerWidget;
+#endif
+
     void handleAnswer(bool answerCountsAsRight);
     void setLastAnswerRight(bool lastAnswerRight);
 

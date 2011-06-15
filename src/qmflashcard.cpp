@@ -74,6 +74,9 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
     hbox_button->addWidget(button_correct);
     hbox_button->addWidget(button_wrong);
 
+#ifndef Q_WS_MAEMO_5
+    vbox->addWidget(QmTrainer::m_leitnerWidget);
+#endif
     vbox->addLayout(vbox_frontside);
     vbox->addLayout(vbox_backside);
     vbox->addWidget(button_showBackSide);

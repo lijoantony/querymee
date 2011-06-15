@@ -20,9 +20,8 @@
 #include "querymeesettings.h"
 #include "qmvocexpression.h"
 #include "version.h"
-
-#define MaxGrade0 5
-#define NumberOfLeitnerBoxes 7
+#include "querymee_defaults.h"
+#include "leitnerwidget.h"
 
 QmTrainer::QmTrainer(QWidget *parent) :
     QWidget(parent),
@@ -35,6 +34,10 @@ QmTrainer::QmTrainer(QWidget *parent) :
 
     m_LastExp = new QmVocExpression();
     m_lessonIndexes = new QList<int>();
+
+#ifndef Q_WS_MAEMO_5
+    m_leitnerWidget = new LeitnerWidget(this);
+#endif
 
     for(int i=0; i <= NumberOfLeitnerBoxes; i++){
         QList<QmVocExpression *> *leitnerBox = new QList<QmVocExpression *>();
@@ -76,9 +79,8 @@ QmVocExpression * QmTrainer::getNextEntry()
         return getAnyEntryFromLesson();
     }
     else {
-
-        // max entries which can be in a leitner box until the box needs to be repeated
-        int maxEntries[7] = {0,15,30,60,120,240,480};
+        // see querymee_defaults.h
+        MAXENTRIES;
 
         // check if a leitner box has reached the limit
         // if so add the entries to the inPractice QList
@@ -168,6 +170,12 @@ void QmTrainer::setLesson(QList<int> *lessonIndexes)
         m_entries.append(lesson->entries());
     }
 
+#ifndef Q_WS_MAEMO_5
+    // position 0 is pool
+    m_leitnerWidget->updateMaxProgressBar(0, m_entries.size());
+    m_leitnerWidget->updateMaxProgressBar(NumberOfLeitnerBoxes, m_entries.size());
+#endif
+
     foreach (QmVocExpression* entry ,m_entries){
 
         // depending on the grade the entry has, put it into a leitner box (QList)
@@ -176,6 +184,9 @@ void QmTrainer::setLesson(QList<int> *lessonIndexes)
         if (grade > 0){
             if (grade < NumberOfLeitnerBoxes){
                 leitnerBoxes.at(grade)->append(entry);
+#ifndef Q_WS_MAEMO_5
+                m_leitnerWidget->updateProgressBar(grade,leitnerBoxes.at(grade)->size());
+#endif
                 m_entries.removeOne(entry);
             }
             else {
@@ -184,6 +195,11 @@ void QmTrainer::setLesson(QList<int> *lessonIndexes)
             }
         }
     }
+
+#ifndef Q_WS_MAEMO_5
+    // position 0 is pool
+    m_leitnerWidget->updateProgressBar(0, m_entries.size());
+#endif
 }
 
 
@@ -240,9 +256,15 @@ void QmTrainer::handleAnswer(bool answerCountsAsRight){
 
 
     qDebug() << "Pool:" << m_entries.size();
+#ifndef Q_WS_MAEMO_5
+    m_leitnerWidget->updateProgressBar(0, m_entries.size());
+#endif
     qDebug() << "Practice: " << inPractice.size();
     for(int i=1;i <= NumberOfLeitnerBoxes; i++){
         qDebug() << "Box:" << i << "size:" << leitnerBoxes.at(i)->size();
+#ifndef Q_WS_MAEMO_5
+        m_leitnerWidget->updateProgressBar(i, leitnerBoxes.at(i)->size());
+#endif
     }
 
 

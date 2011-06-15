@@ -16,6 +16,12 @@
 #ifndef QUERYMEE_DEFAULTS_H
 #define QUERYMEE_DEFAULTS_H
 
+#define MaxGrade0 5
+#define NumberOfLeitnerBoxes 7
+
+// max entries which can be in a leitner box until the box needs to be repeated
+#define MAXENTRIES int maxEntries[7] = {0,15,30,60,120,240,480};
+
 // Constants
 #ifdef Q_WS_MAEMO_5
     #define DICTIONARY_PATH "/MyDocs/Querymee/"
