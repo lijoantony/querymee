@@ -1,6 +1,6 @@
 /***************************************************************************
 
-    Copyright 2010 Reto Zingg <g.d0b3rm4n@gmail.com>
+    Copyright 2010, 2011 Reto Zingg <g.d0b3rm4n@gmail.com>
 
  ***************************************************************************/
 
@@ -22,6 +22,11 @@
 QmEXAMPLE::QmEXAMPLE(QWidget *parent) :
     QmTrainer(parent)
 {
+    // for non maemo views you might add the leitner progressbars
+    // assuming you have a QVBoxLayout *vbox!
+#ifndef Q_WS_MAEMO_5
+    vbox->addWidget(QmTrainer::m_leitnerWidget);
+#endif
 }
 
 QmEXAMPLE::~QmEXAMPLE(){
