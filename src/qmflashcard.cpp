@@ -39,6 +39,12 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
     label_backside = new QLabel("Back Side");
     label_backside->setWordWrap(true);
 
+    //set font
+    QFont font;
+    font.setPointSize(32);
+    //font.setBold(true);
+    label_frontside->setFont(font);
+
     button_showBackSide = new QPushButton();
     button_showBackSide->setText(tr("show answer"));
 
@@ -57,7 +63,7 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
             SLOT(button_correctClicked()));
 
     button_wrong = new QPushButton();
-    button_wrong->setText(tr("I didn't knew"));
+    button_wrong->setText(tr("I didn't know"));
     button_wrong->hide();
 
     connect(button_wrong,
@@ -66,7 +72,11 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
             SLOT(button_wrongClicked()));
 
     vbox_frontside->addStretch();
+    vbox_frontside->addStretch();
+    vbox_frontside->addStretch();
     vbox_frontside->addWidget(label_frontside);
+    vbox_frontside->setAlignment(label_frontside, Qt::AlignHCenter);
+    vbox_frontside->addStretch();
 
     vbox_backside->addWidget(label_backside);
     vbox_backside->addStretch();
