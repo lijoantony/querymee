@@ -40,6 +40,7 @@ private slots:
 
 private:
     void closeEvent ( QCloseEvent * event );
+    QLabel *label_index;
     QLabel *label_frontside;
     QLabel *label_backside;
 };

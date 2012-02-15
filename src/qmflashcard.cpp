@@ -34,7 +34,7 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
 
     QHBoxLayout *hbox_button = new QHBoxLayout();
 
-    //label_index = new QLabel();
+    label_index = new QLabel();
     label_frontside = new QLabel("Front Side");
     label_frontside->setWordWrap(true);
     label_backside = new QLabel("Back Side");
@@ -75,6 +75,7 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
     vbox_frontside->addStretch();
     vbox_frontside->addStretch();
     vbox_frontside->addStretch();
+    vbox_frontside->addWidget(label_index);
     vbox_frontside->addWidget(label_frontside);
     vbox_frontside->setAlignment(label_frontside, Qt::AlignHCenter);
     vbox_frontside->addStretch();
@@ -112,10 +113,17 @@ void QmFlashCard::startTraining(){
 }
 
 void QmFlashCard::init(){
+
+    static int index = 0;
+
+    label_index->clear();
     label_frontside->clear();
     label_backside->clear();
 
     QmTrainer::m_CorrectExp =  QmTrainer::getNextEntry();
+
+    ++index;
+    label_index->setText(QString::number(index));
 
     label_frontside->setText(QmTrainer::m_CorrectExp->translation(QmTrainer::m_QuestionLanguage)->text());
 
