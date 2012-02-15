@@ -28,6 +28,7 @@ QmTrainer::QmTrainer(QWidget *parent) :
     m_QuestionLanguage(-1),
     m_AnswerLanguage(-1),
     m_randomOnly(false),
+    m_revision(false),
     m_lastAnswerRight(true)
 {
     srand(time(NULL));
@@ -71,12 +72,34 @@ QmVocExpression * QmTrainer::getAnyEntryFromLesson()
     return vocExpression;
 }
 
+QmVocExpression * QmTrainer::getNextEntryFromLesson()
+{
+    static int index = 0;
+
+    QmVocExpression* vocExpression = 0;
+    QmVocLesson* lesson =
+    QueryMeeSettings::instance()->lesson(m_lessonIndexes->at(0)); //assuming only one lession
+    if(lesson) {
+        vocExpression = lesson->entry(index);
+    }
+
+    //Stck at last entry
+    if(index < (lesson->entries().size() - 1))
+    {
+        ++index;
+    }
+    return vocExpression;
+}
+
 QmVocExpression * QmTrainer::getNextEntry()
 {
     QmVocExpression* vocExpression = 0;
 
     if(m_randomOnly == true){
         return getAnyEntryFromLesson();
+    }
+    else if(m_revision == true){
+        return getNextEntryFromLesson();
     }
     else {
         // see querymee_defaults.h
@@ -223,7 +246,7 @@ void QmTrainer::handleAnswer(bool answerCountsAsRight){
     // increment the practice counter
     m_CorrectExp->translation(m_AnswerLanguage)->incPracticeCount();
 
-    if(answerCountsAsRight == true && m_randomOnly == false){
+    if(answerCountsAsRight == true && m_randomOnly == false && m_revision == false){
 
         // remove from the practice pool
         inPractice.removeOne(m_CorrectExp);
@@ -243,7 +266,7 @@ void QmTrainer::handleAnswer(bool answerCountsAsRight){
 
     }
     else{
-        if(m_randomOnly == false){
+        if(m_randomOnly == false && m_revision == false){
             // the answer was not correct in the first attempt
             // set grade back to 0 and increment the errorcount
             m_CorrectExp->translation(m_AnswerLanguage)->setGrade(0);
@@ -273,6 +296,10 @@ void QmTrainer::handleAnswer(bool answerCountsAsRight){
 
 void QmTrainer::setRandomOnly(bool randomOnly){
     m_randomOnly = randomOnly;
+}
+
+void QmTrainer::setRevision(bool revision){
+    m_revision = revision;
 }
 
 void QmTrainer::setLastAnswerRight(bool lastAnswerRight){

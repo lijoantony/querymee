@@ -34,6 +34,7 @@ QmFlashCard::QmFlashCard(QWidget *parent) :
 
     QHBoxLayout *hbox_button = new QHBoxLayout();
 
+    //label_index = new QLabel();
     label_frontside = new QLabel("Front Side");
     label_frontside->setWordWrap(true);
     label_backside = new QLabel("Back Side");

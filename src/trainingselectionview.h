@@ -50,6 +50,7 @@ private:
     QComboBox *m_ComboAnswerLang;
     QComboBox *m_ComboTrainer;
     QCheckBox *m_checkbox_random;
+    QCheckBox *m_checkbox_revice;
     QPushButton *m_button;
 #ifdef Q_WS_MAEMO_5
     QCheckBox *m_checkbox_portrait;

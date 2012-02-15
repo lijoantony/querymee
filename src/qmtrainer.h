@@ -38,6 +38,7 @@ public:
     void setAnswerLanguage(int languageIndex);
     void setQmVocDocument(QmVocDocument *doc);
     void setRandomOnly(bool randomOnly);
+    void setRevision(bool revision);
     virtual void startTraining() = 0;
     void setCurrentFileName(QString fileName);
 
@@ -51,6 +52,7 @@ protected:
     int m_QuestionLanguage;
     int m_AnswerLanguage;
     bool m_randomOnly;
+    bool m_revision;
     bool m_lastAnswerRight;
     QPushButton *button_correct;
     QPushButton *button_wrong;
@@ -72,6 +74,7 @@ protected:
 
     QmVocExpression * getNextEntry();
     QmVocExpression * getAnyEntryFromLesson();
+    QmVocExpression * getNextEntryFromLesson();
     int randomInt(int min, int max);
 
 private:

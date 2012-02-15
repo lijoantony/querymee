@@ -81,6 +81,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     hbox_trainer->addWidget(m_ComboTrainer);
 
     m_checkbox_random = new QCheckBox(tr("Random"), this);
+    m_checkbox_revice = new QCheckBox(tr("Revice"), this);
 
     QPushButton *m_button = new QPushButton();
     m_button->setText(tr("Start"));
@@ -100,6 +101,7 @@ TrainingSelectionView::TrainingSelectionView(QWidget* parent) : QWidget(parent)
     hbox_bottom->addWidget(m_checkbox_portrait);
 #endif
     hbox_bottom->addWidget(m_checkbox_random);
+    hbox_bottom->addWidget(m_checkbox_revice);
     hbox_bottom->addWidget(m_button);
 
     vbox->addLayout(hbox_bottom);
@@ -156,6 +158,7 @@ void TrainingSelectionView::start()
         }
 
         trainer->setRandomOnly(m_checkbox_random->isChecked());
+        trainer->setRevision(m_checkbox_revice->isChecked());
         trainer->setQuestionLanguage(m_ComboQuestionLang->currentIndex());
         trainer->setAnswerLanguage(m_ComboAnswerLang->currentIndex());
         trainer->setLesson(m_TrainingLessons);
